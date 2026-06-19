@@ -330,7 +330,7 @@ const timeAgo=new Date(post.time).toLocaleString('fr-FR');
 const isLiked=post.likedBy.includes(currentUser.number);
 feed.innerHTML+=`<div class="post" id="post-${post.id}">
 <div class="post-header">
-<div class="avatar">${post.avatar?`<img src="${post.avatar}" style="width:100%;height:100%;border-radius:50%" onerror="this.src=`https://ui-avatars.com/api/?name=${encodeURIComponent(post.username||`User`)}&background=8b5cf6&color=fff`">`:`👤`}</div>
+<div class="avatar">${post.avatar?`<img src="${post.avatar}" style="width:100%;height:100%;border-radius:50%" onerror="this.src='https://ui-avatars.com/api/?name='+encodeURIComponent(post.username||'User')+'&background=8b5cf6&color=fff'">`:`<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(post.username||'User')}&background=8b5cf6&color=fff" style="width:100%;height:100%;border-radius:50%">`}</div>
 <div class="post-user"><div class="name">${post.user}</div><div class="time">${timeAgo} · ${post.number}</div></div>
 </div>
 <div class="post-content">${post.text}</div>
