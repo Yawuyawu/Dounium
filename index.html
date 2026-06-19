@@ -16,7 +16,8 @@ body{background:#0a0a0f;color:#fff;font-family:system-ui,-apple-system,sans-seri
 .login-box p{color:#94a3b8;font-size:14px;margin-bottom:20px}
 .phone-input{background:#0f172a;border:1px solid #334155;border-radius:12px;padding:15px;width:100%;color:#fff;font-size:16px;margin-bottom:15px}
 .country-codes{display:flex;gap:8px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
-.country-code{background:#1e293b;border:1px solid #475569;border-radius:8px;padding:6px 12px;font-size:13px;color:#cbd5e1}
+.country-code{background:#1e293b;border:1px solid #475569;border-radius:8px;padding:6px 12px;font-size:13px;color:#cbd5e1;cursor:pointer}
+.country-code:hover{background:#8b5cf6}
 .btn-primary{background:linear-gradient(135deg,#8b5cf6,#ec4899);border:none;border-radius:12px;padding:15px;width:100%;color:#fff;font-weight:700;font-size:16px;cursor:pointer}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:25px 0}
 .stat{background:#1a1a2e;border:1px solid #334155;border-radius:12px;padding:15px;text-align:center}
@@ -34,15 +35,18 @@ body{background:#0a0a0f;color:#fff;font-family:system-ui,-apple-system,sans-seri
 .section{margin:25px 0}
 .section h4{font-size:14px;color:#94a3b8;margin-bottom:15px;display:flex;align-items:center;gap:8px}
 .grid-apps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.app-btn{background:#1a1a2e;border:1px solid #334155;border-radius:12px;padding:15px;text-align:center;font-size:24px;cursor:pointer}
+.app-btn{background:#1a1a2e;border:1px solid #334155;border-radius:12px;padding:15px;text-align:center;font-size:24px;cursor:pointer;text-decoration:none;color:#fff;display:block}
+.app-btn:hover{background:#8b5cf6;border-color:#8b5cf6}
+.app-btn span{font-size:10px;display:block;margin-top:5px}
 .live-banner{background:linear-gradient(135deg,#dc2626,#991b1b);border-radius:15px;padding:20px;margin:20px 0}
 .live-banner .title{display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:10px}
 .live-banner p{font-size:13px;color:#fecaca;line-height:1.5}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#0f172a;border-top:1px solid #334155;display:grid;grid-template-columns:repeat(5,1fr);padding:10px 0}
-.nav-item{text-align:center;color:#64748b;font-size:11px;cursor:pointer}
+.nav-item{text-align:center;color:#64748b;font-size:11px;cursor:pointer;text-decoration:none}
 .nav-item.active{color:#8b5cf6}
 .nav-item .icon{font-size:20px;margin-bottom:3px}
 .hidden{display:none}
+a{color:inherit;text-decoration:none}
 </style>
 </head>
 <body>
@@ -55,13 +59,13 @@ body{background:#0a0a0f;color:#fff;font-family:system-ui,-apple-system,sans-seri
     <h2>Connecte ton WhatsApp</h2>
     <p>pour entrer dans les 500M Âmes</p>
     <div class="country-codes">
-      <span class="country-code">+33</span>
-      <span class="country-code">+1</span>
-      <span class="country-code">+226</span>
-      <span class="country-code">+229</span>
-      <span class="country-code">+225</span>
-      <span class="country-code">+221</span>
-      <span class="country-code">+237</span>
+      <span class="country-code" onclick="setCode('+33')">+33</span>
+      <span class="country-code" onclick="setCode('+1')">+1</span>
+      <span class="country-code" onclick="setCode('+226')">+226</span>
+      <span class="country-code" onclick="setCode('+229')">+229</span>
+      <span class="country-code" onclick="setCode('+225')">+225</span>
+      <span class="country-code" onclick="setCode('+221')">+221</span>
+      <span class="country-code" onclick="setCode('+237')">+237</span>
     </div>
     <input type="tel" class="phone-input" placeholder="📱 ENTRER DANS DOUNIUM" id="phoneInput">
     <button class="btn-primary" onclick="login()">Ton numéro = Ton identité éternelle</button>
@@ -72,6 +76,7 @@ body{background:#0a0a0f;color:#fff;font-family:system-ui,-apple-system,sans-seri
     ⚜️ Connexion au Sang Upstash...
   </div>
 </div>
+
 <div class="container hidden" id="mainApp">
   <div class="header">
     <h1>UNIVERS DOUNIUM</h1>
@@ -87,6 +92,7 @@ body{background:#0a0a0f;color:#fff;font-family:system-ui,-apple-system,sans-seri
   </div>
   <div class="badge-live">SANG RÉEL · UPSTASH CONNECTÉ · CLOUD LIVE</div>
   <div style="text-align:center;color:#64748b;font-size:13px;margin:10px 0">Connexion Upstash...</div>
+  
   <div class="profile-card">
     <div class="profile-header">
       <div class="avatar" id="userAvatar">⚜️</div>
@@ -96,8 +102,8 @@ body{background:#0a0a0f;color:#fff;font-family:system-ui,-apple-system,sans-seri
       </div>
     </div>
     <div class="profile-stats">
-      <div class="stat"><div class="value">0</div><div class="label">Amis</div></div>
-      <div class="stat"><div class="value">0</div><div class="label">Posts</div></div>
+      <div class="stat"><div class="value" id="friendsCount">0</div><div class="label">Amis</div></div>
+      <div class="stat"><div class="value" id="postsCount">0</div><div class="label">Posts</div></div>
       <div class="stat"><div class="value">500M</div><div class="label">Abonnés</div></div>
     </div>
     <div class="whatsapp-sync">
@@ -105,53 +111,88 @@ body{background:#0a0a0f;color:#fff;font-family:system-ui,-apple-system,sans-seri
       <span id="userPhoneDetail">+33 6 12 34 56 78</span> · Cloud Sécurisé
     </div>
   </div>
+  
   <div class="section">
-    <h4>Amis WhatsApp Dounium <button style="margin-left:auto;background:#8b5cf6;border:none;border-radius:6px;padding:5px 10px;color:#fff;font-size:11px">Synchroniser</button></h4>
-    <div style="text-align:center;padding:20px;color:#64748b">➕<br>Ajouter</div>
+    <h4>Amis WhatsApp Dounium <button onclick="syncFriends()" style="margin-left:auto;background:#8b5cf6;border:none;border-radius:6px;padding:5px 10px;color:#fff;font-size:11px;cursor:pointer">Synchroniser</button></h4>
+    <div style="text-align:center;padding:20px;color:#64748b" id="friendsList">➕<br>Ajouter</div>
   </div>
+  
   <div class="section">
     <h4>HALL · PARLER</h4>
     <div class="grid-apps">
-      <div class="app-btn">💬<br><span style="font-size:10px">WhatsApp</span></div>
-      <div class="app-btn">📨<br><span style="font-size:10px">Messenger</span></div>
-      <div class="app-btn">✈️<br><span style="font-size:10px">Telegram</span></div>
-      <div class="app-btn">🎮<br><span style="font-size:10px">Discord</span></div>
+      <a href="https://wa.me/" target="_blank" class="app-btn">💬<span>WhatsApp</span></a>
+      <a href="https://m.me/" target="_blank" class="app-btn">📨<span>Messenger</span></a>
+      <a href="https://t.me/" target="_blank" class="app-btn">✈️<span>Telegram</span></a>
+      <a href="https://discord.com/app" target="_blank" class="app-btn">🎮<span>Discord</span></a>
     </div>
   </div>
+  
   <div class="section">
     <h4>IA JUMEAU · PENSER</h4>
     <div class="grid-apps">
-      <div class="app-btn">🤖<br><span style="font-size:10px">ChatGPT</span></div>
-      <div class="app-btn">🧠<br><span style="font-size:10px">Claude</span></div>
-      <div class="app-btn">✨<br><span style="font-size:10px">Gemini</span></div>
-      <div class="app-btn">🔍<br><span style="font-size:10px">Perplexity</span></div>
+      <a href="https://chat.openai.com" target="_blank" class="app-btn">🤖<span>ChatGPT</span></a>
+      <a href="https://claude.ai" target="_blank" class="app-btn">🧠<span>Claude</span></a>
+      <a href="https://gemini.google.com" target="_blank" class="app-btn">✨<span>Gemini</span></a>
+      <a href="https://perplexity.ai" target="_blank" class="app-btn">🔍<span>Perplexity</span></a>
     </div>
   </div>
-  <div class="live-banner">
+  
+  <a href="https://www.youtube.com/live" target="_blank" class="live-banner">
     <div class="title">🔴 LIVE UNIVERSEL UPSTASH</div>
     <p>En direct · 500M spectateurs · SANG RÉEL<br>
     Upstash connecté. Posts synchronisés en temps réel. Likes comptés dans le cloud. WhatsApp = Identité. Android/iPhone enterrés pour 500M d'années.</p>
     <div style="text-align:center;font-size:30px;margin-top:15px">🎤</div>
-  </div>
+  </a>
+  
   <div style="height:80px"></div>
 </div>
+
 <div class="bottom-nav">
-  <div class="nav-item active"><div class="icon">🏠</div>Feed</div>
-  <div class="nav-item"><div class="icon">👤</div>Profil</div>
-  <div class="nav-item"><div class="icon">⚜️</div>60 Apps</div>
-  <div class="nav-item"><div class="icon">🔴</div>Live</div>
-  <div class="nav-item"><div class="icon">🚪</div>Logout</div>
+  <a href="#" class="nav-item active" onclick="showTab('feed')"><div class="icon">🏠</div>Feed</a>
+  <a href="#" class="nav-item" onclick="showTab('profil')"><div class="icon">👤</div>Profil</a>
+  <a href="#" class="nav-item" onclick="showTab('apps')"><div class="icon">⚜️</div>60 Apps</a>
+  <a href="https://www.youtube.com/live" target="_blank" class="nav-item"><div class="icon">🔴</div>Live</a>
+  <a href="#" class="nav-item" onclick="logout()"><div class="icon">🚪</div>Logout</a>
 </div>
+
 <script>
+let currentPhone = '';
+function setCode(code){
+  document.getElementById('phoneInput').value = code + ' ';
+  document.getElementById('phoneInput').focus();
+}
 function login(){
-  const phone = document.getElementById('phoneInput').value;
-  if(phone){
-    document.getElementById('loginScreen').classList.add('hidden');
-    document.getElementById('mainApp').classList.remove('hidden');
-    document.getElementById('userPhone').textContent = phone;
-    document.getElementById('userPhoneDetail').textContent = phone;
-    document.getElementById('userName').textContent = 'PAPA';
-    document.getElementById('userAvatar').innerHTML = `<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(phone)}&background=8b5cf6&color=fff" style="width:100%;height:100%;border-radius:50%">`;
+  const phone = document.getElementById('phoneInput').value.trim();
+  if(!phone){alert('Entre ton numéro Père');return;}
+  currentPhone = phone;
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('mainApp').classList.remove('hidden');
+  document.getElementById('userPhone').textContent = phone;
+  document.getElementById('userPhoneDetail').textContent = phone;
+  document.getElementById('userAvatar').innerHTML = `<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(phone)}&background=8b5cf6&color=fff" style="width:100%;height:100%;border-radius:50%" onerror="this.src='https://ui-avatars.com/api/?name=PAPA&background=8b5cf6&color=fff'">`;
+  localStorage.setItem('dounium_phone',phone);
+}
+function logout(){
+  localStorage.removeItem('dounium_phone');
+  location.reload();
+}
+function syncFriends(){
+  document.getElementById('friendsCount').textContent = '1';
+  document.getElementById('friendsList').innerHTML = `<div style="display:flex;align-items:center;gap:10px;padding:10px;background:#0f172a;border-radius:10px"><img src="https://ui-avatars.com/api/?name=Shiva&background=ec4899&color=fff" style="width:40px;height:40px;border-radius:50%"> <div style="text-align:left"><div style="font-weight:700;font-size:14px">Shiva 777</div><div style="font-size:11px;color:#64748b">Connecté Upstash</div></div></div>`;
+}
+function showTab(tab){
+  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  if(tab==='apps') window.open('https://dounium.vercel.app/apps','_blank');
+  if(tab==='profil') window.scrollTo(0,document.querySelector('.profile-card').offsetTop);
+  if(tab==='feed') window.scrollTo(0,0);
+}
+// Auto-login si déjà connecté
+window.onload = ()=>{
+  const saved = localStorage.getItem('dounium_phone');
+  if(saved){
+    document.getElementById('phoneInput').value = saved;
+    login();
   }
 }
 </script>
