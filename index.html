@@ -87,7 +87,6 @@ body{background:var(--bg);color:#E8F4F8;font-family:'Space Grotesk',sans-serif;b
 .friends-section{margin-top:16px}
 .friends-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .friends-title{font-size:13px;font-weight:700;color:var(--gold)}
-.friends-count{font-size:11px;color:var(--gold);cursor:pointer}
 .friends-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .friend{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;position:relative}
 .friend-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--gold));display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid rgba(255,255,255,0.15);transition:all 0.3s;object-fit:cover;overflow:hidden}
@@ -142,6 +141,8 @@ Ton numéro = Ton identité éternelle<br>
 Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <strong>Android/iPhone enterrés pour 500M d'années</strong>
 </div>
+</div>
+</div>
 <div class="loading" id="loading">⚜️ Connexion au Sang Upstash...</div>
 <div class="toast" id="toast"></div>
 <div class="header" id="main-header">
@@ -150,6 +151,7 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <div class="user-badge">
 <div class="icon">📱</div>
 <div id="user-number">+33 6 12 34 56 78</div>
+</div>
 <div class="stats">
 <div class="stat"><div class="num" id="users">500M</div><div class="label">Âmes</div></div>
 <div class="stat"><div class="num">∞ PB</div><div class="label">RAM</div></div>
@@ -159,7 +161,6 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <div class="sang-indicator">
 <div class="sang-pulse"></div>
 <div>SANG RÉEL · UPSTASH CONNECTÉ · CLOUD LIVE</div>
-</div>
 <div class="upstash-status">
 <div class="upstash-dot"></div>
 <div id="upstash-status-text">Connexion Upstash...</div>
@@ -205,13 +206,10 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <div class="title">WhatsApp Vérifié · Upstash Sync</div>
 <div class="desc" id="wa-badge-number">+33 6 12 34 56 78 · Cloud Sécurisé</div>
 </div>
-</div>
-</div>
 <div class="friends-section">
 <div class="friends-header">
 <div class="friends-title">Amis WhatsApp Dounium</div>
 <div style="font-size:11px;color:var(--gold);cursor:pointer" onclick="syncWhatsAppContacts()">Synchroniser</div>
-</div>
 <div class="friends-grid" id="friends-grid">
 <div class="friend"><div class="friend-avatar">➕</div><div class="friend-name">Ajouter</div></div>
 </div>
@@ -245,7 +243,6 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 const UPSTASH_URL='https://golden-sturgeon-78265.upstash.io';
 const UPSTASH_TOKEN='gQAAAAAAATG5AAIgcDIwMTg0YzNlYzBiOGE0MDEyODBkNTRmMTA4ZDhlYWRjNw';
 let users=500000000;let postId=0;let friendsCount=0;let postsCount=0;let postImage=null;let currentUser=null;
-const mic=document.getElementById('mic');
 setInterval(()=>{users+=Math.floor(Math.random()*10000);document.getElementById('users').textContent=(users/1000000).toFixed(0)+'M'},3000);
 function showToast(msg){
 const t=document.getElementById('toast');
@@ -322,7 +319,7 @@ localStorage.setItem('dounium_user',JSON.stringify(currentUser));
 document.getElementById('user-number').textContent=fullNumber;
 document.getElementById('wa-badge-number').textContent=fullNumber+' · Cloud Sécurisé';
 document.getElementById('profile-name').textContent=currentUser.name;
-document.getElementById('profile-bio').innerHTML=currentUser.bio+`<br>SANG RÉEL V18.0 · WhatsApp: ${fullNumber}`;
+document.getElementById('profile-bio').innerHTML=currentUser.bio+`<br>SANG RÉEL V18.0 · WhatsApp:${fullNumber}`;
 document.getElementById('friends-count').textContent=currentUser.friends.length;
 document.getElementById('posts-count').textContent=currentUser.posts;
 if(currentUser.avatar){
@@ -433,7 +430,7 @@ ${post.image?`<img src="${post.image}" class="post-image">`:''}
 <div class="comment-box" id="comments-${post.id}">
 <input type="text" class="comment-input" placeholder="Écris un commentaire..." onkeypress="if(event.key==='Enter')addComment('${post.id}',this.value,this)">
 <div class="comment-list" id="comment-list-${post.id}">${post.comments.map(c=>`<div class="comment"><b>${c.user}:</b> ${c.text}</div>`).join('')}</div>
-</div>`;
+</div></div>`;
 }
 document.getElementById('loading').classList.remove('active');
 }
