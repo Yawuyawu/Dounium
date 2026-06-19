@@ -330,7 +330,7 @@ const timeAgo=new Date(post.time).toLocaleString('fr-FR');
 const isLiked=post.likedBy.includes(currentUser.number);
 feed.innerHTML+=`<div class="post" id="post-${post.id}">
 <div class="post-header">
-<div class="avatar">${post.avatar && post.avatar.length>2?`<img src="${post.avatar}" style="width:100%;height:100%;border-radius:50%">`:post.avatar||"👤"}</div>
+<div class="avatar">${post.avatar?`<img src="${post.avatar}" style="width:100%;height:100%;border-radius:50%" onerror="this.src=`https://ui-avatars.com/api/?name=${encodeURIComponent(post.username||`User`)}&background=8b5cf6&color=fff`">`:`👤`}</div>
 <div class="post-user"><div class="name">${post.user}</div><div class="time">${timeAgo} · ${post.number}</div></div>
 </div>
 <div class="post-content">${post.text}</div>
@@ -408,7 +408,7 @@ grid.innerHTML='<div class="friend"><div class="friend-avatar">➕</div><div cla
 for(let f of currentUser.friends){
 const friend=await upstashGet(`user:${f}`);
 if(friend){
-grid.innerHTML+=`<div class="friend"><div class="friend-avatar">${friend.avatar?`<img src="${friend.avatar}" style="width:100%;height:100%;border-radius:50%">`:'👤'}</div><div class="friend-name">${friend.name}</div></div>`;
+grid.innerHTML+=`<div class="friend"><div class="friend-avatar">${friend.avatar?`<img src="${friend.avatar}" style="width:100%;height:100%;border-radius:50%" onerror="this.src=`https://ui-avatars.com/api/?name=${encodeURIComponent(friend.name||`User`)}&background=random&color=fff`">`:`👤`}</div><div class="friend-name">${friend.name}</div></div>`;
 }}
 document.getElementById('friends-count').textContent=currentUser.friends.length;
 }
