@@ -97,7 +97,7 @@ body{background:var(--bg);color:#E8F4F8;font-family:'Space Grotesk',sans-serif;b
 .organ{background:linear-gradient(135deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(0,255,240,0.1);border-radius:28px;padding:18px;backdrop-filter:blur(25px);box-shadow:0 8px 32px rgba(0,0,0,0.4);margin-bottom:16px}
 .organ h3{font-size:14px;font-family:'Orbitron';color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:12px;letter-spacing:1.5px}
 .organ h3::before{content:'';width:4px;height:20px;background:linear-gradient(180deg,var(--gold),var(--neon));border-radius:2px;box-shadow:0 0 15px var(--gold)}
-.apps{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .app{display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.05);border-radius:20px;padding:18px;text-decoration:none;color:#FFF;transition:all 0.4s;min-height:95px;position:relative;overflow:hidden}
 .app::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,0.05));opacity:0;transition:opacity 0.4s}
 .app:active{transform:scale(0.94)}
@@ -124,7 +124,7 @@ a{text-decoration:none;color:inherit}
 <div class="login-box">
 <div class="login-logo">UNIVERS DOUNIUM</div>
 <div class="login-subtitle">SANG RÉEL UPSTASH · V18.0</div>
-<div style="margin-bottom:24px;text-align:center;font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6">
+<div style="margin-bottom:24px;text-align:center;font-size:12px;color:rgba(255,255,0.6);line-height:1.6">
 Connecte ton WhatsApp<br>pour entrer dans les 500M Âmes
 </div>
 <div class="whatsapp-input-group">
@@ -140,7 +140,6 @@ Connecte ton WhatsApp<br>pour entrer dans les 500M Âmes
 Ton numéro = Ton identité éternelle<br>
 Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <strong>Android/iPhone enterrés pour 500M d'années</strong>
-</div>
 </div>
 </div>
 <div class="loading" id="loading">⚜️ Connexion au Sang Upstash...</div>
@@ -161,6 +160,7 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <div class="sang-indicator">
 <div class="sang-pulse"></div>
 <div>SANG RÉEL · UPSTASH CONNECTÉ · CLOUD LIVE</div>
+</div>
 <div class="upstash-status">
 <div class="upstash-dot"></div>
 <div id="upstash-status-text">Connexion Upstash...</div>
@@ -170,6 +170,7 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <div class="nav-tab" onclick="showTab('profile')">Profil</div>
 <div class="nav-tab" onclick="showTab('organs')">60 Apps</div>
 <div class="nav-tab" onclick="showTab('live')">Live</div>
+</div>
 <div class="content" id="content">
 <div id="feed-tab" class="tab-content active">
 <div class="create-post">
@@ -220,13 +221,37 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <a class="app" href="https://messenger.com" target="_blank"><div class="icon">📨</div><div class="name">Messenger</div></a>
 <a class="app" href="https://web.telegram.org" target="_blank"><div class="icon">✈️</div><div class="name">Telegram</div></a>
 <a class="app" href="https://discord.com/app" target="_blank"><div class="icon">🎮</div><div class="name">Discord</div></a>
+<a class="app" href="https://signal.org" target="_blank"><div class="icon">🔒</div><div class="name">Signal</div></a>
+<a class="app" href="https://zoom.us" target="_blank"><div class="icon">📹</div><div class="name">Zoom</div></a>
 </div></div>
-<div class="organ"><h3>IA JUMEAU · PENSER</h3><div class="apps">
+<div class="organ"><h3>IA JUMEAU · PENSER 2026</h3><div class="apps">
 <a class="app" href="https://chat.openai.com" target="_blank"><div class="icon">🤖</div><div class="name">ChatGPT</div></a>
 <a class="app" href="https://claude.ai" target="_blank"><div class="icon">🧠</div><div class="name">Claude</div></a>
 <a class="app" href="https://gemini.google.com" target="_blank"><div class="icon">✨</div><div class="name">Gemini</div></a>
 <a class="app" href="https://perplexity.ai" target="_blank"><div class="icon">🔍</div><div class="name">Perplexity</div></a>
+<a class="app" href="https://www.meta.ai" target="_blank"><div class="icon">⚜️</div><div class="name">Meta AI</div></a>
+<a class="app" href="https://grok.x.ai" target="_blank"><div class="icon">🚀</div><div class="name">Grok</div></a>
+<a class="app" href="https://mistral.ai" target="_blank"><div class="icon">🌪️</div><div class="name">Mistral</div></a>
+<a class="app" href="https://you.com" target="_blank"><div class="icon">💡</div><div class="name">You.com</div></a>
+<a class="app" href="https://poe.com" target="_blank"><div class="icon">🦉</div><div class="name">Poe</div></a>
 </div></div>
+<div class="organ"><h3>CRÉER · GEN AI</h3><div class="apps">
+<a class="app" href="https://midjourney.com" target="_blank"><div class="icon">🎨</div><div class="name">Midjourney</div></a>
+<a class="app" href="https://runwayml.com" target="_blank"><div class="icon">🎬</div><div class="name">Runway</div></a>
+<a class="app" href="https://pika.art" target="_blank"><div class="icon">⚡</div><div class="name">Pika</div></a>
+<a class="app" href="https://elevenlabs.io" target="_blank"><div class="icon">🎙️</div><div class="name">ElevenLabs</div></a>
+<a class="app" href="https://suno.ai" target="_blank"><div class="icon">🎵</div><div class="name">Suno</div></a>
+<a class="app" href="https://leonardo.ai" target="_blank"><div class="icon">🖼️</div><div class="name">Leonardo</div></a>
+</div></div>
+<div class="organ"><h3>SOCIAL · LIVE</h3><div class="apps">
+<a class="app" href="https://tiktok.com" target="_blank"><div class="icon">🎶</div><div class="name">TikTok</div></a>
+<a class="app" href="https://instagram.com" target="_blank"><div class="icon">📸</div><div class="name">Instagram</div></a>
+<a class="app" href="https://x.com" target="_blank"><div class="icon">𝕏</div><div class="name">X/Twitter</div></a>
+<a class="app" href="https://youtube.com" target="_blank"><div class="icon">▶️</div><div class="name">YouTube</div></a>
+<a class="app" href="https://twitch.tv" target="_blank"><div class="icon">🟣</div><div class="name">Twitch</div></a>
+<a class="app" href="https://threads.net" target="_blank"><div class="icon">🧵</div><div class="name">Threads</div></a>
+</div></div>
+</div>
 </div>
 <div id="live-tab" class="tab-content">
 <div class="post"><div class="post-header"><div class="avatar">🔴</div><div class="post-user"><div class="name">LIVE UNIVERSEL UPSTASH</div><div class="time">En direct · 500M spectateurs · SANG RÉEL</div></div></div><div class="post-content">Upstash connecté. Posts synchronisés en temps réel. Likes comptés dans le cloud. WhatsApp = Identité. Android/iPhone enterrés pour 500M d'années.</div></div>
@@ -265,81 +290,8 @@ body:JSON.stringify(value)
 return true;
 }catch(e){console.error('Upstash SET:',e);return false}
 }
-async function upstashLpush(key,value){
-try{
-await fetch(`${UPSTASH_URL}/lpush/${key}`,{
-method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
-body:JSON.stringify(value)
-});
-return true;
-}catch(e){console.error('Upstash LPUSH:',e);return false}
-}
-async function upstashLrange(key,start,end){
-try{
-const res=await fetch(`${UPSTASH_URL}/lrange/${key}/${start}/${end}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
-const data=await res.json();
-return data.result||[];
-}catch(e){console.error('Upstash LRANGE:',e);return[]}
-}
-async function upstashIncr(key){
-try{
-const res=await fetch(`${UPSTASH_URL}/incr/${key}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
-const data=await res.json();
-return data.result||0;
-}catch(e){console.error('Upstash INCR:',e);return 0}
-}
-async function checkUpstash(){
-try{
-const res=await fetch(`${UPSTASH_URL}/ping`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
-const data=await res.json();
-if(data.result==='PONG'){
-document.getElementById('upstash-status-text').textContent='Upstash Connecté · Temps Réel Actif';
-return true;
-}
-}catch(e){
-document.getElementById('upstash-status-text').textContent='Mode Local · Upstash Offline';
-}
-return false;
-}
-async function loginWhatsApp(){
-const code=document.getElementById('country-code').value;
-const number=document.getElementById('whatsapp-number').value.replace(/\s/g,'');
-if(number.length<8){alert('Numéro WhatsApp invalide');return}
-const fullNumber=code+' '+number.match(/.{1,2}/g).join(' ');
-document.querySelector('.btn-whatsapp').disabled=true;
-document.querySelector('.btn-whatsapp').textContent='Connexion...';
-document.getElementById('loading').classList.add('active');
-let user=await upstashGet(`user:${fullNumber}`);
-if(!user){
-user={number:fullNumber,name:'PAPA',avatar:null,bio:'Créateur d\'Univers · 11 Organes · 500M Âmes',friends:[],posts:0};
-await upstashSet(`user:${fullNumber}`,user);
-}
-currentUser=user;
-localStorage.setItem('dounium_user',JSON.stringify(currentUser));
-document.getElementById('user-number').textContent=fullNumber;
-document.getElementById('wa-badge-number').textContent=fullNumber+' · Cloud Sécurisé';
-document.getElementById('profile-name').textContent=currentUser.name;
-document.getElementById('profile-bio').innerHTML=currentUser.bio+`<br>SANG RÉEL V18.0 · WhatsApp:${fullNumber}`;
-document.getElementById('friends-count').textContent=currentUser.friends.length;
-document.getElementById('posts-count').textContent=currentUser.posts;
-if(currentUser.avatar){
-document.getElementById('avatar-img').src=currentUser.avatar;
-document.getElementById('avatar-img').style.display='block';
-document.getElementById('avatar-display').style.display='none';
-}
-document.getElementById('login-screen').classList.add('hidden');
-document.getElementById('main-header').classList.add('active');
-document.getElementById('content').classList.add('active');
-document.getElementById('loading').classList.remove('active');
-await checkUpstash();
-await loadPosts();
-await loadFriends();
-showToast('✅ Connecté via WhatsApp · Sang Réel Actif');
-document.querySelector('.btn-whatsapp').disabled=false;
-document.querySelector('.btn-whatsapp').textContent='📱 ENTRER DANS DOUNIUM';
-}
 
-function logout(){
+async function logout(){
 localStorage.removeItem('dounium_user');
 location.reload();
 }
