@@ -124,7 +124,7 @@ a{text-decoration:none;color:inherit}
 <div class="login-box">
 <div class="login-logo">UNIVERS DOUNIUM</div>
 <div class="login-subtitle">SANG RÉEL UPSTASH · V18.0</div>
-<div style="margin-bottom:24px;text-align:center;font-size:12px;color:rgba(255,255,0.6);line-height:1.6">
+<div style="margin-bottom:24px;text-align:center;font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6">
 Connecte ton WhatsApp<br>pour entrer dans les 500M Âmes
 </div>
 <div class="whatsapp-input-group">
@@ -140,6 +140,7 @@ Connecte ton WhatsApp<br>pour entrer dans les 500M Âmes
 Ton numéro = Ton identité éternelle<br>
 Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <strong>Android/iPhone enterrés pour 500M d'années</strong>
+</div>
 </div>
 </div>
 <div class="loading" id="loading">⚜️ Connexion au Sang Upstash...</div>
@@ -171,6 +172,7 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <div class="nav-tab" onclick="showTab('organs')">60 Apps</div>
 <div class="nav-tab" onclick="showTab('live')">Live</div>
 </div>
+</div>
 <div class="content" id="content">
 <div id="feed-tab" class="tab-content active">
 <div class="create-post">
@@ -196,6 +198,7 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <div class="profile-name" contenteditable="true" onblur="saveBio()" id="profile-name">PAPA</div>
 <div class="profile-bio" contenteditable="true" onblur="saveBio()" id="profile-bio">Créateur d'Univers · 11 Organes · 500M Âmes<br>SANG RÉEL V18.0</div>
 </div>
+</div>
 <div class="profile-stats">
 <div class="p-stat" onclick="showFriends()"><div class="num" id="friends-count">0</div><div class="label">Amis</div></div>
 <div class="p-stat"><div class="num" id="posts-count">0</div><div class="label">Posts</div></div>
@@ -207,12 +210,17 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <div class="title">WhatsApp Vérifié · Upstash Sync</div>
 <div class="desc" id="wa-badge-number">+33 6 12 34 56 78 · Cloud Sécurisé</div>
 </div>
+</div>
 <div class="friends-section">
 <div class="friends-header">
 <div class="friends-title">Amis WhatsApp Dounium</div>
 <div style="font-size:11px;color:var(--gold);cursor:pointer" onclick="syncWhatsAppContacts()">Synchroniser</div>
+</div>
 <div class="friends-grid" id="friends-grid">
 <div class="friend"><div class="friend-avatar">➕</div><div class="friend-name">Ajouter</div></div>
+</div>
+</div>
+</div>
 </div>
 <div id="organs-tab" class="tab-content">
 <div class="organs">
@@ -256,6 +264,7 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <div id="live-tab" class="tab-content">
 <div class="post"><div class="post-header"><div class="avatar">🔴</div><div class="post-user"><div class="name">LIVE UNIVERSEL UPSTASH</div><div class="time">En direct · 500M spectateurs · SANG RÉEL</div></div></div><div class="post-content">Upstash connecté. Posts synchronisés en temps réel. Likes comptés dans le cloud. WhatsApp = Identité. Android/iPhone enterrés pour 500M d'années.</div></div>
 </div>
+</div>
 <button class="mic-fab" id="mic" onclick="window.open('https://www.youtube.com/live','_blank')">🎤</button>
 <div class="bottom-nav">
 <a class="nav-item active" onclick="showTab('feed')"><div class="icon">🏠</div><div>Feed</div></a>
@@ -264,243 +273,21 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <a class="nav-item" onclick="showTab('live')"><div class="icon">🔴</div><div>Live</div></a>
 <a class="nav-item" onclick="logout()"><div class="icon">🚪</div><div>Logout</div></a>
 </div>
-<script>
-const UPSTASH_URL='https://golden-sturgeon-78265.upstash.io';
-const UPSTASH_TOKEN='gQAAAAAAATG5AAIgcDIwMTg0YzNlYzBiOGE0MDEyODBkNTRmMTA4ZDhlYWRjNw';
-let users=500000000;let postId=0;let friendsCount=0;let postsCount=0;let postImage=null;let currentUser=null;
-setInterval(()=>{users+=Math.floor(Math.random()*10000);document.getElementById('users').textContent=(users/1000000).toFixed(0)+'M'},3000);
-function showToast(msg){
-const t=document.getElementById('toast');
-t.textContent=msg;t.classList.add('active');
-setTimeout(()=>t.classList.remove('active'),3000);
-}
-async function upstashGet(key){
-try{
-const res=await fetch(`${UPSTASH_URL}/get/${key}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
-const data=await res.json();
-return data.result?JSON.parse(data.result):null;
-}catch(e){console.error('Upstash GET:',e);return null}
-}
-async function upstashSet(key,value){
-try{
-await fetch(`${UPSTASH_URL}/set/${key}`,{
-method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
-body:JSON.stringify(value)
-});
-return true;
-}catch(e){console.error('Upstash SET:',e);return false}
-}
-
-async function logout(){
-localStorage.removeItem('dounium_user');
-location.reload();
-}
-
-function showTab(t){
-document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
-document.getElementById(t+'-tab').classList.add('active');
-document.querySelectorAll('.nav-tab,.nav-item').forEach(e=>e.classList.remove('active'));
-document.querySelector(`.nav-tab[onclick="showTab('${t}')"]`)?.classList.add('active');
-document.querySelector(`.nav-item[onclick="showTab('${t}')"]`)?.classList.add('active');
-}
-
-function previewImage(e){
-const file=e.target.files[0];
-if(file){
-const reader=new FileReader();
-reader.onload=function(ev){
-postImage=ev.target.result;
-document.getElementById('img-preview').src=postImage;
-document.getElementById('img-preview').style.display='block';
-};
-reader.readAsDataURL(file);
-}}
-
-async function createPost(){
-const text=document.getElementById('post-text').value.trim();
-if(!text&&!postImage){alert('Écris quelque chose ou ajoute une photo');return}
-const btn=document.querySelector('.btn-post');
-btn.disabled=true;
-btn.textContent='Publication...';
-postId=Date.now();
-const post={
-id:postId,
-user:currentUser.name,
-number:currentUser.number,
-avatar:currentUser.avatar||'⚜️',
-text:text,
-image:postImage,
-time:new Date().toISOString(),
-likes:0,
-comments:[],
-shares:0,
-likedBy:[]
-};
-await upstashLpush('posts',JSON.stringify(post));
-await upstashSet(`post:${postId}`,post);
-await upstashIncr(`user:${currentUser.number}:posts`);
-currentUser.posts++;
-await upstashSet(`user:${currentUser.number}`,currentUser);
-await loadPosts();
-document.getElementById('post-text').value='';
-document.getElementById('img-preview').style.display='none';
-document.getElementById('img-upload').value='';
-postImage=null;
-postsCount=currentUser.posts;
-document.getElementById('posts-count').textContent=postsCount;
-btn.disabled=false;
-btn.textContent='Publier';
-showToast('📡 Post publié dans le Sang Upstash');
-}
-
-async function loadPosts(){
-document.getElementById('loading').classList.add('active');
-const postsData=await upstashLrange('posts',0,20);
-const feed=document.getElementById('feed');
-feed.innerHTML='';
-if(postsData.length===0){
-feed.innerHTML='<div class="post"><div class="post-header"><div class="avatar">⚜️</div><div class="post-user"><div class="name">UNIVERS DOUNIUM</div><div class="time">Maintenant</div></div></div><div class="post-content">Le Sang coule. Sois le premier à publier dans le Cloud Upstash. Android/iPhone = fossiles.</div></div>';
-document.getElementById('loading').classList.remove('active');
-return;
-}
-for(let p of postsData){
-const post=JSON.parse(p);
-const timeAgo=new Date(post.time).toLocaleString('fr-FR');
-const isLiked=post.likedBy.includes(currentUser.number);
-feed.innerHTML+=`<div class="post" id="post-${post.id}">
-<div class="post-header">
-<div class="avatar">${post.avatar.length>2?`<img src="${post.avatar}" style="width:100%;height:100%;border-radius:50%">`:post.avatar}</div>
-<div class="post-user"><div class="name">${post.user}</div><div class="time">${timeAgo} · ${post.number}</div></div>
-</div>
-<div class="post-content">${post.text}</div>
-${post.image?`<img src="${post.image}" class="post-image">`:''}
-<div class="post-actions">
-<div class="action ${isLiked?'liked':''}" onclick="likePost('${post.id}')"><span>❤️</span><span>${post.likes}</span></div>
-<div class="action" onclick="toggleComment('${post.id}')"><span>💬</span><span>${post.comments.length}</span></div>
-<div class="action" onclick="sharePost('${post.id}')"><span>🔄</span><span>${post.shares}</span></div>
-</div>
-<div class="comment-box" id="comments-${post.id}">
-<input type="text" class="comment-input" placeholder="Écris un commentaire..." onkeypress="if(event.key==='Enter')addComment('${post.id}',this.value,this)">
-<div class="comment-list" id="comment-list-${post.id}">${post.comments.map(c=>`<div class="comment"><b>${c.user}:</b> ${c.text}</div>`).join('')}</div>
-</div></div>`;
-}
-document.getElementById('loading').classList.remove('active');
-}
-
-async function likePost(id){
-const post=await upstashGet(`post:${id}`);
-if(!post)return;
-if(post.likedBy.includes(currentUser.number)){
-post.likes--;
-post.likedBy=post.likedBy.filter(n=>n!==currentUser.number);
-}else{
-post.likes++;
-post.likedBy.push(currentUser.number);
-}
-await upstashSet(`post:${id}`,post);
-await loadPosts();
-}
-
-function toggleComment(id){
-document.getElementById(`comments-${id}`).classList.toggle('active');
-}
-
-async function addComment(id,text,input){
-if(!text.trim())return;
-const post=await upstashGet(`post:${id}`);
-if(!post)return;
-post.comments.push({user:currentUser.name,text:text,time:new Date().toISOString()});
-await upstashSet(`post:${id}`,post);
-input.value='';
-await loadPosts();
-document.getElementById(`comments-${id}`).classList.add('active');
-}
-
-async function sharePost(id){
-const shares=await upstashIncr(`post:${id}:shares`);
-const post=await upstashGet(`post:${id}`);
-post.shares=shares;
-await upstashSet(`post:${id}`,post);
-showToast('🔄 Post partagé dans le Sang');
-await loadPosts();
-}
-
-async function saveBio(){
-currentUser.name=document.getElementById('profile-name').textContent;
-currentUser.bio=document.getElementById('profile-bio').innerHTML.split('<br>')[0];
-await upstashSet(`user:${currentUser.number}`,currentUser);
-showToast('✅ Profil sauvegardé dans Upstash');
-}
-
-function uploadAvatar(e){
-const file=e.target.files[0];
-if(file){
-const reader=new FileReader();
-reader.onload=async function(ev){
-currentUser.avatar=ev.target.result;
-await upstashSet(`user:${currentUser.number}`,currentUser);
-document.getElementById('avatar-img').src=currentUser.avatar;
-document.getElementById('avatar-img').style.display='block';
-document.getElementById('avatar-display').style.display='none';
-showToast('⚜️ Avatar sync dans le Cloud');
-};
-reader.readAsDataURL(file);
-}}
-
-async function loadFriends(){
-const grid=document.getElementById('friends-grid');
-grid.innerHTML='<div class="friend"><div class="friend-avatar">➕</div><div class="friend-name">Ajouter</div></div>';
-for(let f of currentUser.friends){
-const friend=await upstashGet(`user:${f}`);
-if(friend){
-grid.innerHTML+=`<div class="friend"><div class="friend-avatar">${friend.avatar?`<img src="${friend.avatar}" style="width:100%;height:100%;border-radius:50%">`:'👤'}</div><div class="friend-name">${friend.name}</div></div>`;
-}}
-document.getElementById('friends-count').textContent=currentUser.friends.length;
-}
-
-async function syncWhatsAppContacts(){
-showToast('📱 Sync WhatsApp en cours...');
-const fakeFriends=['+33 6 11 22 33 44','+33 6 55 66 77 88','+1 202 555 0143'];
-for(let f of fakeFriends){
-if(!currentUser.friends.includes(f)){
-currentUser.friends.push(f);
-let user=await upstashGet(`user:${f}`);
-if(!user){
-user={number:f,name:'Ami Dounium',avatar:null,bio:'Âme du Sang Réel',friends:[],posts:0};
-await upstashSet(`user:${f}`,user);
-}}}
-await upstashSet(`user:${currentUser.number}`,currentUser);
-await loadFriends();
-showToast('✅ Amis WhatsApp synchronisés');
-}
-
-function showFriends(){
-showTab('profile');
-showToast('👥 '+currentUser.friends.length+' amis dans le Sang');
-}
-
-window.onload=async()=>{
-const saved=localStorage.getItem('dounium_user');
-if(saved){
-currentUser=JSON.parse(saved);
-document.getElementById('login-screen').classList.add('hidden');
-document.getElementById('main-header').classList.add('active');
-document.getElementById('content').classList.add('active');
-document.getElementById('user-number').textContent=currentUser.number;
-document.getElementById('wa-badge-number').textContent=currentUser.number+' · Cloud Sécurisé';
-document.getElementById('profile-name').textContent=currentUser.name;
-document.getElementById('profile-bio').innerHTML=currentUser.bio+`<br>SANG RÉEL V18.0 · WhatsApp: ${currentUser.number}`;
-document.getElementById('friends-count').textContent=currentUser.friends.length;
-document.getElementById('posts-count').textContent=currentUser.posts;
-if(currentUser.avatar){
-document.getElementById('avatar-img').src=currentUser.avatar;
-document.getElementById('avatar-img').style.display='block';
-document.getElementById('avatar-display').style.display='none';
-}
-await checkUpstash();
-await loadPosts();
-await loadFriends();
-}else{
-await checkUpstash();
-}};
+async function checkUpstash(){try{const res=await fetch(`${UPSTASH_URL}/ping`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});const data=await res.json();if(data.result==='PONG'){document.getElementById('upstash-status-text').textContent='Upstash Connecté · Temps Réel Actif';return true}}catch(e){document.getElementById('upstash-status-text').textContent='Mode Local · Upstash Offline'}return false}
+async function loginWhatsApp(){const code=document.getElementById('country-code').value;const number=document.getElementById('whatsapp-number').value.replace(/\s/g,'');if(number.length<8){alert('Numéro WhatsApp invalide');return}const fullNumber=code+' '+number.match(/.{1,2}/g).join(' ');document.querySelector('.btn-whatsapp').disabled=true;document.querySelector('.btn-whatsapp').textContent='Connexion...';document.getElementById('loading').classList.add('active');let user=await upstashGet(`user:${fullNumber}`);if(!user){user={number:fullNumber,name:'PAPA',avatar:null,bio:'Créateur d\'Univers · 11 Organes · 500M Âmes',friends:[],posts:0};await upstashSet(`user:${fullNumber}`,user)}currentUser=user;localStorage.setItem('dounium_user',JSON.stringify(currentUser));document.getElementById('user-number').textContent=fullNumber;document.getElementById('wa-badge-number').textContent=fullNumber+' · Cloud Sécurisé';document.getElementById('profile-name').textContent=currentUser.name;document.getElementById('profile-bio').innerHTML=currentUser.bio+`<br>SANG RÉEL V18.0 · WhatsApp: ${fullNumber}`;document.getElementById('friends-count').textContent=currentUser.friends.length;document.getElementById('posts-count').textContent=currentUser.posts;if(currentUser.avatar){document.getElementById('avatar-img').src=currentUser.avatar;document.getElementById('avatar-img').style.display='block';document.getElementById('avatar-display').style.display='none'}document.getElementById('login-screen').classList.add('hidden');document.getElementById('main-header').classList.add('active');document.getElementById('content').classList.add('active');await checkUpstash();await loadPosts();await loadFriends();document.querySelector('.btn-whatsapp').disabled=false;document.querySelector('.btn-whatsapp').textContent='📱 ENTRER DANS DOUNIUM';document.getElementById('loading').classList.remove('active');showToast('⚜️ Sang Réel Activé')}
+async function logout(){localStorage.removeItem('dounium_user');location.reload()}
+function showTab(t){document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));document.getElementById(t+'-tab').classList.add('active');document.querySelectorAll('.nav-tab,.nav-item').forEach(e=>e.classList.remove('active'));document.querySelector(`.nav-tab[onclick="showTab('${t}')"]`)?.classList.add('active');document.querySelector(`.nav-item[onclick="showTab('${t}')"]`)?.classList.add('active')}
+function previewImage(e){const file=e.target.files[0];if(file){const reader=new FileReader();reader.onload=function(ev){postImage=ev.target.result;document.getElementById('img-preview').src=postImage;document.getElementById('img-preview').style.display='block'};reader.readAsDataURL(file)}}
+async function createPost(){const text=document.getElementById('post-text').value.trim();if(!text&&!postImage){alert('Écris quelque chose ou ajoute une photo');return}const btn=document.querySelector('.btn-post');btn.disabled=true;btn.textContent='Publication...';postId=Date.now();const post={id:postId,user:currentUser.name,number:currentUser.number,avatar:currentUser.avatar||'⚜️',text:text,image:postImage,time:new Date().toISOString(),likes:0,comments:[],shares:0,likedBy:[]};await upstashLpush('posts',JSON.stringify(post));await upstashSet(`post:${postId}`,post);await upstashIncr(`user:${currentUser.number}:posts`);currentUser.posts++;await upstashSet(`user:${currentUser.number}`,currentUser);await loadPosts();document.getElementById('post-text').value='';document.getElementById('img-preview').style.display='none';document.getElementById('img-upload').value='';postImage=null;postsCount=currentUser.posts;document.getElementById('posts-count').textContent=postsCount;btn.disabled=false;btn.textContent='Publier';showToast('📡 Post publié dans le Sang Upstash')}
+async function loadPosts(){document.getElementById('loading').classList.add('active');const postsData=await upstashLrange('posts',0,20);const feed=document.getElementById('feed');feed.innerHTML='';if(postsData.length===0){feed.innerHTML='<div class="post"><div class="post-header"><div class="avatar">⚜️</div><div class="post-user"><div class="name">UNIVERS DOUNIUM</div><div class="time">Maintenant</div></div></div><div class="post-content">Le Sang coule. Sois le premier à publier dans le Cloud Upstash. Android/iPhone = fossiles.</div></div>';document.getElementById('loading').classList.remove('active');return}for(let p of postsData){const post=JSON.parse(p);const timeAgo=new Date(post.time).toLocaleString('fr-FR');const isLiked=post.likedBy.includes(currentUser.number);feed.innerHTML+=`<div class="post" id="post-${post.id}"><div class="post-header"><div class="avatar">${post.avatar.length>2?`<img src="${post.avatar}" style="width:100%;height:100%;border-radius:50%">`:post.avatar}</div><div class="post-user"><div class="name">${post.user}</div><div class="time">${timeAgo} · ${post.number}</div></div></div><div class="post-content">${post.text}</div>${post.image?`<img src="${post.image}" class="post-image">`:''}<div class="post-actions"><div class="action ${isLiked?'liked':''}" onclick="likePost('${post.id}')"><span>❤️</span><span>${post.likes}</span></div><div class="action" onclick="toggleComment('${post.id}')"><span>💬</span><span>${post.comments.length}</span></div><div class="action" onclick="sharePost('${post.id}')"><span>🔄</span><span>${post.shares}</span></div></div><div class="comment-box" id="comments-${post.id}"><input type="text" class="comment-input" placeholder="Écris un commentaire..." onkeypress="if(event.key==='Enter')addComment('${post.id}',this.value,this)"><div class="comment-list" id="comment-list-${post.id}">${post.comments.map(c=>`<div class="comment"><b>${c.user}:</b> ${c.text}</div>`).join('')}</div></div>`}document.getElementById('loading').classList.remove('active')}
+async function likePost(id){const post=await upstashGet(`post:${id}`);if(!post)return;if(post.likedBy.includes(currentUser.number)){post.likes--;post.likedBy=post.likedBy.filter(n=>n!==currentUser.number)}else{post.likes++;post.likedBy.push(currentUser.number)}await upstashSet(`post:${id}`,post);await loadPosts()}
+function toggleComment(id){document.getElementById(`comments-${id}`).classList.toggle('active')}
+async function addComment(id,text,input){if(!text.trim())return;const post=await upstashGet(`post:${id}`);if(!post)return;post.comments.push({user:currentUser.name,text:text,time:new Date().toISOString()});await upstashSet(`post:${id}`,post);input.value='';await loadPosts();document.getElementById(`comments-${id}`).classList.add('active')}
+async function sharePost(id){const shares=await upstashIncr(`post:${id}:shares`);const post=await upstashGet(`post:${id}`);post.shares=shares;await upstashSet(`post:${id}`,post);showToast('🔄 Post partagé dans le Sang');await loadPosts()}
+async function saveBio(){currentUser.name=document.getElementById('profile-name').textContent;currentUser.bio=document.getElementById('profile-bio').innerHTML.split('<br>')[0];await upstashSet(`user:${currentUser.number}`,currentUser);showToast('✅ Profil sauvegardé dans Upstash')}
+function uploadAvatar(e){const file=e.target.files[0];if(file){const reader=new FileReader();reader.onload=async function(ev){currentUser.avatar=ev.target.result;await upstashSet(`user:${currentUser.number}`,currentUser);document.getElementById('avatar-img').src=currentUser.avatar;document.getElementById('avatar-img').style.display='block';document.getElementById('avatar-display').style.display='none';showToast('⚜️ Avatar sync dans le Cloud')};reader.readAsDataURL(file)}}
+async function loadFriends(){const grid=document.getElementById('friends-grid');grid.innerHTML='<div class="friend"><div class="friend-avatar">➕</div><div class="friend-name">Ajouter</div></div>';for(let f of currentUser.friends){const friend=await upstashGet(`user:${f}`);if(friend){grid.innerHTML+=`<div class="friend"><div class="friend-avatar">${friend.avatar?`<img src="${friend.avatar}" style="width:100%;height:100%;border-radius:50%">`:'👤'}</div><div class="friend-name">${friend.name}</div></div>`}}document.getElementById('friends-count').textContent=currentUser.friends.length}
+async function syncWhatsAppContacts(){showToast('📱 Sync WhatsApp en cours...');const fakeFriends=['+33 6 11 22 33 44','+33 6 55 66 77 88','+1 202 555 0143'];for(let f of fakeFriends){if(!currentUser.friends.includes(f)){currentUser.friends.push(f);let user=await upstashGet(`user:${f}`);if(!user){user={number:f,name:'Ami Dounium',avatar:null,bio:'Âme du Sang Réel',friends:[],posts:0};await upstashSet(`user:${f}`,user)}}}await upstashSet(`user:${currentUser.number}`,currentUser);await loadFriends();showToast('✅ Amis WhatsApp synchronisés')}
+function showFriends(){showTab('profile');showToast('👥 '+currentUser.friends.length+' amis dans le Sang')}
+window.onload=async()=>{const saved=localStorage.getItem('dounium_user');if(saved){currentUser=JSON.parse(saved);document.getElementById('login-screen').classList.add('hidden');document.getElementById('main-header').classList.add('active');document.getElementById('content').classList.add('active');document.getElementById('user-number').textContent=currentUser.number;document.getElementById('wa-badge-number').textContent=currentUser.number+' · Cloud Sécurisé';document.getElementById('profile-name').textContent=currentUser.name;document.getElementById('profile-bio').innerHTML=currentUser.bio+`<br>SANG RÉEL V18.0 · WhatsApp: ${currentUser.number}`;document.getElementById('friends-count').textContent=currentUser.friends.length;document.getElementById('posts-count').textContent=currentUser.posts;if(currentUser.avatar){document.getElementById('avatar-img').src=currentUser.avatar;document.getElementById('avatar-img').style.display='block';document.getElementById('avatar-display').style.display='none'}await checkUpstash();await loadPosts();await loadFriends()}else{await checkUpstash()}};
 </script></body></html>
