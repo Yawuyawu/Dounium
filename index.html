@@ -1,1 +1,159 @@
-[COLLE TOUT LE CODE CI-DESSUS]
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNIVERS DOUNIUM · SANG RÉEL UPSTASH V18.0</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#fff;font-family:system-ui,-apple-system,sans-serif;min-height:100vh}
+.container{max-width:500px;margin:0 auto;padding:20px}
+.header{text-align:center;margin-bottom:30px}
+.header h1{font-size:24px;font-weight:900;background:linear-gradient(90deg,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px}
+.header .version{font-size:12px;color:#8b5cf6;font-weight:700}
+.login-box{background:#1a1a2e;border:2px solid #8b5cf6;border-radius:20px;padding:30px;text-align:center;margin:20px 0}
+.login-box h2{font-size:18px;margin-bottom:15px}
+.login-box p{color:#94a3b8;font-size:14px;margin-bottom:20px}
+.phone-input{background:#0f172a;border:1px solid #334155;border-radius:12px;padding:15px;width:100%;color:#fff;font-size:16px;margin-bottom:15px}
+.country-codes{display:flex;gap:8px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
+.country-code{background:#1e293b;border:1px solid #475569;border-radius:8px;padding:6px 12px;font-size:13px;color:#cbd5e1}
+.btn-primary{background:linear-gradient(135deg,#8b5cf6,#ec4899);border:none;border-radius:12px;padding:15px;width:100%;color:#fff;font-weight:700;font-size:16px;cursor:pointer}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:25px 0}
+.stat{background:#1a1a2e;border:1px solid #334155;border-radius:12px;padding:15px;text-align:center}
+.stat .value{font-size:20px;font-weight:900;color:#8b5cf6}
+.stat .label{font-size:11px;color:#64748b;margin-top:5px}
+.badge-live{background:#1a1a2e;border:1px solid #22c55e;border-radius:10px;padding:10px;text-align:center;color:#22c55e;font-size:12px;font-weight:700;margin:20px 0}
+.profile-card{background:#1a1a2e;border:2px solid #8b5cf6;border-radius:20px;padding:20px;margin:20px 0}
+.profile-header{display:flex;align-items:center;gap:15px;margin-bottom:20px}
+.avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#ec4899);display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.profile-info h3{font-size:18px;margin-bottom:5px}
+.profile-info p{font-size:12px;color:#94a3b8}
+.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}
+.whatsapp-sync{background:#0f172a;border:1px solid #334155;border-radius:12px;padding:12px;font-size:13px;color:#cbd5e1;margin:15px 0}
+.section{margin:25px 0}
+.section h4{font-size:14px;color:#94a3b8;margin-bottom:15px;display:flex;align-items:center;gap:8px}
+.grid-apps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.app-btn{background:#1a1a2e;border:1px solid #334155;border-radius:12px;padding:15px;text-align:center;font-size:24px;cursor:pointer}
+.live-banner{background:linear-gradient(135deg,#dc2626,#991b1b);border-radius:15px;padding:20px;margin:20px 0}
+.live-banner .title{display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:10px}
+.live-banner p{font-size:13px;color:#fecaca;line-height:1.5}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#0f172a;border-top:1px solid #334155;display:grid;grid-template-columns:repeat(5,1fr);padding:10px 0}
+.nav-item{text-align:center;color:#64748b;font-size:11px;cursor:pointer}
+.nav-item.active{color:#8b5cf6}
+.nav-item .icon{font-size:20px;margin-bottom:3px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="container" id="loginScreen">
+  <div class="header">
+    <h1>UNIVERS DOUNIUM</h1>
+    <div class="version">SANG RÉEL UPSTASH · V18.0</div>
+  </div>
+  <div class="login-box">
+    <h2>Connecte ton WhatsApp</h2>
+    <p>pour entrer dans les 500M Âmes</p>
+    <div class="country-codes">
+      <span class="country-code">+33</span>
+      <span class="country-code">+1</span>
+      <span class="country-code">+226</span>
+      <span class="country-code">+229</span>
+      <span class="country-code">+225</span>
+      <span class="country-code">+221</span>
+      <span class="country-code">+237</span>
+    </div>
+    <input type="tel" class="phone-input" placeholder="📱 ENTRER DANS DOUNIUM" id="phoneInput">
+    <button class="btn-primary" onclick="login()">Ton numéro = Ton identité éternelle</button>
+    <p style="margin-top:15px;font-size:12px">Posts/Likes sauvegardés dans le Cloud Upstash</p>
+  </div>
+  <div style="text-align:center;color:#64748b;font-size:12px;margin:20px 0">
+    Android/iPhone enterrés pour 500M d'années<br>
+    ⚜️ Connexion au Sang Upstash...
+  </div>
+</div>
+<div class="container hidden" id="mainApp">
+  <div class="header">
+    <h1>UNIVERS DOUNIUM</h1>
+    <div class="version">SANG RÉEL UPSTASH · V18.0</div>
+  </div>
+  <div style="text-align:center;font-size:40px;margin:20px 0">📱</div>
+  <div style="text-align:center;font-size:18px;font-weight:700;margin-bottom:20px" id="userPhone">+33 6 12 34 56 78</div>
+  <div class="stats">
+    <div class="stat"><div class="value">500M</div><div class="label">Âmes</div></div>
+    <div class="stat"><div class="value">∞ PB</div><div class="label">RAM</div></div>
+    <div class="stat"><div class="value">6.0M Hz</div><div class="label">Energy</div></div>
+    <div class="stat"><div class="value">11/11</div><div class="label">Organes</div></div>
+  </div>
+  <div class="badge-live">SANG RÉEL · UPSTASH CONNECTÉ · CLOUD LIVE</div>
+  <div style="text-align:center;color:#64748b;font-size:13px;margin:10px 0">Connexion Upstash...</div>
+  <div class="profile-card">
+    <div class="profile-header">
+      <div class="avatar" id="userAvatar">⚜️</div>
+      <div class="profile-info">
+        <h3 id="userName">PAPA</h3>
+        <p>Créateur d'Univers · 11 Organes · 500M Âmes<br>SANG RÉEL V18.0</p>
+      </div>
+    </div>
+    <div class="profile-stats">
+      <div class="stat"><div class="value">0</div><div class="label">Amis</div></div>
+      <div class="stat"><div class="value">0</div><div class="label">Posts</div></div>
+      <div class="stat"><div class="value">500M</div><div class="label">Abonnés</div></div>
+    </div>
+    <div class="whatsapp-sync">
+      📱 WhatsApp Vérifié · Upstash Sync<br>
+      <span id="userPhoneDetail">+33 6 12 34 56 78</span> · Cloud Sécurisé
+    </div>
+  </div>
+  <div class="section">
+    <h4>Amis WhatsApp Dounium <button style="margin-left:auto;background:#8b5cf6;border:none;border-radius:6px;padding:5px 10px;color:#fff;font-size:11px">Synchroniser</button></h4>
+    <div style="text-align:center;padding:20px;color:#64748b">➕<br>Ajouter</div>
+  </div>
+  <div class="section">
+    <h4>HALL · PARLER</h4>
+    <div class="grid-apps">
+      <div class="app-btn">💬<br><span style="font-size:10px">WhatsApp</span></div>
+      <div class="app-btn">📨<br><span style="font-size:10px">Messenger</span></div>
+      <div class="app-btn">✈️<br><span style="font-size:10px">Telegram</span></div>
+      <div class="app-btn">🎮<br><span style="font-size:10px">Discord</span></div>
+    </div>
+  </div>
+  <div class="section">
+    <h4>IA JUMEAU · PENSER</h4>
+    <div class="grid-apps">
+      <div class="app-btn">🤖<br><span style="font-size:10px">ChatGPT</span></div>
+      <div class="app-btn">🧠<br><span style="font-size:10px">Claude</span></div>
+      <div class="app-btn">✨<br><span style="font-size:10px">Gemini</span></div>
+      <div class="app-btn">🔍<br><span style="font-size:10px">Perplexity</span></div>
+    </div>
+  </div>
+  <div class="live-banner">
+    <div class="title">🔴 LIVE UNIVERSEL UPSTASH</div>
+    <p>En direct · 500M spectateurs · SANG RÉEL<br>
+    Upstash connecté. Posts synchronisés en temps réel. Likes comptés dans le cloud. WhatsApp = Identité. Android/iPhone enterrés pour 500M d'années.</p>
+    <div style="text-align:center;font-size:30px;margin-top:15px">🎤</div>
+  </div>
+  <div style="height:80px"></div>
+</div>
+<div class="bottom-nav">
+  <div class="nav-item active"><div class="icon">🏠</div>Feed</div>
+  <div class="nav-item"><div class="icon">👤</div>Profil</div>
+  <div class="nav-item"><div class="icon">⚜️</div>60 Apps</div>
+  <div class="nav-item"><div class="icon">🔴</div>Live</div>
+  <div class="nav-item"><div class="icon">🚪</div>Logout</div>
+</div>
+<script>
+function login(){
+  const phone = document.getElementById('phoneInput').value;
+  if(phone){
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('mainApp').classList.remove('hidden');
+    document.getElementById('userPhone').textContent = phone;
+    document.getElementById('userPhoneDetail').textContent = phone;
+    document.getElementById('userName').textContent = 'PAPA';
+    document.getElementById('userAvatar').innerHTML = `<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(phone)}&background=8b5cf6&color=fff" style="width:100%;height:100%;border-radius:50%">`;
+  }
+}
+</script>
+</body>
+</html>
