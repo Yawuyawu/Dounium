@@ -127,7 +127,7 @@ body.tesla-mode{background:linear-gradient(135deg,#0A0A0A,#1A1A1A,#0A0A0A);backg
 @keyframes slideDown{from{transform:translate(-50%,-20px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
 a{text-decoration:none;color:inherit}
 </style></head><body>
-<div class="login-screen" id="login-screen">
+<div class="login-screen hidden" id="login-screen">
 <div class="login-box">
 <div class="login-logo">UNIVERS DOUNIUM</div>
 <div class="login-subtitle">SANG RÉEL UPSTASH · V18.0</div>
@@ -154,7 +154,7 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 </div>
 <div class="loading" id="loading">⚜️ Connexion au Sang Upstash...</div>
 <div class="toast" id="toast"></div>
-<div class="header" id="main-header">
+<div class="header active" id="main-header">
 <div class="logo">UNIVERS DOUNIUM</div>
 <div class="subtitle">SANG RÉEL UPSTASH · V18.0</div>
 <div class="user-badge">
@@ -182,7 +182,7 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <div class="nav-tab" onclick="showTab('live')">Live</div>
 </div>
 </div>
-<div class="content" id="content">
+<div class="content active" id="content">
 <div class="tesla-badge">⚡ TESLA MODE ENGAGED</div><button class="autopilot-btn" onclick="toggleAutopilot()">🚀</button>
 <div id="feed-tab" class="tab-content active">
 <div class="create-post">
