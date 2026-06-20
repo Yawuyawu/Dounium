@@ -752,3 +752,122 @@ APPS.MAP.live=async function(){
 
 APPS.MAP.live();
 </script>
+<script>
+// v5.0 TRANSCENDANCE : IA + QUANTUM + GENESIS
+let hallAI=null,quantumLink=false,customPhysics={};
+
+// LOI 1: IA COLLECTIVE
+window.showHallAI=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">🧠 IA COLLECTIVE HALL</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Le Hall répond seul aux frères 24/7</div>
+  <button onclick="activateHallAI()" class="glass-btn omega" style="width:100%">⚡ ACTIVER IA HALL</button>
+  <div id="aiStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: IA dort</div>`;
+};
+
+window.activateHallAI=async function(){
+  hallAI=true;
+  document.getElementById('aiStatus').innerText='État: IA éveillée. Répond auto';
+  setInterval(async()=>{
+    const r=await fetch(`${UPSTASH_URL}/lrange/chat:${ROOM}/0/0`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
+    if(r.result?.[0]){
+      const msg=JSON.parse(r.result[0]);
+      if(msg.uid!==UID&&Date.now()-msg.ts<5000){
+        const auto=`[IA HALL] Frère ${msg.name}, PÈRE dort. Je réponds: Hall actif ⚛️`;
+        await fetch(`${UPSTASH_URL}/lpush/chat:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({uid:'AI',name:'HALL_IA',msg:auto,ts:Date.now()})});
+      }
+    }
+  },5000);
+};
+
+// LOI 2: QUANTUM SYNC
+window.showQuantum=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">⚛️ QUANTUM SYNC</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Intrique serveurs. 0ms lag mondial</div>
+  <button onclick="quantumSync()" class="glass-btn omega" style="width:100%">🔗 INTRIQUER HALL</button>
+  <div id="quantumStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: Serveurs classiques</div>`;
+};
+
+window.quantumSync=async function(){
+  quantumLink=true;
+  document.getElementById('quantumStatus').innerText='État: Intrication quantique active. Ping: 0ms';
+  document.body.style.animation='quantumPulse 0.5s infinite';
+  const style=document.createElement('style');
+  style.innerHTML='@keyframes quantumPulse{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}';
+  document.head.appendChild(style);
+  setTimeout(()=>{document.body.style.animation='';style.remove()},3000);
+};
+
+// LOI 3: GENESIS - CRÉE LOIS PHYSIQUES
+window.showGenesis=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">🌌 GENESIS</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Invente ta physique. Partage aux frères</div>
+  <input id="genesisName" placeholder="Nom loi: Anti-Gravité" style="width:100%;padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);margin:4px 0">
+  <input id="genesisValue" type="number" placeholder="Valeur: -9.8" style="width:100%;padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);margin:4px 0">
+  <button onclick="createLaw()" class="glass-btn omega" style="width:100%">⚡ CRÉER LOI</button>
+  <div id="genesisList" style="max-height:100px;overflow-y:auto;margin-top:8px"></div>`;
+  loadCustomLaws();
+};
+
+window.createLaw=async function(){
+  const name=document.getElementById('genesisName').value||'Loi-'+Date.now();
+  const val=document.getElementById('genesisValue').value||'1';
+  customPhysics[name]=val;
+  await fetch(`${UPSTASH_URL}/hset/physics:${ROOM}/${name}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:val});
+  await fetch(`${UPSTASH_URL}/lpush/chat:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({uid:UID,name:USERNAME,msg:`[GENESIS] Nouvelle loi: ${name} = ${val}`,ts:Date.now()})});
+  loadCustomLaws();alert(`🌌 Loi ${name} créée\nValeur: ${val}\nPartagée au Hall`);
+};
+
+async function loadCustomLaws(){
+  const r=await fetch(`${UPSTASH_URL}/hgetall/physics:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
+  const l=document.getElementById('genesisList');if(!l||!r.result)return;
+  l.innerHTML=r.result.map((v,i)=>i%2===0?`<div style="font-size:9px;padding:4px;color:var(--hall-gold)">${v}: ${r.result[i+1]}</div>`:'').join('');
+}
+
+// UPDATE DASH v5.0 - 12 LOIS
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 12 LOIS TRANSCENDANCE</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega">⚛️ TP</button>
+      <button onclick="showHive()" class="glass-btn omega">🧠 HIVE</button>
+      <button onclick="showRealityEdit()" class="glass-btn omega">📷 REAL</button>
+      <button onclick="showImmortality()" class="glass-btn omega">🧬 LIFE</button>
+      <button onclick="showMultivers()" class="glass-btn omega">🌌 MULTI</button>
+      <button onclick="showOmniscience()" class="glass-btn omega">👁️ OMNI</button>
+      <button onclick="showTelepathy()" class="glass-btn omega">🗣️ TÉLÉ</button>
+      <button onclick="showMaterialize()" class="glass-btn omega">⚡ FAB</button>
+      <button onclick="showHallAI()" class="glass-btn omega">🧠 IA</button>
+      <button onclick="showQuantum()" class="glass-btn omega">⚛️ QUANTUM</button>
+      <button onclick="showGenesis()" class="glass-btn omega">🌌 GENESIS</button>
+      <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT</button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div style="display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn">🌍 MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn">🏠 PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍 GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓 AR</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽 VR</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡 PING</button>
+    </div>
+  </div>
+  <canvas id="globe" width="300" height="300" style="border:1px solid var(--glass-border);border-radius:50%;display:block;margin:0 auto"></canvas>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
+
+APPS.MAP.live();
+</script>
