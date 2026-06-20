@@ -4542,3 +4542,39 @@ window.douniSendEmoji=function(e){
   console.log('DOUNIUM v12.9e DOCK BAR BAS READY');
 })();
 </script>
+<script>
+// v12.9f FIX NOM DOUNIUM
+(function DouniFixName(){
+  if(window.DouniNameFix) return; window.DouniNameFix=true;
+
+  // 1. CSS LOGO DOUNIUM
+  let css=document.createElement('style');
+  css.textContent=`
+    #douniTopLogo{
+      color:var(--or)!important;
+      font-size:26px!important;
+      font-weight:900!important;
+      font-family:monospace!important;
+      letter-spacing:4px!important;
+      text-shadow:0 0 20px var(--or),0 0 40px var(--cyan)!important;
+      animation:glowDounium 3s infinite!important;
+    }
+    @keyframes glowDounium{
+      0%,100%{text-shadow:0 0 20px var(--or),0 0 40px var(--cyan)}
+      50%{text-shadow:0 0 30px var(--or),0 0 60px var(--cyan),0 0 80px var(--violet)}
+    }
+  `;
+  document.head.appendChild(css);
+
+  // 2. REMPLACE LE TEXTE
+  setTimeout(()=>{
+    const logo=document.getElementById('douniTopLogo');
+    if(logo) logo.innerText='D O U N I U M';
+    
+    // CHANGE AUSSI LE TITLE
+    document.title='DOUNIUM ⚜️ HALL QUANTIQUE';
+    
+    console.log('DOUNIUM v12.9f NOM CORRIGÉ');
+  },500);
+})();
+</script>
