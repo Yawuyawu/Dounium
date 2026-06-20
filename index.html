@@ -2970,3 +2970,7 @@ window.toggleGlobe=function(){
 };
 document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('button').forEach(b=>{if(b.innerText.includes('TP')||b.innerText.includes('MAP')||b.innerText.includes('GLOBE')){b.innerText='🌍 INVOQUE';b.onclick=toggleGlobe;b.className='btn-douni'}})});
 </script>
+<!-- v12.1b FORCE BOUTON INVOQUE -->
+<div id="douniForceInvoke" style="position:fixed;bottom:20px;right:20px;z-index:99999">
+  <button onclick="toggleGlobe()" class="btn-douni" style="box-shadow:0 0 20px #FFD700">🌍 INVOQUE</button>
+</div>
