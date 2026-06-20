@@ -4324,3 +4324,106 @@ window.douniSendEmoji=function(e){
   },500);
 })();
 </script>
+<script>
+// v12.9d TOP BAR + NAV INSTA DOUNIUM
+(function DouniInstaBar(){
+  if(window.DouniInstaActive) return; window.DouniInstaActive=true;
+
+  // 1. CSS TOP BAR + NAV INSTA
+  let css=document.createElement('style');
+  css.textContent=`
+    /* TOP BAR INSTA */
+    #douniTopBar{
+      position:fixed;top:0;left:0;width:100%;height:56px;
+      background:rgba(0,0,0,0.98);backdrop-filter:blur(20px);
+      border-bottom:1px solid #222;z-index:9999998;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 16px;box-sizing:border-box;
+    }
+    #douniTopLogo{
+      color:var(--or);font-size:24px;font-weight:bold;
+      font-family:'Billabong',cursive,monospace;letter-spacing:1px;
+      cursor:pointer;
+    }
+    #douniTopActions{display:flex;align-items:center;gap:20px}
+   .douniTopIcon{
+      color:#FFF;font-size:26px;cursor:pointer;
+      transition:0.2s;position:relative;pointer-events:auto!important;
+    }
+   .douniTopIcon:hover{transform:scale(1.1);color:var(--cyan)}
+   .douniTopIcon.badge::after{
+      content:'';position:absolute;top:-2px;right:-2px;
+      width:10px;height:10px;background:var(--rouge);
+      border-radius:50%;border:2px solid #000;
+    }
+    
+    /* PUSH CONTENU VERS BAS */
+    #douniWalletContainer{padding-top:60px!important}
+    
+    /* NAV BOTTOM INSTA */
+    #douniNavBar{
+      position:fixed!important;bottom:0!important;left:0!important;
+      width:100%!important;height:56px!important;
+      background:rgba(0,0,0,0.98)!important;backdrop-filter:blur(20px)!important;
+      border-top:1px solid #222!important;z-index:9999999!important;
+      display:flex!important;justify-content:space-around!important;
+      align-items:center!important;padding:0!important;
+    }
+   .douniNavIcon{
+      color:#FFF!important;font-size:26px!important;cursor:pointer!important;
+      transition:0.2s!important;pointer-events:auto!important;
+      padding:12px 20px!important;flex:1;text-align:center;
+    }
+   .douniNavIcon:hover,.douniNavIcon.active{color:var(--or)!important;transform:scale(1.15)!important}
+    
+    /* CACHE ANCIEN HEADER */
+    #douniWalletHeader{display:none!important}
+  `;
+  document.head.appendChild(css);
+
+  // 2. HTML TOP BAR
+  let topBar=document.createElement('div');
+  topBar.id='douniTopBar';
+  topBar.innerHTML=`
+    <div id="douniTopLogo" onclick="douniOpenFeed()">DOUNIGRAM</div>
+    <div id="douniTopActions">
+      <div class="douniTopIcon" onclick="douniRefreshFeed()">⇅</div>
+      <div class="douniTopIcon" onclick="douniCreatePost()">➕</div>
+      <div class="douniTopIcon badge" onclick="douniOpenNotifs()">♡</div>
+    </div>
+  `;
+  document.body.appendChild(topBar);
+
+  // 3. RECONSTRUIT NAV BOTTOM INSTA
+  setTimeout(()=>{
+    let nav=document.getElementById('douniNavBar');
+    if(nav){
+      nav.innerHTML=`
+        <div class="douniNavIcon" onclick="douniOpenFeed()">🏠</div>
+        <div class="douniNavIcon" onclick="douniOpenSearch()">🔍</div>
+        <div class="douniNavIcon" onclick="douniCreatePost()">➕</div>
+        <div class="douniNavIcon" onclick="douniOpenReels()">🎬</div>
+        <div class="douniNavIcon" onclick="douniOpenProfile()">
+          <img id="douniNavAvatar" src="" style="width:28px;height:28px;border-radius:50%;border:1px solid var(--or);object-fit:cover">
+        </div>
+      `;
+      // SYNC AVATAR
+      document.getElementById('douniNavAvatar').src=localStorage.douniSoulAvatarImg||'';
+    }
+  },500);
+
+  // 4. FONCTIONS NAV
+  window.douniRefreshFeed=()=>{location.reload()};
+  window.douniOpenNotifs=()=>{alert('🔔 Notifications DOUNIUM\\n\\n• +5 XP gagné\\n• Nouveau DOUNI connecté\\n• Level UP bientôt')};
+  window.douniOpenSearch=()=>{
+    let q=prompt('Recherche DOUNI ou Post:');
+    if(q)alert('🔍 Recherche: '+q+'\\n\\nRésultats arrivent v13.0');
+  };
+  window.douniOpenReels=()=>{
+    alert('🎬 REELS DOUNIUM\\n\\nStories 24h en plein écran\\nArrive v12.9e');
+    douniOpenFeed();
+  };
+  
+  console.log('DOUNIUM v12.9d TOP BAR + NAV INSTA READY');
+})();
+</script>
