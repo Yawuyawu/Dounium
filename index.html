@@ -3,24 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Dounium V19.0 SUPER SMART TV 8D</title>
+<title>Dounium V19.1 FULL 8D</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 :root{--gold:#FFD700;--neon:#00FF88;--tesla-red:#E31937;--blue-8k:#00BFFF}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#FFF;font-family:Orbitron,sans-serif;overflow:hidden;cursor:none}
-.tv-glow{position:fixed;inset:0;background:radial-gradient(circle at center,rgba(0,191,255,0.1),transparent 70%);pointer-events:none;z-index:1}
-.launcher{position:fixed;inset:0;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:40px;background:linear-gradient(135deg,#000,#0A0A1A);z-index:10}
-.app-tile{background:rgba(255,255,255,0.05);border:1px solid rgba(255,215,0,0.2);border-radius:24px;padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;backdrop-filter:blur(20px)}
-.app-tile:hover{background:rgba(255,215,0,0.1);transform:scale(1.05);box-shadow:0 0 40px rgba(255,215,0,0.3)}
-.app-icon{font-size:48px;margin-bottom:12px}
-.app-name{font-size:14px;font-weight:700;text-align:center}
-.status-bar{position:fixed;top:0;left:0;right:0;height:60px;background:rgba(0,0,0,0.8);backdrop-filter:blur(30px);display:flex;align-items:center;justify-content:space-between;padding:0 40px;z-index:100}
-.logo-tv{display:flex;align-items:center;gap:12px}
-.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--blue-8k));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 0 30px var(--blue-8k)}
-.time-weather{display:flex;gap:20px;font-size:14px}
-.modal{position:fixed;inset:0;background:#000;z-index:200;display:none}
-.modal.active{display:block}
+body{background:#0A0A0A;color:#FFF;font-family:Orbitron,sans-serif;overflow-x:hidden}
+body.tv-mode{background:#000;cursor:none}
+.header{position:fixed;top:0;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.2);padding:12px 16px;z-index:1000;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--neon));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.logo-text{font-size:18px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.theme-toggle{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);width:40px;height:40px;border-radius:12px;color:#FFF;cursor:pointer}
+.upstash-live{background:rgba(0,255,136,0.1);border:1px solid var(--neon);border-radius:12px;padding:8px;text-align:center;font-size:10px;color:var(--neon);margin:70px 16px 8px}
+.upstash-live.off{background:rgba(255,0,0,0.1);border-color:red;color:red}
+.content{margin-top:110px;padding-bottom:80px}
+.stories-bar{display:flex;gap:12px;padding:16px;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,0.05)}
+.story-ring{width:68px;height:68px;border-radius:50%;padding:3px;background:linear-gradient(45deg,var(--gold),var(--neon),var(--tesla-red));cursor:pointer}
+.story-avatar{width:100%;height:100%;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:24px}
+.story-add{background:rgba(255,255,255,0.1)}
+.post{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:20px;margin:16px;overflow:hidden}
+.post-header{display:flex;align-items:center;gap:12px;padding:16px}
+.post-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--neon));display:flex;align-items:center;justify-content:center;font-weight:700}
+.post-user{flex:1}
+.post-name{font-weight:700;font-size:14px}
+.post-time{font-size:11px;color:rgba(255,255,255,0.5)}
+.post-content{padding:0 16px 16px;font-size:14px;line-height:1.6}
+.reaction-bar{display:flex;gap:16px;padding:12px 16px;border-top:1px solid rgba(255,255,255,0.05)}
+.react-btn{background:none;border:none;color:rgba(255,255,255,0.6);font-size:20px;cursor:pointer;transition:all 0.3s}
+.react-btn.liked{color:var(--tesla-red);transform:scale(1.2)}
+.dm-fab{position:fixed;bottom:80px;left:16px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--gold));border:none;color:#000;font-size:24px;cursor:pointer;box-shadow:0 8px 24px rgba(0,255,136,0.4);z-index:998}
+.fab-menu{position:fixed;bottom:80px;right:16px;display:flex;flex-direction:column;gap:12px;z-index:998}
+.fab-mini{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#FFF;font-size:20px;cursor:pointer;backdrop-filter:blur(10px)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);z-index:2000;display:none;align-items:center;justify-content:center}
+.modal.active{display:flex}
+.modal-content{background:rgba(20,20,20,0.95);border:1px solid rgba(255,215,0,0.3);border-radius:24px;padding:24px;width:90%;max-width:400px}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.modal-title{font-size:18px;font-weight:700}
+.close-modal{background:none;border:none;color:#FFF;font-size:24px;cursor:pointer}
+input,textarea{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px;color:#FFF;margin-bottom:12px;font-family:Orbitron}
+.btn-whatsapp{width:100%;background:linear-gradient(135deg,var(--gold),var(--neon));color:#000;border:none;padding:16px;border-radius:20px;font-size:15px;font-weight:700;font-family:Orbitron;cursor:pointer}
+.comment-section{padding:0 16px 16px;border-top:1px solid rgba(255,255,255,0.05);display:none}
+.comment-input{display:flex;gap:8px;margin-top:12px}
+.comment-input input{flex:1;margin:0}
+.comment-list{margin-top:12px;font-size:12px}
 video{width:100%;height:100vh;object-fit:contain;background:#000}
 .video-ui{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.9));padding:40px;opacity:0;transition:opacity 0.3s}
 .modal:hover.video-ui{opacity:1}
@@ -28,56 +54,67 @@ video{width:100%;height:100vh;object-fit:contain;background:#000}
 .progress-fill{height:100%;background:var(--gold);border-radius:3px;width:0%}
 .controls{display:flex;align-items:center;gap:20px}
 .ctrl-btn{background:rgba(255,255,255,0.1);border:none;width:50px;height:50px;border-radius:50%;color:#FFF;font-size:20px;cursor:pointer}
-.browser-frame{width:100%;height:calc(100vh - 60px);border:none;background:#FFF}
 .codec-badge{position:absolute;top:80px;right:40px;background:rgba(0,191,255,0.2);border:1px solid var(--blue-8k);padding:8px 16px;border-radius:12px;font-size:12px}
 .usb-input{display:none}
-.remote-cursor{position:fixed;width:20px;height:20px;border:2px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9999;box-shadow:0 0 20px var(--gold)}
 </style>
 </head>
 <body>
-<div class="tv-glow"></div>
-<div class="remote-cursor" id="cursor"></div>
+<div class="header">
+<div class="logo"><div class="logo-icon">⚜️</div><div class="logo-text">DOUNIUM FULL</div></div>
+<div style="display:flex;gap:8px">
+<button class="theme-toggle" onclick="openEmailModal()">👤</button>
+<button class="theme-toggle" onclick="toggleTVMode()">📺</button>
+<button class="theme-toggle" onclick="openUSB()">💾</button>
+</div></div>
 
-<div class="status-bar">
-<div class="logo-tv">
-<div class="logo-icon">⚜️</div>
-<div style="font-size:20px;font-weight:900">DOUNIUM TV 8D</div>
+<div class="upstash-live off" id="upstash-badge">● MODE LOCAL</div>
+
+<div class="content" id="main-content">
+<div class="stories-bar" id="stories-bar">
+<div class="story-ring" onclick="addStory()"><div class="story-avatar story-add">+</div></div>
 </div>
-<div class="time-weather">
-<div id="clock">12:00</div>
-<div id="weather">☀️ 22°C London</div>
-<div>● UPSTASH LIVE</div>
+<div id="posts-container"></div>
 </div>
 
-<div class="launcher" id="launcher">
-<div class="app-tile" onclick="openPlayer()">
-<div class="app-icon">🎬</div>
-<div class="app-name">PLAYER MP4<br>H.265 + AV1 8K</div>
+<button class="dm-fab" onclick="openDM()">💬</button>
+<div class="fab-menu">
+<button class="fab-mini" onclick="openBank()">🏦</button>
+<button class="fab-mini" onclick="openComposer()">✍️</button>
 </div>
-<div class="app-tile" onclick="openBrowser()">
-<div class="app-icon">🌐</div>
-<div class="app-name">BROWSER 8D<br>Chromium 120</div>
+
+<!-- MODALS -->
+<div class="modal" id="email-modal"><div class="modal-content">
+<div class="modal-header"><div class="modal-title">⚜️ PROFIL 8D</div><button class="close-modal" onclick="closeEmailModal()">×</button></div>
+<input type="text" id="reg-name" placeholder="Nom / Pseudo">
+<input type="email" id="reg-email" placeholder="Email">
+<input type="password" id="reg-pass" placeholder="Mot de passe">
+<button class="btn-whatsapp" onclick="registerEmail()">⚡ VALIDER + 100⚜️</button>
+</div></div>
+
+<div class="modal" id="verify-modal"><div class="modal-content">
+<div class="modal-title" style="margin-bottom:16px">📧 CODE EMAIL</div>
+<input type="tel" id="email-code" placeholder="000000" maxlength="6" style="text-align:center;letter-spacing:8px;font-size:20px">
+<button class="btn-whatsapp" onclick="verifyEmailCode()">✅ CONFIRMER</button>
+</div></div>
+
+<div class="modal" id="composer-modal"><div class="modal-content">
+<div class="modal-header"><div class="modal-title">✍️ NOUVEAU POST</div><button class="close-modal" onclick="closeComposer()">×</button></div>
+<textarea id="post-content" placeholder="Exprime ton Sang Réel..."></textarea>
+<button class="btn-whatsapp" onclick="submitPost()">🚀 POSTER 8D</button>
+</div></div>
+
+<div class="modal" id="bank-modal"><div class="modal-content">
+<div class="modal-header"><div class="modal-title">🏦 DOUNIUM BANK 8D</div><button class="close-modal" onclick="closeBank()">×</button></div>
+<div style="text-align:center;margin-bottom:16px">
+<div style="font-size:12px;color:rgba(255,255,255,0.6)">SOLDE SANG RÉEL</div>
+<div style="font-size:32px;font-weight:900;color:var(--gold)" id="bank-balance">0 ⚜️</div>
 </div>
-<div class="app-tile" onclick="openBank()">
-<div class="app-icon">🏦</div>
-<div class="app-name">DOUNIUM BANK<br>Cloud Ledger</div>
-<div class="app-tile" onclick="openSocial()">
-<div class="app-icon">⚜️</div>
-<div class="app-name">SOCIAL 8D<br>Feed + Stories</div>
-<div class="app-tile" onclick="openGaming()">
-<div class="app-icon">🎮</div>
-<div class="app-name">GAMING HUB<br>144Hz VRR</div>
-</div>
-<div class="app-tile" onclick="openAI()">
-<div class="app-icon">🧠</div>
-<div class="app-name">IA UPSCALE<br>NQ8 Gen3</div>
-<div class="app-tile" onclick="openUSB()">
-<div class="app-icon">💾</div>
-<div class="app-name">USB 3.0<br>Mount Drive</div>
-<div class="app-tile" onclick="openSettings()">
-<div class="app-icon">⚙️</div>
-<div class="app-name">SETTINGS<br>Matter/Thread</div>
-</div>
+<input type="text" id="bank-to" placeholder="Destinataire @pseudo">
+<input type="number" id="bank-amount" placeholder="Montant ⚜️">
+<button class="btn-whatsapp" onclick="sendCoins()">💸 ENVOYER</button>
+<div style="margin-top:20px;font-size:12px;font-weight:700">HISTORIQUE</div>
+<div id="bank-history" style="max-height:200px;overflow-y:auto;margin-top:8px;font-size:11px"></div>
+</div></div>
 
 <div class="modal" id="player-modal">
 <div class="codec-badge" id="codec-info">Codec: --</div>
@@ -96,99 +133,154 @@ video{width:100%;height:100vh;object-fit:contain;background:#000}
 <input type="file" id="usb-input" class="usb-input" accept="video/mp4,video/*" onchange="loadVideo(this)">
 </div>
 
-<div class="modal" id="browser-modal">
-<iframe id="browser-frame" class="browser-frame" src="https://dounium.vercel.app"></iframe>
-<button class="ctrl-btn" style="position:absolute;top:80px;right:40px" onclick="closeModal()">❌</button>
-</div>
-
-<div class="modal" id="bank-modal">
-<iframe class="browser-frame" src="https://dounium.vercel.app" style="margin-top:60px"></iframe>
-<button class="ctrl-btn" style="position:absolute;top:80px;right:40px" onclick="closeModal()">❌</button>
-</div>
-
 <script>
 const UPSTASH_URL="https://golden-sturgeon-78265.upstash.io";
 const UPSTASH_TOKEN="gQAAAAAAATG5AAIgcDIwMTg0YzNlYzBiOGE0MDEyODBkNTRmMTA4ZDhlYWRjNw";
-let aiUpscale=false;
+let currentUser=null,aiUpscale=false;
 
-// Clock
-setInterval(()=>{
-document.getElementById('clock').textContent=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-},1000);
-
-// Remote cursor simulation
-document.addEventListener('mousemove',e=>{
-document.getElementById('cursor').style.left=e.clientX+'px';
-document.getElementById('cursor').style.top=e.clientY+'px';
+window.addEventListener("load",()=>{
+let user=localStorage.getItem("dounium_user");
+currentUser=user?JSON.parse(user):{name:"Visiteur",email:"",verified:false};
+if(!user)localStorage.setItem("dounium_user",JSON.stringify(currentUser));
+checkUpstash();loadCloudPosts();loadStories();setInterval(checkUpstash,10000);
 });
 
-// TV Apps
-function openPlayer(){document.getElementById('usb-input').click()}
-function openBrowser(){document.getElementById('browser-modal').classList.add('active')}
-function openBank(){document.getElementById('bank-modal').classList.add('active')}
-function openSocial(){openBrowser()}
-function openGaming(){alert('🎮 Gaming Hub 144Hz VRR\nGeForce Now + Xbox Cloud\nBranch manette Bluetooth')}
-function openAI(){aiUpscale=!aiUpscale;alert('🧠 IA Upscale '+(aiUpscale?'ON':'OFF')+'\nNQ8 AI Gen3: 4K→8K + Denoise')}
-function openUSB(){document.getElementById('usb-input').click()}
-function openSettings(){alert('⚙️ Matter/Thread Domotique\nWiFi 7 + Bluetooth 5.4\nHDR10+ / Dolby Vision / DTS:X')}
-function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('active'))}
+async function checkUpstash(){
+if(!UPSTASH_URL)return;
+try{
+const res=await fetch(`${UPSTASH_URL}/ping`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+const data=await res.json();
+document.getElementById("upstash-badge").textContent=data.result==="PONG"?"● SANG RÉEL - CLOUD LIVE":"● MODE LOCAL";
+document.getElementById("upstash-badge").classList.toggle("off",data.result!=="PONG");
+}catch(e){document.getElementById("upstash-badge").classList.add("off")}
+}
 
-// Video Player 8K
+async function saveToUpstash(key,data){
+if(!UPSTASH_URL)return;
+try{await fetch(`${UPSTASH_URL}/set/${key}`,{method:"POST",headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(data)})}catch(e){}
+}
+async function getFromUpstash(key){
+if(!UPSTASH_URL)return null;
+try{const res=await fetch(`${UPSTASH_URL}/get/${key}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});const data=await res.json();return data.result?JSON.parse(data.result):null}catch(e){return null}
+}
+
+// AUTH
+function openEmailModal(){document.getElementById("email-modal").classList.add("active")}
+function closeEmailModal(){document.getElementById("email-modal").classList.remove("active")}
+async function registerEmail(){
+const name=document.getElementById("reg-name").value,email=document.getElementById("reg-email").value,pass=document.getElementById("reg-pass").value;
+if(!name||!email||!pass||!email.includes("@")){alert("Remplis tout");return}
+const code=Math.floor(100000+Math.random()*900000).toString();
+localStorage.setItem("dounium_email_code",code);localStorage.setItem("dounium_temp_user",JSON.stringify({name,email}));
+closeEmailModal();document.getElementById("verify-modal").classList.add("active");alert("📧 Code: "+code);
+}
+async function verifyEmailCode(){
+if(document.getElementById("email-code").value===localStorage.getItem("dounium_email_code")){
+const temp=JSON.parse(localStorage.getItem("dounium_temp_user"));
+currentUser={name:temp.name,email:temp.email,verified:true};
+localStorage.setItem("dounium_user",JSON.stringify(currentUser));
+await saveToUpstash(`user_${temp.name}`,{email:temp.email,name:temp.name});
+await setBalance(temp.email,100);
+document.getElementById("verify-modal").classList.remove("active");alert("⚜️ Profil Vérifié + 100⚜️");
+}else alert("Code incorrect");
+}
+
+// POSTS + COMMENTS
+function openComposer(){if(!currentUser.verified){openEmailModal();return}document.getElementById("composer-modal").classList.add("active")}
+function closeComposer(){document.getElementById("composer-modal").classList.remove("active")}
+async function submitPost(){
+const content=document.getElementById("post-content").value;if(!content)return;
+const postId=Date.now(),newPost={id:postId,user:currentUser.name,email:currentUser.email,content,org:"8D",time:Date.now(),likes:0,comments:[]};
+renderPost(newPost);let posts=await getFromUpstash("dounium_posts")||[];posts.push(newPost);await saveToUpstash("dounium_posts",posts);
+closeComposer();document.getElementById("post-content").value="";
+}
+function renderPost(p){
+const postHTML=`<div class="post" id="post-${p.id}">
+<div class="post-header"><div class="post-avatar">${p.user[0]}</div>
+<div class="post-user"><div class="post-name">${p.user}</div>
+<div class="post-time">${new Date(p.time).toLocaleTimeString()} · ${p.org}</div></div></div>
+<div class="post-content">${p.content}</div>
+<div class="reaction-bar">
+<button class="react-btn" onclick="toggleLike(${p.id},this)">❤️ <span>${p.likes}</span></button>
+<button class="react-btn" onclick="toggleComments(${p.id})">💬 <span>${p.comments.length}</span></button>
+<button class="react-btn" onclick="sharePost(${p.id})">🔗</button>
+</div>
+<div class="comment-section" id="comments-${p.id}">
+<div class="comment-list">${p.comments.map(c=>`<div><b>${c.user}:</b> ${c.text}</div>`).join('')}</div>
+<div class="comment-input"><input id="comment-${p.id}" placeholder="Commenter..."><button class="ctrl-btn" onclick="addComment(${p.id})">➤</button></div>
+</div></div>`;
+document.getElementById("posts-container").insertAdjacentHTML("afterbegin",postHTML);
+}
+async function loadCloudPosts(){const posts=await getFromUpstash("dounium_posts");if(posts&&posts.length){document.getElementById("posts-container").innerHTML="";posts.reverse().forEach(p=>renderPost(p))}}
+async function toggleLike(postId,btn){
+if(!currentUser.verified){openEmailModal();return}
+btn.classList.toggle("liked");let posts=await getFromUpstash("dounium_posts")||[];let post=posts.find(p=>p.id==postId);
+if(post){post.likes=btn.classList.contains("liked")?post.likes+1:post.likes-1;btn.querySelector("span").textContent=post.likes;await saveToUpstash("dounium_posts",posts)}
+}
+function toggleComments(id){document.getElementById(`comments-${id}`).style.display=document.getElementById(`comments-${id}`).style.display==='block'?'none':'block'}
+async function addComment(id){
+if(!currentUser.verified){openEmailModal();return}
+const text=document.getElementById(`comment-${id}`).value;if(!text)return;
+let posts=await getFromUpstash("dounium_posts")||[];let post=posts.find(p=>p.id==id);
+post.comments.push({user:currentUser.name,text,time:Date.now()});await saveToUpstash("dounium_posts",posts);
+document.getElementById(`comment-${id}`).value='';loadCloudPosts();
+}
+function sharePost(id){navigator.clipboard.writeText(location.href);alert("🔗 Lien copié")}
+
+// STORIES
+async function addStory(){if(!currentUser.verified){openEmailModal();return}const stories=await getFromUpstash("dounium_stories")||[];stories.push({user:currentUser.name,time:Date.now()});await saveToUpstash("dounium_stories",stories);loadStories()}
+async function loadStories(){
+const stories=await getFromUpstash("dounium_stories")||[];
+const bar=document.getElementById("stories-bar");bar.innerHTML='<div class="story-ring" onclick="addStory()"><div class="story-avatar story-add">+</div></div>';
+stories.slice(-10).forEach(s=>{bar.innerHTML+=`<div class="story-ring"><div class="story-avatar">${s.user[0]}</div></div>`});
+}
+
+// BANK
+async function getBalance(email){let bal=await getFromUpstash(`bank_${email}`);return bal?parseInt(bal):0}
+async function setBalance(email,amount){await saveToUpstash(`bank_${email}`,amount.toString())}
+async function addTransaction(from,to,amount){
+let hist=await getFromUpstash(`bank_hist_${from}`)||[];hist.push({to,amount,time:Date.now(),type:"out"});await saveToUpstash(`bank_hist_${from}`,hist);
+let histTo=await getFromUpstash(`bank_hist_${to}`)||[];histTo.push({from,amount,time:Date.now(),type:"in"});await saveToUpstash(`bank_hist_${to}`,histTo);
+}
+function openBank(){if(!currentUser.verified){openEmailModal();return}document.getElementById("bank-modal").classList.add("active");updateBankUI()}
+function closeBank(){document.getElementById("bank-modal").classList.remove("active")}
+async function updateBankUI(){
+let bal=await getBalance(currentUser.email);document.getElementById("bank-balance").textContent=bal+" ⚜️";
+let hist=await getFromUpstash(`bank_hist_${currentUser.email}`)||[];let html="";
+hist.reverse().slice(0,10).forEach(t=>{let sign=t.type==="in"?"+":"-";let color=t.type==="in"?"var(--neon)":"var(--tesla-red)";let name=t.type==="in"?t.from:t.to;
+html+=`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span>${t.type==="in"?"Reçu de":"Envoyé à"} ${name}</span><span style="color:${color}">${sign}${t.amount} ⚜️</span></div>`});
+document.getElementById("bank-history").innerHTML=html||"<div style=\"color:rgba(255,255,255,0.4);text-align:center\">Aucune transaction</div>";
+}
+async function sendCoins(){
+const to=document.getElementById("bank-to").value.replace("@",""),amount=parseInt(document.getElementById("bank-amount").value);
+if(!to||!amount||amount<=0){alert("Remplis tout PÈRE");return}
+let myBal=await getBalance(currentUser.email);if(myBal<amount){alert("Solde insuffisant");return}
+let toUser=await getFromUpstash(`user_${to}`);if(!toUser){alert("User introuvable");return}
+await setBalance(currentUser.email,myBal-amount);let toBal=await getBalance(toUser.email);await setBalance(toUser.email,toBal+amount);
+await addTransaction(currentUser.email,to,amount);document.getElementById("bank-to").value="";document.getElementById("bank-amount").value="";updateBankUI();alert(`💸 ${amount} ⚜️ envoyé à ${to}`);
+}
+
+// DM
+function openDM(){if(!currentUser.verified){openEmailModal();return}alert("💬 DM 8D: Clique sur un post pour répondre en privé")}
+
+// PLAYER TV
 const player=document.getElementById('video-player');
-function loadVideo(input){
-const file=input.files[0];
-if(!file)return;
-const url=URL.createObjectURL(file);
-player.src=url;
-document.getElementById('player-modal').classList.add('active');
-player.play();
-detectCodec(file);
-}
-function detectCodec(file){
-const v=document.createElement('video');
-v.src=URL.createObjectURL(file);
-v.onloadedmetadata=()=>{
-let codec='H.264';
-if(file.name.includes('265')||file.name.includes('HEVC'))codec='H.265/HEVC';
-if(file.name.includes('AV1'))codec='AV1';
-document.getElementById('codec-info').textContent=`Codec: ${codec} | ${v.videoWidth}x${v.videoHeight} | ${Math.round(file.size/1e6)}MB`;
-};
-}
+function openUSB(){document.getElementById('usb-input').click()}
+function loadVideo(input){const file=input.files[0];if(!file)return;player.src=URL.createObjectURL(file);document.getElementById('player-modal').classList.add('active');player.play();detectCodec(file)}
+function detectCodec(file){const v=document.createElement('video');v.src=URL.createObjectURL(file);v.onloadedmetadata=()=>{let codec='H.264';if(file.name.includes('265')||file.name.includes('HEVC'))codec='H.265/HEVC';if(file.name.includes('AV1'))codec='AV1';document.getElementById('codec-info').textContent=`Codec: ${codec} | ${v.videoWidth}x${v.videoHeight} | ${Math.round(file.size/1e6)}MB`}}
 function togglePlay(){player.paused?player.play():player.pause()}
 function seek(s){player.currentTime+=s}
-function seekVideo(e){
-const rect=e.currentTarget.getBoundingClientRect();
-const pos=(e.clientX-rect.left)/rect.width;
-player.currentTime=pos*player.duration;
-}
-player.ontimeupdate=()=>{
-const p=(player.currentTime/player.duration)*100;
-document.getElementById('progress').style.width=p+'%';
-document.getElementById('video-time').textContent=formatTime(player.currentTime)+' / '+formatTime(player.duration);
-};
+function seekVideo(e){const rect=e.currentTarget.getBoundingClientRect();player.currentTime=((e.clientX-rect.left)/rect.width)*player.duration}
+player.ontimeupdate=()=>{document.getElementById('progress').style.width=(player.currentTime/player.duration)*100+'%';document.getElementById('video-time').textContent=formatTime(player.currentTime)+' / '+formatTime(player.duration)}
 function formatTime(s){return new Date(s*1000).toISOString().substr(14,5)}
-function toggleAI(){
-aiUpscale=!aiUpscale;
-player.style.filter=aiUpscale?'contrast(1.1) saturate(1.2) brightness(1.05)':'none';
-alert('🧠 NQ8 AI '+(aiUpscale?'ON: Upscale 8K + Denoise':'OFF'));
-}
+function toggleAI(){aiUpscale=!aiUpscale;player.style.filter=aiUpscale?'contrast(1.1) saturate(1.2) brightness(1.05)':'none';alert('🧠 IA '+(aiUpscale?'ON: 8K Upscale':'OFF'))}
+function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('active'));player.pause()}
 
-// Keyboard Remote
-document.addEventListener('keydown',e=>{
-if(e.key==='Escape')closeModal();
-if(e.key===' ')togglePlay();
-if(e.key==='ArrowLeft')seek(-10);
-if(e.key==='ArrowRight')seek(10);
-if(e.key==='b'||e.key==='B')openBrowser();
-});
+// TV MODE
+function toggleTVMode(){document.body.classList.toggle('tv-mode');alert('📺 TV Mode '+(document.body.classList.contains('tv-mode')?'ON':'OFF')+'\nF11 pour plein écran')}
 
-// Auto-hide cursor
-let timeout;
-document.addEventListener('mousemove',()=>{
-document.body.style.cursor='none';
-clearTimeout(timeout);
-timeout=setTimeout(()=>document.body.style.cursor='none',3000);
-});
+// Keyboard
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();if(e.key===' ')togglePlay();if(e.key==='ArrowLeft')seek(-10);if(e.key==='ArrowRight')seek(10)});
 </script>
 </body>
 </html>
