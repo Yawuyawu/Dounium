@@ -2818,3 +2818,90 @@ window.addEventListener('load', function(){
   }, 500);
 });
 </script>
+<script>
+// GLOBE v11.8 - HABILLAGE DOUNI
+window.initGlobe = function(){
+  const c = document.getElementById('globe');
+  if(!c) return;
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height, r = 140;
+  const cx = w/2, cy = h/2;
+  
+  let pulse = 0;
+  
+  function draw(){
+    // 1. Fond espace
+    ctx.fillStyle = '#000510';
+    ctx.fillRect(0,0,w,h);
+    
+    // 2. Halo DOUNIASPHERE
+    const grad = ctx.createRadialGradient(cx,cy,r-20,cx,cy,r+10);
+    grad.addColorStop(0,'rgba(255,215,0,0)');
+    grad.addColorStop(1,'rgba(255,215,0,0.3)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();ctx.arc(cx,cy,r+10,0,Math.PI*2);ctx.fill();
+    
+    // 3. Sphère
+    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
+    ctx.fillStyle = '#001122';
+    ctx.fill();
+    ctx.strokeStyle = '#FFD700';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    
+    // 4. Grille méridiens + parallèles
+    ctx.strokeStyle = 'rgba(255,215,0,0.15)';
+    ctx.lineWidth = 1;
+    
+    // Méridiens
+    for(let i=0;i<12;i++){
+      ctx.save();
+      ctx.translate(cx,cy);
+      ctx.rotate(i*Math.PI/12);
+      ctx.beginPath();
+      ctx.ellipse(0,0,r,r*0.3,0,0,Math.PI*2);
+      ctx.stroke();
+      ctx.restore();
+    }
+    
+    // Parallèles
+    for(let i=1;i<6;i++){
+      const y = r*i/6;
+      const rx = Math.sqrt(r*r - y*y);
+      ctx.beginPath();
+      ctx.ellipse(cx,cy-y,rx,rx*0.3,0,0,Math.PI*2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.ellipse(cx,cy+y,rx,rx*0.3,0,0,Math.PI*2);
+      ctx.stroke();
+    }
+    
+    // 5. Point TOI = DOUNI au centre
+    const pr = 8 + Math.sin(pulse)*2;
+    ctx.beginPath();ctx.arc(cx,cy,pr,0,Math.PI*2);
+    ctx.fillStyle = '#FFD700';
+    ctx.shadowColor = '#FFD700';
+    ctx.shadowBlur = 15;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = '#FFF';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    
+    // 6. Texte
+    ctx.fillStyle = '#FFD700';
+    ctx.font = '10px Orbitron';
+    ctx.textAlign = 'center';
+    ctx.fillText('DOUNIASPHERE', cx, cy+r+20);
+    
+    pulse += 0.05;
+    requestAnimationFrame(draw);
+  }
+  
+  draw();
+  console.log('🌍 GLOBE v11.8: Habillé pour les DOUNIS');
+};
+
+// Force redraw si globe existe déjà
+if(document.getElementById('globe')) initGlobe();
+</script>
