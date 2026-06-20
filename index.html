@@ -2905,3 +2905,53 @@ window.initGlobe = function(){
 // Force redraw si globe existe déjà
 if(document.getElementById('globe')) initGlobe();
 </script>
+<script>
+// v11.9 DOUNISPHERE - PEUPLER LE GLOBE
+window.drawDounisOnGlobe = function(){
+  const c = document.getElementById('globe');
+  if(!c || !window.BROTHERS) return;
+  const ctx = c.getContext('2d');
+  const cx = 150, cy = 150, r = 140;
+  
+  // Hash UID → position stable sur sphère
+  function uidToPos(uid){
+    let hash = 0;
+    for(let i=0;i<uid.length;i++) hash = uid.charCodeAt(i) + ((hash<<5)-hash);
+    const lat = (hash % 180) - 90;  // -90 à 90
+    const lon = (hash >> 8) % 360 - 180; // -180 à 180
+    // Projection simple
+    const x = cx + r * Math.cos(lat*Math.PI/180) * Math.sin(lon*Math.PI/180);
+    const y = cy - r * Math.sin(lat*Math.PI/180);
+    return {x,y};
+  }
+  
+  // Dessine chaque DOUNI
+  BROTHERS.forEach((uid, i) => {
+    const pos = uidToPos(uid);
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, 4, 0, Math.PI*2);
+    ctx.fillStyle = i%2 ? '#00FF88' : '#FF4444'; // Alterne vert/rouge
+    ctx.shadowColor = ctx.fillStyle;
+    ctx.shadowBlur = 8;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  });
+  
+  // Update compteur
+  const stats = document.getElementById('globeStats') || document.getElementById('onlineCount');
+  if(stats) stats.innerText = `${BROTHERS.length + 1} DOUNIS DANS LA DOUNIASPHERE`;
+};
+
+// Hook dans initGlobe
+const oldInit = window.initGlobe;
+window.initGlobe = function(){
+  oldInit();
+  setInterval(() => {
+    if(window.BROTHERS && window.BROTHERS.length > 0){
+      drawDounisOnGlobe();
+    }
+  }, 1000);
+};
+
+console.log('🌍 v11.9: DOUNIS affichés sur globe');
+</script>
