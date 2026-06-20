@@ -2742,3 +2742,43 @@ APPS.MAP.live = async function(){
   console.log('🌍 GLOBE: Injecté + initGlobe ligne 121 appelé');
 };
 </script>
+<script>
+// GLOBE v11.3 OMEGA - CLIQUE MAP = GLOBE FORCÉ
+document.addEventListener('click', function(e){
+  if(e.target.textContent.includes('MAP') || e.target.closest('[onclick*="MAP"]')){
+    setTimeout(() => {
+      if(document.getElementById('globe')) return;
+      
+      // 1. Force canvas dans body
+      document.body.insertAdjacentHTML('beforeend', `
+        <div id="globeContainer" style="position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:9999;text-align:center">
+          <canvas id="globe" width="300" height="300" 
+          style="border:3px solid #FFD700;border-radius:50%;display:block;background:#000;box-shadow:0 0 20px #FFD700"></canvas>
+          <div id="globeStats" style="font-size:12px;color:#FFD700;margin-top:8px;font-family:Orbitron">GLOBE v11.3 OMEGA</div>
+          <button onclick="document.getElementById('globeContainer').remove()" style="margin-top:5px;background:#FF0000;color:#FFF;border:none;padding:4px 8px;border-radius:4px">X</button>
+        </div>
+      `);
+      
+      // 2. Dessin direct sans dépendre d'initGlobe
+      const c = document.getElementById('globe');
+      const ctx = c.getContext('2d');
+      ctx.fillStyle='#000';ctx.fillRect(0,0,300,300);
+      ctx.beginPath();ctx.arc(150,150,140,0,Math.PI*2);
+      ctx.strokeStyle='#FFD700';ctx.lineWidth=3;ctx.stroke();
+      
+      // Grille
+      ctx.strokeStyle='rgba(255,215,0,0.2)';ctx.lineWidth=1;
+      for(let i=0;i<12;i++){
+        ctx.beginPath();ctx.arc(150,150,140*i/12,0,Math.PI*2);ctx.stroke();
+      }
+      
+      // TOI
+      ctx.beginPath();ctx.arc(150,150,8,0,Math.PI*2);
+      ctx.fillStyle='#FFD700';ctx.fill();
+      ctx.strokeStyle='#FFF';ctx.lineWidth=2;ctx.stroke();
+      
+      console.log('🌍 GLOBE v11.3: FORCÉ AU CLIC MAP');
+    }, 100);
+  }
+});
+</script>
