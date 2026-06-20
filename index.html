@@ -5285,3 +5285,302 @@ APPS.WALLET.live = async function(){
   loadMyUniverses();
 };
 </script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;500;700&display=swap');
+
+:root{
+  --hall-gold:#FFD700;
+  --hall-purple:#6400FF;
+  --hall-cyan:#00FFFF;
+  --hall-pink:#FF00C8;
+  --glass:rgba(255,255,255,0.05);
+  --glass-border:rgba(255,255,255,0.1);
+}
+
+body{
+  background:radial-gradient(ellipse at top,#0a0a0a,#000);
+  font-family:'Space Grotesk',sans-serif;
+}
+
+#container{
+  backdrop-filter:blur(20px);
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  box-shadow:0 8px 32px rgba(100,0,255,0.3),inset 0 1px 0 rgba(255,255,255,0.1);
+  animation:hallPulse 4s ease-in-out infinite;
+}
+
+@keyframes hallPulse{
+  0%,100%{box-shadow:0 8px 32px rgba(100,0,255,0.3),inset 0 1px 0 rgba(255,255,255,0.1)}
+  50%{box-shadow:0 8px 48px rgba(255,0,200,0.5),inset 0 1px 0 rgba(255,255,255,0.2)}
+}
+
+.glass-btn{
+  background:var(--glass);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--glass-border);
+  border-radius:12px;
+  padding:12px 20px;
+  font-family:'Orbitron',sans-serif;
+  font-weight:700;
+  font-size:11px;
+  color:var(--hall-gold);
+  cursor:pointer;
+  transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  position:relative;
+  overflow:hidden;
+}
+
+.glass-btn:before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,215,0,0.3),transparent);
+  transition:left 0.5s;
+}
+
+.glass-btn:hover:before{left:100%}
+.glass-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(255,215,0,0.4);
+  border-color:var(--hall-gold);
+}
+
+.glass-btn.omega{
+  background:linear-gradient(135deg,rgba(100,0,255,0.2),rgba(255,0,200,0.2));
+  border-color:var(--hall-purple);
+  color:#FFF;
+  animation:omegaGlow 2s ease-in-out infinite;
+}
+
+@keyframes omegaGlow{
+  0%,100%{box-shadow:0 0 20px rgba(100,0,255,0.5)}
+  50%{box-shadow:0 0 40px rgba(255,0,200,0.8)}
+}
+
+.glass-card{
+  background:var(--glass);
+  backdrop-filter:blur(15px);
+  border:1px solid var(--glass-border);
+  border-radius:16px;
+  padding:16px;
+  margin:12px 0;
+  position:relative;
+}
+
+.glass-card:after{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--hall-gold),transparent);
+}
+
+.quantum-particle{
+  position:fixed;
+  width:2px;
+  height:2px;
+  background:var(--hall-cyan);
+  border-radius:50%;
+  pointer-events:none;
+  animation:particleFloat 8s linear infinite;
+}
+
+@keyframes particleFloat{
+  0%{transform:translateY(100vh) translateX(0);opacity:0}
+  10%{opacity:1}
+  90%{opacity:1}
+  100%{transform:translateY(-100vh) translateX(100px);opacity:0}
+}
+
+.holo-text{
+  font-family:'Orbitron',sans-serif;
+  font-weight:900;
+  background:linear-gradient(135deg,var(--hall-gold),var(--hall-pink),var(--hall-cyan));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:holoShift 3s ease-in-out infinite;
+}
+
+@keyframes holoShift{
+  0%,100%{filter:hue-rotate(0deg)}
+  50%{filter:hue-rotate(180deg)}
+}
+
+.nft-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.nft-card{
+  background:var(--glass);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--glass-border);
+  border-radius:12px;
+  padding:16px;
+  font-size:32px;
+  text-align:center;
+  transition:all 0.3s;
+  cursor:pointer;
+}
+
+.nft-card:hover{
+  transform:scale(1.1) rotateY(10deg);
+  box-shadow:0 12px 32px rgba(255,215,0,0.4);
+  border-color:var(--hall-gold);
+}
+
+.universe-card{
+  background:linear-gradient(135deg,rgba(100,0,255,0.1),rgba(255,0,200,0.1));
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(100,0,255,0.3);
+  border-radius:16px;
+  padding:16px;
+  margin:8px 0;
+  position:relative;
+  overflow:hidden;
+}
+
+.universe-card:before{
+  content:'';
+  position:absolute;
+  top:-50%;
+  left:-50%;
+  width:200%;
+  height:200%;
+  background:conic-gradient(from 0deg,var(--hall-purple),var(--hall-pink),var(--hall-cyan),var(--hall-purple));
+  animation:universeRotate 4s linear infinite;
+  opacity:0.1;
+}
+
+@keyframes universeRotate{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
+
+.stat-glow{
+  font-family:'Orbitron',sans-serif;
+  font-weight:900;
+  font-size:24px;
+  color:var(--hall-gold);
+  text-shadow:0 0 20px rgba(255,215,0,0.8),0 0 40px rgba(255,215,0,0.4);
+  animation:statPulse 2s ease-in-out infinite;
+}
+
+@keyframes statPulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+}
+</style>
+
+<script>
+// Particules quantiques background
+function spawnQuantumParticles(){
+  setInterval(()=>{
+    const p = document.createElement('div');
+    p.className='quantum-particle';
+    p.style.left=Math.random()*100+'vw';
+    p.style.animationDelay=Math.random()*8+'s';
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),8000);
+  },300);
+}
+spawnQuantumParticles();
+
+// Redesign boutons v2.0
+APPS.MAP.live = async function(){
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:16px;margin-bottom:12px">🗺️ GLOBE FRÈRES LIVE</div>
+    <div style="display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn ${currentZoom==='world'?'omega':''}">MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn ${currentZoom==='local'?'omega':''}">MON PAYS</button>
+      <button onclick="zoomGlobe('routes')" class="glass-btn ${currentZoom==='routes'?'omega':''}">ROUTES</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍 GPS</button>
+      <button onclick="startAR()" class="glass-btn">📷 AR</button>
+      <button onclick="enrollFace()" class="glass-btn">👤 FACE</button>
+      <button onclick="connectXReal()" class="glass-btn">🕶️ XR</button>
+      <button onclick="connectProjector()" class="glass-btn">🔦 HOLO</button>
+      <button onclick="connectQuantumScanner()" class="glass-btn omega">⚛️ TP</button>
+    </div>
+  </div>
+  <div id="arContainer" style="display:none;position:relative" class="glass-card">
+    <video id="arVideo" autoplay playsinline style="width:100%;border-radius:12px"></video>
+    <canvas id="arCanvas" style="position:absolute;top:16px;left:16px;right:16px;bottom:60px;pointer-events:none;border-radius:12px"></canvas>
+    <button onclick="stopAR()" class="glass-btn" style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%)">STOP AR</button>
+  </div>
+  <canvas id="globe" width="300" height="300" style="border:1px solid var(--glass-border);border-radius:50%;display:block;margin:0 auto;background:var(--glass);backdrop-filter:blur(10px)"></canvas>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+  </div>
+  <div id="etaBox" class="glass-card" style="display:none"></div>
+  <div id="routesBox" class="glass-card" style="display:none">
+    <div class="holo-text" style="font-size:12px;margin-bottom:8px">🚗 COVOITURAGE HALL</div>
+    <div style="display:flex;gap:8px;margin:8px 0">
+      <input id="routeFrom" placeholder="Départ" class="glass-btn" style="flex:1;text-align:left">
+      <input id="routeTo" placeholder="Arrivée" class="glass-btn" style="flex:1;text-align:left">
+    </div>
+    <button onclick="postRoute()" class="glass-btn omega" style="width:100%">POSTER TRAJET</button>
+    <div id="routesList" style="max-height:100px;overflow-y:auto;margin-top:12px"></div>
+  </div>
+  <div id="localChatBox" class="glass-card" style="display:none">
+    <div class="holo-text" style="font-size:12px;margin-bottom:8px">💬 CHAT LOCAL ${userCountry}</div>
+    <div id="localMsgs" style="max-height:100px;overflow-y:auto;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px"></div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <input id="localInput" placeholder="Message..." class="glass-btn" style="flex:1;text-align:left">
+      <button onclick="sendLocalMsg()" class="glass-btn omega">▶</button>
+    </div>
+  </div>
+  <button onclick="pingBrothers()" class="glass-btn omega" style="width:100%;margin-top:12px">📡 PING HALL</button>
+  `;
+  initGlobe();
+  updateGlobeMarkers();
+  initOrientation();
+  if(currentZoom==='local') loadLocalChat();
+  if(currentZoom==='routes') loadRoutes();
+  checkGPSStatus();
+};
+
+APPS.WALLET.live = async function(){
+  const c = document.getElementById('overlayContent');
+  const nfts = await getMyNFTsList();
+  const pfp = nfts[0]?nfts[0].emoji:'👤';
+  const next = (100 - (userXP%100));
+  c.innerHTML = `
+  <div class="glass-card" style="display:flex;align-items:center;gap:16px">
+    <div style="font-size:56px;filter:drop-shadow(0 0 20px var(--hall-gold))">${pfp}</div>
+    <div style="flex:1;text-align:left">
+      <div class="holo-text" style="font-size:18px">${USERNAME}</div>
+      <div style="font-size:10px;color:var(--hall-cyan);margin-top:4px">Niveau ${userLevel} • ${userXP} XP</div>
+      <div style="font-size:9px;color:#AAA;margin-top:2px">Prochain: ${next} XP</div>
+    </div>
+    <div style="text-align:right">
+      <div class="stat-glow">${userGold}</div>
+      <div style="font-size:9px;color:#AAA">OR</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+    <button onclick="enterVR()" class="glass-btn">🥽 VR</button>
+    <button onclick="connectEEG()" class="glass-btn">🧠 EEG</button>
+    <button onclick="uploadConsciousness()" class="glass-btn">⚰️→🧬</button>
+    <button onclick="joinHiveMind()" class="glass-btn omega">🧠 HIVE</button>
+  </div>
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:12px;margin-bottom:12px">NFT POSSEDES ${nfts.length}</div>
+    <div class="nft-grid">${nfts.map(n=>`<div class="nft-card">${n.emoji}</div>`).join('')}</div>
+  </div>
+  <button onclick="buyNFT()" class="glass-btn omega" style="width:100%;margin:8px 0">ACHETER NFT</button>
+  <button onclick="startMetavers()" class="glass-btn" style="width:100%;margin:8px 0">🌌 MÉTAVERS 24/7</button>
+  <button onclick="openMultivers()" class="glass-btn" style="width:100%;margin:8px 0">🌌 MULTIVERS 1000</button>
+  `;
+  loadMyUniverses();
+};
+</script>
