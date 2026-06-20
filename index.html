@@ -259,3 +259,143 @@ init();
 </script>
 </body>
 </html>
+<script>
+// MUSIC: Radio stream + Visualizer
+let radioAudio, radioAnalyser, radioCtx;
+
+APPS.MUSIC.live = async function(){
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div style="margin:20px 0">
+  <div style="font-size:12px;margin-bottom:8px">🎵 DOUNIUM RADIO LIVE</div>
+  <div id="nowPlaying" style="font-size:14px;color:#FFD700">Afrobeat Sénégal • Live</div>
+  <canvas id="visualizer" width="280" height="80" style="margin:12px 0;border:1px solid rgba(255,215,0,0.2)"></canvas>
+  <div style="display:flex;gap:8px;justify-content:center">
+  <button onclick="playRadio()" style="background:#00FF88;color:#000;border:none;padding:8px 16px;border-radius:8px;font-family:Orbitron;font-weight:700">▶️ PLAY</button>
+  <button onclick="stopRadio()" style="background:rgba(255,255,255,0.1);color:#FFF;border:1px solid #FFF;padding:8px 16px;border-radius:8px;font-family:Orbitron">⏹️ STOP</button>
+  </div>
+  </div>`;
+};
+
+window.playRadio = function(){
+  if(radioAudio) return;
+  radioAudio = new Audio('https://icecast.radiofrance.fr/fip-midfi.mp3');
+  radioAudio.crossOrigin = 'anonymous';
+  radioCtx = new AudioContext();
+  radioAnalyser = radioCtx.createAnalyser();
+  const src = radioCtx.createMediaElementSource(radioAudio);
+  src.connect(radioAnalyser);
+  radioAnalyser.connect(radioCtx.destination);
+  radioAudio.play();
+  drawVisualizer();
+  document.getElementById('nowPlaying').textContent = 'FIP Radio • Streaming';
+};
+
+window.stopRadio = function(){
+  if(radioAudio){radioAudio.pause(); radioAudio=null;}
+};
+
+function drawVisualizer(){
+  if(!radioAnalyser) return;
+  const canvas = document.getElementById('visualizer');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const data = new Uint8Array(radioAnalyser.frequencyBinCount);
+  requestAnimationFrame(function loop(){
+    if(!radioAnalyser) return;
+    radioAnalyser.getByteFrequencyData(data);
+    ctx.fillStyle='#000';
+    ctx.fillRect(0,0,280,80);
+    ctx.fillStyle='#00FF88';
+    for(let i=0;i<70;i++){
+      const h = data[i]/255*80;
+      ctx.fillRect(i*4,80-h,3,h);
+    }
+    requestAnimationFrame(loop);
+  });
+};
+
+// SOCIAL: Vocal 8s + Push Upstash
+let mediaRecorder, audioChunks=[];
+
+APPS.SOCIAL.live = function(){
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div style="margin:20px 0">
+  <div style="font-size:12px;margin-bottom:12px">💬 POSTE VOCAL 8S AU HALL</div>
+  <div id="recStatus" style="font-size:20px;margin:12px 0">🎙️ Prêt</div>
+  <div id="recTimer" style="font-size:24px;color:#FFD700;margin:8px 0">8s</div>
+  <button id="recBtn" onclick="toggleRecord()" style="background:#FF0066;color:#FFF;border:none;padding:12px 24px;border-radius:12px;font-family:Orbitron;font-weight:700">🔴 REC</button>
+  <div id="vocalFeed" style="margin-top:20px;max-height:150px;overflow-y:auto"></div>
+  </div>`;
+  loadVocals();
+};
+
+window.toggleRecord = async function(){
+  if(mediaRecorder && mediaRecorder.state==='recording'){
+    mediaRecorder.stop();
+    return;
+  }
+  const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+  mediaRecorder = new MediaRecorder(stream);
+  audioChunks=[];
+  let time=8;
+  document.getElementById('recStatus').textContent='🔴 REC...';
+  document.getElementById('recBtn').textContent='⏹️ STOP';
+  
+  const timer = setInterval(()=>{
+    time--;
+    document.getElementById('recTimer').textContent=time+'s';
+    if(time<=0) mediaRecorder.stop();
+  },1000);
+  
+  mediaRecorder.ondataavailable = e=>audioChunks.push(e.data);
+  mediaRecorder.onstop = async ()=>{
+    clearInterval(timer);
+    const blob = new Blob(audioChunks,{type:'audio/webm'});
+    const b64 = await blobToBase64(blob);
+    await fetch(`${UPSTASH_URL}/lpush/vocals:${ROOM}`,{
+      method:'POST',
+      headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
+      body:JSON.stringify({uid:UID,name:USERNAME,b64,ts:Date.now()})
+    });
+    await fetch(`${UPSTASH_URL}/ltrim/vocals:${ROOM}/0/49`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+    document.getElementById('recStatus').textContent='✅ Envoyé au Hall';
+    document.getElementById('recBtn').textContent='🔴 REC';
+    document.getElementById('recTimer').textContent='8s';
+    loadVocals();
+    stream.getTracks().forEach(t=>t.stop());
+  };
+  mediaRecorder.start();
+  setTimeout(()=>mediaRecorder.state==='recording'&&mediaRecorder.stop(),8000);
+};
+
+async function blobToBase64(blob){
+  return new Promise(r=>{
+    const reader=new FileReader();
+    reader.onloadend=()=>r(reader.result);
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function loadVocals(){
+  const r = await fetch(`${UPSTASH_URL}/lrange/vocals:${ROOM}/0/9`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  const vocals = data.result||[];
+  const feed = document.getElementById('vocalFeed');
+  if(!feed) return;
+  feed.innerHTML = vocals.map(v=>{
+    const d=JSON.parse(v);
+    const ago = Math.floor((Date.now()-d.ts)/1000);
+    return `<div style="background:rgba(255,215,0,0.1);padding:8px;border-radius:8px;margin:6px 0;font-size:11px">
+    <b>${d.name}</b> • ${ago}s <audio controls src="${d.b64}" style="width:100%;height:30px;margin-top:4px"></audio></div>`;
+  }).join('');
+}
+
+// Override openModule pour apps live
+const _openModule = window.openModule;
+window.openModule = function(type){
+  _openModule(type);
+  if(APPS[type] && APPS[type].live) APPS[type].live();
+};
+</script>
