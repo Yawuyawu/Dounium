@@ -4198,3 +4198,59 @@ window.douniSendEmoji=function(e){
   console.log('DOUNIUM v12.9 GRIMOIRE 30 LOIS READY');
 })();
 </script>
+<script>
+// v12.9b FIX SPHÈRE + TACTILE
+(function DouniFixSphere(){
+  if(window.DouniFixActive) return; window.DouniFixActive=true;
+
+  // 1. CSS CORRECTIF
+  let css=document.createElement('style');
+  css.textContent=`
+    /* RÉACTIVE NAV BAR */
+    #douniNavBar{display:flex!important;z-index:999998!important}
+    
+    /* FUSION BOUTONS SPHÈRE + LOIS */
+    #douniSphereBtn{display:block!important;position:fixed!important;bottom:90px;left:20px!important;right:auto!important;z-index:999995!important;background:linear-gradient(135deg,var(--cyan),var(--violet))!important;transform:none!important}
+    #douniLoisBtn{display:block!important;position:fixed!important;bottom:90px;right:20px!important;z-index:999995!important;background:linear-gradient(135deg,var(--or),var(--violet))!important}
+    
+    /* DÉBLOQUE TOUCHES */
+    #douniWalletContainer *{pointer-events:auto!important}
+  .douniActionBtn,.douniNavIcon,#douniWalletAvatar,#douniHallCounter{pointer-events:auto!important;cursor:pointer!important}
+    
+    /* CACHE ANCIENS DOUBLONS */
+    #douniProfile,#douniHallBtn{display:none!important}
+  `;
+  document.head.appendChild(css);
+
+  // 2. RECRÉE BOUTON SPHÈRE SI ABSENT
+  setTimeout(()=>{
+    if(!document.getElementById('douniSphereBtn')){
+      let sphereBtn=document.createElement('button');
+      sphereBtn.id='douniSphereBtn';
+      sphereBtn.innerHTML='◉ SPHÈRE';
+      sphereBtn.style.cssText='position:fixed;bottom:90px;left:20px;z-index:999995;background:linear-gradient(135deg,#00FFFF,#8A2BE2);border:2px solid #FFD700;color:#000;padding:12px 24px;border-radius:50px;font-weight:bold;cursor:pointer;box-shadow:0 0 30px #00FFFF;font-family:monospace';
+      sphereBtn.onclick=()=>douniOpenSphere();
+      document.body.appendChild(sphereBtn);
+    }
+    
+    // 3. RECONNECTE TOUTES LES FONCTIONS
+    window.douniOpenSphere=window.douniOpenSphere||function(){douniOpenPage('douniSpherePage')};
+    window.douniOpenFeed=window.douniOpenFeed||function(){douniOpenPage('douniFeedPage')};
+    window.douniOpenProfile=window.douniOpenProfile||function(){douniOpenPage('douniProfilePage')};
+    window.douniCreatePost=window.douniCreatePost||function(){
+      let input=document.createElement('input');input.type='file';input.accept='image/*';
+      input.onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();
+        r.onload=()=>{let posts=JSON.parse(localStorage.douniPosts||'[]');
+          posts.unshift({id:Date.now(),img:r.result,time:Date.now(),likes:0,user:DouniSoul});
+          localStorage.douniPosts=JSON.stringify(posts);alert('Post publié ⚜️');douniOpenFeed()};
+        r.readAsDataURL(f)};input.click();
+    };
+    
+    // 4. FORCE AFFICHAGE NAV
+    let nav=document.getElementById('douniNavBar');
+    if(nav){nav.style.display='flex';nav.style.zIndex='999998'}
+    
+    console.log('DOUNIUM v12.9b SPHÈRE + TACTILE RESTAURÉS');
+  },1000);
+})();
+</script>
