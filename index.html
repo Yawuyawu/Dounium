@@ -399,3 +399,162 @@ window.openModule = function(type){
   if(APPS[type] && APPS[type].live) APPS[type].live();
 };
 </script>
+<script>
+// WEBRTC P2P MESH + AUDIO SPATIAL 6D
+const peers = {};
+const peerConns = {};
+const peerAudios = {};
+let spatialAudioCtx;
+
+async function initWebRTC(){
+  spatialAudioCtx = new AudioContext();
+  await spatialAudioCtx.resume();
+  
+  // Signal via Upstash
+  setInterval(signalPoll,2000);
+  setInterval(announceSelf,3000);
+}
+
+async function announceSelf(){
+  const offer = {type:'announce',uid:UID,name:USERNAME,ts:Date.now()};
+  await fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{
+    method:'POST',
+    headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
+    body:JSON.stringify(offer)
+  });
+  await fetch(`${UPSTASH_URL}/ltrim/signal:${ROOM}/0/99`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+}
+
+async function signalPoll(){
+  const r = await fetch(`${UPSTASH_URL}/lrange/signal:${ROOM}/0/20`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  const signals = data.result||[];
+  
+  for(const s of signals){
+    try{
+      const sig = JSON.parse(s);
+      if(sig.uid===UID || Date.now()-sig.ts>10000) continue;
+      if(sig.type==='announce' && !peerConns[sig.uid]){
+        connectToPeer(sig.uid,sig.name);
+      }
+      if(sig.type==='offer' && sig.to===UID){
+        handleOffer(sig);
+      }
+      if(sig.type==='answer' && sig.to===UID){
+        handleAnswer(sig);
+      }
+      if(sig.type==='ice' && sig.to===UID){
+        handleIce(sig);
+      }
+    }catch(e){}
+  }
+}
+
+async function connectToPeer(peerId,peerName){
+  if(peerConns[peerId]) return;
+  const pc = new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
+  peerConns[peerId] = pc;
+  peers[peerId] = {name:peerName};
+  
+  if(micStream) micStream.getTracks().forEach(t=>pc.addTrack(t,micStream));
+  
+  pc.ontrack = e=>{
+    const audio = new Audio();
+    audio.srcObject = e.streams[0];
+    audio.autoplay = true;
+    
+    // Audio Spatial 6D: position selon index cercle
+    const idx = hallUsers.findIndex(u=>u.uid===peerId);
+    const pan = idx>=0 ? (idx/hallUsers.length*2-1)*0.8 : 0;
+    const panner = spatialAudioCtx.createStereoPanner();
+    panner.pan.value = pan;
+    const src = spatialAudioCtx.createMediaStreamSource(e.streams[0]);
+    src.connect(panner).connect(spatialAudioCtx.destination);
+    
+    peerAudios[peerId] = audio;
+  };
+  
+  pc.onicecandidate = e=>{
+    if(e.candidate){
+      fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{
+        method:'POST',
+        headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
+        body:JSON.stringify({type:'ice',from:UID,to:peerId,candidate:e.candidate})
+      });
+    }
+  };
+  
+  const offer = await pc.createOffer();
+  await pc.setLocalDescription(offer);
+  await fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{
+    method:'POST',
+    headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
+    body:JSON.stringify({type:'offer',from:UID,to:peerId,sdp:offer})
+  });
+}
+
+async function handleOffer(sig){
+  const pc = new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
+  peerConns[sig.from] = pc;
+  peers[sig.from] = {name:'Frère'};
+  
+  if(micStream) micStream.getTracks().forEach(t=>pc.addTrack(t,micStream));
+  
+  pc.ontrack = e=>{
+    const audio = new Audio();
+    audio.srcObject = e.streams[0];
+    audio.autoplay = true;
+    const idx = hallUsers.findIndex(u=>u.uid===sig.from);
+    const pan = idx>=0 ? (idx/hallUsers.length*2-1)*0.8 : 0;
+    const panner = spatialAudioCtx.createStereoPanner();
+    panner.pan.value = pan;
+    const src = spatialAudioCtx.createMediaStreamSource(e.streams[0]);
+    src.connect(panner).connect(spatialAudioCtx.destination);
+    peerAudios[sig.from] = audio;
+  };
+  
+  pc.onicecandidate = e=>{
+    if(e.candidate){
+      fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{
+        method:'POST',
+        headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
+        body:JSON.stringify({type:'ice',from:UID,to:sig.from,candidate:e.candidate})
+      });
+    }
+  };
+  
+  await pc.setRemoteDescription(new RTCSessionDescription(sig.sdp));
+  const answer = await pc.createAnswer();
+  await pc.setLocalDescription(answer);
+  await fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{
+    method:'POST',
+    headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
+    body:JSON.stringify({type:'answer',from:UID,to:sig.from,sdp:answer})
+  });
+}
+
+async function handleAnswer(sig){
+  const pc = peerConns[sig.from];
+  if(pc) await pc.setRemoteDescription(new RTCSessionDescription(sig.sdp));
+}
+
+async function handleIce(sig){
+  const pc = peerConns[sig.from];
+  if(pc) await pc.addIceCandidate(new RTCIceCandidate(sig.candidate));
+}
+
+// Lance WebRTC quand audio prêt
+const _initAudio = window.initAudio;
+window.initAudio = async function(){
+  await _initAudio();
+  initWebRTC();
+};
+
+// Update status si P2P actif
+setInterval(()=>{
+  const count = Object.keys(peerConns).length;
+  if(count>0){
+    document.getElementById('hallStatus').textContent = `🔊 ${count} frère${count>1?'s':''} P2P connecté${count>1?'s':''}`;
+  }
+},2000);
+</script>
