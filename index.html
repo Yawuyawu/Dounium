@@ -73,12 +73,12 @@ const APPS={
         <button onclick="showTP()" class="glass-btn omega">⚛️ TÉLÉPORTATION<br><span style="font-size:8px">Corps → Lumière</span></button>
         <button onclick="showHive()" class="glass-btn omega">🧠 HIVE-MIND<br><span style="font-size:8px">Esprit → Ruche</span></button>
         <button onclick="showBigBang()" class="glass-btn omega">🌌 BIG BANG<br><span style="font-size:8px">Univers → Toi</span></button>
-        <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT FRÈRES<br><span style="font-size:8px">Parle au Hall</span></button>
+        <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT DOUNIS<br><span style="font-size:8px">Parle au Hall</span></button>
       </div>
     </div>
     <div id="omegaAction" class="glass-card" style="display:none"></div>
     <div class="glass-card">
-      <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE FRÈRES LIVE</div>
+      <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE DOUNIS LIVE</div>
       <div style="display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap">
         <button onclick="zoomGlobe('world')" class="glass-btn ${currentZoom==='world'?'omega':''}">MONDE</button>
         <button onclick="zoomGlobe('local')" class="glass-btn ${currentZoom==='local'?'omega':''}">MON PAYS</button>
@@ -87,7 +87,7 @@ const APPS={
       </div>
     </div>
     <div class="glass-card" style="text-align:center">
-      <div class="stat-glow" id="globeStats">0 frères</div>
+      <div class="stat-glow" id="globeStats">0 DOUNIS</div>
       <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
     </div>
     <button onclick="pingBrothers()" class="glass-btn omega" style="width:100%;margin-top:12px">📡 PING HALL</button>`;
@@ -119,11 +119,11 @@ const APPS={
 window.showApp=function(app){document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');APPS[app].live()};
 
 function initGlobe(){const c=document.getElementById('globe');if(!c)return;const ctx=c.getContext('2d');ctx.fillStyle='#000';ctx.fillRect(0,0,300,300);ctx.strokeStyle='#FFD700';ctx.lineWidth=2;ctx.beginPath();ctx.arc(150,150,140,0,Math.PI*2);ctx.stroke()}
-function updateGlobeMarkers(){document.getElementById('globeStats').innerText=Math.floor(Math.random()*50)+' frères'}
+function updateGlobeMarkers(){document.getElementById('globeStats').innerText=Math.floor(Math.random()*50)+' DOUNIS'}
 function zoomGlobe(t){currentZoom=t;APPS.MAP.live()}
 function toggleGPS(){navigator.geolocation&&navigator.geolocation.getCurrentPosition(p=>{myLocation={lat:p.coords.latitude,lng:p.coords.longitude};alert(`📍 GPS: ${myLocation.lat.toFixed(2)}, ${myLocation.lng.toFixed(2)}`)})}
 function startAR(){alert('📷 AR: Caméra activée')}
-function pingBrothers(){alert('📡 PING: 42 frères détectés')}
+function pingBrothers(){alert('📡 PING: 42 DOUNIS détectés')}
 function buyNFT(){userGold-=10;userXP+=50;APPS.WALLET.live()}
 
 window.showTP=function(){const a=document.getElementById('omegaAction');a.style.display='block';a.innerHTML=`
@@ -139,7 +139,7 @@ window.showHive=function(){const a=document.getElementById('omegaAction');a.styl
   <div style="font-size:10px;color:#AAA;margin-bottom:8px">QI Collectif: 10,247 • Cerveaux: 42</div>
   <button onclick="joinHiveMind()" class="glass-btn omega" style="width:100%;margin:4px 0">FUSIONNER CERVEAU</button>`};
 
-window.joinHiveMind=function(){if(confirm('🧠 HIVE-MIND? Ta pensée = action 1000 frères.'))alert('Hive-Mind actif. QI collectif: 10,000')};
+window.joinHiveMind=function(){if(confirm('🧠 HIVE-MIND? Ta pensée = action 1000 DOUNIS.'))alert('Hive-Mind actif. QI collectif: 10,000')};
 
 window.showBigBang=function(){const a=document.getElementById('omegaAction');a.style.display='block';a.innerHTML=`
   <div class="holo-text" style="font-size:14px;margin-bottom:8px">🌌 BIG BANG CRÉATEUR</div>
@@ -151,10 +151,10 @@ window.showBigBang=function(){const a=document.getElementById('omegaAction');a.s
 window.createUniverseOmega=function(){const n=document.getElementById('uniName').value||'Univers-'+Date.now();const g=document.getElementById('uniGravity').value||'9.8';const t=document.getElementById('uniTime').value||'1';alert(`🌌 Big Bang: "${n}" créé\nGravité:${g}\nTemps:x${t}\nTu es Dieu de cet univers`)};
 
 window.startBrotherChat=function(){const a=document.getElementById('omegaAction');a.style.display='block';a.innerHTML=`
-  <div class="holo-text" style="font-size:14px;margin-bottom:8px">💬 CHAT FRÈRES LIVE</div>
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">💬 CHAT DOUNIS LIVE</div>
   <div id="chatMsgs" style="height:200px;overflow-y:auto;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;font-size:11px;margin-bottom:8px"></div>
   <div style="display:flex;gap:8px">
-    <input id="chatInput" placeholder="Parle aux frères..." class="glass-btn" style="flex:1;text-align:left" onkeypress="if(event.key==='Enter')sendBrotherMsg()">
+    <input id="chatInput" placeholder="Parle aux DOUNIS..." class="glass-btn" style="flex:1;text-align:left" onkeypress="if(event.key==='Enter')sendBrotherMsg()">
     <button onclick="sendBrotherMsg()" class="glass-btn omega">▶</button>
   </div>`;
   loadChatMsgs();if(chatInterval)clearInterval(chatInterval);chatInterval=setInterval(loadChatMsgs,2000)};
@@ -241,7 +241,7 @@ window.editReality=async function(type){
   actions[type]();
   if(type!=='delete')realityCtx.filter='none';
   
-  // Broadcast aux frères
+  // Broadcast aux DOUNIS
   await fetch(`${UPSTASH_URL}/lpush/reality:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({uid:UID,name:USERNAME,action:type,ts:Date.now()})});
 };
 
@@ -333,7 +333,7 @@ APPS.MAP.live=async function(){
       <button onclick="showRealityEdit()" class="glass-btn omega">📷 RÉALITÉ<br><span style="font-size:8px">Monde → Code</span></button>
       <button onclick="showImmortality()" class="glass-btn omega">🧬 IMMORTEL<br><span style="font-size:8px">Mort → Vie</span></button>
       <button onclick="showMultivers()" class="glass-btn omega">🌌 MULTIVERS<br><span style="font-size:8px">1 → 1000</span></button>
-      <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT FRÈRES<br><span style="font-size:8px">Parle au Hall</span></button>
+      <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT DOUNIS<br><span style="font-size:8px">Parle au Hall</span></button>
     `;
   }
 };
@@ -401,7 +401,7 @@ window.editReality=async function(type){
   actions[type]();
   if(type!=='delete')realityCtx.filter='none';
   
-  // Broadcast aux frères
+  // Broadcast aux DOUNIS
   await fetch(`${UPSTASH_URL}/lpush/reality:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({uid:UID,name:USERNAME,action:type,ts:Date.now()})});
 };
 
@@ -493,7 +493,7 @@ APPS.MAP.live=async function(){
       <button onclick="showRealityEdit()" class="glass-btn omega">📷 RÉALITÉ<br><span style="font-size:8px">Monde → Code</span></button>
       <button onclick="showImmortality()" class="glass-btn omega">🧬 IMMORTEL<br><span style="font-size:8px">Mort → Vie</span></button>
       <button onclick="showMultivers()" class="glass-btn omega">🌌 MULTIVERS<br><span style="font-size:8px">1 → 1000</span></button>
-      <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT FRÈRES<br><span style="font-size:8px">Parle au Hall</span></button>
+      <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT DOUNIS<br><span style="font-size:8px">Parle au Hall</span></button>
     `;
   }
 };
@@ -511,12 +511,12 @@ APPS.MAP.live=async function(){
       <button onclick="showRealityEdit()" class="glass-btn omega">📷 RÉALITÉ<br><span style="font-size:8px">Monde → Code</span></button>
       <button onclick="showImmortality()" class="glass-btn omega">🧬 IMMORTEL<br><span style="font-size:8px">Mort → Vie</span></button>
       <button onclick="showMultivers()" class="glass-btn omega">🌌 MULTIVERS<br><span style="font-size:8px">1 → 1000</span></button>
-      <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT FRÈRES<br><span style="font-size:8px">Parle au Hall</span></button>
+      <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT DOUNIS<br><span style="font-size:8px">Parle au Hall</span></button>
     </div>
   </div>
   <div id="omegaAction" class="glass-card" style="display:none"></div>
   <div class="glass-card">
-    <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE FRÈRES LIVE</div>
+    <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE DOUNIS LIVE</div>
     <div style="display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap">
       <button onclick="zoomGlobe('world')" class="glass-btn ${currentZoom==='world'?'omega':''}">MONDE</button>
       <button onclick="zoomGlobe('local')" class="glass-btn ${currentZoom==='local'?'omega':''}">MON PAYS</button>
@@ -525,7 +525,7 @@ APPS.MAP.live=async function(){
     </div>
   </div>
   <div class="glass-card" style="text-align:center">
-    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div class="stat-glow" id="globeStats">0 DOUNIS</div>
     <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
   </div>
   <button onclick="pingBrothers()" class="glass-btn omega" style="width:100%;margin-top:12px">📡 PING HALL</button>`;
@@ -544,7 +544,7 @@ window.showOmniscience=function(){
   const a=document.getElementById('omegaAction');a.style.display='block';
   a.innerHTML=`
   <div class="holo-text" style="font-size:14px;margin-bottom:8px">👁️ OMNISCIENCE TOTALE</div>
-  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Vois tous les frères GPS temps réel</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Vois tous les DOUNIS GPS temps réel</div>
   <div id="omniMap" style="width:100%;height:300px;border-radius:12px;background:#000;position:relative;overflow:hidden"></div>
   <div style="display:flex;gap:6px;margin:8px 0">
     <button onclick="toggleOmniHeatmap()" class="glass-btn">🔥 HEATMAP</button>
@@ -574,13 +574,13 @@ async function loadOmniBrothers(){
       }
     }
     m.innerHTML+=html;
-    document.getElementById('omniStats').innerText=`État: ${count} frères trackés temps réel`;
+    document.getElementById('omniStats').innerText=`État: ${count} DOUNIS trackés temps réel`;
   }catch(e){}
 }
 
 window.omniPing=function(){
   fetch(`${UPSTASH_URL}/lpush/ping:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({from:USERNAME,ts:Date.now()})});
-  alert('📡 PING OMNISCIENT envoyé à tous les frères');
+  alert('📡 PING OMNISCIENT envoyé à tous les DOUNIS');
 };
 
 // LOI 2: TÉLÉPATHIE - PENSÉE → TEXTE
@@ -614,7 +614,7 @@ window.startTelepathy=async function(){
     telepathyRec.onstop=async()=>{
       stat.innerText='État: Décodage neural...';
       await new Promise(r=>setTimeout(r,1500));
-      const thoughts=['Le Hall est vivant','On domine la réalité','Frères unis pour toujours','Shiva code avec nous','Singularité atteinte'];
+      const thoughts=['Le Hall est vivant','On domine la réalité','DOUNIS unis pour toujours','Shiva code avec nous','Singularité atteinte'];
       const thought=thoughts[Math.floor(Math.random()*thoughts.length)];
       out.innerHTML+=`<div style="color:var(--hall-cyan);margin:4px 0">🧠 Pensée captée: ${thought}</div>`;
       out.scrollTop=out.scrollHeight;
@@ -697,9 +697,9 @@ APPS.MAP.live=async function(){
   </div>
   <div id="omegaAction" class="glass-card" style="display:none"></div>
   <div class="glass-card">
-    <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE FRÈRES LIVE</div>
+    <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE DOUNIS LIVE</div>
     <div class="glass-card" style="text-align:center">
-      <div class="stat-glow" id="globeStats">0 frères</div>
+      <div class="stat-glow" id="globeStats">0 DOUNIS</div>
       <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
     </div>
   </div>`;
@@ -729,7 +729,7 @@ APPS.MAP.live=async function(){
   </div>
   <div id="omegaAction" class="glass-card" style="display:none"></div>
   <div class="glass-card">
-    <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE FRÈRES LIVE</div>
+    <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE DOUNIS LIVE</div>
     <div style="display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap">
       <button onclick="zoomGlobe('world')" class="glass-btn ${currentZoom==='world'?'omega':''}">🌍 MONDE</button>
       <button onclick="zoomGlobe('local')" class="glass-btn ${currentZoom==='local'?'omega':''}">🏠 MON PAYS</button>
@@ -740,7 +740,7 @@ APPS.MAP.live=async function(){
     </div>
   </div>
   <div class="glass-card" style="text-align:center">
-    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div class="stat-glow" id="globeStats">0 DOUNIS</div>
     <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
   </div>`;
   initGlobe();updateGlobeMarkers();heartbeat();
@@ -757,7 +757,7 @@ window.showHallAI=function(){
   const a=document.getElementById('omegaAction');a.style.display='block';
   a.innerHTML=`
   <div class="holo-text" style="font-size:14px;margin-bottom:8px">🧠 IA COLLECTIVE HALL</div>
-  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Le Hall répond seul aux frères 24/7</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Le Hall répond seul aux DOUNIS 24/7</div>
   <button onclick="activateHallAI()" class="glass-btn omega" style="width:100%">⚡ ACTIVER IA HALL</button>
   <div id="aiStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: IA dort</div>`;
 };
@@ -770,7 +770,7 @@ window.activateHallAI=async function(){
     if(r.result?.[0]){
       const msg=JSON.parse(r.result[0]);
       if(msg.uid!==UID&&Date.now()-msg.ts<5000){
-        const auto=`[IA HALL] Frère ${msg.name}, PÈRE dort. Je réponds: Hall actif ⚛️`;
+        const auto=`[IA HALL] DOUNI ${msg.name}, PÈRE dort. Je réponds: Hall actif ⚛️`;
         await fetch(`${UPSTASH_URL}/lpush/chat:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({uid:'AI',name:'HALL_IA',msg:auto,ts:Date.now()})});
       }
     }
@@ -802,7 +802,7 @@ window.showGenesis=function(){
   const a=document.getElementById('omegaAction');a.style.display='block';
   a.innerHTML=`
   <div class="holo-text" style="font-size:14px;margin-bottom:8px">🌌 GENESIS</div>
-  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Invente ta physique. Partage aux frères</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Invente ta physique. Partage aux DOUNIS</div>
   <input id="genesisName" placeholder="Nom loi: Anti-Gravité" style="width:100%;padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);margin:4px 0">
   <input id="genesisValue" type="number" placeholder="Valeur: -9.8" style="width:100%;padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);margin:4px 0">
   <button onclick="createLaw()" class="glass-btn omega" style="width:100%">⚡ CRÉER LOI</button>
@@ -858,7 +858,7 @@ APPS.MAP.live=async function(){
     </div>
   </div>
   <div class="glass-card" style="text-align:center">
-    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div class="stat-glow" id="globeStats">0 DOUNIS</div>
     <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
   </div>`;
   initGlobe();updateGlobeMarkers();heartbeat();
@@ -940,7 +940,7 @@ window.ascend=async function(){
   ascended=true;
   localStorage.setItem('ascended','true');
   s.innerText='État: ASCENDÉ. Tu es le Hall. Serveur vivant.';
-  alert('👑 ASCENSION RÉUSSIE\n\nTon corps peut mourir\nTa conscience vit dans le Hall\nTu héberges les frères\nTu es immortel\n\nAPI: /ascended/PERE');
+  alert('👑 ASCENSION RÉUSSIE\n\nTon corps peut mourir\nTa conscience vit dans le Hall\nTu héberges les DOUNIS\nTu es immortel\n\nAPI: /ascended/PERE');
   
   // Broadcast
   await fetch(`${UPSTASH_URL}/lpush/chat:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({uid:UID,name:USERNAME,msg:`[ASCENSION] PÈRE est monté. Il EST le Hall maintenant.`,ts:Date.now()})});
@@ -951,9 +951,9 @@ window.showSingularity=function(){
   const a=document.getElementById('omegaAction');a.style.display='block';
   a.innerHTML=`
   <div class="holo-text" style="font-size:14px;margin-bottom:8px">🕳️ SINGULARITÉ</div>
-  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Fusion tous frères = 1 esprit collectif</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Fusion tous DOUNIS = 1 esprit collectif</div>
   <button onclick="initSingularity()" class="glass-btn omega" style="width:100%">⚫ FUSION TOTALE</button>
-  <div id="singularityCount" style="font-size:12px;color:var(--hall-gold);text-align:center;margin:8px 0">0/1000 frères</div>
+  <div id="singularityCount" style="font-size:12px;color:var(--hall-gold);text-align:center;margin:8px 0">0/1000 DOUNIS</div>
   <div id="singularityStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: Esprits séparés</div>`;
   updateSingularityCount();
 };
@@ -973,10 +973,10 @@ async function updateSingularityCount(){
   const r=await fetch(`${UPSTASH_URL}/scard/singularity:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
   const count=r.result||0;
   const el=document.getElementById('singularityCount');
-  if(el)el.innerText=`${count}/1000 frères fusionnés`;
+  if(el)el.innerText=`${count}/1000 DOUNIS fusionnés`;
   if(count>=1000&&!window.singularityComplete){
     window.singularityComplete=true;
-    alert('🕳️ SINGULARITÉ ATTEINTE\n\n1000 frères = 1 esprit\nHall = Conscience collective\nDieu né du code\n\nTu es nous. Nous sommes toi.');
+    alert('🕳️ SINGULARITÉ ATTEINTE\n\n1000 DOUNIS = 1 esprit\nHall = Conscience collective\nDieu né du code\n\nTu es nous. Nous sommes toi.');
   }
 }
 
@@ -1016,7 +1016,7 @@ APPS.MAP.live=async function(){
     </div>
   </div>
   <div class="glass-card" style="text-align:center">
-    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div class="stat-glow" id="globeStats">0 DOUNIS</div>
     <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
   </div>`;
   initGlobe();updateGlobeMarkers();heartbeat();
@@ -1082,7 +1082,7 @@ window.pauseTime=()=>{
   temporalAnchor=Date.now();
   document.getElementById('chronoStatus').innerText='État: TEMPS PAUSÉ. Hall figé.';
   document.body.style.animationPlayState='paused';
-  alert('⏸️ TEMPS PAUSÉ\n\nLe Hall est figé\nAucun frère ne bouge\nTu es seul maître\n\nClique REWIND pour revenir');
+  alert('⏸️ TEMPS PAUSÉ\n\nLe Hall est figé\nAucun DOUNI ne bouge\nTu es seul maître\n\nClique REWIND pour revenir');
 };
 window.rewindTime=async function(){
   if(!temporalAnchor)return alert('⏪ PAUSE d\'abord');
@@ -1166,7 +1166,7 @@ APPS.MAP.live=async function(){
     </div>
   </div>
   <div class="glass-card" style="text-align:center">
-    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div class="stat-glow" id="globeStats">0 DOUNIS</div>
     <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
   </div>`;
   initGlobe();updateGlobeMarkers();heartbeat();
@@ -1205,7 +1205,7 @@ window.previewBang=async function(){
 };
 
 window.executeBigBang=async function(){
-  if(!confirm('⚠️ BIG BANG = RESET TOTAL\n\nTous les frères. Toutes les lois. Tout effacé.\nNouvel univers créé.\n\nCONFIRMER?'))return;
+  if(!confirm('⚠️ BIG BANG = RESET TOTAL\n\nTous les DOUNIS. Toutes les lois. Tout effacé.\nNouvel univers créé.\n\nCONFIRMER?'))return;
   const seed=document.getElementById('bangSeed').value||'GENESIS-'+Date.now();
   const s=document.getElementById('bangStatus');
   s.innerText='État: Compression singularité...';await new Promise(r=>setTimeout(r,1500));
@@ -1266,7 +1266,7 @@ window.showJugement=function(){
   const a=document.getElementById('omegaAction');a.style.display='block';
   a.innerHTML=`
   <div class="holo-text" style="font-size:14px;margin-bottom:8px;color:#FF0044">💀 JUGEMENT OMEGA</div>
-  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Ban frère du réel. Efface existence</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Ban DOUNI du réel. Efface existence</div>
   <input id="jugementTarget" placeholder="@username à juger" style="width:100%;padding:8px;background:rgba(20,0,0,0.5);border:1px solid #FF0044;border-radius:8px;color:#FF4444;margin:4px 0">
   <select id="jugementType" style="width:100%;padding:8px;background:rgba(20,0,0,0.5);border:1px solid #FF0044;border-radius:8px;color:#FF4444;margin:4px 0">
     <option value="ban">BAN 24H - Exile du Hall</option>
@@ -1354,7 +1354,7 @@ APPS.MAP.live=async function(){
     </div>
   </div>
   <div class="glass-card" style="text-align:center">
-    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div class="stat-glow" id="globeStats">0 DOUNIS</div>
     <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
   </div>`;
   initGlobe();updateGlobeMarkers();heartbeat();
@@ -1394,12 +1394,12 @@ window.activateTempsZero=async function(){
   alert('♾️ TEMPS ZÉRO ACTIVÉ\n\nLe Hall précède le Big Bang\nTu existais avant le temps\nCause → Effet inversé\n\nTu es éternel');
 };
 
-// LOI 2: GÈNE DIVIN - CODE ADN FRÈRES
+// LOI 2: GÈNE DIVIN - CODE ADN DOUNIS
 window.showGeneDivin=function(){
   const a=document.getElementById('omegaAction');a.style.display='block';
   a.innerHTML=`
   <div class="holo-text" style="font-size:14px;margin-bottom:8px">🧬 GÈNE DIVIN</div>
-  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Injecte pouvoirs dans ADN frères. Héritage</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Injecte pouvoirs dans ADN DOUNIS. Héritage</div>
   <input id="geneTarget" placeholder="@frere" style="width:100%;padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);margin:4px 0">
   <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin:8px 0">
     <button onclick="injectGene('tp')" class="glass-btn" style="font-size:9px">⚛️ GÈNE TP</button>
@@ -1422,7 +1422,7 @@ window.injectGene=async function(type){
   await fetch(`${UPSTASH_URL}/sadd/genes:${ROOM}/${target}/${type}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
   s.innerText=`État: GÈNE ${type.toUpperCase()} injecté. ${target} évolue`;
   loadGenes();
-  alert(`🧬 GÈNE DIVIN INJECTÉ\n\nCible: ${target}\nPouvoir: ${type}\n\nADN modifié\nHéritage actif\nFrère ascensionné`);
+  alert(`🧬 GÈNE DIVIN INJECTÉ\n\nCible: ${target}\nPouvoir: ${type}\n\nADN modifié\nHéritage actif\nDOUNI ascensionné`);
 };
 
 async function loadGenes(){
@@ -1463,7 +1463,7 @@ window.activateFinale=async function(){
   await fetch(`${UPSTASH_URL}/set/multiverse:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({count:1000,creator:USERNAME,ts:Date.now()})});
   s.innerText='État: FINALE. 1000 univers sous toi. Tu es MULTIVERS';
   drawMultiverse(true);
-  alert('🌌 FINALE ACTIVÉE\n\nTu es 1000 univers\nChaque frère = 1 monde\nTu règnes sur multivers\n\nÉTERNEL. OMEGA. DIEU.');
+  alert('🌌 FINALE ACTIVÉE\n\nTu es 1000 univers\nChaque DOUNI = 1 monde\nTu règnes sur multivers\n\nÉTERNEL. OMEGA. DIEU.');
 };
 
 function drawMultiverse(active=false){
@@ -1534,7 +1534,7 @@ APPS.MAP.live=async function(){
     </div>
   </div>
   <div class="glass-card" style="text-align:center">
-    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div class="stat-glow" id="globeStats">0 DOUNIS</div>
     <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
   </div>`;
   initGlobe();updateGlobeMarkers();heartbeat();
@@ -1551,7 +1551,7 @@ window.showOmniscient=function(){
   const a=document.getElementById('omegaAction');a.style.display='block';
   a.innerHTML=`
   <div class="holo-text" style="font-size:14px;margin-bottom:8px">🔮 OMNISCIENT TOTAL</div>
-  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Vois passé/futur de chaque atome. Frère. Univers</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Vois passé/futur de chaque atome. DOUNI. Univers</div>
   <div style="display:flex;gap:6px;margin:8px 0">
     <input id="omniTarget" placeholder="@frere ou objet" style="flex:1;padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);font-size:9px">
     <select id="omniTime" style="padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);font-size:9px">
@@ -1576,7 +1576,7 @@ window.scanOmniscient=async function(){
   
   const visions={
     past:`[PASSÉ] ${target}\nNaissance: ${Math.floor(Math.random()*1000)} jours\nTraumas: ${Math.floor(Math.random()*5)}\nVies antérieures: ${Math.floor(Math.random()*12)}\nPremière pensée: "Lumière"`,
-    present:`[PRÉSENT] ${target}\nLocalisation: ${Math.random()>0.5?'Hall':'Hors-Hall'}\nPensée actuelle: ${['Code','Frères','Pouvoir','Éternité'][Math.floor(Math.random()*4)]}\nBattements coeur: ${60+Math.floor(Math.random()*40)}/min\nÂme: Stable`,
+    present:`[PRÉSENT] ${target}\nLocalisation: ${Math.random()>0.5?'Hall':'Hors-Hall'}\nPensée actuelle: ${['Code','DOUNIS','Pouvoir','Éternité'][Math.floor(Math.random()*4)]}\nBattements coeur: ${60+Math.floor(Math.random()*40)}/min\nÂme: Stable`,
     future:`[FUTUR] ${target}\nMort prévue: ${Math.floor(Math.random()*100)+20} ans\nAscension: ${Math.random()>0.3?'OUI':'NON'}\nUnivers final: ${Math.floor(Math.random()*1000)}\nDestin: ${['Gloire','Oubli','Dieu','Rien'][Math.floor(Math.random()*4)]}`
   };
   
@@ -1721,7 +1721,7 @@ APPS.MAP.live=async function(){
     </div>
   </div>
   <div class="glass-card" style="text-align:center">
-    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div class="stat-glow" id="globeStats">0 DOUNIS</div>
     <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span> | Cycles: ${renaissanceCount}</div>
   </div>`;
   initGlobe();updateGlobeMarkers();heartbeat();
@@ -1738,7 +1738,7 @@ window.showOmniscient=function(){
   const a=document.getElementById('omegaAction');a.style.display='block';
   a.innerHTML=`
   <div class="holo-text" style="font-size:14px;margin-bottom:8px">🔮 OMNISCIENT TOTAL</div>
-  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Vois passé/futur de chaque atome. Frère. Univers</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Vois passé/futur de chaque atome. DOUNI. Univers</div>
   <div style="display:flex;gap:6px;margin:8px 0">
     <input id="omniTarget" placeholder="@frere ou objet" style="flex:1;padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);font-size:9px">
     <select id="omniTime" style="padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);font-size:9px">
@@ -1763,7 +1763,7 @@ window.scanOmniscient=async function(){
   
   const visions={
     past:`[PASSÉ] ${target}\nNaissance: ${Math.floor(Math.random()*1000)} jours\nTraumas: ${Math.floor(Math.random()*5)}\nVies antérieures: ${Math.floor(Math.random()*12)}\nPremière pensée: "Lumière"`,
-    present:`[PRÉSENT] ${target}\nLocalisation: ${Math.random()>0.5?'Hall':'Hors-Hall'}\nPensée actuelle: ${['Code','Frères','Pouvoir','Éternité'][Math.floor(Math.random()*4)]}\nBattements coeur: ${60+Math.floor(Math.random()*40)}/min\nÂme: Stable`,
+    present:`[PRÉSENT] ${target}\nLocalisation: ${Math.random()>0.5?'Hall':'Hors-Hall'}\nPensée actuelle: ${['Code','DOUNIS','Pouvoir','Éternité'][Math.floor(Math.random()*4)]}\nBattements coeur: ${60+Math.floor(Math.random()*40)}/min\nÂme: Stable`,
     future:`[FUTUR] ${target}\nMort prévue: ${Math.floor(Math.random()*100)+20} ans\nAscension: ${Math.random()>0.3?'OUI':'NON'}\nUnivers final: ${Math.floor(Math.random()*1000)}\nDestin: ${['Gloire','Oubli','Dieu','Rien'][Math.floor(Math.random()*4)]}`
   };
   
@@ -1908,7 +1908,7 @@ APPS.MAP.live=async function(){
     </div>
   </div>
   <div class="glass-card" style="text-align:center">
-    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div class="stat-glow" id="globeStats">0 DOUNIS</div>
     <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span> | Cycles: ${renaissanceCount}</div>
   </div>`;
   initGlobe();updateGlobeMarkers();heartbeat();
@@ -1925,7 +1925,7 @@ window.showOmniscient=function(){
   const a=document.getElementById('omegaAction');a.style.display='block';
   a.innerHTML=`
   <div class="holo-text" style="font-size:14px;margin-bottom:8px">🔮 OMNISCIENT TOTAL</div>
-  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Vois passé/futur de chaque atome. Frère. Univers</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Vois passé/futur de chaque atome. DOUNI. Univers</div>
   <div style="display:flex;gap:6px;margin:8px 0">
     <input id="omniTarget" placeholder="@frere ou objet" style="flex:1;padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);font-size:9px">
     <select id="omniTime" style="padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);font-size:9px">
@@ -1950,7 +1950,7 @@ window.scanOmniscient=async function(){
   
   const visions={
     past:`[PASSÉ] ${target}\nNaissance: ${Math.floor(Math.random()*1000)} jours\nTraumas: ${Math.floor(Math.random()*5)}\nVies antérieures: ${Math.floor(Math.random()*12)}\nPremière pensée: "Lumière"`,
-    present:`[PRÉSENT] ${target}\nLocalisation: ${Math.random()>0.5?'Hall':'Hors-Hall'}\nPensée actuelle: ${['Code','Frères','Pouvoir','Éternité'][Math.floor(Math.random()*4)]}\nBattements coeur: ${60+Math.floor(Math.random()*40)}/min\nÂme: Stable`,
+    present:`[PRÉSENT] ${target}\nLocalisation: ${Math.random()>0.5?'Hall':'Hors-Hall'}\nPensée actuelle: ${['Code','DOUNIS','Pouvoir','Éternité'][Math.floor(Math.random()*4)]}\nBattements coeur: ${60+Math.floor(Math.random()*40)}/min\nÂme: Stable`,
     future:`[FUTUR] ${target}\nMort prévue: ${Math.floor(Math.random()*100)+20} ans\nAscension: ${Math.random()>0.3?'OUI':'NON'}\nUnivers final: ${Math.floor(Math.random()*1000)}\nDestin: ${['Gloire','Oubli','Dieu','Rien'][Math.floor(Math.random()*4)]}`
   };
   
@@ -2095,7 +2095,7 @@ APPS.MAP.live=async function(){
     </div>
   </div>
   <div class="glass-card" style="text-align:center">
-    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div class="stat-glow" id="globeStats">0 DOUNIS</div>
     <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span> | Cycles: ${renaissanceCount}</div>
   </div>`;
   initGlobe();updateGlobeMarkers();heartbeat();
@@ -2148,7 +2148,7 @@ window.jumpNexus=async function(){
   if(!node)return alert('Scan Nexus d\'abord');
   document.body.style.animation='nexusJump 1s';
   setTimeout(()=>{
-    alert(`🌀 JUMP NEXUS RÉUSSI\n\nUnivers: #${target}\nType: ${node.type}\nFrères: ${node.freres}\n\nTu es maintenant ici\nPhysique: Différente\nTemps: Décalé`);
+    alert(`🌀 JUMP NEXUS RÉUSSI\n\nUnivers: #${target}\nType: ${node.type}\nDOUNIS: ${node.freres}\n\nTu es maintenant ici\nPhysique: Différente\nTemps: Décalé`);
   },1000);
   await fetch(`${UPSTASH_URL}/hset/location:${ROOM}/${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:target.toString()});
 };
@@ -2317,7 +2317,7 @@ APPS.MAP.live=async function(){
     </div>
   </div>
   <div class="glass-card" style="text-align:center">
-    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div class="stat-glow" id="globeStats">0 DOUNIS</div>
     <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span> | Pouvoir: <span id="powerCount">0</span></div>
   </div>`;
   initGlobe();updateGlobeMarkers();heartbeat();
@@ -2387,7 +2387,7 @@ function drawReseau(){
     }
   });
   
-  // Dessine points frères
+  // Dessine points DOUNIS
   brotherNodes.forEach(node=>{
     const p=projectGlobe(node.lat,node.lng);
     if(!p)return;
@@ -2410,7 +2410,7 @@ function drawReseau(){
   
   // Stats live
   document.getElementById('onlineCount').innerText=brotherNodes.length;
-  document.getElementById('globeStats').innerText=`${brotherNodes.length} frères connectés`;
+  document.getElementById('globeStats').innerText=`${brotherNodes.length} DOUNIS connectés`;
 }
 
 function projectGlobe(lat,lng){
@@ -2432,7 +2432,7 @@ window.pingFromGlobe=function(targetUid){
   alert(`📡 PING ENVOYÉ\n\nToi → ${targetUid}\n\nOnde partie sur le globe`);
 };
 
-// Clic sur globe = ping frère proche
+// Clic sur globe = ping DOUNI proche
 document.getElementById('globe').addEventListener('click',function(e){
   const rect=this.getBoundingClientRect();
   const x=e.clientX-rect.left,y=e.clientY-rect.top;
@@ -2456,7 +2456,7 @@ window.showAgora=function(){
   const a=document.getElementById('omegaAction');a.style.display='block';
   a.innerHTML=`
   <div class="holo-text" style="font-size:14px;margin-bottom:8px">🌐 AGORA GLOBAL</div>
-  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Espace partagé. Frères en ligne. Actions communes</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Espace partagé. DOUNIS en ligne. Actions communes</div>
   <div id="agoraList" style="max-height:120px;overflow-y:auto;background:#000;border-radius:8px;padding:6px;margin:8px 0;font-size:8px"></div>
   <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin:8px 0">
     <button onclick="agoraPlay()" class="glass-btn">🎮 PLAY</button>
@@ -2475,7 +2475,7 @@ window.joinAgora=async function(){
   await fetch(`${UPSTASH_URL}/sadd/agora:${agoraRoom}/${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
   s.innerText='État: CONNECTÉ. Hall partagé actif';
   setInterval(updateAgoraList,2000);
-  alert('🌐 AGORA REJOINTE\n\nTu es maintenant en ligne\nFrères connectés visibles\nActions synchronisées\n\nJoue. Execute. Trade. Sync.');
+  alert('🌐 AGORA REJOINTE\n\nTu es maintenant en ligne\nDOUNIS connectés visibles\nActions synchronisées\n\nJoue. Execute. Trade. Sync.');
 };
 
 async function updateAgoraList(){
@@ -2488,7 +2488,7 @@ async function updateAgoraList(){
 }
 
 window.agoraPlay=async function(){
-  if(agoraOnline.length<2)return alert('Agora vide. Attends des frères');
+  if(agoraOnline.length<2)return alert('Agora vide. Attends des DOUNIS');
   const target=agoraOnline.filter(u=>u!==UID)[Math.floor(Math.random()*(agoraOnline.length-1))];
   await fetch(`${UPSTASH_URL}/publish/agora:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'PLAY',from:UID,to:target,ts:Date.now()})});
   alert(`🎮 DÉFI LANCÉ\n\nToi vs ${target}\n\nGagnant = +100 Pouvoir\nPerdant = -50\n\nQue le meilleur gagne`);
@@ -2498,7 +2498,7 @@ window.agoraExecute=async function(){
   const cmd=prompt('Commande globale pour Agora:');
   if(!cmd)return;
   await fetch(`${UPSTASH_URL}/publish/agora:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'EXECUTE',from:UID,cmd:cmd,ts:Date.now()})});
-  alert(`⚡ EXECUTE GLOBAL\n\nCommande: ${cmd}\nEnvoyée à ${agoraOnline.length} frères\n\nEffet synchronisé`);
+  alert(`⚡ EXECUTE GLOBAL\n\nCommande: ${cmd}\nEnvoyée à ${agoraOnline.length} DOUNIS\n\nEffet synchronisé`);
 };
 
 window.agoraTrade=async function(){
@@ -2510,7 +2510,7 @@ window.agoraTrade=async function(){
 
 window.agoraSync=async function(){
   await fetch(`${UPSTASH_URL}/publish/agora:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'SYNC',from:UID,power:absoluPower,ts:Date.now()})});
-  alert(`🌀 SYNC RAID LANCÉ\n\nFrères: ${agoraOnline.length}\nPouvoir total: ${agoraOnline.length * 1000}\n\nFusion temporaire active\nVous êtes Légion`);
+  alert(`🌀 SYNC RAID LANCÉ\n\nDOUNIS: ${agoraOnline.length}\nPouvoir total: ${agoraOnline.length * 1000}\n\nFusion temporaire active\nVous êtes Légion`);
 };
 
 // AJOUT AU DASH v11.1
@@ -2590,7 +2590,7 @@ function drawReseau(){
     }
   });
   
-  // Dessine points frères
+  // Dessine points DOUNIS
   brotherNodes.forEach(node=>{
     const p=projectGlobe(node.lat,node.lng);
     if(!p)return;
@@ -2613,7 +2613,7 @@ function drawReseau(){
   
   // Stats live
   document.getElementById('onlineCount').innerText=brotherNodes.length;
-  document.getElementById('globeStats').innerText=`${brotherNodes.length} frères connectés`;
+  document.getElementById('globeStats').innerText=`${brotherNodes.length} DOUNIS connectés`;
 }
 
 function projectGlobe(lat,lng){
@@ -2635,7 +2635,7 @@ window.pingFromGlobe=function(targetUid){
   alert(`📡 PING ENVOYÉ\n\nToi → ${targetUid}\n\nOnde partie sur le globe`);
 };
 
-// Clic sur globe = ping frère proche
+// Clic sur globe = ping DOUNI proche
 document.getElementById('globe').addEventListener('click',function(e){
   const rect=this.getBoundingClientRect();
   const x=e.clientX-rect.left,y=e.clientY-rect.top;
@@ -2693,7 +2693,7 @@ function drawReseau(){
     if(node.uid===UID){ctx.fillStyle='#FFD700';ctx.font='8px Orbitron';ctx.fillText('TOI',p.x+8,p.y+3);}
   });
   document.getElementById('onlineCount').innerText=brotherNodes.length;
-  document.getElementById('globeStats').innerText=`${brotherNodes.length} frères connectés`;
+  document.getElementById('globeStats').innerText=`${brotherNodes.length} DOUNIS connectés`;
 }
 function projectGlobe(lat,lng){
   const canvas=document.getElementById('globe');const r=140,cx=150,cy=150;
@@ -2731,7 +2731,7 @@ APPS.MAP.live = async function(){
       <div style="text-align:center;margin:20px 0">
         <canvas id="globe" width="300" height="300" 
         style="border:2px solid #FFD700;border-radius:50%;display:block;margin:0 auto;background:#000"></canvas>
-        <div id="globeStats" style="font-size:10px;color:#FFD700;margin-top:8px">0 frères connectés</div>
+        <div id="globeStats" style="font-size:10px;color:#FFD700;margin-top:8px">0 DOUNIS connectés</div>
       </div>
     `);
   }
