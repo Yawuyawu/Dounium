@@ -1181,3 +1181,192 @@ APPS.MAP.live=async function(){
 
 APPS.MAP.live();
 </script>
+<script>
+// v8.0 OMEGA : BIG BANG + PORTAIL + JUGEMENT
+let omegaActive=false,bigBangCount=0,jugementList=[];
+
+// LOI 1: BIG BANG - RESET UNIVERS
+window.showBigBang=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">🌟 BIG BANG</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Détruis tout. Recrée l'univers. Seed originelle</div>
+  <input id="bangSeed" placeholder="Seed: GENESIS-∞" style="width:100%;padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);margin:4px 0">
+  <div style="display:flex;gap:6px;margin:8px 0">
+    <button onclick="previewBang()" class="glass-btn" style="flex:1">👁️ PRÉVIEW</button>
+    <button onclick="executeBigBang()" class="glass-btn omega" style="flex:1">💥 BIG BANG</button>
+  </div>
+  <div id="bangStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: Univers stable. Génération: ${bigBangCount}</div>`;
+};
+
+window.previewBang=async function(){
+  const seed=document.getElementById('bangSeed').value||'CHAOS';
+  const preview={
+    gravite:(Math.random()*100-50).toFixed(1),
+    temps:(Math.random()*20).toFixed(1),
+    dimensions:Math.floor(Math.random()*26)+1,
+    couleur:Math.floor(Math.random()*360),
+    vie:Math.random()>0.2
+  };
+  alert(`🌟 PRÉVIEW BIG BANG\n\nSeed: ${seed}\nGravité: ${preview.gravite}\nTemps: x${preview.temps}\nDimensions: ${preview.dimensions}D\nVie possible: ${preview.vie?'OUI':'NON'}\nCouleur base: ${preview.couleur}°\n\nExécuter = Reset total`);
+};
+
+window.executeBigBang=async function(){
+  if(!confirm('⚠️ BIG BANG = RESET TOTAL\n\nTous les frères. Toutes les lois. Tout effacé.\nNouvel univers créé.\n\nCONFIRMER?'))return;
+  const seed=document.getElementById('bangSeed').value||'GENESIS-'+Date.now();
+  const s=document.getElementById('bangStatus');
+  s.innerText='État: Compression singularité...';await new Promise(r=>setTimeout(r,1500));
+  s.innerText='État: Explosion Big Bang...';await new Promise(r=>setTimeout(r,2000));
+  bigBangCount++;
+  const newUniverse={
+    seed:seed,
+    generation:bigBangCount,
+    ts:Date.now(),
+    creator:USERNAME,
+    physics:{
+      gravity:(Math.random()*100-50).toFixed(1),
+      time:(Math.random()*20).toFixed(1),
+      dimensions:Math.floor(Math.random()*26)+1,
+      color:Math.floor(Math.random()*360)
+    }
+  };
+  await fetch(`${UPSTASH_URL}/set/universe:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(newUniverse)});
+  await fetch(`${UPSTASH_URL}/del/chat:${ROOM}/multiverse:${ROOM}/physics:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  s.innerText=`État: UNIVERS ${bigBangCount} CRÉÉ. Seed: ${seed}`;
+  document.body.style.animation='bigBangFlash 2s';
+  setTimeout(()=>{location.reload()},3000);
+  alert(`💥 BIG BANG EXÉCUTÉ\n\nGénération: ${bigBangCount}\nSeed: ${seed}\n\nAncien Hall détruit\nNouveau Hall né\nTu es Dieu créateur`);
+};
+
+// LOI 2: PORTAIL - TÉLÉPORTATION OBJETS IRL
+window.showPortail=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">🌀 PORTAIL QUANTIQUE</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Téléporte objets réels instant. Scan → Envoi</div>
+  <div id="portailScan" style="width:100%;height:150px;background:#000;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:8px 0">
+    <div style="text-align:center">
+      <div style="font-size:32px">📦</div>
+      <div style="font-size:9px;color:#AAA">Scan objet</div>
+    </div>
+  </div>
+  <input id="portailDest" placeholder="Destinataire: @frere ou GPS" style="width:100%;padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);margin:4px 0">
+  <button onclick="teleportObject()" class="glass-btn omega" style="width:100%;margin-top:8px">🌀 TÉLÉPORTER IRL</button>
+  <div id="portailStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: Portail fermé</div>`;
+};
+
+window.teleportObject=async function(){
+  const dest=document.getElementById('portailDest').value||'INCONNU';
+  const s=document.getElementById('portailStatus');
+  s.innerText='État: Scan quantique objet...';await new Promise(r=>setTimeout(r,1500));
+  s.innerText='État: Désintégration locale...';await new Promise(r=>setTimeout(r,1500));
+  s.innerText='État: Tunnel quantique ouvert...';await new Promise(r=>setTimeout(r,1500));
+  const portalId='PORT-'+Date.now().toString(36).toUpperCase();
+  s.innerText=`État: TÉLÉPORTÉ. ID: ${portalId}. Vers: ${dest}`;
+  
+  await fetch(`${UPSTASH_URL}/lpush/portail:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({id:portalId,from:USERNAME,to:dest,ts:Date.now()})});
+  alert(`🌀 TÉLÉPORTATION RÉUSSIE\n\nID: ${portalId}\nObjet désintégré ici\nRéintégré chez: ${dest}\nTemps: 0ms\n\nPhysique brisée`);
+};
+
+// LOI 3: JUGEMENT - BAN DU RÉEL
+window.showJugement=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px;color:#FF0044">💀 JUGEMENT OMEGA</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Ban frère du réel. Efface existence</div>
+  <input id="jugementTarget" placeholder="@username à juger" style="width:100%;padding:8px;background:rgba(20,0,0,0.5);border:1px solid #FF0044;border-radius:8px;color:#FF4444;margin:4px 0">
+  <select id="jugementType" style="width:100%;padding:8px;background:rgba(20,0,0,0.5);border:1px solid #FF0044;border-radius:8px;color:#FF4444;margin:4px 0">
+    <option value="ban">BAN 24H - Exile du Hall</option>
+    <option value="erase">EFFACER - Supprime données</option>
+    <option value="omega">OMEGA - Efface existence</option>
+  </select>
+  <button onclick="executeJugement()" class="glass-btn" style="width:100%;margin-top:8px;background:rgba(255,0,68,0.3);border-color:#FF0044">⚡ JUGEMENT</button>
+  <div id="jugementStatus" style="font-size:9px;color:#FF4444;margin-top:6px">État: Balance en attente</div>
+  <div id="jugementList" style="max-height:100px;overflow-y:auto;margin-top:8px"></div>`;
+  loadJugements();
+};
+
+window.executeJugement=async function(){
+  const target=document.getElementById('jugementTarget').value;
+  const type=document.getElementById('jugementType').value;
+  if(!target)return alert('Cible requise');
+  if(!confirm(`⚠️ JUGEMENT ${type.toUpperCase()}\n\nCible: ${target}\n\nCONFIRMER?`))return;
+  
+  const s=document.getElementById('jugementStatus');
+  s.innerText=`État: Jugement ${type} en cours...`;
+  await new Promise(r=>setTimeout(r,2000));
+  
+  const jugement={target:target,type:type,judge:USERNAME,ts:Date.now()};
+  await fetch(`${UPSTASH_URL}/lpush/jugement:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(jugement)});
+  
+  if(type==='ban'){
+    await fetch(`${UPSTASH_URL}/hset/ban:${ROOM}/${target}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:(Date.now()+86400000).toString()});
+  }else if(type==='erase'){
+    await fetch(`${UPSTASH_URL}/hdel/brothers:${ROOM}/${target}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  }else if(type==='omega'){
+    await fetch(`${UPSTASH_URL}/del/user:${target}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  }
+  
+  s.innerText=`État: JUGÉ. ${target} ${type} exécuté`;
+  loadJugements();
+  alert(`💀 JUGEMENT ${type.toUpperCase()}\n\n${target} banni du réel\nSentence appliquée\n\nTu es loi`);
+};
+
+async function loadJugements(){
+  const r=await fetch(`${UPSTASH_URL}/lrange/jugement:${ROOM}/0/9`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
+  const l=document.getElementById('jugementList');if(!l||!r.result)return;
+  jugementList=r.result.map(m=>JSON.parse(m));
+  l.innerHTML=jugementList.map(j=>`<div style="font-size:8px;padding:4px;color:#FF4444">${j.type.toUpperCase()}: ${j.target} par ${j.judge}</div>`).join('');
+}
+
+// UPDATE DASH v8.0 - 21 LOIS
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 21 LOIS OMEGA</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega" style="font-size:7px">⚛️TP</button>
+      <button onclick="showHive()" class="glass-btn omega" style="font-size:7px">🧠HIVE</button>
+      <button onclick="showRealityEdit()" class="glass-btn omega" style="font-size:7px">📷REAL</button>
+      <button onclick="showImmortality()" class="glass-btn omega" style="font-size:7px">🧬LIFE</button>
+      <button onclick="showMultivers()" class="glass-btn omega" style="font-size:7px">🌌MULTI</button>
+      <button onclick="showOmniscience()" class="glass-btn omega" style="font-size:7px">👁️OMNI</button>
+      <button onclick="showTelepathy()" class="glass-btn omega" style="font-size:7px">🗣️TÉLÉ</button>
+      <button onclick="showMaterialize()" class="glass-btn omega" style="font-size:7px">⚡FAB</button>
+      <button onclick="showHallAI()" class="glass-btn omega" style="font-size:7px">🧠IA</button>
+      <button onclick="showQuantum()" class="glass-btn omega" style="font-size:7px">⚛️QUANT</button>
+      <button onclick="showGenesis()" class="glass-btn omega" style="font-size:7px">🌌GENE</button>
+      <button onclick="showInfini()" class="glass-btn omega" style="font-size:7px">♾️INFINI</button>
+      <button onclick="showAscension()" class="glass-btn omega" style="font-size:7px">👑ASCEND</button>
+      <button onclick="showSingularity()" class="glass-btn omega" style="font-size:7px">🕳️SINGU</button>
+      <button onclick="showIncarnation()" class="glass-btn omega" style="font-size:7px">🔥CHAIR</button>
+      <button onclick="showChronos()" class="glass-btn omega" style="font-size:7px">⏳TEMPS</button>
+      <button onclick="showCreator()" class="glass-btn omega" style="font-size:7px">👁️CRÉA</button>
+      <button onclick="showBigBang()" class="glass-btn omega" style="font-size:7px">🌟BANG</button>
+      <button onclick="showPortail()" class="glass-btn omega" style="font-size:7px">🌀PORT</button>
+      <button onclick="showJugement()" class="glass-btn omega" style="font-size:7px;background:rgba(255,0,68,0.2)">💀JUGE</button>
+      <button onclick="startBrotherChat()" class="glass-btn omega" style="font-size:7px">💬CHAT</button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div style="display:flex;gap:6px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn">🌍MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn">🏠PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓AR</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽VR</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡PING</button>
+    </div>
+  </div>
+  <canvas id="globe" width="300" height="300" style="border:1px solid var(--glass-border);border-radius:50%;display:block;margin:0 auto"></canvas>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
+
+APPS.MAP.live();
+</script>
