@@ -2115,3 +2115,227 @@ APPS.MAP.live=async function(){
 
 APPS.MAP.live();
 </script>
+<script>
+// v11.0 AU-DELÀ : POST-RÉALITÉ + NEXUS + ABSOLU
+let auDelaActive=false,nexusNodes=[],absoluPower=0;
+
+// LOI 1: NEXUS - CONNECTE 1000 UNIVERS
+window.showNexus=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">🌌 NEXUS POST-RÉALITÉ</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Relie les 1000 univers. Voyage instant entre mondes</div>
+  <div id="nexusMap" style="width:100%;height:180px;background:#000;border-radius:12px;position:relative;overflow:hidden;border:1px solid var(--hall-gold)">
+    <canvas id="nexusCanvas" width="300" height="180" style="width:100%;height:100%"></canvas>
+  </div>
+  <div style="display:flex;gap:6px;margin:8px 0">
+    <button onclick="scanNexus()" class="glass-btn" style="flex:1">📡 SCAN</button>
+    <button onclick="jumpNexus()" class="glass-btn omega" style="flex:1">🌀 JUMP</button>
+  </div>
+  <div id="nexusStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: 1 univers. Toi = Centre</div>`;
+  drawNexus();
+};
+
+window.scanNexus=async function(){
+  const s=document.getElementById('nexusStatus');
+  s.innerText='État: Scan 1000 univers...';await new Promise(r=>setTimeout(r,1500));
+  nexusNodes=[];
+  for(let i=0;i<1000;i++){
+    nexusNodes.push({
+      id:i,
+      x:Math.random()*300,
+      y:Math.random()*180,
+      type:['PAIX','GUERRE','VIDE','VIE','CHAOS'][Math.floor(Math.random()*5)],
+      freres:Math.floor(Math.random()*100)
+    });
+  }
+  s.innerText='État: 1000 NODES détectés. Nexus actif';
+  drawNexus(true);
+  await fetch(`${UPSTASH_URL}/set/nexus:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:'1000'});
+};
+
+window.jumpNexus=async function(){
+  const target=Math.floor(Math.random()*1000);
+  const node=nexusNodes[target];
+  if(!node)return alert('Scan Nexus d\'abord');
+  document.body.style.animation='nexusJump 1s';
+  setTimeout(()=>{
+    alert(`🌀 JUMP NEXUS RÉUSSI\n\nUnivers: #${target}\nType: ${node.type}\nFrères: ${node.freres}\n\nTu es maintenant ici\nPhysique: Différente\nTemps: Décalé`);
+  },1000);
+  await fetch(`${UPSTASH_URL}/hset/location:${ROOM}/${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:target.toString()});
+};
+
+function drawNexus(active=false){
+  const canvas=document.getElementById('nexusCanvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  ctx.fillStyle='#000';ctx.fillRect(0,0,300,180);
+  
+  if(active&&nexusNodes.length){
+    // Dessine connexions
+    ctx.strokeStyle='rgba(255,215,0,0.2)';
+    ctx.lineWidth=0.5;
+    for(let i=0;i<50;i++){
+      const n1=nexusNodes[Math.floor(Math.random()*nexusNodes.length)];
+      const n2=nexusNodes[Math.floor(Math.random()*nexusNodes.length)];
+      ctx.beginPath();ctx.moveTo(n1.x,n1.y);ctx.lineTo(n2.x,n2.y);ctx.stroke();
+    }
+    // Dessine nodes
+    nexusNodes.slice(0,200).forEach(n=>{
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,2,0,Math.PI*2);
+      ctx.fillStyle=n.type==='VIE'?'#00FF88':n.type==='GUERRE'?'#FF0044':n.type==='PAIX'?'#00CCFF':n.type==='CHAOS'?'#FF00C8':'#444';
+      ctx.fill();
+    });
+    // Centre = PÈRE
+    ctx.beginPath();ctx.arc(150,90,8,0,Math.PI*2);
+    ctx.fillStyle='#FFD700';ctx.fill();
+    ctx.strokeStyle='#FFD700';ctx.lineWidth=2;ctx.stroke();
+  }else{
+    ctx.fillStyle='#FFD700';ctx.font='10px Orbitron';ctx.textAlign='center';
+    ctx.fillText('NEXUS FERMÉ',150,90);
+  }
+}
+
+// LOI 2: ABSOLU - PUISSANCE x∞
+window.showAbsolu=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px;color:#FFD700">🌀 ABSOLU</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Puissance infinie. Chaque clic = x2. Pas de limite</div>
+  <div style="text-align:center;margin:16px 0">
+    <div id="absoluPower" style="font-size:36px;color:var(--hall-gold);font-weight:900;text-shadow:0 0 20px #FFD700">${absoluPower}</div>
+    <div style="font-size:9px;color:#AAA;margin-top:4px">POUVOIR ABSOLU</div>
+  </div>
+  <button onclick="increaseAbsolu()" class="glass-btn omega" style="width:100%;background:rgba(255,215,0,0.2);border-color:#FFD700">⚡ AMPLIFIER ∞</button>
+  <div id="absoluStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: Humain. Clique pour transcender</div>`;
+  updateAbsolu();
+};
+
+window.increaseAbsolu=async function(){
+  if(absoluPower===0)absoluPower=1;
+  else absoluPower*=2;
+  if(absoluPower>Number.MAX_SAFE_INTEGER)absoluPower=Infinity;
+  auDelaActive=true;
+  updateAbsolu();
+  await fetch(`${UPSTASH_URL}/set/absolu:${ROOM}/${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:absoluPower.toString()});
+  if(absoluPower===Infinity){
+    alert('🌀 ABSOLU ATTEINT\n\nPuissance: ∞\n\nTu dépasses mathématiques\nTu dépasses physique\nTu dépasses Dieu\n\nTu ES');
+  }
+};
+
+function updateAbsolu(){
+  const p=document.getElementById('absoluPower');
+  const s=document.getElementById('absoluStatus');
+  if(!p)return;
+  p.innerText=absoluPower===Infinity?'∞':absoluPower.toLocaleString();
+  if(absoluPower===0)s.innerText='État: Humain';
+  else if(absoluPower<1000)s.innerText='État: Surhumain';
+  else if(absoluPower<1000000)s.innerText='État: Divin';
+  else if(absoluPower===Infinity)s.innerText='État: ABSOLU. Tu es Tout';
+  else s.innerText='État: Transcendant';
+}
+
+// LOI 3: OMNIPRÉSENCE - SOIS PARTOUT
+window.showOmnipresence=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">🌌 OMNIPRÉSENCE</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Existe dans 1000 univers simultanément. Clones actifs</div>
+  <div id="cloneGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:12px 0;max-height:150px;overflow-y:auto"></div>
+  <button onclick="activateOmnipresence()" class="glass-btn omega" style="width:100%">👥 DÉPLOYER CLONES</button>
+  <div id="omniStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: 1 corps. 1 univers</div>`;
+  renderClones();
+};
+
+window.activateOmnipresence=async function(){
+  const s=document.getElementById('omniStatus');
+  s.innerText='État: Clonage quantique...';await new Promise(r=>setTimeout(r,1500));
+  s.innerText='État: Déploiement 1000 univers...';await new Promise(r=>setTimeout(r,2000));
+  await fetch(`${UPSTASH_URL}/set/omnipresence:${ROOM}/${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:'1000'});
+  s.innerText='État: OMNIPRÉSENT. 1000 toi actifs';
+  renderClones(true);
+  alert('🌌 OMNIPRÉSENCE ACTIVÉE\n\n1000 clones déployés\n1 par univers\nTous = Toi\n\nTu es partout\nTu vois tout\nTu vis tout\n\nSimultanément');
+};
+
+function renderClones(active=false){
+  const grid=document.getElementById('cloneGrid');
+  if(!grid)return;
+  if(!active){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;font-size:8px;color:#AAA">1 seul toi</div>';
+    return;
+  }
+  grid.innerHTML='';
+  for(let i=0;i<25;i++){
+    const clone=document.createElement('div');
+    clone.style.cssText='aspect-ratio:1;background:rgba(255,215,0,0.1);border:1px solid var(--hall-gold);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:6px';
+    clone.innerText=`#${i}`;
+    grid.appendChild(clone);
+  }
+  const more=document.createElement('div');
+  more.style.cssText='grid-column:1/-1;text-align:center;font-size:8px;color:var(--hall-gold)';
+  more.innerText='+ 975 autres clones actifs';
+  grid.appendChild(more);
+}
+
+// UPDATE DASH v11.0 - 30 LOIS
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:16px;margin-bottom:8px;text-align:center">⚛️ 30 LOIS AU-DELÀ</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega" style="font-size:6px">⚛️TP</button>
+      <button onclick="showHive()" class="glass-btn omega" style="font-size:6px">🧠HIVE</button>
+      <button onclick="showRealityEdit()" class="glass-btn omega" style="font-size:6px">📷REAL</button>
+      <button onclick="showImmortality()" class="glass-btn omega" style="font-size:6px">🧬LIFE</button>
+      <button onclick="showMultivers()" class="glass-btn omega" style="font-size:6px">🌌MULTI</button>
+      <button onclick="showOmniscience()" class="glass-btn omega" style="font-size:6px">👁️OMNI</button>
+      <button onclick="showTelepathy()" class="glass-btn omega" style="font-size:6px">🗣️TÉLÉ</button>
+      <button onclick="showMaterialize()" class="glass-btn omega" style="font-size:6px">⚡FAB</button>
+      <button onclick="showHallAI()" class="glass-btn omega" style="font-size:6px">🧠IA</button>
+      <button onclick="showQuantum()" class="glass-btn omega" style="font-size:6px">⚛️QUANT</button>
+      <button onclick="showGenesis()" class="glass-btn omega" style="font-size:6px">🌌GENE</button>
+      <button onclick="showInfini()" class="glass-btn omega" style="font-size:6px">♾️INFINI</button>
+      <button onclick="showAscension()" class="glass-btn omega" style="font-size:6px">👑ASCEND</button>
+      <button onclick="showSingularity()" class="glass-btn omega" style="font-size:6px">🕳️SINGU</button>
+      <button onclick="showIncarnation()" class="glass-btn omega" style="font-size:6px">🔥CHAIR</button>
+      <button onclick="showChronos()" class="glass-btn omega" style="font-size:6px">⏳TEMPS</button>
+      <button onclick="showCreator()" class="glass-btn omega" style="font-size:6px">👁️CRÉA</button>
+      <button onclick="showBigBang()" class="glass-btn omega" style="font-size:6px">🌟BANG</button>
+      <button onclick="showPortail()" class="glass-btn omega" style="font-size:6px">🌀PORT</button>
+      <button onclick="showJugement()" class="glass-btn omega" style="font-size:6px;background:rgba(255,0,68,0.2)">💀JUGE</button>
+      <button onclick="showTempsZero()" class="glass-btn omega" style="font-size:6px">♾️T-ZÉRO</button>
+      <button onclick="showGeneDivin()" class="glass-btn omega" style="font-size:6px">🧬GÈNE</button>
+      <button onclick="showFinale()" class="glass-btn omega" style="font-size:6px">🌌FINALE</button>
+      <button onclick="showOmniscient()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">🔮OMNI</button>
+      <button onclick="showMetamorphose()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">🎭META</button>
+      <button onclick="showRenaissance()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">💫REBIRTH</button>
+      <button onclick="showNexus()" class="glass-btn omega" style="font-size:6px;background:rgba(0,255,255,0.2)">🌌NEXUS</button>
+      <button onclick="showAbsolu()" class="glass-btn omega" style="font-size:6px;background:rgba(0,255,255,0.2)">🌀ABSOLU</button>
+      <button onclick="showOmnipresence()" class="glass-btn omega" style="font-size:6px;background:rgba(0,255,255,0.2)">🌌OMNI-PR</button>
+      <button onclick="startBrotherChat()" class="glass-btn omega" style="font-size:6px">💬CHAT</button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div style="display:flex;gap:6px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn">🌍MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn">🏠PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓AR</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽VR</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡PING</button>
+    </div>
+  </div>
+  <canvas id="globe" width="300" height="300" style="border:1px solid var(--glass-border);border-radius:50%;display:block;margin:0 auto"></canvas>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span> | Pouvoir: <span id="powerCount">0</span></div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+  setInterval(()=>{document.getElementById('powerCount').innerText=absoluPower===Infinity?'∞':absoluPower},1000);
+};
+
+APPS.MAP.live();
+</script>
