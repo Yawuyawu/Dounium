@@ -3285,3 +3285,111 @@ window.douniSendEmoji=function(e){
   console.log('DOUNIUM v12.4 PROFIL READY');
 })();
 </script>
+<script>
+// v12.6 HALL DES ÂMES P2P
+(function DouniP2P(){
+  if(window.DouniP2PActive) return; window.DouniP2PActive=true;
+  
+  // 1. CSS HALL P2P
+  let css=document.createElement('style');
+  css.textContent=`
+    #douniHallBtn{position:fixed;top:15px;right:15px;z-index:999999;background:#000;border:2px solid var(--or);color:var(--or);padding:8px 16px;border-radius:50px;font-weight:bold;cursor:pointer;box-shadow:0 0 20px var(--or)}
+    #douniHallPanel{position:fixed;top:70px;right:15px;width:280px;background:#000;border:2px solid var(--or);border-radius:20px;z-index:999998;display:none;max-height:400px;overflow-y:auto}
+    #douniHallHeader{background:var(--cendre);padding:10px;color:var(--or);font-weight:bold;border-bottom:1px solid var(--or);text-align:center}
+    .douniSoulCard{display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #333;cursor:pointer}
+    .douniSoulCard:hover{background:#111}
+    .douniSoulAvatar{width:35px;height:35px;border-radius:50%;border:1px solid var(--or);display:flex;align-items:center;justify-content:center;font-size:18px;background:linear-gradient(45deg,var(--or),#FF8800)}
+    .douniSoulInfo{flex:1}
+    .douniSoulName{color:var(--or);font-size:13px;font-weight:bold}
+    .douniSoulId{color:#888;font-size:10px}
+    .douniSoulStatus{width:8px;height:8px;background:var(--vert);border-radius:50%;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+    #douniP2PChat{position:fixed;bottom:80px;right:15px;width:300px;background:#000;border:2px solid var(--or);border-radius:20px;z-index:999997;display:none;flex-direction:column}
+  `;
+  document.head.appendChild(css);
+
+  // 2. BOUTON HALL
+  let hallBtn=document.createElement('button');
+  hallBtn.id='douniHallBtn';
+  hallBtn.innerHTML='👥 HALL <span id="douniPeerCount">0</span>';
+  hallBtn.onclick=()=>{document.getElementById('douniHallPanel').style.display=document.getElementById('douniHallPanel').style.display==='block'?'none':'block'};
+  document.body.appendChild(hallBtn);
+
+  // 3. PANEL HALL
+  let hallPanel=document.createElement('div');
+  hallPanel.id='douniHallPanel';
+  hallPanel.innerHTML='<div id="douniHallHeader">ÂMES CONNECTÉES</div><div id="douniHallList"></div>';
+  document.body.appendChild(hallPanel);
+
+  // 4. LOGIQUE P2P SIMPLE VIA BROADCASTCHANNEL
+  const bc=new BroadcastChannel('dounium_hall');
+  const peers={};
+  
+  function updateHall(){
+    const list=document.getElementById('douniHallList');
+    const count=document.getElementById('douniPeerCount');
+    list.innerHTML='';
+    let n=0;
+    Object.values(peers).forEach(p=>{
+      if(Date.now()-p.lastSeen<10000){ // 10s timeout
+        n++;
+        let card=document.createElement('div');
+        card.className='douniSoulCard';
+        card.innerHTML=`
+          <div class="douniSoulAvatar">${p.avatar}</div>
+          <div class="douniSoulInfo">
+            <div class="douniSoulName">${p.name} Lv.${p.level}</div>
+            <div class="douniSoulId">${p.id.substr(0,12)}...</div>
+          </div>
+          <div class="douniSoulStatus"></div>
+        `;
+        list.appendChild(card);
+      }
+    });
+    count.innerText=n;
+  }
+
+  // Ping toutes les 3s pour annoncer présence
+  setInterval(()=>{
+    bc.postMessage({
+      type:'ping',
+      soul:DouniSoul,
+      time:Date.now()
+    });
+  },3000);
+
+  // Écoute les autres âmes
+  bc.onmessage=(e)=>{
+    if(e.data.type==='ping' && e.data.soul.id!==DouniSoul.id){
+      peers[e.data.soul.id]={...e.data.soul,lastSeen:Date.now()};
+      updateHall();
+    }
+    if(e.data.type==='msg' && e.data.to===DouniSoul.id){
+      addMsg(`<b>${e.data.from.name}:</b> ${e.data.text}`,false);
+      if(document.getElementById('douniChatPanel').style.display!=='flex')douniToggleChat();
+    }
+  };
+
+  // Override send pour P2P
+  const oldSend=window.douniSendText;
+  window.douniSendText=function(){
+    let i=document.getElementById('douniMsgInput');
+    if(!i.value)return;
+    addMsg(`<b>${DouniSoul.name}:</b> ${i.value}`,true);
+    // Broadcast à tous les pairs
+    bc.postMessage({
+      type:'msg',
+      from:DouniSoul,
+      text:i.value,
+      time:Date.now()
+    });
+    i.value='';
+    DouniSoul.xp++;localStorage.douniSoulXP=DouniSoul.xp;
+    if(DouniSoul.xp%10===0){DouniSoul.level++;localStorage.douniSoulLevel=DouniSoul.level;}
+  };
+
+  // Nettoie peers morts
+  setInterval(updateHall,5000);
+  console.log('DOUNIUM v12.6 P2P HALL READY');
+})();
+</script>
