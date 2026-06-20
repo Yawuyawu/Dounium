@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Dounium V18.6 UPSTASH SYNC 8D</title>
+<title>Dounium V18.7 BANK 8D</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 :root{--gold:#FFD700;--neon:#00FF88;--tesla-red:#E31937;--cyber-glow:0 0 20px #E31937,0 0 40px #E31937}
@@ -77,6 +77,7 @@ input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255
 
 <button class="dm-fab" onclick="openDM()">💬</button>
 <div class="fab-menu">
+<button class="fab-mini" onclick="openBank()">🏦</button>
 <button class="fab-mini" onclick="toggleMusic()">🎵</button>
 <button class="fab-mini" onclick="toggleReels()">📱</button>
 <button class="fab-mini" onclick="openComposer()">✍️</button>
@@ -106,6 +107,19 @@ input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255
 <button class="btn-whatsapp" onclick="verifyEmailCode()">✅ CONFIRMER</button>
 </div></div>
 
+<div class="modal" id="bank-modal">
+<div class="modal-content">
+<div class="modal-header"><div class="modal-title">🏦 DOUNIUM BANK 8D</div><button class="close-modal" onclick="closeBank()">×</button></div>
+<div style="text-align:center;margin-bottom:16px">
+<div style="font-size:12px;color:rgba(255,255,255,0.6)">SOLDE SANG RÉEL</div>
+<div style="font-size:32px;font-weight:900;color:var(--gold)" id="bank-balance">0 ⚜️</div>
+</div>
+<input type="text" id="bank-to" placeholder="Destinataire @pseudo">
+<input type="number" id="bank-amount" placeholder="Montant ⚜️">
+<button class="btn-whatsapp" onclick="sendCoins()">💸 ENVOYER</button>
+<div style="margin-top:20px;font-size:12px;font-weight:700">HISTORIQUE</div>
+<div id="bank-history" style="max-height:200px;overflow-y:auto;margin-top:8px;font-size:11px"></div>
+</div></div>
 <div class="modal" id="composer-modal">
 <div class="modal-content">
 <div class="modal-header"><div class="modal-title">✍️ NOUVEAU POST</div><button class="close-modal" onclick="closeComposer()">×</button></div>
@@ -122,6 +136,7 @@ let user=localStorage.getItem("dounium_user");
 if(!user){
 currentUser={name:"Visiteur",email:"",verified:false,bio:"Mode Libre · Crée ton profil"};
 localStorage.setItem("dounium_user",JSON.stringify(currentUser));
+await saveToUpstash(`user_${temp.name}`,{email:temp.email,name:temp.name});
 }else{currentUser=JSON.parse(user)}
 if(localStorage.getItem("dounium_tesla")==="true")document.body.classList.add("tesla-mode");
 checkUpstash();setTimeout(loadCloudPosts,1000);
@@ -147,6 +162,59 @@ if(!UPSTASH_URL)return;
 try{await fetch(`${UPSTASH_URL}/set/${key}`,{method:"POST",headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(data)})}catch(e){}
 }
 async function getFromUpstash(key){
+async function getBalance(email){
+let bal=await getFromUpstash(`bank_${email}`);
+return bal?parseInt(bal):100;
+}
+async function setBalance(email,amount){
+await saveToUpstash(`bank_${email}`,amount.toString());
+}
+async function addTransaction(from,to,amount){
+let hist=await getFromUpstash(`bank_hist_${from}`)||[];
+hist.push({to,amount,time:Date.now(),type:"out"});
+await saveToUpstash(`bank_hist_${from}`,hist);
+let histTo=await getFromUpstash(`bank_hist_${to}`)||[];
+histTo.push({from,amount,time:Date.now(),type:"in"});
+await saveToUpstash(`bank_hist_${to}`,histTo);
+}
+async function openBank(){
+if(!currentUser.verified){openEmailModal();return}
+document.getElementById("bank-modal").classList.add("active");
+updateBankUI();
+}
+function closeBank(){document.getElementById("bank-modal").classList.remove("active")}
+async function updateBankUI(){
+let bal=await getBalance(currentUser.email);
+document.getElementById("bank-balance").textContent=bal+" ⚜️";
+let hist=await getFromUpstash(`bank_hist_${currentUser.email}`)||[];
+let html="";
+hist.reverse().slice(0,10).forEach(t=>{
+let sign=t.type==="in"?"+":"-";
+let color=t.type==="in"?"var(--neon)":"var(--tesla-red)";
+let name=t.type==="in"?t.from:t.to;
+html+=`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+<span>${t.type==="in"?"Reçu de":"Envoyé à"} ${name}</span>
+<span style="color:${color}">${sign}${t.amount} ⚜️</span></div>`;
+});
+document.getElementById("bank-history").innerHTML=html||"<div style="color:rgba(255,255,255,0.4);text-align:center">Aucune transaction</div>";
+}
+async function sendCoins(){
+const to=document.getElementById("bank-to").value.replace("@","");
+const amount=parseInt(document.getElementById("bank-amount").value);
+if(!to||!amount||amount<=0){alert("Remplis tout PÈRE");return}
+let myBal=await getBalance(currentUser.email);
+if(myBal<amount){alert("Solde insuffisant");return}
+let toUser=await getFromUpstash(`user_${to}`);
+if(!toUser){alert("User introuvable");return}
+await setBalance(currentUser.email,myBal-amount);
+let toBal=await getBalance(toUser.email);
+await setBalance(toUser.email,toBal+amount);
+await addTransaction(currentUser.email,to,amount);
+document.getElementById("bank-to").value="";
+document.getElementById("bank-amount").value="";
+updateBankUI();
+alert(`💸 ${amount} ⚜️ envoyé à ${to}`);
+}
 if(!UPSTASH_URL)return null;
 try{const res=await fetch(`${UPSTASH_URL}/get/${key}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});const data=await res.json();return data.result?JSON.parse(data.result):null}catch(e){return null}
 }
@@ -168,7 +236,9 @@ function verifyEmailCode(){
 if(document.getElementById("email-code").value===localStorage.getItem("dounium_email_code")){
 const temp=JSON.parse(localStorage.getItem("dounium_temp_user"));
 currentUser={name:temp.name,email:temp.email,verified:true,bio:"Créateur d'Univers · Vérifié ⚜️"};
+setBalance(temp.email,100);
 localStorage.setItem("dounium_user",JSON.stringify(currentUser));
+await saveToUpstash(`user_${temp.name}`,{email:temp.email,name:temp.name});
 document.getElementById("verify-modal").classList.remove("active");
 alert("⚜️ Profil Vérifié");
 }else alert("Code incorrect");
