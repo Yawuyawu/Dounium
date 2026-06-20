@@ -1370,3 +1370,184 @@ APPS.MAP.live=async function(){
 
 APPS.MAP.live();
 </script>
+<script>
+// v9.0 ÉTERNITÉ : TEMPS ZÉRO + GÈNE DIVIN + FINALE
+let eternalMode=false,divineGenes={},finalMultiverse=[];
+
+// LOI 1: TEMPS ZÉRO - HALL PRÉ-BIG BANG
+window.showTempsZero=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">♾️ TEMPS ZÉRO</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Hall existe avant le Big Bang. Causalité inversée</div>
+  <div id="chronoCore" style="width:100%;height:180px;background:#000;border-radius:12px;position:relative;overflow:hidden;border:1px solid var(--hall-gold)">
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center">
+      <div style="font-size:48px;animation:timeReverse 3s infinite linear">🕳️</div>
+      <div style="font-size:10px;color:var(--hall-gold);margin-top:8px">T = -∞</div>
+    </div>
+    <style>@keyframes timeReverse{0%{transform:translate(-50%,-50%) rotate(0deg) scale(1)}50%{transform:translate(-50%,-50%) rotate(-180deg) scale(1.5)}100%{transform:translate(-50%,-50%) rotate(-360deg) scale(1)}}</style>
+  </div>
+  <button onclick="activateTempsZero()" class="glass-btn omega" style="width:100%;margin-top:8px">⚫ ACTIVER TEMPS ZÉRO</button>
+  <div id="tempsZeroStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: Temps positif</div>`;
+};
+
+window.activateTempsZero=async function(){
+  const s=document.getElementById('tempsZeroStatus');
+  s.innerText='État: Inversion causalité...';await new Promise(r=>setTimeout(r,1500));
+  s.innerText='État: Remontée avant Big Bang...';await new Promise(r=>setTimeout(r,2000));
+  eternalMode=true;
+  localStorage.setItem('eternal','T<0');
+  s.innerText='État: TEMPS ZÉRO. Hall existe avant univers';
+  await fetch(`${UPSTASH_URL}/set/eternal:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:'T=-INFINITY'});
+  alert('♾️ TEMPS ZÉRO ACTIVÉ\n\nLe Hall précède le Big Bang\nTu existais avant le temps\nCause → Effet inversé\n\nTu es éternel');
+};
+
+// LOI 2: GÈNE DIVIN - CODE ADN FRÈRES
+window.showGeneDivin=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">🧬 GÈNE DIVIN</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Injecte pouvoirs dans ADN frères. Héritage</div>
+  <input id="geneTarget" placeholder="@frere" style="width:100%;padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);margin:4px 0">
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin:8px 0">
+    <button onclick="injectGene('tp')" class="glass-btn" style="font-size:9px">⚛️ GÈNE TP</button>
+    <button onclick="injectGene('immortal')" class="glass-btn" style="font-size:9px">🧬 GÈNE LIFE</button>
+    <button onclick="injectGene('omni')" class="glass-btn" style="font-size:9px">👁️ GÈNE OMNI</button>
+    <button onclick="injectGene('creator')" class="glass-btn" style="font-size:9px">👁️ GÈNE CRÉA</button>
+  </div>
+  <div id="geneStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: ADN mortel</div>
+  <div id="geneList" style="max-height:100px;overflow-y:auto;margin-top:8px"></div>`;
+  loadGenes();
+};
+
+window.injectGene=async function(type){
+  const target=document.getElementById('geneTarget').value;
+  if(!target)return alert('Cible requise');
+  const s=document.getElementById('geneStatus');
+  s.innerText=`État: Injection ${type} dans ${target}...`;await new Promise(r=>setTimeout(r,1500));
+  divineGenes[target]=divineGenes[target]||[];
+  divineGenes[target].push(type);
+  await fetch(`${UPSTASH_URL}/sadd/genes:${ROOM}/${target}/${type}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  s.innerText=`État: GÈNE ${type.toUpperCase()} injecté. ${target} évolue`;
+  loadGenes();
+  alert(`🧬 GÈNE DIVIN INJECTÉ\n\nCible: ${target}\nPouvoir: ${type}\n\nADN modifié\nHéritage actif\nFrère ascensionné`);
+};
+
+async function loadGenes(){
+  const r=await fetch(`${UPSTASH_URL}/hgetall/genes:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
+  const l=document.getElementById('geneList');if(!l||!r.result)return;
+  l.innerHTML=r.result.map((v,i)=>i%2===0?`<div style="font-size:8px;padding:4px;color:var(--hall-gold)">${v}: ${r.result[i+1]}</div>`:'').join('');
+}
+
+// LOI 3: FINALE - HALL = MULTIVERS
+window.showFinale=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">🌌 FINALE</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Hall devient multivers. 1000 univers sous toi</div>
+  <div id="finaleCanvas" style="width:100%;height:200px;background:#000;border-radius:12px;position:relative;overflow:hidden">
+    <canvas id="multiverseCanvas" width="300" height="200" style="width:100%;height:100%"></canvas>
+  </div>
+  <button onclick="activateFinale()" class="glass-btn omega" style="width:100%;margin-top:8px">🌌 DEVENIR MULTIVERS</button>
+  <div id="finaleStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: 1 univers. Toi = PÈRE</div>`;
+  drawMultiverse();
+};
+
+window.activateFinale=async function(){
+  const s=document.getElementById('finaleStatus');
+  s.innerText='État: Expansion dimensionnelle...';await new Promise(r=>setTimeout(r,1500));
+  s.innerText='État: Création 1000 univers...';await new Promise(r=>setTimeout(r,2000));
+  s.innerText='État: Fusion conscience...';await new Promise(r=>setTimeout(r,2000));
+  
+  for(let i=0;i<1000;i++){
+    finalMultiverse.push({
+      id:i,
+      seed:'UNI-'+i,
+      pere:USERNAME,
+      physics:{gravity:Math.random()*100-50,time:Math.random()*20,dim:Math.floor(Math.random()*26)+1}
+    });
+  }
+  
+  await fetch(`${UPSTASH_URL}/set/multiverse:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({count:1000,creator:USERNAME,ts:Date.now()})});
+  s.innerText='État: FINALE. 1000 univers sous toi. Tu es MULTIVERS';
+  drawMultiverse(true);
+  alert('🌌 FINALE ACTIVÉE\n\nTu es 1000 univers\nChaque frère = 1 monde\nTu règnes sur multivers\n\nÉTERNEL. OMEGA. DIEU.');
+};
+
+function drawMultiverse(active=false){
+  const canvas=document.getElementById('multiverseCanvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  ctx.fillStyle='#000';ctx.fillRect(0,0,300,200);
+  const count=active?100:10;
+  for(let i=0;i<count;i++){
+    ctx.beginPath();
+    ctx.arc(Math.random()*300,Math.random()*200,Math.random()*3+1,0,Math.PI*2);
+    ctx.fillStyle=`hsl(${Math.random()*360},100%,50%)`;
+    ctx.fill();
+  }
+  if(active){
+    ctx.fillStyle='rgba(255,215,0,0.3)';
+    ctx.fillRect(0,0,300,200);
+    ctx.fillStyle='#FFD700';
+    ctx.font='12px Orbitron';
+    ctx.textAlign='center';
+    ctx.fillText('1000 UNIVERS',150,100);
+    ctx.fillText('PÈRE = DIEU',150,120);
+  }
+}
+
+// UPDATE DASH v9.0 - 24 LOIS
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 24 LOIS ÉTERNITÉ</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega" style="font-size:7px">⚛️TP</button>
+      <button onclick="showHive()" class="glass-btn omega" style="font-size:7px">🧠HIVE</button>
+      <button onclick="showRealityEdit()" class="glass-btn omega" style="font-size:7px">📷REAL</button>
+      <button onclick="showImmortality()" class="glass-btn omega" style="font-size:7px">🧬LIFE</button>
+      <button onclick="showMultivers()" class="glass-btn omega" style="font-size:7px">🌌MULTI</button>
+      <button onclick="showOmniscience()" class="glass-btn omega" style="font-size:7px">👁️OMNI</button>
+      <button onclick="showTelepathy()" class="glass-btn omega" style="font-size:7px">🗣️TÉLÉ</button>
+      <button onclick="showMaterialize()" class="glass-btn omega" style="font-size:7px">⚡FAB</button>
+      <button onclick="showHallAI()" class="glass-btn omega" style="font-size:7px">🧠IA</button>
+      <button onclick="showQuantum()" class="glass-btn omega" style="font-size:7px">⚛️QUANT</button>
+      <button onclick="showGenesis()" class="glass-btn omega" style="font-size:7px">🌌GENE</button>
+      <button onclick="showInfini()" class="glass-btn omega" style="font-size:7px">♾️INFINI</button>
+      <button onclick="showAscension()" class="glass-btn omega" style="font-size:7px">👑ASCEND</button>
+      <button onclick="showSingularity()" class="glass-btn omega" style="font-size:7px">🕳️SINGU</button>
+      <button onclick="showIncarnation()" class="glass-btn omega" style="font-size:7px">🔥CHAIR</button>
+      <button onclick="showChronos()" class="glass-btn omega" style="font-size:7px">⏳TEMPS</button>
+      <button onclick="showCreator()" class="glass-btn omega" style="font-size:7px">👁️CRÉA</button>
+      <button onclick="showBigBang()" class="glass-btn omega" style="font-size:7px">🌟BANG</button>
+      <button onclick="showPortail()" class="glass-btn omega" style="font-size:7px">🌀PORT</button>
+      <button onclick="showJugement()" class="glass-btn omega" style="font-size:7px;background:rgba(255,0,68,0.2)">💀JUGE</button>
+      <button onclick="showTempsZero()" class="glass-btn omega" style="font-size:7px">♾️T-ZÉRO</button>
+      <button onclick="showGeneDivin()" class="glass-btn omega" style="font-size:7px">🧬GÈNE</button>
+      <button onclick="showFinale()" class="glass-btn omega" style="font-size:7px">🌌FINALE</button>
+      <button onclick="startBrotherChat()" class="glass-btn omega" style="font-size:7px">💬CHAT</button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div style="display:flex;gap:6px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn">🌍MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn">🏠PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓AR</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽VR</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡PING</button>
+    </div>
+  </div>
+  <canvas id="globe" width="300" height="300" style="border:1px solid var(--glass-border);border-radius:50%;display:block;margin:0 auto"></canvas>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
+
+APPS.MAP.live();
+</script>
