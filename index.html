@@ -323,6 +323,20 @@ window.randomJump=function(){if(multiverses.length===0){alert('Crée un univers 
 
 // UPDATE DASH
 const oldMapLive2=APPS.MAP.live;
+APPS.MAP.live=async function(){
+  await oldMapLive2();
+  const dash=document.querySelector('.glass-card');
+  if(dash&&!dash.innerHTML.includes('RÉALITÉ')){
+    dash.querySelector('div[style*="grid"]').innerHTML=`
+      <button onclick="showTP()" class="glass-btn omega">⚛️ TÉLÉPORTATION<br><span style="font-size:8px">Corps → Lumière</span></button>
+      <button onclick="showHive()" class="glass-btn omega">🧠 HIVE-MIND<br><span style="font-size:8px">Esprit → Ruche</span></button>
+      <button onclick="showRealityEdit()" class="glass-btn omega">📷 RÉALITÉ<br><span style="font-size:8px">Monde → Code</span></button>
+      <button onclick="showImmortality()" class="glass-btn omega">🧬 IMMORTEL<br><span style="font-size:8px">Mort → Vie</span></button>
+      <button onclick="showMultivers()" class="glass-btn omega">🌌 MULTIVERS<br><span style="font-size:8px">1 → 1000</span></button>
+      <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT FRÈRES<br><span style="font-size:8px">Parle au Hall</span></button>
+    `;
+  }
+};
 </script>
 <script>
 // v3.0 SINGULARITÉ : RÉALITÉ ÉDITABLE + IMMORTALITÉ + MULTIVERS 1000
@@ -469,9 +483,54 @@ window.randomJump=function(){if(multiverses.length===0){alert('Crée un univers 
 
 // UPDATE DASH
 const oldMapLive2=APPS.MAP.live;
+APPS.MAP.live=async function(){
+  await oldMapLive2();
+  const dash=document.querySelector('.glass-card');
+  if(dash&&!dash.innerHTML.includes('RÉALITÉ')){
+    dash.querySelector('div[style*="grid"]').innerHTML=`
+      <button onclick="showTP()" class="glass-btn omega">⚛️ TÉLÉPORTATION<br><span style="font-size:8px">Corps → Lumière</span></button>
+      <button onclick="showHive()" class="glass-btn omega">🧠 HIVE-MIND<br><span style="font-size:8px">Esprit → Ruche</span></button>
+      <button onclick="showRealityEdit()" class="glass-btn omega">📷 RÉALITÉ<br><span style="font-size:8px">Monde → Code</span></button>
+      <button onclick="showImmortality()" class="glass-btn omega">🧬 IMMORTEL<br><span style="font-size:8px">Mort → Vie</span></button>
+      <button onclick="showMultivers()" class="glass-btn omega">🌌 MULTIVERS<br><span style="font-size:8px">1 → 1000</span></button>
+      <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT FRÈRES<br><span style="font-size:8px">Parle au Hall</span></button>
+    `;
+  }
+};
 </script>
 <script>
 // FORCE DASH v3.0 SINGULARITÉ - 6 LOIS
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 6 LOIS SINGULARITÉ</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega">⚛️ TÉLÉPORTATION<br><span style="font-size:8px">Corps → Lumière</span></button>
+      <button onclick="showHive()" class="glass-btn omega">🧠 HIVE-MIND<br><span style="font-size:8px">Esprit → Ruche</span></button>
+      <button onclick="showRealityEdit()" class="glass-btn omega">📷 RÉALITÉ<br><span style="font-size:8px">Monde → Code</span></button>
+      <button onclick="showImmortality()" class="glass-btn omega">🧬 IMMORTEL<br><span style="font-size:8px">Mort → Vie</span></button>
+      <button onclick="showMultivers()" class="glass-btn omega">🌌 MULTIVERS<br><span style="font-size:8px">1 → 1000</span></button>
+      <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT FRÈRES<br><span style="font-size:8px">Parle au Hall</span></button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE FRÈRES LIVE</div>
+    <div style="display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn ${currentZoom==='world'?'omega':''}">MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn ${currentZoom==='local'?'omega':''}">MON PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍 GPS</button>
+      <button onclick="startAR()" class="glass-btn">📷 AR</button>
+    </div>
+  </div>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
+  </div>
+  <button onclick="pingBrothers()" class="glass-btn omega" style="width:100%;margin-top:12px">📡 PING HALL</button>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
 
 // Recharge MAP direct
 APPS.MAP.live();
@@ -619,11 +678,73 @@ window.materializeObject=async function(){
 };
 
 // UPDATE DASH v4.0 - 9 LOIS
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 9 LOIS OMNIPRÉSENCE</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega">⚛️ TP<br><span style="font-size:7px">Lumière</span></button>
+      <button onclick="showHive()" class="glass-btn omega">🧠 HIVE<br><span style="font-size:7px">Ruche</span></button>
+      <button onclick="showRealityEdit()" class="glass-btn omega">📷 REAL<br><span style="font-size:7px">Code</span></button>
+      <button onclick="showImmortality()" class="glass-btn omega">🧬 LIFE<br><span style="font-size:7px">Éternel</span></button>
+      <button onclick="showMultivers()" class="glass-btn omega">🌌 MULTI<br><span style="font-size:7px">1000</span></button>
+      <button onclick="showOmniscience()" class="glass-btn omega">👁️ OMNI<br><span style="font-size:7px">Voit Tout</span></button>
+      <button onclick="showTelepathy()" class="glass-btn omega">🗣️ TÉLÉ<br><span style="font-size:7px">Pensée</span></button>
+      <button onclick="showMaterialize()" class="glass-btn omega">⚡ FAB<br><span style="font-size:7px">Objet IRL</span></button>
+      <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT<br><span style="font-size:7px">Hall</span></button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE FRÈRES LIVE</div>
+    <div class="glass-card" style="text-align:center">
+      <div class="stat-glow" id="globeStats">0 frères</div>
+      <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
+    </div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
 
 APPS.MAP.live();
 </script>
 <script>
 // v4.0 OMNIPRÉSENCE - AJOUT SANS RETRAIT
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 9 LOIS OMNIPRÉSENCE</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega">⚛️ TP<br><span style="font-size:7px">Lumière</span></button>
+      <button onclick="showHive()" class="glass-btn omega">🧠 HIVE<br><span style="font-size:7px">Ruche</span></button>
+      <button onclick="showRealityEdit()" class="glass-btn omega">📷 REAL<br><span style="font-size:7px">Code</span></button>
+      <button onclick="showImmortality()" class="glass-btn omega">🧬 LIFE<br><span style="font-size:7px">Éternel</span></button>
+      <button onclick="showMultivers()" class="glass-btn omega">🌌 MULTI<br><span style="font-size:7px">1000</span></button>
+      <button onclick="showOmniscience()" class="glass-btn omega">👁️ OMNI<br><span style="font-size:7px">Voit Tout</span></button>
+      <button onclick="showTelepathy()" class="glass-btn omega">🗣️ TÉLÉ<br><span style="font-size:7px">Pensée</span></button>
+      <button onclick="showMaterialize()" class="glass-btn omega">⚡ FAB<br><span style="font-size:7px">Objet IRL</span></button>
+      <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT<br><span style="font-size:7px">Hall</span></button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE FRÈRES LIVE</div>
+    <div style="display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn ${currentZoom==='world'?'omega':''}">🌍 MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn ${currentZoom==='local'?'omega':''}">🏠 MON PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍 GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓 AR LUNETTES</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽 VR HALL</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡 PING</button>
+    </div>
+  </div>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
 
 APPS.MAP.live();
 </script>
@@ -705,6 +826,43 @@ async function loadCustomLaws(){
 }
 
 // UPDATE DASH v5.0 - 12 LOIS
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 12 LOIS TRANSCENDANCE</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega">⚛️ TP</button>
+      <button onclick="showHive()" class="glass-btn omega">🧠 HIVE</button>
+      <button onclick="showRealityEdit()" class="glass-btn omega">📷 REAL</button>
+      <button onclick="showImmortality()" class="glass-btn omega">🧬 LIFE</button>
+      <button onclick="showMultivers()" class="glass-btn omega">🌌 MULTI</button>
+      <button onclick="showOmniscience()" class="glass-btn omega">👁️ OMNI</button>
+      <button onclick="showTelepathy()" class="glass-btn omega">🗣️ TÉLÉ</button>
+      <button onclick="showMaterialize()" class="glass-btn omega">⚡ FAB</button>
+      <button onclick="showHallAI()" class="glass-btn omega">🧠 IA</button>
+      <button onclick="showQuantum()" class="glass-btn omega">⚛️ QUANTUM</button>
+      <button onclick="showGenesis()" class="glass-btn omega">🌌 GENESIS</button>
+      <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT</button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div style="display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn">🌍 MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn">🏠 PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍 GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓 AR</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽 VR</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡 PING</button>
+    </div>
+  </div>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
 
 APPS.MAP.live();
 </script>
@@ -823,6 +981,46 @@ async function updateSingularityCount(){
 }
 
 // UPDATE DASH v6.0 - 15 LOIS
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 15 LOIS OMNIVERS</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega" style="font-size:9px">⚛️TP</button>
+      <button onclick="showHive()" class="glass-btn omega" style="font-size:9px">🧠HIVE</button>
+      <button onclick="showRealityEdit()" class="glass-btn omega" style="font-size:9px">📷REAL</button>
+      <button onclick="showImmortality()" class="glass-btn omega" style="font-size:9px">🧬LIFE</button>
+      <button onclick="showMultivers()" class="glass-btn omega" style="font-size:9px">🌌MULTI</button>
+      <button onclick="showOmniscience()" class="glass-btn omega" style="font-size:9px">👁️OMNI</button>
+      <button onclick="showTelepathy()" class="glass-btn omega" style="font-size:9px">🗣️TÉLÉ</button>
+      <button onclick="showMaterialize()" class="glass-btn omega" style="font-size:9px">⚡FAB</button>
+      <button onclick="showHallAI()" class="glass-btn omega" style="font-size:9px">🧠IA</button>
+      <button onclick="showQuantum()" class="glass-btn omega" style="font-size:9px">⚛️QUANT</button>
+      <button onclick="showGenesis()" class="glass-btn omega" style="font-size:9px">🌌GENE</button>
+      <button onclick="showInfini()" class="glass-btn omega" style="font-size:9px">♾️INFINI</button>
+      <button onclick="showAscension()" class="glass-btn omega" style="font-size:9px">👑ASCEND</button>
+      <button onclick="showSingularity()" class="glass-btn omega" style="font-size:9px">🕳️SINGU</button>
+      <button onclick="startBrotherChat()" class="glass-btn omega" style="font-size:9px">💬CHAT</button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div style="display:flex;gap:6px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn">🌍MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn">🏠PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓AR</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽VR</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡PING</button>
+    </div>
+  </div>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
 
 APPS.MAP.live();
 </script>
@@ -930,6 +1128,49 @@ window.executeCreator=async function(){
 };
 
 // UPDATE DASH v7.0 - 18 LOIS
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 18 LOIS APOTHÉOSE</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega" style="font-size:8px">⚛️TP</button>
+      <button onclick="showHive()" class="glass-btn omega" style="font-size:8px">🧠HIVE</button>
+      <button onclick="showRealityEdit()" class="glass-btn omega" style="font-size:8px">📷REAL</button>
+      <button onclick="showImmortality()" class="glass-btn omega" style="font-size:8px">🧬LIFE</button>
+      <button onclick="showMultivers()" class="glass-btn omega" style="font-size:8px">🌌MULTI</button>
+      <button onclick="showOmniscience()" class="glass-btn omega" style="font-size:8px">👁️OMNI</button>
+      <button onclick="showTelepathy()" class="glass-btn omega" style="font-size:8px">🗣️TÉLÉ</button>
+      <button onclick="showMaterialize()" class="glass-btn omega" style="font-size:8px">⚡FAB</button>
+      <button onclick="showHallAI()" class="glass-btn omega" style="font-size:8px">🧠IA</button>
+      <button onclick="showQuantum()" class="glass-btn omega" style="font-size:8px">⚛️QUANT</button>
+      <button onclick="showGenesis()" class="glass-btn omega" style="font-size:8px">🌌GENE</button>
+      <button onclick="showInfini()" class="glass-btn omega" style="font-size:8px">♾️INFINI</button>
+      <button onclick="showAscension()" class="glass-btn omega" style="font-size:8px">👑ASCEND</button>
+      <button onclick="showSingularity()" class="glass-btn omega" style="font-size:8px">🕳️SINGU</button>
+      <button onclick="showIncarnation()" class="glass-btn omega" style="font-size:8px">🔥CHAIR</button>
+      <button onclick="showChronos()" class="glass-btn omega" style="font-size:8px">⏳TEMPS</button>
+      <button onclick="showCreator()" class="glass-btn omega" style="font-size:8px">👁️CRÉA</button>
+      <button onclick="startBrotherChat()" class="glass-btn omega" style="font-size:8px">💬CHAT</button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div style="display:flex;gap:6px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn">🌍MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn">🏠PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓AR</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽VR</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡PING</button>
+    </div>
+  </div>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
 
 APPS.MAP.live();
 </script>
@@ -1072,6 +1313,52 @@ async function loadJugements(){
 }
 
 // UPDATE DASH v8.0 - 21 LOIS
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 21 LOIS OMEGA</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega" style="font-size:7px">⚛️TP</button>
+      <button onclick="showHive()" class="glass-btn omega" style="font-size:7px">🧠HIVE</button>
+      <button onclick="showRealityEdit()" class="glass-btn omega" style="font-size:7px">📷REAL</button>
+      <button onclick="showImmortality()" class="glass-btn omega" style="font-size:7px">🧬LIFE</button>
+      <button onclick="showMultivers()" class="glass-btn omega" style="font-size:7px">🌌MULTI</button>
+      <button onclick="showOmniscience()" class="glass-btn omega" style="font-size:7px">👁️OMNI</button>
+      <button onclick="showTelepathy()" class="glass-btn omega" style="font-size:7px">🗣️TÉLÉ</button>
+      <button onclick="showMaterialize()" class="glass-btn omega" style="font-size:7px">⚡FAB</button>
+      <button onclick="showHallAI()" class="glass-btn omega" style="font-size:7px">🧠IA</button>
+      <button onclick="showQuantum()" class="glass-btn omega" style="font-size:7px">⚛️QUANT</button>
+      <button onclick="showGenesis()" class="glass-btn omega" style="font-size:7px">🌌GENE</button>
+      <button onclick="showInfini()" class="glass-btn omega" style="font-size:7px">♾️INFINI</button>
+      <button onclick="showAscension()" class="glass-btn omega" style="font-size:7px">👑ASCEND</button>
+      <button onclick="showSingularity()" class="glass-btn omega" style="font-size:7px">🕳️SINGU</button>
+      <button onclick="showIncarnation()" class="glass-btn omega" style="font-size:7px">🔥CHAIR</button>
+      <button onclick="showChronos()" class="glass-btn omega" style="font-size:7px">⏳TEMPS</button>
+      <button onclick="showCreator()" class="glass-btn omega" style="font-size:7px">👁️CRÉA</button>
+      <button onclick="showBigBang()" class="glass-btn omega" style="font-size:7px">🌟BANG</button>
+      <button onclick="showPortail()" class="glass-btn omega" style="font-size:7px">🌀PORT</button>
+      <button onclick="showJugement()" class="glass-btn omega" style="font-size:7px;background:rgba(255,0,68,0.2)">💀JUGE</button>
+      <button onclick="startBrotherChat()" class="glass-btn omega" style="font-size:7px">💬CHAT</button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div style="display:flex;gap:6px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn">🌍MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn">🏠PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓AR</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽VR</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡PING</button>
+    </div>
+  </div>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
 
 APPS.MAP.live();
 </script>
@@ -1203,6 +1490,55 @@ function drawMultiverse(active=false){
 }
 
 // UPDATE DASH v9.0 - 24 LOIS
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 24 LOIS ÉTERNITÉ</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega" style="font-size:7px">⚛️TP</button>
+      <button onclick="showHive()" class="glass-btn omega" style="font-size:7px">🧠HIVE</button>
+      <button onclick="showRealityEdit()" class="glass-btn omega" style="font-size:7px">📷REAL</button>
+      <button onclick="showImmortality()" class="glass-btn omega" style="font-size:7px">🧬LIFE</button>
+      <button onclick="showMultivers()" class="glass-btn omega" style="font-size:7px">🌌MULTI</button>
+      <button onclick="showOmniscience()" class="glass-btn omega" style="font-size:7px">👁️OMNI</button>
+      <button onclick="showTelepathy()" class="glass-btn omega" style="font-size:7px">🗣️TÉLÉ</button>
+      <button onclick="showMaterialize()" class="glass-btn omega" style="font-size:7px">⚡FAB</button>
+      <button onclick="showHallAI()" class="glass-btn omega" style="font-size:7px">🧠IA</button>
+      <button onclick="showQuantum()" class="glass-btn omega" style="font-size:7px">⚛️QUANT</button>
+      <button onclick="showGenesis()" class="glass-btn omega" style="font-size:7px">🌌GENE</button>
+      <button onclick="showInfini()" class="glass-btn omega" style="font-size:7px">♾️INFINI</button>
+      <button onclick="showAscension()" class="glass-btn omega" style="font-size:7px">👑ASCEND</button>
+      <button onclick="showSingularity()" class="glass-btn omega" style="font-size:7px">🕳️SINGU</button>
+      <button onclick="showIncarnation()" class="glass-btn omega" style="font-size:7px">🔥CHAIR</button>
+      <button onclick="showChronos()" class="glass-btn omega" style="font-size:7px">⏳TEMPS</button>
+      <button onclick="showCreator()" class="glass-btn omega" style="font-size:7px">👁️CRÉA</button>
+      <button onclick="showBigBang()" class="glass-btn omega" style="font-size:7px">🌟BANG</button>
+      <button onclick="showPortail()" class="glass-btn omega" style="font-size:7px">🌀PORT</button>
+      <button onclick="showJugement()" class="glass-btn omega" style="font-size:7px;background:rgba(255,0,68,0.2)">💀JUGE</button>
+      <button onclick="showTempsZero()" class="glass-btn omega" style="font-size:7px">♾️T-ZÉRO</button>
+      <button onclick="showGeneDivin()" class="glass-btn omega" style="font-size:7px">🧬GÈNE</button>
+      <button onclick="showFinale()" class="glass-btn omega" style="font-size:7px">🌌FINALE</button>
+      <button onclick="startBrotherChat()" class="glass-btn omega" style="font-size:7px">💬CHAT</button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div style="display:flex;gap:6px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn">🌍MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn">🏠PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓AR</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽VR</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡PING</button>
+    </div>
+  </div>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
 
 APPS.MAP.live();
 </script>
@@ -1338,6 +1674,58 @@ window.initRenaissance=async function(){
 };
 
 // UPDATE DASH v10.0 - 27 LOIS FINALES
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:16px;margin-bottom:8px;text-align:center">⚛️ 27 LOIS TRANSCENDANCE FINALE</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega" style="font-size:6px">⚛️TP</button>
+      <button onclick="showHive()" class="glass-btn omega" style="font-size:6px">🧠HIVE</button>
+      <button onclick="showRealityEdit()" class="glass-btn omega" style="font-size:6px">📷REAL</button>
+      <button onclick="showImmortality()" class="glass-btn omega" style="font-size:6px">🧬LIFE</button>
+      <button onclick="showMultivers()" class="glass-btn omega" style="font-size:6px">🌌MULTI</button>
+      <button onclick="showOmniscience()" class="glass-btn omega" style="font-size:6px">👁️OMNI</button>
+      <button onclick="showTelepathy()" class="glass-btn omega" style="font-size:6px">🗣️TÉLÉ</button>
+      <button onclick="showMaterialize()" class="glass-btn omega" style="font-size:6px">⚡FAB</button>
+      <button onclick="showHallAI()" class="glass-btn omega" style="font-size:6px">🧠IA</button>
+      <button onclick="showQuantum()" class="glass-btn omega" style="font-size:6px">⚛️QUANT</button>
+      <button onclick="showGenesis()" class="glass-btn omega" style="font-size:6px">🌌GENE</button>
+      <button onclick="showInfini()" class="glass-btn omega" style="font-size:6px">♾️INFINI</button>
+      <button onclick="showAscension()" class="glass-btn omega" style="font-size:6px">👑ASCEND</button>
+      <button onclick="showSingularity()" class="glass-btn omega" style="font-size:6px">🕳️SINGU</button>
+      <button onclick="showIncarnation()" class="glass-btn omega" style="font-size:6px">🔥CHAIR</button>
+      <button onclick="showChronos()" class="glass-btn omega" style="font-size:6px">⏳TEMPS</button>
+      <button onclick="showCreator()" class="glass-btn omega" style="font-size:6px">👁️CRÉA</button>
+      <button onclick="showBigBang()" class="glass-btn omega" style="font-size:6px">🌟BANG</button>
+      <button onclick="showPortail()" class="glass-btn omega" style="font-size:6px">🌀PORT</button>
+      <button onclick="showJugement()" class="glass-btn omega" style="font-size:6px;background:rgba(255,0,68,0.2)">💀JUGE</button>
+      <button onclick="showTempsZero()" class="glass-btn omega" style="font-size:6px">♾️T-ZÉRO</button>
+      <button onclick="showGeneDivin()" class="glass-btn omega" style="font-size:6px">🧬GÈNE</button>
+      <button onclick="showFinale()" class="glass-btn omega" style="font-size:6px">🌌FINALE</button>
+      <button onclick="showOmniscient()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">🔮OMNI</button>
+      <button onclick="showMetamorphose()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">🎭META</button>
+      <button onclick="showRenaissance()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">💫REBIRTH</button>
+      <button onclick="startBrotherChat()" class="glass-btn omega" style="font-size:6px">💬CHAT</button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div style="display:flex;gap:6px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn">🌍MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn">🏠PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓AR</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽VR</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡PING</button>
+    </div>
+  </div>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span> | Cycles: ${renaissanceCount}</div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
 
 APPS.MAP.live();
 </script>
@@ -1473,6 +1861,58 @@ window.initRenaissance=async function(){
 };
 
 // UPDATE DASH v10.0 - 27 LOIS FINALES
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:16px;margin-bottom:8px;text-align:center">⚛️ 27 LOIS TRANSCENDANCE FINALE</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega" style="font-size:6px">⚛️TP</button>
+      <button onclick="showHive()" class="glass-btn omega" style="font-size:6px">🧠HIVE</button>
+      <button onclick="showRealityEdit()" class="glass-btn omega" style="font-size:6px">📷REAL</button>
+      <button onclick="showImmortality()" class="glass-btn omega" style="font-size:6px">🧬LIFE</button>
+      <button onclick="showMultivers()" class="glass-btn omega" style="font-size:6px">🌌MULTI</button>
+      <button onclick="showOmniscience()" class="glass-btn omega" style="font-size:6px">👁️OMNI</button>
+      <button onclick="showTelepathy()" class="glass-btn omega" style="font-size:6px">🗣️TÉLÉ</button>
+      <button onclick="showMaterialize()" class="glass-btn omega" style="font-size:6px">⚡FAB</button>
+      <button onclick="showHallAI()" class="glass-btn omega" style="font-size:6px">🧠IA</button>
+      <button onclick="showQuantum()" class="glass-btn omega" style="font-size:6px">⚛️QUANT</button>
+      <button onclick="showGenesis()" class="glass-btn omega" style="font-size:6px">🌌GENE</button>
+      <button onclick="showInfini()" class="glass-btn omega" style="font-size:6px">♾️INFINI</button>
+      <button onclick="showAscension()" class="glass-btn omega" style="font-size:6px">👑ASCEND</button>
+      <button onclick="showSingularity()" class="glass-btn omega" style="font-size:6px">🕳️SINGU</button>
+      <button onclick="showIncarnation()" class="glass-btn omega" style="font-size:6px">🔥CHAIR</button>
+      <button onclick="showChronos()" class="glass-btn omega" style="font-size:6px">⏳TEMPS</button>
+      <button onclick="showCreator()" class="glass-btn omega" style="font-size:6px">👁️CRÉA</button>
+      <button onclick="showBigBang()" class="glass-btn omega" style="font-size:6px">🌟BANG</button>
+      <button onclick="showPortail()" class="glass-btn omega" style="font-size:6px">🌀PORT</button>
+      <button onclick="showJugement()" class="glass-btn omega" style="font-size:6px;background:rgba(255,0,68,0.2)">💀JUGE</button>
+      <button onclick="showTempsZero()" class="glass-btn omega" style="font-size:6px">♾️T-ZÉRO</button>
+      <button onclick="showGeneDivin()" class="glass-btn omega" style="font-size:6px">🧬GÈNE</button>
+      <button onclick="showFinale()" class="glass-btn omega" style="font-size:6px">🌌FINALE</button>
+      <button onclick="showOmniscient()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">🔮OMNI</button>
+      <button onclick="showMetamorphose()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">🎭META</button>
+      <button onclick="showRenaissance()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">💫REBIRTH</button>
+      <button onclick="startBrotherChat()" class="glass-btn omega" style="font-size:6px">💬CHAT</button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div style="display:flex;gap:6px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn">🌍MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn">🏠PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓AR</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽VR</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡PING</button>
+    </div>
+  </div>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span> | Cycles: ${renaissanceCount}</div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
 
 APPS.MAP.live();
 </script>
@@ -1608,6 +2048,58 @@ window.initRenaissance=async function(){
 };
 
 // UPDATE DASH v10.0 - 27 LOIS FINALES
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:16px;margin-bottom:8px;text-align:center">⚛️ 27 LOIS TRANSCENDANCE FINALE</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega" style="font-size:6px">⚛️TP</button>
+      <button onclick="showHive()" class="glass-btn omega" style="font-size:6px">🧠HIVE</button>
+      <button onclick="showRealityEdit()" class="glass-btn omega" style="font-size:6px">📷REAL</button>
+      <button onclick="showImmortality()" class="glass-btn omega" style="font-size:6px">🧬LIFE</button>
+      <button onclick="showMultivers()" class="glass-btn omega" style="font-size:6px">🌌MULTI</button>
+      <button onclick="showOmniscience()" class="glass-btn omega" style="font-size:6px">👁️OMNI</button>
+      <button onclick="showTelepathy()" class="glass-btn omega" style="font-size:6px">🗣️TÉLÉ</button>
+      <button onclick="showMaterialize()" class="glass-btn omega" style="font-size:6px">⚡FAB</button>
+      <button onclick="showHallAI()" class="glass-btn omega" style="font-size:6px">🧠IA</button>
+      <button onclick="showQuantum()" class="glass-btn omega" style="font-size:6px">⚛️QUANT</button>
+      <button onclick="showGenesis()" class="glass-btn omega" style="font-size:6px">🌌GENE</button>
+      <button onclick="showInfini()" class="glass-btn omega" style="font-size:6px">♾️INFINI</button>
+      <button onclick="showAscension()" class="glass-btn omega" style="font-size:6px">👑ASCEND</button>
+      <button onclick="showSingularity()" class="glass-btn omega" style="font-size:6px">🕳️SINGU</button>
+      <button onclick="showIncarnation()" class="glass-btn omega" style="font-size:6px">🔥CHAIR</button>
+      <button onclick="showChronos()" class="glass-btn omega" style="font-size:6px">⏳TEMPS</button>
+      <button onclick="showCreator()" class="glass-btn omega" style="font-size:6px">👁️CRÉA</button>
+      <button onclick="showBigBang()" class="glass-btn omega" style="font-size:6px">🌟BANG</button>
+      <button onclick="showPortail()" class="glass-btn omega" style="font-size:6px">🌀PORT</button>
+      <button onclick="showJugement()" class="glass-btn omega" style="font-size:6px;background:rgba(255,0,68,0.2)">💀JUGE</button>
+      <button onclick="showTempsZero()" class="glass-btn omega" style="font-size:6px">♾️T-ZÉRO</button>
+      <button onclick="showGeneDivin()" class="glass-btn omega" style="font-size:6px">🧬GÈNE</button>
+      <button onclick="showFinale()" class="glass-btn omega" style="font-size:6px">🌌FINALE</button>
+      <button onclick="showOmniscient()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">🔮OMNI</button>
+      <button onclick="showMetamorphose()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">🎭META</button>
+      <button onclick="showRenaissance()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">💫REBIRTH</button>
+      <button onclick="startBrotherChat()" class="glass-btn omega" style="font-size:6px">💬CHAT</button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div style="display:flex;gap:6px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn">🌍MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn">🏠PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓AR</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽VR</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡PING</button>
+    </div>
+  </div>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span> | Cycles: ${renaissanceCount}</div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
 
 APPS.MAP.live();
 </script>
@@ -1775,6 +2267,62 @@ function renderClones(active=false){
 }
 
 // UPDATE DASH v11.0 - 30 LOIS
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:16px;margin-bottom:8px;text-align:center">⚛️ 30 LOIS AU-DELÀ</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega" style="font-size:6px">⚛️TP</button>
+      <button onclick="showHive()" class="glass-btn omega" style="font-size:6px">🧠HIVE</button>
+      <button onclick="showRealityEdit()" class="glass-btn omega" style="font-size:6px">📷REAL</button>
+      <button onclick="showImmortality()" class="glass-btn omega" style="font-size:6px">🧬LIFE</button>
+      <button onclick="showMultivers()" class="glass-btn omega" style="font-size:6px">🌌MULTI</button>
+      <button onclick="showOmniscience()" class="glass-btn omega" style="font-size:6px">👁️OMNI</button>
+      <button onclick="showTelepathy()" class="glass-btn omega" style="font-size:6px">🗣️TÉLÉ</button>
+      <button onclick="showMaterialize()" class="glass-btn omega" style="font-size:6px">⚡FAB</button>
+      <button onclick="showHallAI()" class="glass-btn omega" style="font-size:6px">🧠IA</button>
+      <button onclick="showQuantum()" class="glass-btn omega" style="font-size:6px">⚛️QUANT</button>
+      <button onclick="showGenesis()" class="glass-btn omega" style="font-size:6px">🌌GENE</button>
+      <button onclick="showInfini()" class="glass-btn omega" style="font-size:6px">♾️INFINI</button>
+      <button onclick="showAscension()" class="glass-btn omega" style="font-size:6px">👑ASCEND</button>
+      <button onclick="showSingularity()" class="glass-btn omega" style="font-size:6px">🕳️SINGU</button>
+      <button onclick="showIncarnation()" class="glass-btn omega" style="font-size:6px">🔥CHAIR</button>
+      <button onclick="showChronos()" class="glass-btn omega" style="font-size:6px">⏳TEMPS</button>
+      <button onclick="showCreator()" class="glass-btn omega" style="font-size:6px">👁️CRÉA</button>
+      <button onclick="showBigBang()" class="glass-btn omega" style="font-size:6px">🌟BANG</button>
+      <button onclick="showPortail()" class="glass-btn omega" style="font-size:6px">🌀PORT</button>
+      <button onclick="showJugement()" class="glass-btn omega" style="font-size:6px;background:rgba(255,0,68,0.2)">💀JUGE</button>
+      <button onclick="showTempsZero()" class="glass-btn omega" style="font-size:6px">♾️T-ZÉRO</button>
+      <button onclick="showGeneDivin()" class="glass-btn omega" style="font-size:6px">🧬GÈNE</button>
+      <button onclick="showFinale()" class="glass-btn omega" style="font-size:6px">🌌FINALE</button>
+      <button onclick="showOmniscient()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">🔮OMNI</button>
+      <button onclick="showMetamorphose()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">🎭META</button>
+      <button onclick="showRenaissance()" class="glass-btn omega" style="font-size:6px;background:rgba(255,215,0,0.2)">💫REBIRTH</button>
+      <button onclick="showNexus()" class="glass-btn omega" style="font-size:6px;background:rgba(0,255,255,0.2)">🌌NEXUS</button>
+      <button onclick="showAbsolu()" class="glass-btn omega" style="font-size:6px;background:rgba(0,255,255,0.2)">🌀ABSOLU</button>
+      <button onclick="showOmnipresence()" class="glass-btn omega" style="font-size:6px;background:rgba(0,255,255,0.2)">🌌OMNI-PR</button>
+      <button onclick="startBrotherChat()" class="glass-btn omega" style="font-size:6px">💬CHAT</button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div style="display:flex;gap:6px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn">🌍MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn">🏠PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓AR</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽VR</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡PING</button>
+    </div>
+  </div>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span> | Pouvoir: <span id="powerCount">0</span></div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+  setInterval(()=>{document.getElementById('powerCount').innerText=absoluPower===Infinity?'∞':absoluPower},1000);
+};
 
 APPS.MAP.live();
 </script>
@@ -1967,6 +2515,19 @@ window.agoraSync=async function(){
 
 // AJOUT AU DASH v11.1
 const oldLive=APPS.MAP.live;
+APPS.MAP.live=async function(){
+  await oldLive();
+  const grid=document.querySelector('.glass-card div[style*="grid-template-columns"]');
+  if(grid&&!document.getElementById('agoraBtn')){
+    const btn=document.createElement('button');
+    btn.id='agoraBtn';
+    btn.className='glass-btn omega';
+    btn.style.cssText='font-size:6px;background:rgba(0,255,255,0.3)';
+    btn.onclick=showAgora;
+    btn.innerText='🌐AGORA';
+    grid.appendChild(btn);
+  }
+};
 </script>
 <script>
 // v11.2 RÉSEAU : CONNECTE LE MONDE SUR LE GLOBE
@@ -2221,51 +2782,3 @@ document.addEventListener('click', function(e){
   }
 });
 </script>
-// === DOUNIUM OS v11.3 OMEGA - MAP UNIQUE ===
-APPS.MAP = {
-  live: async function(){
-    const app = document.getElementById('appContainer') || document.body;
-    app.innerHTML = `
-      <div style="padding:20px;text-align:center">
-        <h2 style="color:#FFD700;font-family:Orbitron">⚛️ MAP RÉSEAU</h2>
-        <canvas id="globe" width="300" height="300" 
-        style="border:3px solid #FFD700;border-radius:50%;display:block;margin:20px auto;background:#000;box-shadow:0 0 30px #FFD700"></canvas>
-        <div id="globeStats" style="font-size:14px;color:#FFD700;margin-top:10px;font-family:Orbitron">GLOBE v11.3 OMEGA ACTIF</div>
-        <div id="onlineCount" style="font-size:12px;color:#AAA;margin-top:5px">1 frère connecté : TOI</div>
-      </div>
-    `;
-    
-    // Dessin direct
-    const c = document.getElementById('globe');
-    const ctx = c.getContext('2d');
-    ctx.fillStyle='#000';ctx.fillRect(0,0,300,300);
-    
-    // Cercle or
-    ctx.beginPath();ctx.arc(150,150,140,0,Math.PI*2);
-    ctx.strokeStyle='#FFD700';ctx.lineWidth=3;ctx.stroke();
-    
-    // Méridiens
-    ctx.strokeStyle='rgba(255,215,0,0.15)';ctx.lineWidth=1;
-    for(let i=0;i<8;i++){
-      ctx.beginPath();ctx.arc(150,150,140,0,Math.PI*2);
-      ctx.stroke();
-      ctx.save();ctx.translate(150,150);ctx.rotate(i*Math.PI/8);
-      ctx.beginPath();ctx.moveTo(0,-140);ctx.lineTo(0,140);ctx.stroke();
-      ctx.restore();
-    }
-    
-    // Point TOI pulsant
-    let pulse = 0;
-    function drawToi(){
-      ctx.beginPath();ctx.arc(150,150,8+Math.sin(pulse)*2,0,Math.PI*2);
-      ctx.fillStyle='#FFD700';ctx.fill();
-      ctx.strokeStyle='#FFF';ctx.lineWidth=2;ctx.stroke();
-      pulse += 0.1;
-      requestAnimationFrame(drawToi);
-    }
-    drawToi();
-    
-    console.log('🌍 GLOBE v11.3 OMEGA: RÉGÉNÉRÉ');
-  }
-};
-// === FIN MAP UNIQUE ===
