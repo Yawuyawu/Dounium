@@ -2782,3 +2782,39 @@ document.addEventListener('click', function(e){
   }
 });
 </script>
+<script>
+// GLOBE v11.4 SAFE - AJOUT SANS SUPPRESSION
+window.addEventListener('load', function(){
+  // Attend que MAP existe
+  const checkMap = setInterval(() => {
+    const mapBtn = Array.from(document.querySelectorAll('button,div')).find(e => e.textContent.includes('MAP'));
+    if(!mapBtn) return;
+    clearInterval(checkMap);
+    
+    mapBtn.addEventListener('click', () => {
+      setTimeout(() => {
+        if(document.getElementById('globe')) return;
+        
+        const target = document.querySelector('#appContainer,main,body');
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <div style="position:fixed;top:100px;left:50%;transform:translateX(-50%);z-index:9999;text-align:center">
+            <canvas id="globe" width="300" height="300" 
+            style="border:3px solid #FFD700;border-radius:50%;background:#000;box-shadow:0 0 20px #FFD700"></canvas>
+            <div style="color:#FFD700;margin-top:8px;font-family:Orbitron">GLOBE v11.4 SAFE</div>
+          </div>
+        `;
+        target.appendChild(div.firstElementChild);
+        
+        const c = document.getElementById('globe');
+        const ctx = c.getContext('2d');
+        ctx.fillStyle='#000';ctx.fillRect(0,0,300,300);
+        ctx.beginPath();ctx.arc(150,150,140,0,Math.PI*2);
+        ctx.strokeStyle='#FFD700';ctx.lineWidth=3;ctx.stroke();
+        ctx.beginPath();ctx.arc(150,150,8,0,Math.PI*2);
+        ctx.fillStyle='#FFD700';ctx.fill();
+      }, 200);
+    });
+  }, 500);
+});
+</script>
