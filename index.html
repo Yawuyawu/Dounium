@@ -3393,3 +3393,130 @@ window.douniSendEmoji=function(e){
   console.log('DOUNIUM v12.6 P2P HALL READY');
 })();
 </script>
+<script>
+// v12.6b DOUNIS CONNECTÉS - CYBER SYNC
+(function DouniCyberHall(){
+  if(window.DouniCyberActive) return; window.DouniCyberActive=true;
+  
+  // 1. CSS NEON CYBER
+  let css=document.createElement('style');
+  css.textContent=`
+    :root{--or:#FFD700;--cendre:#0A0A0C;--noir:#000;--vert:#00FF88;--cyan:#00FFFF}
+    #douniHallBtn{position:fixed;top:15px;right:15px;z-index:999999;background:linear-gradient(135deg,#000,#111);border:1px solid var(--cyan);color:var(--cyan);padding:10px 18px;border-radius:8px;font-weight:bold;cursor:pointer;box-shadow:0 0 20px var(--cyan),inset 0 0 10px rgba(0,255,255,0.2);font-family:monospace;letter-spacing:1px;transition:0.3s}
+    #douniHallBtn:hover{box-shadow:0 0 30px var(--cyan),inset 0 0 15px rgba(0,255,255,0.4);transform:scale(1.05)}
+    #douniHallPanel{position:fixed;top:70px;right:15px;width:320px;background:rgba(0,0,0,0.95);backdrop-filter:blur(10px);border:1px solid var(--cyan);border-radius:12px;z-index:999998;display:none;max-height:500px;overflow:hidden;box-shadow:0 0 40px rgba(0,255,255,0.3)}
+    #douniHallHeader{background:linear-gradient(90deg,var(--cendre),#001122);padding:12px;color:var(--cyan);font-weight:bold;border-bottom:1px solid var(--cyan);text-align:center;font-family:monospace;letter-spacing:2px;font-size:14px}
+    #douniHallList{overflow-y:auto;max-height:440px}
+    .douniSoulCard{display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid rgba(0,255,255,0.1);cursor:pointer;transition:0.2s}
+    .douniSoulCard:hover{background:rgba(0,255,255,0.05);border-left:3px solid var(--cyan)}
+    .douniSoulAvatar{width:40px;height:40px;border-radius:8px;border:1px solid var(--or);display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,#1a1a1a,#000);box-shadow:0 0 10px rgba(255,215,0,0.3)}
+    .douniSoulInfo{flex:1}
+    .douniSoulName{color:var(--cyan);font-size:14px;font-weight:bold;font-family:monospace;text-shadow:0 0 5px var(--cyan)}
+    .douniSoulId{color:#666;font-size:9px;font-family:monospace;margin-top:2px}
+    .douniSoulLevel{color:var(--or);font-size:11px;font-weight:bold}
+    .douniSoulStatus{width:10px;height:10px;background:var(--vert);border-radius:50%;box-shadow:0 0 10px var(--vert);animation:pulse 1.5s infinite}
+    @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 10px var(--vert)}50%{opacity:0.4;box-shadow:0 0 20px var(--vert)}}
+    .douniSoulPing{color:var(--vert);font-size:9px;font-family:monospace}
+  `;
+  document.head.appendChild(css);
+
+  // 2. REMPLACE ANCIEN BOUTON SI EXISTE
+  const oldBtn=document.getElementById('douniHallBtn'); if(oldBtn)oldBtn.remove();
+  const oldPanel=document.getElementById('douniHallPanel'); if(oldPanel)oldPanel.remove();
+
+  // 3. NOUVEAU BOUTON HALL
+  let hallBtn=document.createElement('button');
+  hallBtn.id='douniHallBtn';
+  hallBtn.innerHTML='◉ DOUNIS [<span id="douniPeerCount">0</span>]';
+  hallBtn.onclick=()=>{document.getElementById('douniHallPanel').style.display=document.getElementById('douniHallPanel').style.display==='block'?'none':'block'};
+  document.body.appendChild(hallBtn);
+
+  // 4. NOUVEAU PANEL HALL
+  let hallPanel=document.createElement('div');
+  hallPanel.id='douniHallPanel';
+  hallPanel.innerHTML='<div id="douniHallHeader">◉ DOUNIS CONNECTÉS</div><div id="douniHallList"></div>';
+  document.body.appendChild(hallPanel);
+
+  // 5. LOGIQUE SYNC AMÉLIORÉE
+  const bc=new BroadcastChannel('dounium_hall_v2');
+  const peers={};
+  
+  function updateHall(){
+    const list=document.getElementById('douniHallList');
+    const count=document.getElementById('douniPeerCount');
+    list.innerHTML='';
+    let n=0;
+    const now=Date.now();
+    Object.values(peers).forEach(p=>{
+      const age=now-p.lastSeen;
+      if(age<15000){ // 15s timeout
+        n++;
+        const ping=age<1000?'ONLINE':`${Math.floor(age/1000)}s`;
+        let card=document.createElement('div');
+        card.className='douniSoulCard';
+        card.innerHTML=`
+          <div class="douniSoulAvatar">${p.avatar}</div>
+          <div class="douniSoulInfo">
+            <div class="douniSoulName">${p.name}</div>
+            <div class="douniSoulLevel">LV.${p.level} | XP.${p.xp}</div>
+            <div class="douniSoulId">${p.id.substr(6,16)}</div>
+          </div>
+          <div>
+            <div class="douniSoulStatus"></div>
+            <div class="douniSoulPing">${ping}</div>
+          </div>
+        `;
+        list.appendChild(card);
+      }
+    });
+    count.innerText=n;
+    count.style.color=n>0?'var(--vert)':'var(--cyan)';
+  }
+
+  // Ping 2s pour sync rapide
+  setInterval(()=>{
+    bc.postMessage({
+      type:'douni_ping',
+      soul:DouniSoul,
+      time:Date.now()
+    });
+  },2000);
+
+  // Écoute réseau DOUNIS
+  bc.onmessage=(e)=>{
+    if(e.data.type==='douni_ping' && e.data.soul.id!==DouniSoul.id){
+      peers[e.data.soul.id]={...e.data.soul,lastSeen:Date.now()};
+      updateHall();
+    }
+    if(e.data.type==='douni_msg' && e.data.to==='all'){
+      addMsg(`<b style="color:var(--cyan)">${e.data.from.name} [Lv.${e.data.from.level}]:</b> ${e.data.text}`,false);
+      if(document.getElementById('douniChatPanel').style.display!=='flex')douniToggleChat();
+    }
+  };
+
+  // Override send pour broadcast global
+  const oldSend=window.douniSendText;
+  window.douniSendText=function(){
+    let i=document.getElementById('douniMsgInput');
+    if(!i.value)return;
+    addMsg(`<b style="color:var(--or)">${DouniSoul.name} [Lv.${DouniSoul.level}]:</b> ${i.value}`,true);
+    bc.postMessage({
+      type:'douni_msg',
+      from:DouniSoul,
+      to:'all',
+      text:i.value,
+      time:Date.now()
+    });
+    i.value='';
+    DouniSoul.xp++;localStorage.douniSoulXP=DouniSoul.xp;
+    if(DouniSoul.xp%10===0){
+      DouniSoul.level++;localStorage.douniSoulLevel=DouniSoul.level;
+      addMsg(`<b style="color:var(--or)">SYSTÈME:</b> Level UP! Lv.${DouniSoul.level} ⚜️`,false);
+    }
+  };
+
+  // Sync toutes les 3s
+  setInterval(updateHall,3000);
+  console.log('DOUNIUM v12.6b CYBER HALL READY');
+})();
+</script>
