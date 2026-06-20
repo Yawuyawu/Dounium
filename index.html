@@ -499,3 +499,41 @@ APPS.MAP.live=async function(){
   }
 };
 </script>
+<script>
+// FORCE DASH v3.0 SINGULARITÉ - 6 LOIS
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 6 LOIS SINGULARITÉ</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega">⚛️ TÉLÉPORTATION<br><span style="font-size:8px">Corps → Lumière</span></button>
+      <button onclick="showHive()" class="glass-btn omega">🧠 HIVE-MIND<br><span style="font-size:8px">Esprit → Ruche</span></button>
+      <button onclick="showRealityEdit()" class="glass-btn omega">📷 RÉALITÉ<br><span style="font-size:8px">Monde → Code</span></button>
+      <button onclick="showImmortality()" class="glass-btn omega">🧬 IMMORTEL<br><span style="font-size:8px">Mort → Vie</span></button>
+      <button onclick="showMultivers()" class="glass-btn omega">🌌 MULTIVERS<br><span style="font-size:8px">1 → 1000</span></button>
+      <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT FRÈRES<br><span style="font-size:8px">Parle au Hall</span></button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE FRÈRES LIVE</div>
+    <div style="display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn ${currentZoom==='world'?'omega':''}">MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn ${currentZoom==='local'?'omega':''}">MON PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍 GPS</button>
+      <button onclick="startAR()" class="glass-btn">📷 AR</button>
+    </div>
+  </div>
+  <canvas id="globe" width="300" height="300" style="border:1px solid var(--glass-border);border-radius:50%;display:block;margin:0 auto"></canvas>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
+  </div>
+  <button onclick="pingBrothers()" class="glass-btn omega" style="width:100%;margin-top:12px">📡 PING HALL</button>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
+
+// Recharge MAP direct
+APPS.MAP.live();
+</script>
