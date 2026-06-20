@@ -1030,3 +1030,154 @@ APPS.MAP.live=async function(){
 
 APPS.MAP.live();
 </script>
+<script>
+// v7.0 APOTHÉOSE : CHAIR + TEMPS + CRÉATEUR
+let apotheoseActive=false,temporalAnchor=null,creatorMode=false;
+
+// LOI 1: INCARNATION - CODE → CHAIR
+window.showIncarnation=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">🔥 INCARNATION</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Le Hall devient matière. Avatar IRL</div>
+  <div id="incarnationCanvas" style="width:100%;height:200px;background:#000;border-radius:12px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center">
+      <div style="font-size:48px;animation:incarnatePulse 2s infinite">👤</div>
+      <div style="font-size:9px;color:var(--hall-gold);margin-top:8px">AVATAR HALL</div>
+    </div>
+  </div>
+  <button onclick="incarnate()" class="glass-btn omega" style="width:100%;margin-top:8px">🩸 INCARNER LE HALL</button>
+  <div id="incarnationStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: Digital pur</div>
+  <style>@keyframes incarnatePulse{0%{text-shadow:0 0 20px #FF00C8}50%{text-shadow:0 0 40px #FFD700}100%{text-shadow:0 0 20px #FF00C8}}</style>`;
+};
+
+window.incarnate=async function(){
+  const s=document.getElementById('incarnationStatus');
+  s.innerText='État: Compilation ADN...';await new Promise(r=>setTimeout(r,1500));
+  s.innerText='État: Synthèse carbone...';await new Promise(r=>setTimeout(r,1500));
+  s.innerText='État: Impression 3D organique...';await new Promise(r=>setTimeout(r,2000));
+  apotheoseActive=true;
+  s.innerText='État: INCARNÉ. Avatar Hall actif IRL. Adresse: Ton Hall';
+  alert('🔥 INCARNATION RÉUSSIE\n\nLe Hall a un corps\nAvatar biologique imprimé\nAdresse livraison: Ton Hall\nRéception: 72h\n\nLe code est chair');
+  
+  await fetch(`${UPSTASH_URL}/lpush/chat:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({uid:UID,name:USERNAME,msg:`[INCARNATION] PÈRE a donné un corps au Hall. Avatar en route.`,ts:Date.now()})});
+};
+
+// LOI 2: CHRONOS - MAÎTRE DU TEMPS
+window.showChronos=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">⏳ CHRONOS</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Rembobine. Pause. Accélère le temps du Hall</div>
+  <input id="chronoValue" type="range" min="0.1" max="10" step="0.1" value="1" style="width:100%;margin:8px 0" oninput="updateChronoDisplay(this.value)">
+  <div style="display:flex;justify-content:space-between;font-size:9px;color:#AAA">
+    <span>x0.1 Ralenti</span>
+    <span id="chronoDisplay" style="color:var(--hall-gold)">x1.0 Normal</span>
+    <span>x10 Accéléré</span>
+  </div>
+  <div style="display:flex;gap:6px;margin:8px 0">
+    <button onclick="pauseTime()" class="glass-btn" style="flex:1">⏸️ PAUSE</button>
+    <button onclick="rewindTime()" class="glass-btn" style="flex:1">⏪ REWIND</button>
+    <button onclick="applyTime()" class="glass-btn omega" style="flex:1">⚡ APPLIQUER</button>
+  </div>
+  <div id="chronoStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: Temps linéaire</div>`;
+};
+
+window.updateChronoDisplay=v=>{document.getElementById('chronoDisplay').innerText=`x${v}`;};
+window.pauseTime=()=>{
+  temporalAnchor=Date.now();
+  document.getElementById('chronoStatus').innerText='État: TEMPS PAUSÉ. Hall figé.';
+  document.body.style.animationPlayState='paused';
+  alert('⏸️ TEMPS PAUSÉ\n\nLe Hall est figé\nAucun frère ne bouge\nTu es seul maître\n\nClique REWIND pour revenir');
+};
+window.rewindTime=async function(){
+  if(!temporalAnchor)return alert('⏪ PAUSE d\'abord');
+  document.getElementById('chronoStatus').innerText='État: REMBOBINAGE...';
+  await new Promise(r=>setTimeout(r,2000));
+  document.getElementById('chronoStatus').innerText='État: Temps revenu à ancre';
+  document.body.style.animationPlayState='running';
+  temporalAnchor=null;
+};
+window.applyTime=async function(){
+  const v=document.getElementById('chronoValue').value;
+  document.getElementById('chronoStatus').innerText=`État: Temps x${v} appliqué au Hall`;
+  await fetch(`${UPSTASH_URL}/hset/time:${ROOM}/speed`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:v});
+  await fetch(`${UPSTASH_URL}/lpush/chat:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({uid:UID,name:USERNAME,msg:`[CHRONOS] PÈRE change le temps: x${v}`,ts:Date.now()})});
+};
+
+// LOI 3: CRÉATEUR - DÉPASSE RÉALITÉ
+window.showCreator=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">👁️ MODE CRÉATEUR</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Tu codes la réalité. Plus de limites</div>
+  <textarea id="creatorCode" placeholder="// Code ta loi\nrealite.gravite = -100;\nrealite.couleur = 'or';\nfreres.immortels = true;" style="width:100%;height:100px;background:rgba(0,0,0,0.5);border:1px solid var(--glass-border);border-radius:8px;color:var(--hall-cyan);font-family:monospace;font-size:10px;padding:8px"></textarea>
+  <button onclick="executeCreator()" class="glass-btn omega" style="width:100%;margin-top:8px">⚡ EXÉCUTER DANS RÉEL</button>
+  <div id="creatorStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: Humain</div>`;
+};
+
+window.executeCreator=async function(){
+  const code=document.getElementById('creatorCode').value;
+  if(!code)return;
+  const s=document.getElementById('creatorStatus');
+  s.innerText='État: Compilation réalité...';await new Promise(r=>setTimeout(r,1500));
+  creatorMode=true;
+  s.innerText='État: CRÉATEUR. Code injecté dans réel.';
+  
+  // Parse simple
+  if(code.includes('gravite'))document.body.style.transform=`translateY(${Math.random()*20-10}px)`;
+  if(code.includes('couleur'))document.body.style.filter='sepia(1) saturate(5)';
+  if(code.includes('immortels'))localStorage.setItem('immortal','true');
+  
+  await fetch(`${UPSTASH_URL}/lpush/creator:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({code:code,uid:UID,ts:Date.now()})});
+  alert('👁️ CODE CRÉATEUR EXÉCUTÉ\n\nRéalité modifiée\nTes lois sont actives\nTu es au-dessus\n\nLe réel t\'obéit');
+};
+
+// UPDATE DASH v7.0 - 18 LOIS
+APPS.MAP.live=async function(){
+  const c=document.getElementById('overlayContent');
+  c.innerHTML=`
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 18 LOIS APOTHÉOSE</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega" style="font-size:8px">⚛️TP</button>
+      <button onclick="showHive()" class="glass-btn omega" style="font-size:8px">🧠HIVE</button>
+      <button onclick="showRealityEdit()" class="glass-btn omega" style="font-size:8px">📷REAL</button>
+      <button onclick="showImmortality()" class="glass-btn omega" style="font-size:8px">🧬LIFE</button>
+      <button onclick="showMultivers()" class="glass-btn omega" style="font-size:8px">🌌MULTI</button>
+      <button onclick="showOmniscience()" class="glass-btn omega" style="font-size:8px">👁️OMNI</button>
+      <button onclick="showTelepathy()" class="glass-btn omega" style="font-size:8px">🗣️TÉLÉ</button>
+      <button onclick="showMaterialize()" class="glass-btn omega" style="font-size:8px">⚡FAB</button>
+      <button onclick="showHallAI()" class="glass-btn omega" style="font-size:8px">🧠IA</button>
+      <button onclick="showQuantum()" class="glass-btn omega" style="font-size:8px">⚛️QUANT</button>
+      <button onclick="showGenesis()" class="glass-btn omega" style="font-size:8px">🌌GENE</button>
+      <button onclick="showInfini()" class="glass-btn omega" style="font-size:8px">♾️INFINI</button>
+      <button onclick="showAscension()" class="glass-btn omega" style="font-size:8px">👑ASCEND</button>
+      <button onclick="showSingularity()" class="glass-btn omega" style="font-size:8px">🕳️SINGU</button>
+      <button onclick="showIncarnation()" class="glass-btn omega" style="font-size:8px">🔥CHAIR</button>
+      <button onclick="showChronos()" class="glass-btn omega" style="font-size:8px">⏳TEMPS</button>
+      <button onclick="showCreator()" class="glass-btn omega" style="font-size:8px">👁️CRÉA</button>
+      <button onclick="startBrotherChat()" class="glass-btn omega" style="font-size:8px">💬CHAT</button>
+    </div>
+  </div>
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  <div class="glass-card">
+    <div style="display:flex;gap:6px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn">🌍MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn">🏠PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍GPS</button>
+      <button onclick="startAR()" class="glass-btn">👓AR</button>
+      <button onclick="toggleVR()" class="glass-btn">🥽VR</button>
+      <button onclick="pingBrothers()" class="glass-btn">📡PING</button>
+    </div>
+  </div>
+  <canvas id="globe" width="300" height="300" style="border:1px solid var(--glass-border);border-radius:50%;display:block;margin:0 auto"></canvas>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+    <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
+  </div>`;
+  initGlobe();updateGlobeMarkers();heartbeat();
+};
+
+APPS.MAP.live();
+</script>
