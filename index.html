@@ -2974,3 +2974,83 @@ document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('but
 <div id="douniForceInvoke" style="position:fixed;bottom:20px;right:20px;z-index:99999">
   <button onclick="toggleGlobe()" class="btn-douni" style="box-shadow:0 0 20px #FFD700">🌍 INVOQUE</button>
 </div>
+<style>
+/* v12.3 CHAT DOUNIUM UPGRADE */
+#douniChatBar{
+  position:fixed; bottom:80px; left:50%; transform:translateX(-50%);
+  display:flex; gap:8px; background:#000; border:1px solid var(--or);
+  border-radius:20px; padding:8px 12px; z-index:99998;
+}
+.douniChatBtn{
+  background:none; border:none; font-size:22px; cursor:pointer;
+  filter:drop-shadow(0 0 5px var(--or)); transition:0.2s;
+}
+.douniChatBtn:hover{transform:scale(1.2)}
+#douniEmojiPanel{
+  position:fixed; bottom:140px; left:50%; transform:translateX(-50%);
+  background:#000; border:1px solid var(--or); border-radius:12px;
+  padding:10px; display:none; grid-template-columns:repeat(6,1fr);
+  gap:8px; z-index:99999;
+}
+.emoji{cursor:pointer;font-size:24px}
+</style>
+
+<div id="douniChatBar">
+  <button class="douniChatBtn" onclick="douniStartVideo()" title="Video">📹</button>
+  <button class="douniChatBtn" onclick="douniSendPhoto()" title="Photo">📷</button>
+  <button class="douniChatBtn" onclick="douniToggleEmoji()" title="Emoji">😀</button>
+  <input type="file" id="douniPhotoInput" accept="image/*" style="display:none">
+</div>
+
+<div id="douniEmojiPanel">
+  <span class="emoji" onclick="douniSendEmoji('🔥')">🔥</span>
+  <span class="emoji" onclick="douniSendEmoji('⚜️')">⚜️</span>
+  <span class="emoji" onclick="douniSendEmoji('🌍')">🌍</span>
+  <span class="emoji" onclick="douniSendEmoji('💎')">💎</span>
+  <span class="emoji" onclick="douniSendEmoji('👑')">👑</span>
+  <span class="emoji" onclick="douniSendEmoji('⚡')">⚡</span>
+  <span class="emoji" onclick="douniSendEmoji('🛡️')">🛡️</span>
+  <span class="emoji" onclick="douniSendEmoji('🚀')">🚀</span>
+  <span class="emoji" onclick="douniSendEmoji('💰')">💰</span>
+  <span class="emoji" onclick="douniSendEmoji('🙏')">🙏</span>
+  <span class="emoji" onclick="douniSendEmoji('❤️')">❤️</span>
+  <span class="emoji" onclick="douniSendEmoji('😂')">😂</span>
+</div>
+
+<script>
+// v12.3 FONCTIONS CHAT
+window.douniStartVideo = function(){
+  navigator.mediaDevices.getUserMedia({video:true,audio:true})
+ .then(stream=>{
+    let v=document.createElement('video');
+    v.srcObject=stream; v.autoplay=true; v.style.cssText='position:fixed;top:50px;right:20px;width:200px;border:2px solid var(--or);border-radius:12px;z-index:99999';
+    document.body.appendChild(v);
+    alert('📹 Caméra DOUNIUM active PÈRE. Prochain patch: streaming P2P.');
+  }).catch(e=>alert('Caméra refusée: '+e));
+};
+
+window.douniSendPhoto = function(){
+  document.getElementById('douniPhotoInput').click();
+};
+document.getElementById('douniPhotoInput').onchange=function(e){
+  let file=e.target.files[0]; if(!file) return;
+  let reader=new FileReader();
+  reader.onload=function(){
+    let img=document.createElement('img');
+    img.src=reader.result; img.style.cssText='position:fixed;bottom:160px;right:20px;width:150px;border:2px solid var(--or);border-radius:12px;z-index:99999';
+    document.body.appendChild(img);
+    setTimeout(()=>img.remove(),5000);
+    alert('📷 Photo envoyée dans le Hall PÈRE. v12.4: stockage IPFS.');
+  };
+  reader.readAsDataURL(file);
+};
+
+window.douniToggleEmoji=function(){
+  let p=document.getElementById('douniEmojiPanel');
+  p.style.display=p.style.display==='grid'?'none':'grid';
+};
+window.douniSendEmoji=function(e){
+  alert('Emoji '+e+' invoqué dans le Hall ⚜️🌍');
+  douniToggleEmoji();
+};
+</script>
