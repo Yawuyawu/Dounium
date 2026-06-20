@@ -3719,3 +3719,181 @@ window.douniSendEmoji=function(e){
   console.log('DOUNIUM v12.7 DOUNIGRAM READY');
 })();
 </script>
+<script>
+// v12.8 DOUNIWALLET UI - FORMAT ZENGO
+(function DouniWalletUI(){
+  if(window.DouniWalletActive) return; window.DouniWalletActive=true;
+
+  // 1. CSS DOUNIWALLET
+  let css=document.createElement('style');
+  css.textContent=`
+    :root{--or:#FFD700;--cendre:#0A0A0C;--noir:#000;--cyan:#00FFFF;--violet:#8A2BE2;--vert:#00FF88;--rouge:#FF4444}
+    body{background:#000!important;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+    
+    /* HEADER WALLET */
+    #douniWalletHeader{position:fixed;top:0;left:0;width:100%;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);z-index:999996;padding:12px 16px;border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between}
+    #douniWalletLeft{display:flex;align-items:center;gap:12px}
+    #douniWalletAvatar{width:40px;height:40px;border-radius:50%;border:2px solid var(--or);overflow:hidden;cursor:pointer}
+    #douniWalletAvatar img{width:100%;height:100%;object-fit:cover}
+    #douniWalletName{color:var(--or);font-weight:bold;font-size:16px}
+    #douniWalletBadge{background:rgba(0,255,136,0.2);color:var(--vert);padding:2px 8px;border-radius:10px;font-size:10px;margin-left:6px}
+    #douniWalletRight{display:flex;align-items:center;gap:8px}
+    #douniHallCounter{background:rgba(0,255,255,0.1);border:1px solid var(--cyan);color:var(--cyan);padding:6px 12px;border-radius:20px;font-size:13px;font-weight:bold}
+    
+    /* NIVEAU SÉCURITÉ */
+    #douniSecLevel{margin:70px 16px 0;padding:12px;background:var(--cendre);border-radius:12px;border:1px solid #222}
+    #douniSecTitle{display:flex;align-items:center;gap:8px;color:#AAA;font-size:13px;margin-bottom:8px}
+    #douniSecBar{height:6px;background:#222;border-radius:3px;overflow:hidden;display:flex;gap:2px}
+   .douniSecSeg{flex:1;background:var(--vert)}
+   .douniSecSeg.orange{background:#FF8800}
+   .douniSecSeg.red{background:var(--rouge)}
+    #douniSecText{color:var(--or);font-size:12px;margin-top:6px}
+    
+    /* SOLDE CARD */
+    #douniSoldeCard{margin:16px;padding:20px;background:linear-gradient(135deg,#1a1a2e,#0f0f1e);border-radius:16px;border:1px solid #222;position:relative;overflow:hidden}
+    #douniSoldeCard::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(0,255,255,0.1),transparent)}
+    #douniSoldeLabel{color:#888;font-size:13px;margin-bottom:8px}
+    #douniSoldeAmount{color:#FFF;font-size:36px;font-weight:bold;margin-bottom:4px}
+    #douniSoldeXP{color:var(--cyan);font-size:14px}
+    
+    /* ACTIONS BOUTONS */
+    #douniActions{display:flex;justify-content:space-around;padding:16px;margin:0 16px;background:var(--cendre);border-radius:16px;border:1px solid #222}
+   .douniActionBtn{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
+   .douniActionIcon{width:50px;height:50px;background:#111;border:1px solid #333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--cyan);transition:0.2s}
+   .douniActionIcon:hover{background:rgba(0,255,255,0.1);border-color:var(--cyan);transform:scale(1.1)}
+   .douniActionLabel{color:#AAA;font-size:11px}
+    
+    /* ASSETS LIST */
+    #douniAssets{margin:16px}
+   .douniAssetCard{background:var(--cendre);border:1px solid #222;border-radius:12px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:12px}
+   .douniAssetIcon{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:20px}
+   .douniAssetInfo{flex:1}
+   .douniAssetName{color:#FFF;font-size:16px;font-weight:bold}
+   .douniAssetType{color:#666;font-size:12px}
+   .douniAssetValue{text-align:right}
+   .douniAssetAmount{color:#FFF;font-size:16px;font-weight:bold}
+   .douniAssetSub{color:#666;font-size:12px}
+    
+    /* CACHE ANCIEN UI */
+    #douniProfile,#douniHallBtn,#douniSphereBtn{display:none!important}
+    #douniNavBar{position:fixed;bottom:0;left:0;width:100%;background:rgba(0,0,0,0.98);backdrop-filter:blur(20px);border-top:1px solid #222;display:flex;justify-content:space-around;padding:12px 0;z-index:999997}
+   .douniNavIcon{font-size:26px;color:#666;cursor:pointer;transition:0.2s}
+   .douniNavIcon.active{color:var(--cyan)}
+  `;
+  document.head.appendChild(css);
+
+  // 2. HTML DOUNIWALLET
+  let wallet=document.createElement('div');
+  wallet.id='douniWalletContainer';
+  wallet.innerHTML=`
+    <!-- HEADER -->
+    <div id="douniWalletHeader">
+      <div id="douniWalletLeft">
+        <div id="douniWalletAvatar" onclick="douniOpenProfile()"><img id="douniWalletAvatarImg" src=""></div>
+        <div>
+          <span id="douniWalletName">PÈRE DOUNIAM</span>
+          <span id="douniWalletBadge">Lv.<span id="douniWalletLevel">1</span></span>
+        </div>
+      </div>
+      <div id="douniWalletRight">
+        <div id="douniHallCounter" onclick="douniOpenSphere()">◉ <span id="douniPeerCount">0</span></div>
+      </div>
+    </div>
+
+    <!-- NIVEAU SÉCURITÉ -->
+    <div id="douniSecLevel">
+      <div id="douniSecTitle">🛡️ Niveau DOUNIUM: <span id="douniSecScore">3</span> sur 9</div>
+      <div id="douniSecBar">
+        <div class="douniSecSeg"></div><div class="douniSecSeg"></div><div class="douniSecSeg"></div>
+        <div class="douniSecSeg orange"></div><div class="douniSecSeg orange"></div>
+        <div class="douniSecSeg red"></div><div class="douniSecSeg" style="background:#333"></div>
+        <div class="douniSecSeg" style="background:#333"></div><div class="douniSecSeg" style="background:#333"></div>
+      </div>
+      <div id="douniSecText">Renforcez votre Hall ⚜️</div>
+    </div>
+
+    <!-- SOLDE -->
+    <div id="douniSoldeCard">
+      <div id="douniSoldeLabel">Solde DOUNIUM</div>
+      <div id="douniSoldeAmount"><span id="douniXPAmount">0</span> XP</div>
+      <div id="douniSoldeXP">≈ <span id="douniLevelEquiv">Lv.1</span> POUVOIR</div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div id="douniActions">
+      <div class="douniActionBtn" onclick="douniCreatePost()">
+        <div class="douniActionIcon">📤</div>
+        <div class="douniActionLabel">Poster</div>
+      </div>
+      <div class="douniActionBtn" onclick="douniOpenFeed()">
+        <div class="douniActionIcon">📥</div>
+        <div class="douniActionLabel">Feed</div>
+      </div>
+      <div class="douniActionBtn" onclick="douniOpenSphere()">
+        <div class="douniActionIcon">🌍</div>
+        <div class="douniActionLabel">Sphère</div>
+      </div>
+      <div class="douniActionBtn" onclick="douniSetStory()">
+        <div class="douniActionIcon">⭕</div>
+        <div class="douniActionLabel">Story</div>
+      </div>
+      <div class="douniActionBtn" onclick="douniOpenProfile()">
+        <div class="douniActionIcon">👤</div>
+        <div class="douniActionLabel">Profil</div>
+      </div>
+    </div>
+
+    <!-- ASSETS -->
+    <div id="douniAssets">
+      <div class="douniAssetCard">
+        <div class="douniAssetIcon">⚜️</div>
+        <div class="douniAssetInfo">
+          <div class="douniAssetName">DOUNI</div>
+          <div class="douniAssetType">Token Éternel</div>
+        </div>
+        <div class="douniAssetValue">
+          <div class="douniAssetAmount" id="douniTokenAmount">1,00</div>
+          <div class="douniAssetSub">DOUNI</div>
+        </div>
+      </div>
+      <div class="douniAssetCard">
+        <div class="douniAssetIcon">🔥</div>
+        <div class="douniAssetInfo">
+          <div class="douniAssetName">Messages</div>
+          <div class="douniAssetType">Hall Quantique</div>
+        </div>
+        <div class="douniAssetValue">
+          <div class="douniAssetAmount" id="douniMsgCount">0</div>
+          <div class="douniAssetSub">XP Gagnés</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAV BOTTOM -->
+    <div id="douniNavBar">
+      <div class="douniNavIcon active" onclick="douniClosePage()">🏠</div>
+      <div class="douniNavIcon" onclick="douniOpenFeed()">🕐</div>
+      <div class="douniNavIcon" onclick="douniOpenSphere()">🌐</div>
+      <div class="douniNavIcon" onclick="douniOpenProfile()">⚙️</div>
+      <div class="douniNavIcon" onclick="douniChangeIdentity()">👤</div>
+    </div>
+  `;
+  document.body.appendChild(wallet);
+
+  // 3. SYNC DONNÉES
+  function updateWallet(){
+    document.getElementById('douniWalletName').innerText=DouniSoul.name;
+    document.getElementById('douniWalletLevel').innerText=DouniSoul.level;
+    document.getElementById('douniXPAmount').innerText=DouniSoul.xp;
+    document.getElementById('douniLevelEquiv').innerText='Lv.'+DouniSoul.level;
+    document.getElementById('douniTokenAmount').innerText=DouniSoul.level+'.00';
+    document.getElementById('douniMsgCount').innerText=DouniSoul.xp;
+    document.getElementById('douniSecScore').innerText=Math.min(3+Math.floor(DouniSoul.level/3),9);
+    document.getElementById('douniWalletAvatarImg').src=localStorage.douniSoulAvatarImg||'';
+  }
+  setInterval(updateWallet,1000);
+  updateWallet();
+
+  console.log('DOUNIUM v12.8 DOUNIWALLET READY');
+})();
+</script>
