@@ -4614,3 +4614,309 @@ window.douniSendEmoji=function(e){
   },500);
 })();
 </script>
+<script>
+// v13.0 DOUNIUM OS - INSTA+SNAP+FB FUSION
+(function DouniumOS(){
+  if(window.DouniumOSActive) return; window.DouniOSActive=true;
+
+  // 1. CSS DOUNIUM OS - STRUCTURE PRO
+  let css=document.createElement('style');
+  css.textContent=`
+    :root{--or:#FFD700;--cendre:#0A0A0C;--noir:#000;--cyan:#00FFFF;--violet:#8A2BE2;--vert:#00FF88}
+    body{background:#000!important;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;overflow-x:hidden}
+    
+    /* FEED INSTA-STYLE */
+    #douniFeedOS{padding-top:60px;padding-bottom:140px;max-width:600px;margin:0 auto;background:#000}
+   .douniPostOS{background:#000;border-bottom:1px solid #262626;margin-bottom:0}
+  .douniPostHeaderOS{display:flex;align-items:center;gap:12px;padding:14px 16px}
+  .douniPostAvatarOS{width:32px;height:32px;border-radius:50%;border:2px solid var(--or);overflow:hidden;cursor:pointer}
+  .douniPostAvatarOS img{width:100%;height:100%;object-fit:cover}
+  .douniPostUserOS{flex:1}
+  .douniPostNameOS{color:#FFF;font-size:14px;font-weight:600;cursor:pointer}
+  .douniPostMetaOS{color:#A8A8A8;font-size:12px}
+  .douniPostMoreOS{color:#FFF;font-size:20px;cursor:pointer}
+  .douniPostImgOS{width:100%;max-height:600px;object-fit:cover;display:block}
+  .douniPostActionsOS{display:flex;align-items:center;gap:16px;padding:12px 16px}
+  .douniPostActionOS{font-size:26px;cursor:pointer;transition:0.2s;color:#FFF}
+  .douniPostActionOS:hover{opacity:0.5}
+  .douniPostActionOS.liked{color:#FF3040}
+  .douniPostLikesOS{color:#FFF;padding:0 16px;font-weight:600;font-size:14px}
+  .douniPostCaptionOS{color:#FFF;padding:6px 16px 16px;font-size:14px}
+  .douniPostCaptionOS b{font-weight:600}
+    
+    /* PROFIL PAGE FB-STYLE */
+    #douniProfileOS{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:999996;overflow-y:auto}
+    #douniProfileOS.active{display:block}
+    #douniProfileCoverOS{height:200px;background:linear-gradient(135deg,var(--violet),var(--cyan));position:relative}
+    #douniProfileAvatarOS{position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);width:120px;height:120px;border-radius:50%;border:4px solid #000;background:#000;overflow:hidden;box-shadow:0 0 30px var(--or)}
+    #douniProfileAvatarOS img{width:100%;height:100%;object-fit:cover}
+    #douniProfileInfoOS{padding:70px 20px 20px;text-align:center}
+    #douniProfileNameOS{color:#FFF;font-size:24px;font-weight:700;margin-bottom:4px}
+    #douniProfileBioOS{color:#A8A8A8;font-size:14px;margin-bottom:16px}
+    #douniProfileStatsOS{display:flex;justify-content:center;gap:40px;margin:20px 0}
+    #douniProfileStatOS{text-align:center;cursor:pointer}
+    #douniProfileStatNumOS{color:#FFF;font-size:18px;font-weight:700}
+    #douniProfileStatLabelOS{color:#A8A8A8;font-size:13px}
+    #douniProfileBtnsOS{display:flex;gap:8px;padding:0 20px;margin-bottom:20px}
+  .douniProfileBtnOS{flex:1;background:#262626;border:none;color:#FFF;padding:8px;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer}
+  .douniProfileBtnOS.primary{background:var(--cyan);color:#000}
+    #douniProfileGridOS{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:0 2px}
+  .douniProfilePostOS{aspect-ratio:1;background:#111;overflow:hidden;cursor:pointer;position:relative}
+  .douniProfilePostOS img{width:100%;height:100%;object-fit:cover}
+    
+    /* AMIS + ONLINE SNAP-STYLE */
+    #douniFriendsOS{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:999996;overflow-y:auto}
+    #douniFriendsOS.active{display:block}
+    #douniFriendsHeaderOS{position:sticky;top:0;background:rgba(0,0,0,0.98);padding:16px;border-bottom:1px solid #262626;z-index:10}
+    #douniFriendsTitleOS{color:#FFF;font-size:20px;font-weight:700}
+    #douniFriendsTabsOS{display:flex;gap:20px;margin-top:16px}
+  .douniFriendsTabOS{color:#A8A8A8;font-size:15px;font-weight:600;padding-bottom:12px;cursor:pointer;border-bottom:2px solid transparent}
+  .douniFriendsTabOS.active{color:#FFF;border-bottom-color:var(--cyan)}
+  .douniFriendItemOS{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;transition:0.2s}
+  .douniFriendItemOS:hover{background:#0A0A0A}
+  .douniFriendAvatarOS{width:56px;height:56px;border-radius:50%;border:2px solid var(--vert);overflow:hidden;position:relative}
+  .douniFriendAvatarOS img{width:100%;height:100%;object-fit:cover}
+  .douniFriendOnlineOS{position:absolute;bottom:2px;right:2px;width:14px;height:14px;background:var(--vert);border:3px solid #000;border-radius:50%}
+  .douniFriendInfoOS{flex:1}
+  .douniFriendNameOS{color:#FFF;font-size:15px;font-weight:600}
+  .douniFriendStatusOS{color:#A8A8A8;font-size:13px}
+  .douniFriendBtnOS{background:var(--cyan);border:none;color:#000;padding:8px 20px;border-radius:20px;font-weight:600;font-size:14px;cursor:pointer}
+    
+    /* CHAT POPUP FB-MESSENGER */
+    #douniChatOS{display:none;position:fixed;bottom:140px;right:20px;width:320px;height:400px;background:#0A0A0A;border:1px solid #262626;border-radius:16px;z-index:999999;box-shadow:0 10px 50px rgba(0,0,0,0.8)}
+    #douniChatOS.active{display:flex;flex-direction:column}
+    #douniChatHeaderOS{padding:12px 16px;border-bottom:1px solid #262626;display:flex;align-items:center;gap:12px}
+    #douniChatAvatarOS{width:36px;height:36px;border-radius:50%;overflow:hidden}
+    #douniChatAvatarOS img{width:100%;height:100%;object-fit:cover}
+    #douniChatUserOS{flex:1;color:#FFF;font-weight:600;font-size:15px}
+    #douniChatCloseOS{color:#A8A8A8;font-size:24px;cursor:pointer}
+    #douniChatMsgsOS{flex:1;overflow-y:auto;padding:16px}
+    #douniChatInputOS{display:flex;gap:8px;padding:12px;border-top:1px solid #262626}
+    #douniChatInputFieldOS{flex:1;background:#262626;border:none;color:#FFF;padding:10px 16px;border-radius:20px;font-size:14px;outline:none}
+    #douniChatSendOS{background:var(--cyan);border:none;color:#000;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer}
+    
+    /* CACHE ANCIEN */
+    #douniWalletContainer,#douniFeedPage,#douniProfilePage,#douniSpherePage{display:none!important}
+  `;
+  document.head.appendChild(css);
+
+  // 2. STRUCTURE HTML OS
+  let os=document.createElement('div');
+  os.innerHTML=`
+    <!-- FEED -->
+    <div id="douniFeedOS"></div>
+    
+    <!-- PROFIL -->
+    <div id="douniProfileOS">
+      <div id="douniProfileCoverOS">
+        <div id="douniProfileAvatarOS"><img id="douniProfileAvatarImgOS" src=""></div>
+      </div>
+      <div id="douniProfileInfoOS">
+        <div id="douniProfileNameOS">PÈRE DOUNIAM</div>
+        <div id="douniProfileBioOS">⚜️ Fondateur DOUNIUM • Hall Quantique Unifié 🌍</div>
+        <div id="douniProfileStatsOS">
+          <div id="douniProfileStatOS" onclick="douniShowPosts()"><div id="douniProfileStatNumOS">0</div><div id="douniProfileStatLabelOS">Posts</div></div>
+          <div id="douniProfileStatOS" onclick="douniShowFriends()"><div id="douniProfileStatNumOS">0</div><div id="douniProfileStatLabelOS">Amis</div></div>
+          <div id="douniProfileStatOS"><div id="douniProfileStatNumOS">Lv.1</div><div id="douniProfileStatLabelOS">Niveau</div></div>
+        </div>
+        <div id="douniProfileBtnsOS">
+          <button class="douniProfileBtnOS primary" onclick="douniAddFriend()">Ajouter Amis</button>
+          <button class="douniProfileBtnOS" onclick="douniEditProfile()">Modifier</button>
+        </div>
+      </div>
+      <div id="douniProfileGridOS"></div>
+    </div>
+    
+    <!-- AMIS + ONLINE -->
+    <div id="douniFriendsOS">
+      <div id="douniFriendsHeaderOS">
+        <div id="douniFriendsTitleOS">DOUNIS</div>
+        <div id="douniFriendsTabsOS">
+          <div class="douniFriendsTabOS active" onclick="douniSwitchTab('online')">En ligne</div>
+          <div class="douniFriendsTabOS" onclick="douniSwitchTab('all')">Tous</div>
+          <div class="douniFriendsTabOS" onclick="douniSwitchTab('phone')">Contacts</div>
+        </div>
+      </div>
+      <div id="douniFriendsListOS"></div>
+    </div>
+    
+    <!-- CHAT -->
+    <div id="douniChatOS">
+      <div id="douniChatHeaderOS">
+        <div id="douniChatAvatarOS"><img id="douniChatAvatarImgOS" src=""></div>
+        <div id="douniChatUserOS">DOUNI</div>
+        <div id="douniChatCloseOS" onclick="douniCloseChat()">✕</div>
+      </div>
+      <div id="douniChatMsgsOS"></div>
+      <div id="douniChatInputOS">
+        <input id="douniChatInputFieldOS" placeholder="Message...">
+        <button id="douniChatSendOS" onclick="douniSendMsg()">➤</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(os);
+
+  // 3. LOGIQUE OS - FEED + PROFIL + AMIS + CHAT
+  window.DouniDB={
+    posts:JSON.parse(localStorage.douniOSPosts||'[]'),
+    friends:JSON.parse(localStorage.douniOSFriends||'[]'),
+    msgs:JSON.parse(localStorage.douniOSMsgs||'[]'),
+    online:[]
+  };
+  
+  // FEED
+  function loadFeed(){
+    let feed=document.getElementById('douniFeedOS');
+    if(DouniDB.posts.length===0){
+      feed.innerHTML='<div style="color:#A8A8A8;text-align:center;padding:60px">Aucun post.<br>Crée le premier ⚜️</div>';
+      return;
+    }
+    feed.innerHTML=DouniDB.posts.map(p=>`
+      <div class="douniPostOS">
+        <div class="douniPostHeaderOS">
+          <div class="douniPostAvatarOS" onclick="douniViewProfile('${p.user.id}')"><img src="${p.user.avatar||''}"></div>
+          <div class="douniPostUserOS">
+            <div class="douniPostNameOS" onclick="douniViewProfile('${p.user.id}')">${p.user.name}</div>
+            <div class="douniPostMetaOS">${new Date(p.time).toLocaleString()}</div>
+          </div>
+          <div class="douniPostMoreOS">⋯</div>
+        </div>
+        <img src="${p.img}" class="douniPostImgOS">
+        <div class="douniPostActionsOS">
+          <div class="douniPostActionOS ${p.liked?'liked':''}" onclick="douniLikePost(${p.id})">${p.liked?'❤️':'🤍'}</div>
+          <div class="douniPostActionOS" onclick="douniCommentPost(${p.id})">💬</div>
+          <div class="douniPostActionOS" onclick="douniSharePost(${p.id})">📤</div>
+        </div>
+        <div class="douniPostLikesOS">${p.likes} J'aime</div>
+        <div class="douniPostCaptionOS"><b>${p.user.name}</b> ${p.caption||'⚜️'}</div>
+      </div>
+    `).join('');
+  }
+  
+  // PROFIL
+  window.douniViewProfile=(id)=>{
+    document.getElementById('douniProfileOS').classList.add('active');
+    document.getElementById('douniProfileNameOS').innerText=DouniSoul.name;
+    document.getElementById('douniProfileAvatarImgOS').src=localStorage.douniSoulAvatarImg||'';
+    loadProfileGrid();
+  };
+  
+  function loadProfileGrid(){
+    let grid=document.getElementById('douniProfileGridOS');
+    let myPosts=DouniDB.posts.filter(p=>p.user.id===DouniSoul.id);
+    document.getElementById('douniProfileStatNumOS').innerText=myPosts.length;
+    grid.innerHTML=myPosts.map(p=>`
+      <div class="douniProfilePostOS" onclick="douniOpenPost(${p.id})">
+        <img src="${p.img}">
+      </div>
+    `).join('');
+  }
+  
+  // AMIS + ONLINE
+  window.douniShowFriends=()=>{
+    document.getElementById('douniFriendsOS').classList.add('active');
+    douniSwitchTab('online');
+  };
+  
+  window.douniSwitchTab=(tab)=>{
+    document.querySelectorAll('.douniFriendsTabOS').forEach(t=>t.classList.remove('active'));
+    event.target.classList.add('active');
+    let list=document.getElementById('douniFriendsListOS');
+    
+    if(tab==='online'){
+      // SIMULE DOUNIS EN LIGNE DU MONDE
+      DouniDB.online=[
+        {id:1,name:'DOUNI France',avatar:'',country:'🇫🇷',status:'En ligne'},
+        {id:2,name:'DOUNI USA',avatar:'',country:'🇺🇸',status:'En ligne'},
+        {id:3,name:'DOUNI Japan',avatar:'',country:'🇯🇵',status:'En ligne'},
+        {id:4,name:'DOUNI Brazil',avatar:'',country:'🇧🇷',status:'En ligne'},
+        {id:5,name:'DOUNI Nigeria',avatar:'',country:'🇳🇬',status:'En ligne'}
+      ];
+      list.innerHTML=DouniDB.online.map(f=>`
+        <div class="douniFriendItemOS">
+          <div class="douniFriendAvatarOS">
+            <img src="${f.avatar||''}"><div class="douniFriendOnlineOS"></div>
+          </div>
+          <div class="douniFriendInfoOS">
+            <div class="douniFriendNameOS">${f.country} ${f.name}</div>
+            <div class="douniFriendStatusOS">${f.status} • Monde</div>
+          </div>
+          <button class="douniFriendBtnOS" onclick="douniOpenChat('${f.id}','${f.name}')">Message</button>
+        </div>
+      `).join('');
+    }
+    if(tab==='phone'){
+      list.innerHTML='<div style="color:#A8A8A8;text-align:center;padding:40px">📱 Autorise accès contacts<br>pour trouver tes amis DOUNIUM</div><button class="douniProfileBtnOS primary" style="margin:20px" onclick="douniImportContacts()">Importer Contacts</button>';
+    }
+    if(tab==='all'){
+      list.innerHTML='<div style="color:#A8A8A8;text-align:center;padding:40px">Tes amis apparaîtront ici</div>';
+    }
+  };
+  
+  window.douniImportContacts=()=>{
+    alert('📱 CONTACTS API\\n\\nDOUNIUM demande accès à tes contacts\\npour trouver tes amis déjà inscrits.\\n\\n[Simulé v13.0]');
+  };
+  
+  // CHAT
+  window.douniOpenChat=(id,name)=>{
+    document.getElementById('douniChatOS').classList.add('active');
+    document.getElementById('douniChatUserOS').innerText=name;
+    window.currentChatId=id;
+    loadChatMsgs();
+  };
+  window.douniCloseChat=()=>{document.getElementById('douniChatOS').classList.remove('active')};
+  
+  window.douniSendMsg=()=>{
+    let input=document.getElementById('douniChatInputFieldOS');
+    if(!input.value.trim())return;
+    DouniDB.msgs.push({to:currentChatId,from:DouniSoul.id,text:input.value,time:Date.now()});
+    localStorage.douniOSMsgs=JSON.stringify(DouniDB.msgs);
+    input.value='';
+    loadChatMsgs();
+  };
+  
+  function loadChatMsgs(){
+    let box=document.getElementById('douniChatMsgsOS');
+    let msgs=DouniDB.msgs.filter(m=>m.to===currentChatId||m.from===currentChatId);
+    box.innerHTML=msgs.map(m=>`
+      <div style="margin-bottom:12px;text-align:${m.from===DouniSoul.id?'right':'left'}">
+        <div style="display:inline-block;background:${m.from===DouniSoul.id?'var(--cyan)':'#262626'};color:${m.from===DouniSoul.id?'#000':'#FFF'};padding:8px 12px;border-radius:18px;max-width:70%;font-size:14px">${m.text}</div>
+      </div>
+    `).join('');
+    box.scrollTop=box.scrollHeight;
+  }
+  
+  // POST
+  window.douniCreatePost=()=>{
+    let input=document.createElement('input');input.type='file';input.accept='image/*';
+    input.onchange=e=>{
+      let f=e.target.files[0];if(!f)return;
+      let r=new FileReader();
+      r.onload=()=>{
+        let caption=prompt('Légende du post:')||'⚜️';
+        DouniDB.posts.unshift({
+          id:Date.now(),img:r.result,caption,
+          time:Date.now(),likes:0,liked:false,
+          user:{id:DouniSoul.id,name:DouniSoul.name,avatar:localStorage.douniSoulAvatarImg}
+        });
+        localStorage.douniOSPosts=JSON.stringify(DouniDB.posts);
+        loadFeed();alert('Post publié sur DOUNIUM ⚜️');
+      };
+      r.readAsDataURL(f);
+    };
+    input.click();
+  };
+  
+  window.douniLikePost=(id)=>{
+    let p=DouniDB.posts.find(x=>x.id===id);
+    if(p){p.liked=!p.liked;p.likes+=p.liked?1:-1;localStorage.douniOSPosts=JSON.stringify(DouniDB.posts);loadFeed()}
+  };
+  
+  // INIT
+  loadFeed();
+  window.douniOpenFeed=()=>{document.getElementById('douniFeedOS').scrollIntoView()};
+  window.douniOpenProfile=()=>douniViewProfile(DouniSoul.id);
+  
+  console.log('DOUNIUM OS v13.0 READY - INSTA+SNAP+FB FUSION');
+})();
+</script>
