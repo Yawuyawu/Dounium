@@ -3054,3 +3054,78 @@ window.douniSendEmoji=function(e){
   douniToggleEmoji();
 };
 </script>
+<script>
+// v12.3c AUTO-CREATE CHAT DOUNIUM
+(function DouniChatInit(){
+  if(document.getElementById('douniChatBar')) return; // déjà injecté
+
+  // 1. CSS
+  let css = document.createElement('style');
+  css.textContent = `
+    :root{--or:#FFD700;--cendre:#1C1C1E;--noir:#000}
+    #douniChatBar{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);display:flex;gap:8px;background:#000;border:2px solid var(--or);border-radius:20px;padding:8px 12px;z-index:999998;box-shadow:0 0 20px var(--or)}
+   .douniChatBtn{background:none;border:none;font-size:24px;cursor:pointer;filter:drop-shadow(0 0 5px var(--or))}
+   .douniChatBtn:active{transform:scale(0.9)}
+    #douniEmojiPanel{position:fixed;bottom:140px;left:50%;transform:translateX(-50%);background:#000;border:2px solid var(--or);border-radius:12px;padding:10px;display:none;grid-template-columns:repeat(6,1fr);gap:8px;z-index:999999}
+   .emoji{cursor:pointer;font-size:26px;text-align:center}
+    #douniPhotoInput{display:none}
+  `;
+  document.head.appendChild(css);
+
+  // 2. HTML
+  let bar = document.createElement('div');
+  bar.id = 'douniChatBar';
+  bar.innerHTML = `
+    <button class="douniChatBtn" onclick="douniStartVideo()" title="Video">📹</button>
+    <button class="douniChatBtn" onclick="douniSendPhoto()" title="Photo">📷</button>
+    <button class="douniChatBtn" onclick="douniToggleEmoji()" title="Emoji">😀</button>
+    <input type="file" id="douniPhotoInput" accept="image/*">
+  `;
+  document.body.appendChild(bar);
+
+  let emoji = document.createElement('div');
+  emoji.id = 'douniEmojiPanel';
+  emoji.innerHTML = '🔥⚜️🌍💎👑⚡🛡️🚀💰🙏❤️😂'.split('').map(e=>`<span class="emoji" onclick="douniSendEmoji('${e}')">${e}</span>`).join('');
+  document.body.appendChild(emoji);
+
+  // 3. FONCTIONS
+  window.douniStartVideo = function(){
+    navigator.mediaDevices.getUserMedia({video:true,audio:true})
+   .then(s=>{
+      let v=document.createElement('video');
+      v.srcObject=s; v.autoplay=true; v.muted=true; v.playsInline=true;
+      v.style.cssText='position:fixed;top:50px;right:20px;width:200px;border:2px solid var(--or);border-radius:12px;z-index:999999';
+      document.body.appendChild(v);
+      alert('📹 Caméra DOUNIUM active PÈRE');
+    }).catch(e=>alert('Caméra: '+e));
+  };
+
+  window.douniSendPhoto = function(){
+    document.getElementById('douniPhotoInput').click();
+  };
+
+  document.getElementById('douniPhotoInput').onchange = function(e){
+    let f=e.target.files[0]; if(!f) return;
+    let r=new FileReader();
+    r.onload=function(){
+      let i=document.createElement('img');
+      i.src=r.result; i.style.cssText='position:fixed;bottom:160px;right:20px;width:150px;border:2px solid var(--or);border-radius:12px;z-index:999999';
+      document.body.appendChild(i); setTimeout(()=>i.remove(),5000);
+      alert('📷 Photo dans le Hall PÈRE');
+    };
+    r.readAsDataURL(f);
+  };
+
+  window.douniToggleEmoji = function(){
+    let p=document.getElementById('douniEmojiPanel');
+    p.style.display=p.style.display==='grid'?'none':'grid';
+  };
+
+  window.douniSendEmoji = function(e){
+    alert('Emoji '+e+' invoqué ⚜️🌍');
+    douniToggleEmoji();
+  };
+
+  console.log('DOUNIUM v12.3c CHAT READY');
+})();
+</script>
