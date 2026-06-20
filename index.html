@@ -291,3 +291,27 @@ Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
 <a class="nav-item" onclick="logout()"><div class="icon">🚪</div><div>Logout</div></a>
 </div>
 async function checkUpstash(){try{const res=await fetch(`${UPSTASH_URL}/ping`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});const data=await res.json();if(data.result==='PONG'){document.getElementById('upstash-status-text').textContent='Upstash Connecté · Temps Réel Actif';return true}}catch(e){document.getElementById('upstash-status-text').textContent='Mode Local · Upstash Offline'}return false}
+async function saveToUpstash(key,data){
+try{
+await fetch(`${UPSTASH_URL}/set/${key}`,{
+method:"POST",
+headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
+body:JSON.stringify(data)
+});
+}catch(e){console.log("Upstash save fail",e)}
+}
+async function getFromUpstash(key){
+try{
+const res=await fetch(`${UPSTASH_URL}/get/${key}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+const data=await res.json();
+return data.result?JSON.parse(data.result):null;
+}catch(e){return null}
+}
+async function loadCloudPosts(){
+const posts=await getFromUpstash("dounium_posts");
+if(posts&&posts.length){
+document.getElementById("posts-container").innerHTML="";
+posts.reverse().forEach(p=>renderPost(p));
+showToast("☁️ "+posts.length+" posts Cloud chargés");
+}
+}
