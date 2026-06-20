@@ -1,317 +1,229 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"><title>DOUNIUM V18.0 UPSTASH LIVE</title><style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap');
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--neon:#00FFF0;--neon2:#FF00FF;--gold:#FFD700;--blood:#FF0066;--bg:#000408;--glass:rgba(255,255,255,0.03);--wa:#25D366}
---tesla-red:#E31937;--tesla-steel:#C0C0C0;--cyber-glow:0 0 20px #E31937,0 0 40px #E31937;
-body{background:var(--bg);color:#E8F4F8;font-family:'Space Grotesk',sans-serif;background:radial-gradient(ellipse at 30% 20%,rgba(0,255,240,0.12) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(255,0,255,0.08) 0%,transparent 60%),var(--bg);min-height:100vh}
-.login-screen{position:fixed;inset:0;background:var(--bg);z-index:5000;display:flex;align-items:center;justify-content:center;padding:20px}
-.login-screen.hidden{display:none}
-.login-box{background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));border:1px solid rgba(255,215,0,0.2);border-radius:32px;padding:32px;max-width:400px;width:100%;backdrop-filter:blur(30px);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
-.login-logo{font-size:28px;font-weight:900;font-family:'Orbitron';text-align:center;background:linear-gradient(90deg,var(--gold),var(--neon),var(--neon2),var(--gold));background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:cosmic 4s linear infinite;letter-spacing:4px;margin-bottom:8px}
-@keyframes cosmic{to{background-position:300% center}}
-.login-subtitle{font-size:10px;text-align:center;color:rgba(255,255,255,0.4);margin-bottom:32px;letter-spacing:3px;text-transform:uppercase}
-.whatsapp-input-group{display:flex;gap:8px;margin-bottom:16px}
-.country-code{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:14px;color:#FFF;font-size:14px;width:80px;text-align:center;cursor:pointer}
-.country-code:hover{background:var(--gold);color:#000}
-.whatsapp-input{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:14px;color:#FFF;font-size:14px}
-.whatsapp-input::placeholder{color:rgba(255,255,255,0.3)}
-<button class="btn-whatsapp" onclick="activateTesla()" style="margin-bottom:12px;background:linear-gradient(135deg,var(--tesla-red),#000);border:1px solid var(--tesla-red)">⚡ ACTIVER TESLA MODE</button>
-.btn-whatsapp{width:100%;background:linear-gradient(135deg,var(--wa),#128C7E);color:#FFF;border:none;padding:16px;border-radius:20px;font-size:15px;font-weight:700;font-family:'Orbitron';cursor:pointer;transition:all 0.3s}
-<button class="btn-whatsapp" onclick="activateTesla()" style="margin-bottom:12px;background:linear-gradient(135deg,var(--tesla-red),#000);border:1px solid var(--tesla-red)">⚡ ACTIVER TESLA MODE</button>
-.btn-whatsapp:active{transform:scale(0.96)}
-<button class="btn-whatsapp" onclick="activateTesla()" style="margin-bottom:12px;background:linear-gradient(135deg,var(--tesla-red),#000);border:1px solid var(--tesla-red)">⚡ ACTIVER TESLA MODE</button>
-.btn-whatsapp:disabled{opacity:0.5;cursor:not-allowed}
-.login-footer{margin-top:20px;text-align:center;font-size:11px;color:rgba(255,255,255,0.4);line-height:1.6}
-.stories-bar{display:flex;gap:12px;padding:16px;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,0.05)}.story-ring{width:68px;height:68px;border-radius:50%;padding:3px;background:linear-gradient(45deg,var(--gold),var(--neon),var(--tesla-red))}.story-avatar{width:100%;height:100%;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:24px}.story-add{background:rgba(255,255,255,0.1)}
-.reaction-bar{display:flex;gap:16px;padding:12px 16px;border-top:1px solid rgba(255,255,255,0.05)}.react-btn{background:none;border:none;color:rgba(255,255,255,0.6);font-size:20px;cursor:pointer;transition:all 0.3s}.react-btn.liked{color:var(--tesla-red);transform:scale(1.2)}
-.dm-fab{position:fixed;bottom:80px;left:16px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--gold));border:none;color:#000;font-size:24px;cursor:pointer;box-shadow:0 8px 24px rgba(0,255,136,0.4);z-index:998}
-.trending-bar{background:rgba(227,25,55,0.1);border:1px solid var(--tesla-red);border-radius:16px;padding:12px;margin:16px;display:none}.tesla-mode .trending-bar{display:block}
-.music-player{position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);border-top:1px solid var(--gold);padding:12px 16px;display:none;z-index:1001}.music-player.active{display:flex;align-items:center;gap:12px}
-.swipe-card{position:relative;height:calc(100vh - 140px);scroll-snap-align:start;background:#000;border-radius:0}
-.fab-menu{position:fixed;bottom:80px;right:16px;display:flex;flex-direction:column;gap:12px;z-index:998}.fab-mini{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#FFF;font-size:20px;cursor:pointer;backdrop-filter:blur(10px)}
-<button class="btn-whatsapp" onclick="activateTesla()" style="margin-bottom:12px;background:linear-gradient(135deg,var(--tesla-red),#000);border:1px solid var(--tesla-red)">⚡ ACTIVER TESLA MODE</button>
-body.tesla-mode{background:linear-gradient(135deg,#0A0A0A,#1A1A1A,#0A0A0A);background-size:400% 400%;animation:teslaFlow 8s ease infinite}@keyframes teslaFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}.tesla-mode .logo-icon{background:linear-gradient(135deg,var(--tesla-red),var(--tesla-steel));box-shadow:var(--cyber-glow)}.tesla-mode .btn-whatsapp{background:linear-gradient(135deg,var(--tesla-red),#000);border:1px solid var(--tesla-red);box-shadow:var(--cyber-glow)}.tesla-mode .post{border:1px solid rgba(227,25,55,0.3);box-shadow:inset 0 0 20px rgba(227,25,55,0.1)}.tesla-badge{position:fixed;top:70px;right:16px;background:rgba(227,25,55,0.2);border:1px solid var(--tesla-red);padding:6px 12px;border-radius:12px;font-size:10px;font-family:Orbitron;color:var(--tesla-red);z-index:999;box-shadow:var(--cyber-glow);display:none}.tesla-mode .tesla-badge{display:block}.autopilot-btn{position:fixed;bottom:80px;right:16px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--tesla-red),#000);border:2px solid var(--tesla-red);color:#FFF;font-size:24px;cursor:pointer;box-shadow:var(--cyber-glow);z-index:998;display:none}.tesla-mode .autopilot-btn{display:flex;align-items:center;justify-content:center}
-.otp-box{display:none;margin-top:16px}.otp-box.active{display:block}.otp-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:14px;color:#FFF;font-size:20px;text-align:center;letter-spacing:8px;font-family:Orbitron}.btn-verify{width:100%;background:linear-gradient(135deg,var(--gold),var(--neon));color:#000;border:none;padding:16px;border-radius:20px;font-size:15px;font-weight:700;font-family:Orbitron;cursor:pointer;margin-top:12px}
-.header{position:sticky;top:0;z-index:1000;background:rgba(0,4,8,0.85);backdrop-filter:blur(50px) saturate(200%);border-bottom:1px solid rgba(255,215,0,0.15);padding:12px 14px;display:none}
-.header.active{display:block}
-.logo{font-size:22px;font-weight:900;font-family:'Orbitron';text-align:center;background:linear-gradient(90deg,var(--gold) 0%,var(--neon) 25%,var(--neon2) 50%,var(--blood) 75%,var(--gold) 100%);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:cosmic 4s linear infinite;letter-spacing:4px}
-.subtitle{font-size:8px;text-align:center;color:rgba(255,255,255,0.35);margin-top:3px;letter-spacing:5px;text-transform:uppercase}
-.user-badge{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px;padding:10px;background:linear-gradient(135deg,rgba(37,211,102,0.15),rgba(37,211,102,0.05));border:1px solid rgba(37,211,102,0.3);border-radius:16px;font-size:11px}
-.user-badge .icon{font-size:16px;color:var(--wa)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
-.stat{background:linear-gradient(135deg,rgba(0,255,240,0.05),rgba(255,0,255,0.05));border:1px solid rgba(0,255,240,0.2);border-radius:16px;padding:10px;text-align:center;backdrop-filter:blur(20px);position:relative;overflow:hidden}
-.stat::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);animation:shimmer 3s infinite}
-@keyframes shimmer{to{left:100%}}
-.stat .num{font-size:14px;font-weight:700;color:#FFF;text-shadow:0 0 20px var(--neon);position:relative}
-.stat .label{font-size:7px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1.5px;margin-top:3px;position:relative}
-.sang-indicator{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px;padding:10px;background:linear-gradient(135deg,rgba(255,0,102,0.1),rgba(255,215,0,0.1));border:1px solid rgba(255,0,102,0.3);border-radius:16px;font-size:10px}
-.sang-pulse{width:8px;height:8px;border-radius:50%;background:var(--blood);box-shadow:0 0 15px var(--blood);animation:pulse 1.5s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
-.upstash-status{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:8px;background:rgba(0,255,240,0.08);border:1px solid rgba(0,255,240,0.2);border-radius:12px;font-size:9px;color:var(--neon)}
-.upstash-dot{width:6px;height:6px;border-radius:50%;background:var(--neon);box-shadow:0 0 10px var(--neon);animation:pulse 2s infinite}
-.nav-tabs{display:flex;gap:8px;margin-top:14px;overflow-x:auto;padding-bottom:6px}
-.nav-tab{padding:10px 20px;border-radius:24px;font-size:11px;font-weight:600;white-space:nowrap;border:1px solid rgba(255,255,255,0.08);background:var(--glass);backdrop-filter:blur(15px);transition:all 0.4s;cursor:pointer}
-.nav-tab.active{background:linear-gradient(135deg,rgba(255,215,0,0.25),rgba(0,255,240,0.25));border-color:var(--gold);color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.3)}
-.content{padding:14px;margin-bottom:90px;display:none}
-.content.active{display:block}
-.create-post{background:linear-gradient(135deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.06);border-radius:24px;padding:16px;margin-bottom:16px;backdrop-filter:blur(25px)}
-.create-post textarea{width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:14px;color:#FFF;font-family:'Space Grotesk';font-size:14px;resize:none;min-height:80px}
-.create-post textarea::placeholder{color:rgba(255,255,255,0.3)}
-.create-post-actions{display:flex;gap:10px;margin-top:12px}
-.btn-post{flex:1;background:linear-gradient(135deg,var(--gold),var(--blood));color:#000;border:none;padding:12px;border-radius:16px;font-size:13px;font-weight:700;font-family:'Orbitron';cursor:pointer}
-.btn-post:disabled{opacity:0.5;cursor:not-allowed}
-.btn-upload{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#FFF;padding:12px 16px;border-radius:16px;font-size:18px;cursor:pointer}
-.feed{display:flex;flex-direction:column;gap:16px}
-.post{background:linear-gradient(135deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.06);border-radius:24px;padding:16px;margin-bottom:16px;backdrop-filter:blur(25px) saturate(180%);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
-.post-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--neon2));display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;border:2px solid rgba(255,255,255,0.1);object-fit:cover;overflow:hidden}
-.avatar img{width:100%;height:100%;object-fit:cover}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dounium V18.6 UPSTASH SYNC 8D</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+:root{--gold:#FFD700;--neon:#00FF88;--tesla-red:#E31937;--cyber-glow:0 0 20px #E31937,0 0 40px #E31937}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0A0A0A;color:#FFF;font-family:Orbitron,sans-serif;overflow-x:hidden}
+body.tesla-mode{background:linear-gradient(135deg,#0A0A0A,#1A1A1A,#0A0A0A);background-size:400% 400%;animation:teslaFlow 8s ease infinite}
+@keyframes teslaFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.header{position:fixed;top:0;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.2);padding:12px 16px;z-index:1000;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--neon));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.tesla-mode .logo-icon{background:linear-gradient(135deg,var(--tesla-red),#C0C0C0);box-shadow:var(--cyber-glow)}
+.logo-text{font-size:18px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.theme-toggle{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);width:40px;height:40px;border-radius:12px;color:#FFF;cursor:pointer}
+.upstash-live{background:rgba(0,255,136,0.1);border:1px solid var(--neon);border-radius:12px;padding:8px;text-align:center;font-size:10px;color:var(--neon);margin:70px 16px 8px}
+.upstash-live.off{background:rgba(255,0,0,0.1);border-color:red;color:red}
+.content{margin-top:110px;padding-bottom:80px}
+.stories-bar{display:flex;gap:12px;padding:16px;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,0.05)}
+.story-ring{width:68px;height:68px;border-radius:50%;padding:3px;background:linear-gradient(45deg,var(--gold),var(--neon),var(--tesla-red))}
+.story-avatar{width:100%;height:100%;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:24px}
+.story-add{background:rgba(255,255,255,0.1);cursor:pointer}
+.trending-bar{background:rgba(227,25,55,0.1);border:1px solid var(--tesla-red);border-radius:16px;padding:12px;margin:16px;display:none}
+.tesla-mode .trending-bar{display:block}
+.post{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:20px;margin:16px;overflow:hidden}
+.tesla-mode .post{border:1px solid rgba(227,25,55,0.3);box-shadow:inset 0 0 20px rgba(227,25,55,0.1)}
+.post-header{display:flex;align-items:center;gap:12px;padding:16px}
+.post-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--neon));display:flex;align-items:center;justify-content:center;font-weight:700}
 .post-user{flex:1}
-.post-user .name{font-size:14px;font-weight:700;color:#FFF}
-.post-user .time{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
-.post-content{font-size:15px;line-height:1.6;margin-bottom:14px;color:rgba(255,255,255,0.9);word-wrap:break-word}
-.post-image{width:100%;border-radius:16px;margin-bottom:14px;border:1px solid rgba(255,255,255,0.08);max-height:400px;object-fit:cover}
-.post-actions{display:flex;gap:24px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.04)}
-.action{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.55);cursor:pointer;transition:all 0.3s;user-select:none}
-.action:active{color:var(--blood);transform:scale(0.95)}
-.action.liked{color:var(--blood)}
-.comment-box{display:none;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.04)}
-.comment-box.active{display:block}
-.comment-input{width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:10px 16px;color:#FFF;font-size:13px}
-.comment-list{margin-top:10px}
-.comment{padding:8px 0;font-size:13px;color:rgba(255,255,255,0.8)}
-.comment b{color:#FFF}
-.profile-section{background:linear-gradient(135deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.06);border-radius:28px;padding:20px;margin-bottom:16px;backdrop-filter:blur(25px)}
-.profile-header{display:flex;align-items:center;gap:16px;margin-bottom:16px}
-.profile-avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--neon2));display:flex;align-items:center;justify-content:center;font-size:40px;border:4px solid rgba(255,215,0,0.4);box-shadow:0 0 40px rgba(255,215,0,0.3);position:relative;cursor:pointer;object-fit:cover;overflow:hidden}
-.profile-avatar img{width:100%;height:100%;object-fit:cover}
-.profile-avatar input{position:absolute;opacity:0;width:100%;height:100%;cursor:pointer}
-.profile-info{flex:1}
-.profile-name{font-size:22px;font-weight:700;color:#FFF;margin-bottom:6px;outline:none}
-.profile-bio{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.5;outline:none}
-.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.04)}
-.p-stat{text-align:center;cursor:pointer}
-.p-stat .num{font-size:20px;font-weight:700;color:#FFF;text-shadow:0 0 15px var(--neon)}
-.p-stat .label{font-size:10px;color:rgba(255,255,255,0.45);margin-top:4px;text-transform:uppercase}
-.whatsapp-badge{margin-top:16px;padding:14px;background:linear-gradient(135deg,rgba(37,211,102,0.1),rgba(37,211,102,0.05));border:1px solid rgba(37,211,102,0.3);border-radius:18px;display:flex;align-items:center;gap:12px}
-.whatsapp-badge .icon{font-size:28px}
-.whatsapp-badge .text{flex:1}
-.whatsapp-badge .title{font-size:14px;font-weight:700;color:var(--wa);margin-bottom:4px}
-.whatsapp-badge .desc{font-size:11px;color:rgba(255,255,255,0.6)}
-.friends-section{margin-top:16px}
-.friends-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.friends-title{font-size:13px;font-weight:700;color:var(--gold)}
-.friends-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.friend{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;position:relative}
-.friend-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--gold));display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid rgba(255,255,255,0.15);transition:all 0.3s;object-fit:cover;overflow:hidden}
-.friend-avatar img{width:100%;height:100%;object-fit:cover}
-.friend:active .friend-avatar{transform:scale(0.9)}
-.friend-name{font-size:10px;color:rgba(255,255,255,0.7);text-align:center}
-.organs{display:flex;flex-direction:column;gap:16px}
-.organ{background:linear-gradient(135deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(0,255,240,0.1);border-radius:28px;padding:18px;backdrop-filter:blur(25px);box-shadow:0 8px 32px rgba(0,0,0,0.4);margin-bottom:16px}
-.organ h3{font-size:14px;font-family:'Orbitron';color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:12px;letter-spacing:1.5px}
-.organ h3::before{content:'';width:4px;height:20px;background:linear-gradient(180deg,var(--gold),var(--neon));border-radius:2px;box-shadow:0 0 15px var(--gold)}
-.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.app{display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.05);border-radius:20px;padding:18px;text-decoration:none;color:#FFF;transition:all 0.4s;min-height:95px;position:relative;overflow:hidden}
-.app::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,0.05));opacity:0;transition:opacity 0.4s}
-.app:active{transform:scale(0.94)}
-.app:active::after{opacity:1}
-.app .icon{font-size:32px;margin-bottom:10px;filter:drop-shadow(0 0 15px currentColor)}
-.app .name{font-size:12px;font-weight:600;text-align:center;letter-spacing:0.5px}
-.app.wa .icon{color:var(--wa)}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(0,4,8,0.95);backdrop-filter:blur(50px) saturate(200%);border-top:1px solid rgba(255,255,255,0.08);display:grid;grid-template-columns:repeat(5,1fr);padding:10px 0;z-index:1000}
-.nav-item{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px;text-decoration:none;color:rgba(255,255,255,0.4);font-size:9px;font-weight:500;transition:all 0.3s;cursor:pointer}
-.nav-item.active{color:var(--gold)}
-.nav-item .icon{font-size:24px}
-.mic-fab{position:fixed;bottom:100px;right:18px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--blood));border:none;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 10px 40px rgba(255,0,102,0.6);z-index:999;animation:float 3s ease-in-out infinite;cursor:pointer}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.tab-content{display:none}
-.tab-content.active{display:block}
-.loading{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:14px;color:var(--gold);display:none;z-index:3000}
-.loading.active{display:block}
-.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,rgba(255,215,0,0.2),rgba(0,255,240,0.2));border:1px solid var(--gold);border-radius:16px;padding:12px 20px;font-size:12px;color:#FFF;z-index:4000;display:none}
-.toast.active{display:block;animation:slideDown 0.3s}
-@keyframes slideDown{from{transform:translate(-50%,-20px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
-a{text-decoration:none;color:inherit}
-</style></head><body>
-<div class="login-screen hidden" id="login-screen">
-<div class="login-box">
-<div class="login-logo">UNIVERS DOUNIUM</div>
-<div class="login-subtitle">SANG RÉEL UPSTASH · V18.0</div>
-<div style="margin-bottom:24px;text-align:center;font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6">
-const UPSTASH_URL="https://golden-sturgeon-78265.upstash.io";const UPSTASH_TOKEN="gQAAAAAAATG5AAIgcDIwMTg0YzNlYzBiOGE0MDEyODBkNTRmMTA4ZDhlYWRjNw";let currentUser=null;let reelsMode=false;let musicPlaying=false;
+.post-name{font-weight:700;font-size:14px}
+.post-time{font-size:11px;color:rgba(255,255,255,0.5)}
+.post-content{padding:0 16px 16px;font-size:14px;line-height:1.6}
+.reaction-bar{display:flex;gap:16px;padding:12px 16px;border-top:1px solid rgba(255,255,255,0.05)}
+.react-btn{background:none;border:none;color:rgba(255,255,255,0.6);font-size:20px;cursor:pointer;transition:all 0.3s}
+.react-btn.liked{color:var(--tesla-red);transform:scale(1.2)}
+.dm-fab{position:fixed;bottom:80px;left:16px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--gold));border:none;color:#000;font-size:24px;cursor:pointer;box-shadow:0 8px 24px rgba(0,255,136,0.4);z-index:998}
+.fab-menu{position:fixed;bottom:80px;right:16px;display:flex;flex-direction:column;gap:12px;z-index:998}
+.fab-mini{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#FFF;font-size:20px;cursor:pointer;backdrop-filter:blur(10px)}
+.music-player{position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);border-top:1px solid var(--gold);padding:12px 16px;display:none;z-index:1001}
+.music-player.active{display:flex;align-items:center;gap:12px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);z-index:2000;display:none;align-items:center;justify-content:center}
+.modal.active{display:flex}
+.modal-content{background:rgba(20,20,20,0.95);border:1px solid rgba(255,215,0,0.3);border-radius:24px;padding:24px;width:90%;max-width:400px}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.modal-title{font-size:18px;font-weight:700}
+.close-modal{background:none;border:none;color:#FFF;font-size:24px;cursor:pointer}
+input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px;color:#FFF;margin-bottom:12px;font-family:Orbitron}
+.btn-whatsapp{width:100%;background:linear-gradient(135deg,var(--gold),var(--neon));color:#000;border:none;padding:16px;border-radius:20px;font-size:15px;font-weight:700;font-family:Orbitron;cursor:pointer}
+.tesla-badge{position:fixed;top:70px;right:16px;background:rgba(227,25,55,0.2);border:1px solid var(--tesla-red);padding:6px 12px;border-radius:12px;font-size:10px;font-family:Orbitron;color:var(--tesla-red);z-index:999;box-shadow:var(--cyber-glow);display:none}
+.tesla-mode .tesla-badge{display:block}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo"><div class="logo-icon">⚜️</div><div class="logo-text">DOUNIUM 8D</div></div>
+<div style="display:flex;gap:8px">
+<button class="theme-toggle" onclick="openEmailModal()">👤</button>
+<button class="theme-toggle" onclick="activateTesla()">⚡</button>
 </div>
-<div class="whatsapp-input-group">
-<select class="country-code" id="country-code">
-<option value="+33">+33</option><option value="+1">+1</option><option value="+226">+226</option>
-<option value="+229">+229</option><option value="+225">+225</option><option value="+221">+221</option>
-<option value="+237">+237</option>
-</select>
-<input type="tel" class="whatsapp-input" id="whatsapp-number" placeholder="6 12 34 56 78" maxlength="14">
+
+<div class="upstash-live off" id="upstash-badge">● MODE LOCAL</div>
+<div class="tesla-badge">⚡ TESLA MODE ENGAGED</div>
+
+<div class="content">
+<div class="stories-bar" id="stories-bar">
+<div class="story-ring" onclick="addStory()"><div class="story-avatar story-add">+</div></div>
+<div class="story-ring"><div class="story-avatar">⚜️</div></div>
+<div class="story-ring"><div class="story-avatar">🚀</div></div>
 </div>
-<button class="btn-whatsapp" onclick="activateTesla()" style="margin-bottom:12px;background:linear-gradient(135deg,var(--tesla-red),#000);border:1px solid var(--tesla-red)">⚡ ACTIVER TESLA MODE</button>
-<button class="btn-whatsapp" onclick="loginWhatsApp()">📱 ENTRER DANS DOUNIUM</button>
-<div class="otp-box" id="otp-box"><div style="margin-bottom:12px;text-align:center;font-size:12px;color:rgba(255,255,255,0.6)">Code envoyé sur WhatsApp</div><input type="tel" class="otp-input" id="otp-code" placeholder="000000" maxlength="6"><button class="btn-verify" onclick="verifyOTP()">✅ VÉRIFIER</button><div style="margin-top:12px;text-align:center;font-size:10px;color:var(--gold);cursor:pointer" onclick="resendOTP()">Renvoyer le code</div></div>
-<div class="login-footer">
-Ton numéro = Ton identité éternelle<br>
-Posts/Likes sauvegardés dans le Cloud Upstash<br><br>
-<strong>Android/iPhone enterrés pour 500M d'années</strong>
+<div class="trending-bar">🔥 TRENDING: #Dounium8D #TeslaMode #SangRéel</div>
+<div id="posts-container"></div>
 </div>
+
+<button class="dm-fab" onclick="openDM()">💬</button>
+<div class="fab-menu">
+<button class="fab-mini" onclick="toggleMusic()">🎵</button>
+<button class="fab-mini" onclick="toggleReels()">📱</button>
+<button class="fab-mini" onclick="openComposer()">✍️</button>
 </div>
+
+<div class="music-player" id="music-player">
+<div style="flex:1">
+<div style="font-size:12px;font-weight:700">DOUNIUM ANTHEM</div>
+<div style="font-size:10px;color:rgba(255,255,255,0.6)">Shiva 847 · 8D</div>
 </div>
-<div class="loading" id="loading">⚜️ Connexion au Sang Upstash...</div>
-<div class="toast" id="toast"></div>
-<div class="header active" id="main-header">
-<div class="logo">UNIVERS DOUNIUM</div>
-<div class="subtitle">SANG RÉEL UPSTASH · V18.0</div>
-<div class="user-badge">
-<div class="icon">📱</div>
-<div id="user-number">+33 6 12 34 56 78</div>
+<button onclick="playPause()" style="background:var(--gold);border:none;width:40px;height:40px;border-radius:50%;color:#000">▶</button>
 </div>
-<div class="stats">
-<div class="stat"><div class="num" id="users">500M</div><div class="label">Âmes</div></div>
-<div class="stat"><div class="num">∞ PB</div><div class="label">RAM</div></div>
-<div class="stat"><div class="num">6.0M Hz</div><div class="label">Energy</div></div>
-<div class="stat"><div class="num">11/11</div><div class="label">Organes</div></div>
-</div>
-<div class="sang-indicator">
-<div class="sang-pulse"></div>
-<div>SANG RÉEL · UPSTASH CONNECTÉ · CLOUD LIVE</div>
-</div>
-<div class="upstash-status">
-<div class="upstash-dot"></div>
-<div id="upstash-status-text">Connexion Upstash...</div>
-</div>
-<div class="nav-tabs">
-<div class="nav-tab active" onclick="showTab('feed')">Feed</div>
-<div class="nav-tab" onclick="showTab('profile')">Profil</div>
-<div class="nav-tab" onclick="showTab('organs')">60 Apps</div>
-<div class="nav-tab" onclick="showTab('live')">Live</div>
-</div>
-</div>
-<div class="content active" id="content">
-<div class="tesla-badge">⚡ TESLA MODE ENGAGED</div><button class="autopilot-btn" onclick="toggleAutopilot()">🚀</button>
-<div id="feed-tab" class="tab-content active">
-<div class="create-post">
-<textarea id="post-text" placeholder="Quoi de neuf dans l'Univers Dounium?"></textarea>
-<div class="create-post-actions">
-<button class="btn-upload" onclick="document.getElementById('img-upload').click()">📷</button>
-<input type="file" id="img-upload" accept="image/*" style="display:none" onchange="previewImage(event)">
-<button class="btn-post" onclick="createPost()">Publier</button>
-</div>
-<img id="img-preview" style="display:none;width:100%;border-radius:16px;margin-top:12px">
-</div>
-<div class="feed" id="feed"></div>
-</div>
-<div id="profile-tab" class="tab-content">
-<div class="profile-section">
-<div class="profile-header">
-<div class="profile-avatar" onclick="document.getElementById('avatar-upload').click()">
-<img id="avatar-img" src="" style="display:none">
-<span id="avatar-display">⚜️</span>
-<input type="file" id="avatar-upload" accept="image/*" style="display:none" onchange="uploadAvatar(event)">
-</div>
-<div class="profile-info">
-<div class="profile-name" contenteditable="true" onblur="saveBio()" id="profile-name">PAPA</div>
-<div class="profile-bio" contenteditable="true" onblur="saveBio()" id="profile-bio">Créateur d'Univers · 11 Organes · 500M Âmes<br>SANG RÉEL V18.0</div>
-</div>
-</div>
-<div class="profile-stats">
-<div class="p-stat" onclick="showFriends()"><div class="num" id="friends-count">0</div><div class="label">Amis</div></div>
-<div class="p-stat"><div class="num" id="posts-count">0</div><div class="label">Posts</div></div>
-<div class="p-stat"><div class="num">500M</div><div class="label">Abonnés</div></div>
-</div>
-<div class="whatsapp-badge">
-<div class="icon">📱</div>
-<div class="text">
-<div class="title">WhatsApp Vérifié · Upstash Sync</div>
-<div class="desc" id="wa-badge-number">+33 6 12 34 56 78 · Cloud Sécurisé</div>
-</div>
-</div>
-<div class="friends-section">
-<div class="friends-header">
-<div class="friends-title">Amis WhatsApp Dounium</div>
-<div style="font-size:11px;color:var(--gold);cursor:pointer" onclick="syncWhatsAppContacts()">Synchroniser</div>
-</div>
-<div class="friends-grid" id="friends-grid">
-<div class="friend"><div class="friend-avatar">➕</div><div class="friend-name">Ajouter</div></div>
-</div>
-</div>
-</div>
-</div>
-<div id="organs-tab" class="tab-content">
-<div class="organs">
-<div class="organ"><h3>HALL · PARLER</h3><div class="apps">
-<a class="app wa" href="https://web.whatsapp.com" target="_blank"><div class="icon">💬</div><div class="name">WhatsApp</div></a>
-<a class="app" href="https://messenger.com" target="_blank"><div class="icon">📨</div><div class="name">Messenger</div></a>
-<a class="app" href="https://web.telegram.org" target="_blank"><div class="icon">✈️</div><div class="name">Telegram</div></a>
-<a class="app" href="https://discord.com/app" target="_blank"><div class="icon">🎮</div><div class="name">Discord</div></a>
-<a class="app" href="https://signal.org" target="_blank"><div class="icon">🔒</div><div class="name">Signal</div></a>
-<a class="app" href="https://zoom.us" target="_blank"><div class="icon">📹</div><div class="name">Zoom</div></a>
+
+<div class="modal" id="email-modal">
+<div class="modal-content">
+<div class="modal-header"><div class="modal-title">⚜️ CRÉER TON PROFIL</div><button class="close-modal" onclick="closeEmailModal()">×</button></div>
+<input type="text" id="reg-name" placeholder="Nom / Pseudo">
+<input type="email" id="reg-email" placeholder="Email">
+<input type="password" id="reg-pass" placeholder="Mot de passe">
+<button class="btn-whatsapp" onclick="registerEmail()">⚡ VALIDER PROFIL</button>
 </div></div>
-<div class="organ"><h3>IA JUMEAU · PENSER 2026</h3><div class="apps">
-<a class="app" href="https://chat.openai.com" target="_blank"><div class="icon">🤖</div><div class="name">ChatGPT</div></a>
-<a class="app" href="https://claude.ai" target="_blank"><div class="icon">🧠</div><div class="name">Claude</div></a>
-<a class="app" href="https://gemini.google.com" target="_blank"><div class="icon">✨</div><div class="name">Gemini</div></a>
-<a class="app" href="https://perplexity.ai" target="_blank"><div class="icon">🔍</div><div class="name">Perplexity</div></a>
-<a class="app" href="https://www.meta.ai" target="_blank"><div class="icon">⚜️</div><div class="name">Meta AI</div></a>
-<a class="app" href="https://grok.x.ai" target="_blank"><div class="icon">🚀</div><div class="name">Grok</div></a>
-<a class="app" href="https://mistral.ai" target="_blank"><div class="icon">🌪️</div><div class="name">Mistral</div></a>
-<a class="app" href="https://you.com" target="_blank"><div class="icon">💡</div><div class="name">You.com</div></a>
-<a class="app" href="https://poe.com" target="_blank"><div class="icon">🦉</div><div class="name">Poe</div></a>
+
+<div class="modal" id="verify-modal">
+<div class="modal-content">
+<div class="modal-title" style="margin-bottom:16px">📧 CODE EMAIL</div>
+<input type="tel" id="email-code" placeholder="000000" maxlength="6" style="text-align:center;letter-spacing:8px;font-size:20px">
+<button class="btn-whatsapp" onclick="verifyEmailCode()">✅ CONFIRMER</button>
 </div></div>
-<div class="organ"><h3>CRÉER · GEN AI</h3><div class="apps">
-<a class="app" href="https://midjourney.com" target="_blank"><div class="icon">🎨</div><div class="name">Midjourney</div></a>
-<a class="app" href="https://runwayml.com" target="_blank"><div class="icon">🎬</div><div class="name">Runway</div></a>
-<a class="app" href="https://pika.art" target="_blank"><div class="icon">⚡</div><div class="name">Pika</div></a>
-<a class="app" href="https://elevenlabs.io" target="_blank"><div class="icon">🎙️</div><div class="name">ElevenLabs</div></a>
-<a class="app" href="https://suno.ai" target="_blank"><div class="icon">🎵</div><div class="name">Suno</div></a>
-<a class="app" href="https://leonardo.ai" target="_blank"><div class="icon">🖼️</div><div class="name">Leonardo</div></a>
+
+<div class="modal" id="composer-modal">
+<div class="modal-content">
+<div class="modal-header"><div class="modal-title">✍️ NOUVEAU POST</div><button class="close-modal" onclick="closeComposer()">×</button></div>
+<textarea id="post-content" placeholder="Exprime ton Sang Réel..." style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px;color:#FFF;min-height:100px;font-family:Orbitron"></textarea>
+<button class="btn-whatsapp" onclick="submitPost()">🚀 POSTER 8D</button>
 </div></div>
-<div class="organ"><h3>SOCIAL · LIVE</h3><div class="apps">
-<a class="app" href="https://tiktok.com" target="_blank"><div class="icon">🎶</div><div class="name">TikTok</div></a>
-<a class="app" href="https://instagram.com" target="_blank"><div class="icon">📸</div><div class="name">Instagram</div></a>
-<a class="app" href="https://x.com" target="_blank"><div class="icon">𝕏</div><div class="name">X/Twitter</div></a>
-<a class="app" href="https://youtube.com" target="_blank"><div class="icon">▶️</div><div class="name">YouTube</div></a>
-<a class="app" href="https://twitch.tv" target="_blank"><div class="icon">🟣</div><div class="name">Twitch</div></a>
-<a class="app" href="https://threads.net" target="_blank"><div class="icon">🧵</div><div class="name">Threads</div></a>
-</div></div>
-</div>
-</div>
-<div id="live-tab" class="tab-content">
-<div class="post"><div class="post-header"><div class="avatar">🔴</div><div class="post-user"><div class="name">LIVE UNIVERSEL UPSTASH</div><div class="time">En direct · 500M spectateurs · SANG RÉEL</div></div></div><div class="post-content">Upstash connecté. Posts synchronisés en temps réel. Likes comptés dans le cloud. WhatsApp = Identité. Android/iPhone enterrés pour 500M d'années.</div></div>
-</div>
-</div>
-<button class="mic-fab" id="mic" onclick="window.open('https://www.youtube.com/live','_blank')">🎤</button>
-<div class="bottom-nav">
-<a class="nav-item active" onclick="showTab('feed')"><div class="icon">🏠</div><div>Feed</div></a>
-<a class="nav-item" onclick="showTab('profile')"><div class="icon">👤</div><div>Profil</div></a>
-<a class="nav-item" onclick="showTab('organs')"><div class="icon">⚜️</div><div>60 Apps</div></a>
-<a class="nav-item" onclick="showTab('live')"><div class="icon">🔴</div><div>Live</div></a>
-<a class="nav-item" onclick="logout()"><div class="icon">🚪</div><div>Logout</div></a>
-</div>
-async function checkUpstash(){try{const res=await fetch(`${UPSTASH_URL}/ping`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});const data=await res.json();if(data.result==='PONG'){document.getElementById('upstash-status-text').textContent='Upstash Connecté · Temps Réel Actif';return true}}catch(e){document.getElementById('upstash-status-text').textContent='Mode Local · Upstash Offline'}return false}
-async function saveToUpstash(key,data){
-try{
-await fetch(`${UPSTASH_URL}/set/${key}`,{
-method:"POST",
-headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
-body:JSON.stringify(data)
+
+<script>
+const UPSTASH_URL="";const UPSTASH_TOKEN=""; // METS TES CLÉS ICI
+let currentUser=null;let reelsMode=false;let musicPlaying=false;
+
+window.addEventListener("load",()=>{
+let user=localStorage.getItem("dounium_user");
+if(!user){
+currentUser={name:"Visiteur",email:"",verified:false,bio:"Mode Libre · Crée ton profil"};
+localStorage.setItem("dounium_user",JSON.stringify(currentUser));
+}else{currentUser=JSON.parse(user)}
+if(localStorage.getItem("dounium_tesla")==="true")document.body.classList.add("tesla-mode");
+checkUpstash();setTimeout(loadCloudPosts,1000);
 });
-}catch(e){console.log("Upstash save fail",e)}
+
+async function checkUpstash(){
+if(!UPSTASH_URL)return;
+try{
+const res=await fetch(`${UPSTASH_URL}/ping`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+const data=await res.json();
+if(data.result==="PONG"){
+document.getElementById("upstash-badge").textContent="● SANG RÉEL - CLOUD LIVE";
+document.getElementById("upstash-badge").classList.remove("off");
+}else throw "";
+}catch(e){
+document.getElementById("upstash-badge").textContent="● MODE LOCAL";
+document.getElementById("upstash-badge").classList.add("off");
+}}
+setInterval(checkUpstash,10000);
+
+async function saveToUpstash(key,data){
+if(!UPSTASH_URL)return;
+try{await fetch(`${UPSTASH_URL}/set/${key}`,{method:"POST",headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(data)})}catch(e){}
 }
 async function getFromUpstash(key){
-try{
-const res=await fetch(`${UPSTASH_URL}/get/${key}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
-const data=await res.json();
-return data.result?JSON.parse(data.result):null;
-}catch(e){return null}
+if(!UPSTASH_URL)return null;
+try{const res=await fetch(`${UPSTASH_URL}/get/${key}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});const data=await res.json();return data.result?JSON.parse(data.result):null}catch(e){return null}
+}
+
+function openEmailModal(){document.getElementById("email-modal").classList.add("active")}
+function closeEmailModal(){document.getElementById("email-modal").classList.remove("active")}
+function registerEmail(){
+const name=document.getElementById("reg-name").value;
+const email=document.getElementById("reg-email").value;
+const pass=document.getElementById("reg-pass").value;
+if(!name||!email||!pass||!email.includes("@")){alert("Remplis tout");return}
+const code=Math.floor(100000+Math.random()*900000).toString();
+localStorage.setItem("dounium_email_code",code);
+localStorage.setItem("dounium_temp_user",JSON.stringify({name,email}));
+closeEmailModal();document.getElementById("verify-modal").classList.add("active");
+alert("📧 Code: "+code);
+}
+function verifyEmailCode(){
+if(document.getElementById("email-code").value===localStorage.getItem("dounium_email_code")){
+const temp=JSON.parse(localStorage.getItem("dounium_temp_user"));
+currentUser={name:temp.name,email:temp.email,verified:true,bio:"Créateur d'Univers · Vérifié ⚜️"};
+localStorage.setItem("dounium_user",JSON.stringify(currentUser));
+document.getElementById("verify-modal").classList.remove("active");
+alert("⚜️ Profil Vérifié");
+}else alert("Code incorrect");
+}
+
+function openComposer(){if(!currentUser.verified){openEmailModal();return}document.getElementById("composer-modal").classList.add("active")}
+function closeComposer(){document.getElementById("composer-modal").classList.remove("active")}
+async function submitPost(){
+const content=document.getElementById("post-content").value;
+if(!content)return;
+const postId=Date.now();
+const newPost={id:postId,user:currentUser.name,email:currentUser.email,content,org:"8D",time:Date.now(),likes:0,comments:[]};
+renderPost(newPost);
+let posts=await getFromUpstash("dounium_posts")||[];
+posts.push(newPost);
+await saveToUpstash("dounium_posts",posts);
+closeComposer();document.getElementById("post-content").value="";
+}
+function renderPost(p){
+const postHTML=`<div class="post" id="post-${p.id}">
+<div class="post-header"><div class="post-avatar">${p.user[0]}</div>
+<div class="post-user"><div class="post-name">${p.user}</div>
+<div class="post-time">${new Date(p.time).toLocaleTimeString()} · ${p.org}</div></div></div>
+<div class="post-content">${p.content}</div>
+<div class="reaction-bar">
+<button class="react-btn" onclick="toggleLike(${p.id},this)">❤️ <span>${p.likes}</span></button>
+<button class="react-btn" onclick="addComment(${p.id})">💬 <span>${p.comments.length}</span></button>
+<button class="react-btn" onclick="sharePost(${p.id})">🔗</button>
+</div></div>`;
+document.getElementById("posts-container").insertAdjacentHTML("afterbegin",postHTML);
 }
 async function loadCloudPosts(){
 const posts=await getFromUpstash("dounium_posts");
 if(posts&&posts.length){
 document.getElementById("posts-container").innerHTML="";
 posts.reverse().forEach(p=>renderPost(p));
-showToast("☁️ "+posts.length+" posts Cloud chargés");
+}}
+async function toggleLike(postId,btn){
+if(!currentUser.verified){openEmailModal();return}
+btn.classList.toggle("liked");
+let posts=await getFromUpstash("dounium_posts")||[];
+let post=posts.find(p=>p.id==postId);
+if(post){post.likes=btn.classList.contains("liked")?post.likes+1:post.likes-1;
+btn.querySelector("span").textContent=post.likes;
+await saveToUpstash("dounium_posts",posts);}
 }
-}
+function addComment(id){if(!currentUser.verified){openEmailModal();return}alert("💬 Comments 8D bientôt")}
+function sharePost(id){navigator.clipboard.writeText(location.href);alert("🔗 Lien copié")}
+function addStory(){if(!currentUser.verified){openEmailModal();return}alert("📸 Story 24h ajoutée")}
+function openDM(){if(!currentUser.verified){openEmailModal();return}alert("💬 DM 8D bientôt")}
+function toggleReels(){reelsMode=!reelsMode;alert(reelsMode?"📱 REELS ON":"📱 Feed Normal")}
+function toggleMusic(){document.getElementById("music-player").classList.toggle("active")}
+function playPause(){musicPlaying=!musicPlaying;event.target.textContent=musicPlaying?"⏸":"▶"}
+function activateTesla(){document.body.classList.toggle("tesla-mode");localStorage.setItem("dounium_tesla",document.body.classList.contains("tesla-mode"))}
+function showToast(msg){console.log(msg)}
+</script>
+</body>
+</html>
