@@ -1334,3 +1334,248 @@ window.endBattle = async function(){
   setTimeout(()=>{APPS.GAME.live();},3000);
 };
 </script>
+<script>
+// MAP ÉVOLUTION : ROUTES + COVOITURAGE FRÈRES
+let routesActive = [];
+
+APPS.MAP.live = async function(){
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div style="margin:10px 0">
+  <div style="font-size:12px;margin-bottom:8px">🗺️ GLOBE FRÈRES LIVE</div>
+  <div style="display:flex;gap:6px;justify-content:center;margin:8px 0">
+    <button onclick="zoomGlobe('world')" style="background:${currentZoom==='world'?'#FFD700':'rgba(255,215,0,0.2)'};color:${currentZoom==='world'?'#000':'#FFD700'};border:1px solid #FFD700;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">MONDE</button>
+    <button onclick="zoomGlobe('local')" style="background:${currentZoom==='local'?'#FFD700':'rgba(255,215,0,0.2)'};color:${currentZoom==='local'?'#000':'#FFD700'};border:1px solid #FFD700;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">MON PAYS</button>
+    <button onclick="showRoutes()" style="background:${currentZoom==='routes'?'#FFD700':'rgba(255,215,0,0.2)'};color:${currentZoom==='routes'?'#000':'#FFD700'};border:1px solid #FFD700;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">ROUTES</button>
+  </div>
+  <canvas id="globe" width="300" height="300" style="border:1px solid #FFD700;border-radius:50%"></canvas>
+  <div id="globeStats" style="font-size:11px;margin-top:8px;color:#00FF88">0 frères</div>
+  <div id="routesBox" style="display:none;margin-top:12px">
+    <div style="font-size:10px;color:#FFD700;margin-bottom:6px">🚗 COVOITURAGE HALL</div>
+    <div style="display:flex;gap:4px;margin:6px 0">
+      <input id="routeFrom" placeholder="Départ" style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:6px;border-radius:6px;font-family:Orbitron;font-size:9px">
+      <input id="routeTo" placeholder="Arrivée" style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:6px;border-radius:6px;font-family:Orbitron;font-size:9px">
+    </div>
+    <button onclick="postRoute()" style="background:#00FF88;color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:Orbitron;font-size:9px;width:100%">POSTER TRAJET</button>
+    <div id="routesList" style="max-height:80px;overflow-y:auto;margin-top:8px;font-size:9px;text-align:left"></div>
+  </div>
+  <div id="localChatBox" style="display:none;margin-top:12px">
+    <div style="font-size:10px;color:#FFD700;margin-bottom:6px">💬 CHAT LOCAL ${userCountry}</div>
+    <div id="localMsgs" style="max-height:80px;overflow-y:auto;background:rgba(0,0,0,0.3);padding:6px;border-radius:6px;font-size:9px;text-align:left"></div>
+    <div style="display:flex;gap:4px;margin-top:6px">
+      <input id="localInput" placeholder="Message pays..." style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:6px;border-radius:6px;font-family:Orbitron;font-size:9px">
+      <button onclick="sendLocalMsg()" style="background:#00FF88;color:#000;border:none;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">▶</button>
+    </div>
+  </div>
+  <button onclick="pingBrothers()" style="background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px 16px;border-radius:8px;margin-top:8px;font-family:Orbitron">📡 PING HALL</button>
+  </div>`;
+  initGlobe();
+  updateGlobeMarkers();
+  if(currentZoom==='local') loadLocalChat();
+  if(currentZoom==='routes') loadRoutes();
+};
+
+window.showRoutes = function(){
+  currentZoom='routes';
+  document.getElementById('routesBox').style.display='block';
+  document.getElementById('localChatBox').style.display='none';
+  loadRoutes();
+};
+
+window.postRoute = async function(){
+  const from = document.getElementById('routeFrom').value.trim();
+  const to = document.getElementById('routeTo').value.trim();
+  if(!from || !to) return alert('Remplis départ et arrivée');
+  const route = {uid:UID,name:USERNAME,from,to,ts:Date.now(),country:userCountry};
+  await fetch(`${UPSTASH_URL}/lpush/routes:${ROOM}`,{
+    method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(route)
+  });
+  await fetch(`${UPSTASH_URL}/ltrim/routes:${ROOM}/0/49`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  document.getElementById('routeFrom').value='';
+  document.getElementById('routeTo').value='';
+  loadRoutes();
+  alert('🚗 Trajet posté au Hall');
+};
+
+async function loadRoutes(){
+  const r = await fetch(`${UPSTASH_URL}/lrange/routes:${ROOM}/0/9`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  const routes = data.result||[];
+  const list = document.getElementById('routesList');
+  if(!list) return;
+  if(!routes.length){
+    list.innerHTML = '<div style="color:rgba(255,255,255,0.5)">Aucun trajet. Sois le premier</div>';
+    return;
+  }
+  list.innerHTML = routes.map(r=>{
+    const d=JSON.parse(r);
+    const ago = Math.floor((Date.now()-d.ts)/60000);
+    return `<div style="background:rgba(0,255,136,0.05);padding:6px;border-radius:6px;margin:4px 0">
+      <b>${d.name} ${d.country}</b><br>${d.from} → ${d.to} • ${ago}min
+      <button onclick="contactDriver('${d.uid}')" style="background:#FFD700;color:#000;border:none;padding:2px 8px;border-radius:4px;font-size:8px;margin-left:6px">CONTACT</button>
+    </div>`;
+  }).join('');
+}
+
+window.contactDriver = function(uid){
+  const driver = hallUsers.find(u=>u.uid===uid);
+  if(driver) alert(`📱 Contacte ${driver.name} dans le Hall vocal`);
+};
+
+// WALLET ÉVOLUTION : MINT TON PROPRE NFT
+APPS.WALLET.live = async function(){
+  await syncWallet();
+  await loadNFTs();
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div style="margin:10px 0">
+  <div style="font-size:24px;color:#FFD700;margin:12px 0">${myBalance} 💰</div>
+  <div style="display:flex;gap:8px;margin:16px 0">
+    <button onclick="showWalletTab('send')" id="walletTabSend" style="flex:1;background:#FFD700;color:#000;border:none;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px">SEND</button>
+    <button onclick="showWalletTab('shop')" id="walletTabShop" style="flex:1;background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px">SHOP</button>
+    <button onclick="showWalletTab('mint')" id="walletTabMint" style="flex:1;background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px">MINT</button>
+    <button onclick="showWalletTab('mine')" id="walletTabMine" style="flex:1;background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px">MES NFT</button>
+  </div>
+  <div id="walletTabContent"></div>
+  </div>`;
+  showWalletTab('send');
+};
+
+window.showWalletTab = function(tab){
+  ['Send','Shop','Mint','Mine'].forEach(t=>{
+    document.getElementById('walletTab'+t).style.background = t.toLowerCase()===tab?'#FFD700':'rgba(255,215,0,0.2)';
+    document.getElementById('walletTab'+t).style.color = t.toLowerCase()===tab?'#000':'#FFD700';
+  });
+  const content = document.getElementById('walletTabContent');
+  if(tab==='send'){
+    content.innerHTML = `
+    <div style="display:flex;gap:8px;margin:12px 0">
+      <input id="sendTo" placeholder="Nom frère" style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:8px;font-family:Orbitron;font-size:11px">
+      <input id="sendAmount" type="number" placeholder="Montant" style="width:80px;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:8px;font-family:Orbitron;font-size:11px">
+    </div>
+    <button onclick="sendCoin()" style="background:#00FF88;color:#000;border:none;padding:10px 24px;border-radius:8px;font-family:Orbitron;font-weight:700">💸 SEND</button>
+    <div id="walletTx" style="margin-top:16px;max-height:120px;overflow-y:auto;font-size:10px"></div>`;
+    loadWalletTx();
+  } else if(tab==='shop'){
+    content.innerHTML = `<div style="max-height:200px;overflow-y:auto">${nftList.map(nft=>`
+      <div style="background:rgba(255,215,0,0.05);border:1px solid rgba(255,215,0,0.3);padding:10px;border-radius:8px;margin:8px 0;text-align:left">
+        <div style="font-size:12px;color:#FFD700">${nft.emoji} ${nft.name}</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.6);margin:4px 0">par ${nft.artist} ${nft.flag}</div>
+        <div style="font-size:10px;margin:6px 0">${nft.desc}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="color:#00FF88;font-size:11px">${nft.price} 💰</span>
+          <button onclick="buyNFT('${nft.id}')" style="background:#FFD700;color:#000;border:none;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">ACHETER</button>
+        </div>
+      </div>`).join('')}</div>`;
+  } else if(tab==='mint'){
+    content.innerHTML = `
+    <div style="font-size:10px;color:#FFD700;margin:8px 0">🎨 MINT TON NFT • 10💰</div>
+    <input id="mintEmoji" placeholder="Emoji" maxlength="2" style="width:100%;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:6px;font-family:Orbitron;font-size:11px;margin:4px 0">
+    <input id="mintName" placeholder="Nom œuvre" style="width:100%;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:6px;font-family:Orbitron;font-size:11px;margin:4px 0">
+    <input id="mintDesc" placeholder="Description" style="width:100%;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:6px;font-family:Orbitron;font-size:11px;margin:4px 0">
+    <input id="mintPrice" type="number" placeholder="Prix" style="width:100%;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:6px;font-family:Orbitron;font-size:11px;margin:4px 0">
+    <button onclick="mintNFT()" style="background:#FF00FF;color:#FFF;border:none;padding:10px 24px;border-radius:8px;font-family:Orbitron;font-weight:700;margin-top:8px;width:100%">✨ MINT NFT</button>`;
+  } else if(tab==='mine'){
+    loadMyNFTs();
+  }
+};
+
+window.mintNFT = async function(){
+  const emoji = document.getElementById('mintEmoji').value.trim();
+  const name = document.getElementById('mintName').value.trim();
+  const desc = document.getElementById('mintDesc').value.trim();
+  const price = parseInt(document.getElementById('mintPrice').value);
+  if(!emoji || !name || !desc || !price || price<1) return alert('Remplis tout');
+  if(myBalance<10) return alert('Il faut 10💰 pour mint');
+  
+  myBalance -= 10;
+  await fetch(`${UPSTASH_URL}/hset/wallet:${ROOM}/${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:String(myBalance)});
+  
+  const nftId = 'nft_'+Date.now();
+  const nft = {id:nftId,emoji,name,desc,price,artist:USERNAME,flag:userCountry,creator:UID};
+  await fetch(`${UPSTASH_URL}/hset/nftshop:${ROOM}/${nftId}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(nft)});
+  
+  localStorage.setItem('dounium_balance',myBalance);
+  alert(`✨ NFT "${name}" minté! Il est dans le SHOP`);
+  await loadNFTs();
+  APPS.WALLET.live();
+};
+
+// GAME ÉVOLUTION : FINALE LIVE STREAM HALL
+let finaleActive=false, finaleViewers=0;
+
+APPS.GAME.live = async function(){
+  await loadTournament();
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div style="margin:10px 0">
+  <div style="font-size:12px;margin-bottom:8px">🎮 TOURNOI HALL HEBDO</div>
+  <div style="background:rgba(255,215,0,0.1);border:1px solid #FFD700;padding:12px;border-radius:8px;margin:8px 0">
+    <div style="font-size:11px;color:#FFD700">🏆 PRIX: ${tournamentData.prize} 💰</div>
+    <div style="font-size:9px;color:rgba(255,255,255,0.7);margin-top:4px">Fin: ${tournamentData.ends}</div>
+  </div>
+  <div id="leaderboard" style="max-height:100px;overflow-y:auto;margin:12px 0;text-align:left;font-size:10px"></div>
+  <div style="display:flex;gap:6px;margin:8px 0">
+    <button onclick="joinTournament()" style="flex:1;background:#FF0066;color:#FFF;border:none;padding:8px;border-radius:6px;font-family:Orbitron;font-size:9px">⚔️ REJOINDRE</button>
+    <button onclick="startFinale()" style="flex:1;background:#FFD700;color:#000;border:none;padding:8px;border-radius:6px;font-family:Orbitron;font-size:9px">🔴 FINALE LIVE</button>
+  </div>
+  <div id="finaleBox" style="display:none;margin-top:12px">
+    <div style="font-size:10px;color:#FF0066;margin-bottom:6px">🔴 LIVE: FINALE HALL</div>
+    <div id="finaleViewers" style="font-size:9px;color:rgba(255,255,255,0.6)">0 spectateurs</div>
+    <div id="finaleStream" style="background:#000;border:1px solid #FF0066;padding:20px;border-radius:8px;margin:8px 0;min-height:100px">
+      <div style="font-size:20px">🎤</div>
+      <div style="font-size:10px;margin-top:8px">Stream audio live</div>
+    </div>
+    <button onclick="endFinale()" style="background:rgba(255,0,0,0.3);border:1px solid #FF0000;color:#FF0000;padding:8px 16px;border-radius:6px;font-family:Orbitron;font-size:9px">⏹️ STOP LIVE</button>
+  </div>
+  <div style="margin-top:12px;font-size:9px;color:rgba(255,255,255,0.5)">Ou 1v1 RAP BATTLE:</div>
+  <div id="battleRoster" style="max-height:80px;overflow-y:auto;margin:8px 0"></div>
+  </div>`;
+  renderLeaderboard();
+  renderBattleRoster();
+  checkFinaleStatus();
+};
+
+window.startFinale = async function(){
+  finaleActive=true;
+  document.getElementById('finaleBox').style.display='block';
+  await fetch(`${UPSTASH_URL}/hset/finale:${ROOM}/status`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({live:true,host:UID,hostName:USERNAME,ts:Date.now()})});
+  await fetch(`${UPSTASH_URL}/expire/finale:${ROOM}/3600`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  pollFinaleViewers();
+  alert('🔴 LIVE! Tout le Hall te regarde');
+};
+
+window.endFinale = async function(){
+  finaleActive=false;
+  document.getElementById('finaleBox').style.display='none';
+  await fetch(`${UPSTASH_URL}/hdel/finale:${ROOM}/status`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  alert('⏹️ Live terminé');
+};
+
+async function checkFinaleStatus(){
+  const r = await fetch(`${UPSTASH_URL}/hget/finale:${ROOM}/status`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  if(data.result){
+    const finale = JSON.parse(data.result);
+    if(finale.live && finale.host!==UID){
+      document.getElementById('finaleBox').style.display='block';
+      document.getElementById('finaleStream').innerHTML = `<div style="font-size:20px">🎤</div><div style="font-size:10px;margin-top:8px">LIVE: ${finale.hostName}</div>`;
+      incrementViewer();
+    }
+  }
+}
+
+async function pollFinaleViewers(){
+  setInterval(async()=>{
+    if(!finaleActive) return;
+    const r = await fetch(`${UPSTASH_URL}/hlen/finale:${ROOM}:viewers`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+    const data = await r.json();
+    finaleViewers = data.result||0;
+    document.getElementById('finaleViewers').textContent = `${finaleViewers} spectateurs`;
+  },2000);
+}
+
+async function incrementViewer(){
+  await fetch(`${UPSTASH_URL}/hset/finale:${ROOM}:viewers/${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:Date.now()});
+}
+</script>
