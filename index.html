@@ -25,27 +25,26 @@ body{background:#0A0A0A;color:#FFF;font-family:Orbitron,sans-serif;overflow:hidd
 .circle-name{font-size:9px;color:#FFF;max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .circle-status{font-size:7px;color:rgba(255,255,255,0.5)}
 .circle-flag{position:absolute;bottom:-2px;right:-2px;font-size:12px}
-.hall{position:fixed;top:160px;bottom:80px;left:0;right:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
+.hall{position:fixed;top:160px;bottom:90px;left:0;right:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
 .hall-title{font-size:20px;font-weight:900;color:#FFD700;margin-bottom:8px}
 .hall-status{font-size:12px;color:#00FF88}
 .hall-count{font-size:11px;color:rgba(255,255,255,0.6);margin-top:6px}
 .chat-defile{position:absolute;bottom:100px;left:0;right:0;height:60px;overflow:hidden}
 .chat-msg{font-size:11px;padding:4px 16px;animation:slideUp 8s linear infinite}
 @keyframes slideUp{0%{transform:translateY(60px);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-60px);opacity:0}}
-.bottom-bar{position:fixed;bottom:0;left:0;right:0;height:80px;background:#1A1A1A;display:flex;border-top:1px solid rgba(255,215,0,0.2);overflow-x:auto}
-.bottom-btn{min-width:20%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:all 0.2s}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;height:90px;background:#1A1A1A;border-top:1px solid rgba(255,215,0,0.2);overflow-x:auto;display:flex;scrollbar-width:none}
+.bottom-bar::-webkit-scrollbar{display:none}
+.bottom-btn{min-width:18%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:all 0.2s}
 .bottom-btn:active{background:rgba(255,215,0,0.1)}
-.btn-icon{font-size:22px}
-.btn-text{font-size:9px;color:rgba(255,255,255,0.8)}
+.btn-icon{font-size:20px}
+.btn-text{font-size:8px;color:rgba(255,255,255,0.8);text-align:center}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:2000;display:none;align-items:center;justify-content:center;flex-direction:column;padding:20px}
 .overlay.active{display:flex}
-.overlay-title{font-size:24px;color:#FFD700;margin-bottom:20px;text-align:center}
-.overlay-content{font-size:14px;color:#FFF;text-align:center;line-height:1.6;max-width:300px}
+.overlay-title{font-size:22px;color:#FFD700;margin-bottom:20px;text-align:center}
+.overlay-content{font-size:13px;color:#FFF;text-align:center;line-height:1.6;max-width:320px}
 .breath-circle{width:200px;height:200px;border:4px solid #00FF88;border-radius:50%;animation:breath 4s ease-in-out infinite;margin:20px 0}
 @keyframes breath{0%,100%{transform:scale(0.8)}50%{transform:scale(1.2)}}
 .close-overlay{position:absolute;bottom:40px;background:rgba(255,255,255,0.1);border:1px solid #FFF;padding:12px 32px;border-radius:20px;color:#FFF}
-.app-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:20px 0}
-.app-card{background:rgba(255,215,0,0.1);border:1px solid #FFD700;padding:16px;border-radius:12px;text-align:center}
 </style>
 </head>
 <body>
@@ -74,6 +73,16 @@ body{background:#0A0A0A;color:#FFF;font-family:Orbitron,sans-serif;overflow:hidd
 <div class="bottom-btn" onclick="openModule('SOCIAL')"><div class="btn-icon">💬</div><div class="btn-text">SOCIAL</div></div>
 <div class="bottom-btn" onclick="openModule('MAP')"><div class="btn-icon">🗺️</div><div class="btn-text">MAP</div></div>
 <div class="bottom-btn" onclick="openModule('GAME')"><div class="btn-icon">🎮</div><div class="btn-text">GAME</div></div>
+<div class="bottom-btn" onclick="openModule('EDU')"><div class="btn-icon">📚</div><div class="btn-text">EDU</div></div>
+<div class="bottom-btn" onclick="openModule('HEALTH')"><div class="btn-icon">❤️</div><div class="btn-text">SANTÉ</div></div>
+<div class="bottom-btn" onclick="openModule('ART')"><div class="btn-icon">🎨</div><div class="btn-text">ART</div></div>
+<div class="bottom-btn" onclick="openModule('NEWS')"><div class="btn-icon">📰</div><div class="btn-text">NEWS</div></div>
+<div class="bottom-btn" onclick="openModule('NATURE')"><div class="btn-icon">🌳</div><div class="btn-text">NATURE</div></div>
+<div class="bottom-btn" onclick="openModule('LOVE')"><div class="btn-icon">💕</div><div class="btn-text">AMOUR</div></div>
+<div class="bottom-btn" onclick="openModule('SPIRIT')"><div class="btn-icon">🕊️</div><div class="btn-text">SPIRIT</div></div>
+<div class="bottom-btn" onclick="openModule('WORK')"><div class="btn-icon">💼</div><div class="btn-text">WORK</div></div>
+<div class="bottom-btn" onclick="openModule('DREAM')"><div class="btn-icon">🌙</div><div class="btn-text">RÊVE</div></div>
+<div class="bottom-btn" onclick="openModule('GIVE')"><div class="btn-icon">🤲</div><div class="btn-text">DONNER</div></div>
 <div class="bottom-btn" onclick="openModule('IA')"><div class="btn-icon">🤖</div><div class="btn-text">IA</div></div>
 </div>
 
@@ -96,16 +105,26 @@ let micStream, analyser, audioCtx, mySpeaking=false, lastSync=0, hallUsers=[];
 let userCountry = '🌍';
 
 const APPS = {
-RESPIR: {title:'🫁 RESPIRATION 6D', content:'Inspire 4s • Bloque 4s • Expire 4s<br>Cercle = tes poumons', breath:true},
-MEDIT: {title:'🧘 MÉDITATION PLANÉTAIRE', content:'Ferme les yeux<br>Écoute les frères du monde<br>Silence partagé = force'},
-SPORT: {title:'🏃 WORKOUT MONDIAL', content:'20 Pompes<br>30 Squats<br>1min Gainage<br>Score sync mondial'},
-RESTO: {title:'🍲 RECETTES DU MONDE', content:'Thieb Sénégal 🇸🇳<br>Tajine Maroc 🇲🇦<br>Couscous Algérie 🇩🇿<br>Sang réel cuisine'},
-MUSIC: {title:'🎵 RADIO DOUNIUM', content:'Lo-fi Sénégal<br>Trap Bamako<br>Amapiano Lagos<br>Live 24/7 Mondial'},
-WALLET: {title:'💰 WALLET DOUNIUM', content:'0 DOUNUIM Coin<br>Send • Receive • Stack<br>Bientôt: P2P frères', coming:true},
-SOCIAL: {title:'💬 SOCIAL HALL', content:'Poste vocal 8s<br>Réagis ❤️🔥<br>Stories 24h<br>Tout reste dans le Hall'},
-MAP: {title:'🗺️ MAP FRÈRES', content:'Voir frères connectés<br>🌍 Globe live<br>Ping un frère proche', coming:true},
-GAME: {title:'🎮 DOUNIUM GAMES', content:'Wati Puzzle<br>Course Dakar<br>Rap Battle Live<br>Leaderboard mondial', coming:true},
-IA: {title:'🤖 IA DOUNIUM WORLD', content:'Assistant Hall<br>Traducteur 100 langues<br>Coach vie<br>Parle dans le micro'}
+RESPIR: {title:'🫁 RESPIRATION 6D', content:'Inspire 4s • Bloque 4s • Expire 4s<br>Tout le Hall respire avec toi', breath:true},
+MEDIT: {title:'🧘 MÉDITATION PLANÉTAIRE', content:'Silence partagé du monde<br>Écoute le battement du Hall<br>Paix = force'},
+SPORT: {title:'🏃 WORKOUT MONDIAL', content:'20 Pompes • 30 Squats • 1min Gainage<br>Challenge: Bats ton record<br>Score live mondial'},
+RESTO: {title:'🍲 RECETTES DU MONDE', content:'Thieb 🇸🇳 • Tajine 🇲🇦 • Couscous 🇩🇿<br>Jollof 🇳🇬 • Pasta 🇮🇹<br>Partage ta recette'},
+MUSIC: {title:'🎵 RADIO DOUNIUM', content:'Lo-fi Dakar • Trap Bamako<br>Amapiano Lagos • Jazz Paris<br>Live 24/7 Mondial', live:true},
+WALLET: {title:'💰 WALLET DOUNIUM', content:'0 DOUNUIM Coin<br>Send aux frères • Stack • P2P<br>Bientôt: Shop mondial', coming:true},
+SOCIAL: {title:'💬 SOCIAL HALL', content:'Vocaux 8s au Hall<br>Stories 24h • ❤️🔥<br>Parole = sang réel', live:true},
+MAP: {title:'🗺️ MAP FRÈRES', content:'Globe live des frères<br>Ping un frère proche<br>Voir d’où vient la voix', coming:true},
+GAME: {title:'🎮 DOUNIUM GAMES', content:'Wati Puzzle • Course Dakar<br>Rap Battle Live • Échecs<br>Leaderboard mondial', coming:true},
+EDU: {title:'📚 ÉDUCATION', content:'Apprends Wolof • Arabe • Mandarin<br>Maths • Code • Histoire<br>Savoir = pouvoir'},
+HEALTH: {title:'❤️ SANTÉ', content:'Check symptômes IA<br>Conseils sommeil • Eau • Soleil<br>Hall = famille'},
+ART: {title:'🎨 ART MONDIAL', content:'Galerie frères artistes<br>Poste ton dessin • Poème<br>Vote Hall du jour'},
+NEWS: {title:'📰 NEWS VRAIES', content:'Actu sans filtre<br>Par les frères du terrain<br>Afrique • Monde'},
+NATURE: {title:'🌳 NATURE', content:'Sons forêt • Océan • Pluie<br>Plante un arbre virtuel<br>Hall vert'},
+LOVE: {title:'💕 AMOUR', content:'Mots doux au Hall<br>Confession anonyme<br>Love = force du monde'},
+SPIRIT: {title:'🕊️ SPIRIT', content:'Prières • Intentions<br>Silence 1min mondial<br>Lumière collective'},
+WORK: {title:'💼 WORK', content:'Offres frères • Projets<br>Collab Hall • CV Dounium<br>Boss ensemble'},
+DREAM: {title:'🌙 RÊVE', content:'Journal rêves Hall<br>Analyse IA • Symboles<br>Dors, le Hall veille'},
+GIVE: {title:'🤲 DONNER', content:'Aide un frère<br>Temps • Conseil • Sourire<br>Ce que tu donnes revient'},
+IA: {title:'🤖 IA DOUNIUM', content:'Assistant Hall 100 langues<br>Coach vie • Traducteur<br>Parle, je réponds'}
 };
 
 async function init(){
@@ -139,6 +158,7 @@ analyser.fftSize = 256;
 audioCtx.createMediaStreamSource(micStream).connect(analyser);
 document.getElementById('hallStatus').textContent='Connecté au Hall Mondial';
 detectSpeaking();
+initWebRTC();
 }catch(e){
 document.getElementById('hallStatus').textContent='Micro refusé - Mode spectateur';
 sendHeartbeat(false);
@@ -222,11 +242,9 @@ c.innerHTML=hallUsers.map(u=>`
 
 function startChat(){
 const msgs = [
-'🌍 Hall Mondial actif',
-'🫁 Respire avec tes frères',
-'🎵 Radio Dounium live',
-'💰 Wallet arrive bientôt',
-'🔥 Sang réel connecte'
+'🌍 Hall Mondial actif','🫁 Respire avec tes frères','🎵 Radio Dounium live','📚 Apprends avec le Hall',
+'❤️ Santé = richesse','🎨 Art = âme du monde','📰 News vraies du terrain','🌳 Nature guérit',
+'💕 Amour connecte','🕊️ Spirit élève','💼 Work ensemble','🌙 Rêve grand','🤲 Donner = recevoir','🔥 Sang réel'
 ];
 let i=0;
 setInterval(()=>{
@@ -246,6 +264,7 @@ t.textContent = app.title;
 c.innerHTML = app.content + (app.coming?'<br><br><b>🚀 Bientôt disponible</b>':'');
 b.style.display = app.breath? 'block' : 'none';
 if(app.breath) navigator.vibrate&&navigator.vibrate([200,100,200]);
+if(app.live && APPS[type].live) APPS[type].live();
 document.getElementById('hallStatus').textContent=type+' - Actif';
 }
 
@@ -257,171 +276,22 @@ document.getElementById('hallStatus').textContent='Connecté au Hall Mondial';
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeOverlay()});
 init();
 </script>
-</body>
-</html>
+
 <script>
-// MUSIC: Radio stream + Visualizer
-let radioAudio, radioAnalyser, radioCtx;
-
-APPS.MUSIC.live = async function(){
-  const c = document.getElementById('overlayContent');
-  c.innerHTML = `
-  <div style="margin:20px 0">
-  <div style="font-size:12px;margin-bottom:8px">🎵 DOUNIUM RADIO LIVE</div>
-  <div id="nowPlaying" style="font-size:14px;color:#FFD700">Afrobeat Sénégal • Live</div>
-  <canvas id="visualizer" width="280" height="80" style="margin:12px 0;border:1px solid rgba(255,215,0,0.2)"></canvas>
-  <div style="display:flex;gap:8px;justify-content:center">
-  <button onclick="playRadio()" style="background:#00FF88;color:#000;border:none;padding:8px 16px;border-radius:8px;font-family:Orbitron;font-weight:700">▶️ PLAY</button>
-  <button onclick="stopRadio()" style="background:rgba(255,255,255,0.1);color:#FFF;border:1px solid #FFF;padding:8px 16px;border-radius:8px;font-family:Orbitron">⏹️ STOP</button>
-  </div>
-  </div>`;
-};
-
-window.playRadio = function(){
-  if(radioAudio) return;
-  radioAudio = new Audio('https://icecast.radiofrance.fr/fip-midfi.mp3');
-  radioAudio.crossOrigin = 'anonymous';
-  radioCtx = new AudioContext();
-  radioAnalyser = radioCtx.createAnalyser();
-  const src = radioCtx.createMediaElementSource(radioAudio);
-  src.connect(radioAnalyser);
-  radioAnalyser.connect(radioCtx.destination);
-  radioAudio.play();
-  drawVisualizer();
-  document.getElementById('nowPlaying').textContent = 'FIP Radio • Streaming';
-};
-
-window.stopRadio = function(){
-  if(radioAudio){radioAudio.pause(); radioAudio=null;}
-};
-
-function drawVisualizer(){
-  if(!radioAnalyser) return;
-  const canvas = document.getElementById('visualizer');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const data = new Uint8Array(radioAnalyser.frequencyBinCount);
-  requestAnimationFrame(function loop(){
-    if(!radioAnalyser) return;
-    radioAnalyser.getByteFrequencyData(data);
-    ctx.fillStyle='#000';
-    ctx.fillRect(0,0,280,80);
-    ctx.fillStyle='#00FF88';
-    for(let i=0;i<70;i++){
-      const h = data[i]/255*80;
-      ctx.fillRect(i*4,80-h,3,h);
-    }
-    requestAnimationFrame(loop);
-  });
-};
-
-// SOCIAL: Vocal 8s + Push Upstash
-let mediaRecorder, audioChunks=[];
-
-APPS.SOCIAL.live = function(){
-  const c = document.getElementById('overlayContent');
-  c.innerHTML = `
-  <div style="margin:20px 0">
-  <div style="font-size:12px;margin-bottom:12px">💬 POSTE VOCAL 8S AU HALL</div>
-  <div id="recStatus" style="font-size:20px;margin:12px 0">🎙️ Prêt</div>
-  <div id="recTimer" style="font-size:24px;color:#FFD700;margin:8px 0">8s</div>
-  <button id="recBtn" onclick="toggleRecord()" style="background:#FF0066;color:#FFF;border:none;padding:12px 24px;border-radius:12px;font-family:Orbitron;font-weight:700">🔴 REC</button>
-  <div id="vocalFeed" style="margin-top:20px;max-height:150px;overflow-y:auto"></div>
-  </div>`;
-  loadVocals();
-};
-
-window.toggleRecord = async function(){
-  if(mediaRecorder && mediaRecorder.state==='recording'){
-    mediaRecorder.stop();
-    return;
-  }
-  const stream = await navigator.mediaDevices.getUserMedia({audio:true});
-  mediaRecorder = new MediaRecorder(stream);
-  audioChunks=[];
-  let time=8;
-  document.getElementById('recStatus').textContent='🔴 REC...';
-  document.getElementById('recBtn').textContent='⏹️ STOP';
-  
-  const timer = setInterval(()=>{
-    time--;
-    document.getElementById('recTimer').textContent=time+'s';
-    if(time<=0) mediaRecorder.stop();
-  },1000);
-  
-  mediaRecorder.ondataavailable = e=>audioChunks.push(e.data);
-  mediaRecorder.onstop = async ()=>{
-    clearInterval(timer);
-    const blob = new Blob(audioChunks,{type:'audio/webm'});
-    const b64 = await blobToBase64(blob);
-    await fetch(`${UPSTASH_URL}/lpush/vocals:${ROOM}`,{
-      method:'POST',
-      headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
-      body:JSON.stringify({uid:UID,name:USERNAME,b64,ts:Date.now()})
-    });
-    await fetch(`${UPSTASH_URL}/ltrim/vocals:${ROOM}/0/49`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
-    document.getElementById('recStatus').textContent='✅ Envoyé au Hall';
-    document.getElementById('recBtn').textContent='🔴 REC';
-    document.getElementById('recTimer').textContent='8s';
-    loadVocals();
-    stream.getTracks().forEach(t=>t.stop());
-  };
-  mediaRecorder.start();
-  setTimeout(()=>mediaRecorder.state==='recording'&&mediaRecorder.stop(),8000);
-};
-
-async function blobToBase64(blob){
-  return new Promise(r=>{
-    const reader=new FileReader();
-    reader.onloadend=()=>r(reader.result);
-    reader.readAsDataURL(blob);
-  });
-}
-
-async function loadVocals(){
-  const r = await fetch(`${UPSTASH_URL}/lrange/vocals:${ROOM}/0/9`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
-  const data = await r.json();
-  const vocals = data.result||[];
-  const feed = document.getElementById('vocalFeed');
-  if(!feed) return;
-  feed.innerHTML = vocals.map(v=>{
-    const d=JSON.parse(v);
-    const ago = Math.floor((Date.now()-d.ts)/1000);
-    return `<div style="background:rgba(255,215,0,0.1);padding:8px;border-radius:8px;margin:6px 0;font-size:11px">
-    <b>${d.name}</b> • ${ago}s <audio controls src="${d.b64}" style="width:100%;height:30px;margin-top:4px"></audio></div>`;
-  }).join('');
-}
-
-// Override openModule pour apps live
-const _openModule = window.openModule;
-window.openModule = function(type){
-  _openModule(type);
-  if(APPS[type] && APPS[type].live) APPS[type].live();
-};
-</script>
-<script>
-// WEBRTC P2P MESH + AUDIO SPATIAL 6D
-const peers = {};
-const peerConns = {};
-const peerAudios = {};
-let spatialAudioCtx;
+// WEBRTC P2P + MUSIC + SOCIAL 8S
+const peers = {}, peerConns = {}, peerAudios = {};
+let spatialAudioCtx, radioAudio, radioAnalyser, mediaRecorder, audioChunks=[];
 
 async function initWebRTC(){
   spatialAudioCtx = new AudioContext();
   await spatialAudioCtx.resume();
-  
-  // Signal via Upstash
   setInterval(signalPoll,2000);
   setInterval(announceSelf,3000);
 }
 
 async function announceSelf(){
   const offer = {type:'announce',uid:UID,name:USERNAME,ts:Date.now()};
-  await fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{
-    method:'POST',
-    headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
-    body:JSON.stringify(offer)
-  });
+  await fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(offer)});
   await fetch(`${UPSTASH_URL}/ltrim/signal:${ROOM}/0/99`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
 }
 
@@ -429,23 +299,14 @@ async function signalPoll(){
   const r = await fetch(`${UPSTASH_URL}/lrange/signal:${ROOM}/0/20`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
   const data = await r.json();
   const signals = data.result||[];
-  
   for(const s of signals){
     try{
       const sig = JSON.parse(s);
       if(sig.uid===UID || Date.now()-sig.ts>10000) continue;
-      if(sig.type==='announce' && !peerConns[sig.uid]){
-        connectToPeer(sig.uid,sig.name);
-      }
-      if(sig.type==='offer' && sig.to===UID){
-        handleOffer(sig);
-      }
-      if(sig.type==='answer' && sig.to===UID){
-        handleAnswer(sig);
-      }
-      if(sig.type==='ice' && sig.to===UID){
-        handleIce(sig);
-      }
+      if(sig.type==='announce' &&!peerConns[sig.uid]) connectToPeer(sig.uid,sig.name);
+      if(sig.type==='offer' && sig.to===UID) handleOffer(sig);
+      if(sig.type==='answer' && sig.to===UID) handleAnswer(sig);
+      if(sig.type==='ice' && sig.to===UID) handleIce(sig);
     }catch(e){}
   }
 }
@@ -455,106 +316,105 @@ async function connectToPeer(peerId,peerName){
   const pc = new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
   peerConns[peerId] = pc;
   peers[peerId] = {name:peerName};
-  
   if(micStream) micStream.getTracks().forEach(t=>pc.addTrack(t,micStream));
-  
   pc.ontrack = e=>{
-    const audio = new Audio();
-    audio.srcObject = e.streams[0];
-    audio.autoplay = true;
-    
-    // Audio Spatial 6D: position selon index cercle
+    const audio = new Audio(); audio.srcObject = e.streams[0]; audio.autoplay = true;
     const idx = hallUsers.findIndex(u=>u.uid===peerId);
-    const pan = idx>=0 ? (idx/hallUsers.length*2-1)*0.8 : 0;
-    const panner = spatialAudioCtx.createStereoPanner();
-    panner.pan.value = pan;
+    const pan = idx>=0? (idx/hallUsers.length*2-1)*0.8 : 0;
+    const panner = spatialAudioCtx.createStereoPanner(); panner.pan.value = pan;
     const src = spatialAudioCtx.createMediaStreamSource(e.streams[0]);
     src.connect(panner).connect(spatialAudioCtx.destination);
-    
     peerAudios[peerId] = audio;
   };
-  
-  pc.onicecandidate = e=>{
-    if(e.candidate){
-      fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{
-        method:'POST',
-        headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
-        body:JSON.stringify({type:'ice',from:UID,to:peerId,candidate:e.candidate})
-      });
-    }
-  };
-  
-  const offer = await pc.createOffer();
-  await pc.setLocalDescription(offer);
-  await fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{
-    method:'POST',
-    headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
-    body:JSON.stringify({type:'offer',from:UID,to:peerId,sdp:offer})
-  });
+  pc.onicecandidate = e=>{if(e.candidate){fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'ice',from:UID,to:peerId,candidate:e.candidate})})}};
+  const offer = await pc.createOffer(); await pc.setLocalDescription(offer);
+  await fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'offer',from:UID,to:peerId,sdp:offer})});
 }
 
 async function handleOffer(sig){
   const pc = new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
-  peerConns[sig.from] = pc;
-  peers[sig.from] = {name:'Frère'};
-  
+  peerConns[sig.from] = pc; peers[sig.from] = {name:'Frère'};
   if(micStream) micStream.getTracks().forEach(t=>pc.addTrack(t,micStream));
-  
   pc.ontrack = e=>{
-    const audio = new Audio();
-    audio.srcObject = e.streams[0];
-    audio.autoplay = true;
+    const audio = new Audio(); audio.srcObject = e.streams[0]; audio.autoplay = true;
     const idx = hallUsers.findIndex(u=>u.uid===sig.from);
-    const pan = idx>=0 ? (idx/hallUsers.length*2-1)*0.8 : 0;
-    const panner = spatialAudioCtx.createStereoPanner();
-    panner.pan.value = pan;
+    const pan = idx>=0? (idx/hallUsers.length*2-1)*0.8 : 0;
+    const panner = spatialAudioCtx.createStereoPanner(); panner.pan.value = pan;
     const src = spatialAudioCtx.createMediaStreamSource(e.streams[0]);
     src.connect(panner).connect(spatialAudioCtx.destination);
     peerAudios[sig.from] = audio;
   };
-  
-  pc.onicecandidate = e=>{
-    if(e.candidate){
-      fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{
-        method:'POST',
-        headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
-        body:JSON.stringify({type:'ice',from:UID,to:sig.from,candidate:e.candidate})
-      });
-    }
-  };
-  
+  pc.onicecandidate = e=>{if(e.candidate){fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'ice',from:UID,to:sig.from,candidate:e.candidate})})}};
   await pc.setRemoteDescription(new RTCSessionDescription(sig.sdp));
-  const answer = await pc.createAnswer();
-  await pc.setLocalDescription(answer);
-  await fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{
-    method:'POST',
-    headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
-    body:JSON.stringify({type:'answer',from:UID,to:sig.from,sdp:answer})
-  });
+  const answer = await pc.createAnswer(); await pc.setLocalDescription(answer);
+  await fetch(`${UPSTASH_URL}/lpush/signal:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'answer',from:UID,to:sig.from,sdp:answer})});
 }
 
-async function handleAnswer(sig){
-  const pc = peerConns[sig.from];
-  if(pc) await pc.setRemoteDescription(new RTCSessionDescription(sig.sdp));
-}
+async function handleAnswer(sig){const pc=peerConns[sig.from];if(pc)await pc.setRemoteDescription(new RTCSessionDescription(sig.sdp))}
+async function handleIce(sig){const pc=peerConns[sig.from];if(pc)await pc.addIceCandidate(new RTCIceCandidate(sig.candidate))}
 
-async function handleIce(sig){
-  const pc = peerConns[sig.from];
-  if(pc) await pc.addIceCandidate(new RTCIceCandidate(sig.candidate));
-}
-
-// Lance WebRTC quand audio prêt
-const _initAudio = window.initAudio;
-window.initAudio = async function(){
-  await _initAudio();
-  initWebRTC();
-};
-
-// Update status si P2P actif
 setInterval(()=>{
   const count = Object.keys(peerConns).length;
-  if(count>0){
-    document.getElementById('hallStatus').textContent = `🔊 ${count} frère${count>1?'s':''} P2P connecté${count>1?'s':''}`;
-  }
+  if(count>0) document.getElementById('hallStatus').textContent = `🔊 ${count} frère${count>1?'s':''} P2P connecté${count>1?'s':''}`;
 },2000);
+
+APPS.MUSIC.live = async function(){
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `<div style="margin:20px 0"><div style="font-size:12px;margin-bottom:8px">🎵 DOUNIUM RADIO LIVE</div><div id="nowPlaying" style="font-size:14px;color:#FFD700">Afrobeat Sénégal • Live</div><canvas id="visualizer" width="280" height="80" style="margin:12px 0;border:1px solid rgba(255,215,0,0.2)"></canvas><div style="display:flex;gap:8px;justify-content:center"><button onclick="playRadio()" style="background:#00FF88;color:#000;border:none;padding:8px 16px;border-radius:8px;font-family:Orbitron;font-weight:700">▶️ PLAY</button><button onclick="stopRadio()" style="background:rgba(255,255,255,0.1);color:#FFF;border:1px solid #FFF;padding:8px 16px;border-radius:8px;font-family:Orbitron">⏹️ STOP</button></div></div>`;
+};
+
+window.playRadio = function(){
+  if(radioAudio) return;
+  radioAudio = new Audio('https://icecast.radiofrance.fr/fip-midfi.mp3'); radioAudio.crossOrigin='anonymous';
+  radioCtx = new AudioContext(); radioAnalyser = radioCtx.createAnalyser();
+  const src = radioCtx.createMediaElementSource(radioAudio);
+  src.connect(radioAnalyser); radioAnalyser.connect(radioCtx.destination); radioAudio.play(); drawVisualizer();
+  document.getElementById('nowPlaying').textContent = 'FIP Radio • Streaming';
+};
+
+window.stopRadio = function(){if(radioAudio){radioAudio.pause(); radioAudio=null;}};
+
+function drawVisualizer(){
+  if(!radioAnalyser) return;
+  const canvas = document.getElementById('visualizer'); if(!canvas) return;
+  const ctx = canvas.getContext('2d'); const data = new Uint8Array(radioAnalyser.frequencyBinCount);
+  requestAnimationFrame(function loop(){
+    if(!radioAnalyser) return;
+    radioAnalyser.getByteFrequencyData(data);
+    ctx.fillStyle='#000'; ctx.fillRect(0,0,280,80); ctx.fillStyle='#00FF88';
+    for(let i=0;i<70;i++){const h=data[i]/255*80; ctx.fillRect(i*4,80-h,3,h);}
+    requestAnimationFrame(loop);
+  });
+};
+
+APPS.SOCIAL.live = function(){
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `<div style="margin:20px 0"><div style="font-size:12px;margin-bottom:12px">💬 POSTE VOCAL 8S AU HALL</div><div id="recStatus" style="font-size:20px;margin:12px 0">🎙️ Prêt</div><div id="recTimer" style="font-size:24px;color:#FFD700;margin:8px 0">8s</div><button id="recBtn" onclick="toggleRecord()" style="background:#FF0066;color:#FFF;border:none;padding:12px 24px;border-radius:12px;font-family:Orbitron;font-weight:700">🔴 REC</button><div id="vocalFeed" style="margin-top:20px;max-height:150px;overflow-y:auto"></div></div>`;
+  loadVocals();
+};
+
+window.toggleRecord = async function(){
+  if(mediaRecorder && mediaRecorder.state==='recording'){mediaRecorder.stop(); return;}
+  const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+  mediaRecorder = new MediaRecorder(stream); audioChunks=[]; let time=8;
+  document.getElementById('recStatus').textContent='🔴 REC...'; document.getElementById('recBtn').textContent='⏹️ STOP';
+  const timer = setInterval(()=>{time--; document.getElementById('recTimer').textContent=time+'s'; if(time<=0)mediaRecorder.stop();},1000);
+  mediaRecorder.ondataavailable = e=>audioChunks.push(e.data);
+  mediaRecorder.onstop = async ()=>{
+    clearInterval(timer);
+    const blob = new Blob(audioChunks,{type:'audio/webm'});
+    const b64 = await new Promise(r=>{const reader=new FileReader();reader.onloadend=()=>r(reader.result);reader.readAsDataURL(blob);});
+    await fetch(`${UPSTASH_URL}/lpush/vocals:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({uid:UID,name:USERNAME,b64,ts:Date.now()})});
+    await fetch(`${UPSTASH_URL}/ltrim/vocals:${ROOM}/0/49`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+    document.getElementById('recStatus').textContent='✅ Envoyé au Hall'; document.getElementById('recBtn').textContent='🔴 REC'; document.getElementById('recTimer').textContent='8s';
+    loadVocals(); stream.getTracks().forEach(t=>t.stop());
+  };
+  mediaRecorder.start(); setTimeout(()=>mediaRecorder.state==='recording'&&mediaRecorder.stop(),8000);
+};
+
+async function loadVocals(){
+  const r = await fetch(`${UPSTASH_URL}/lrange/vocals:${ROOM}/0/9`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json(); const vocals = data.result||[]; const feed = document.getElementById('vocalFeed'); if(!feed) return;
+  feed.innerHTML = vocals.map(v=>{const d=JSON.parse(v);const ago=Math.floor((Date.now()-d.ts)/1000);return `<div style="background:rgba(255,215,0,0.1);padding:8px;border-radius:8px;margin:6px 0;font-size:11px"><b>${d.name}</b> • ${ago}s <audio controls src="${d.b64}" style="width:100%;height:30px;margin-top:4px"></audio></div>`;}).join('');
+}
 </script>
