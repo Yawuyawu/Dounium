@@ -4273,3 +4273,256 @@ APPS.WALLET.live = async function(){
   `;
 };
 </script>
+<script>
+// MAP v2.0 : TÉLÉPORTATION QUANTIQUE
+let quantumScanner = null;
+let quantumReconstructor = null;
+
+window.connectQuantumScanner = async function(){
+  if(!navigator.usb) return alert('WebUSB requis pour scanner quantique');
+  try{
+    quantumScanner = await navigator.usb.requestDevice({filters:[{vendorId:0x3333}]});
+    await quantumScanner.open();
+    alert('⚛️ Scanner atomique connecté. Téléportation active');
+    initTeleport();
+  }catch(e){alert('Scanner non trouvé: '+e);}
+};
+
+async function initTeleport(){
+  const c = document.getElementById('overlayContent');
+  c.innerHTML += `
+  <div style="margin:12px 0;padding:12px;background:rgba(100,0,255,0.1);border:1px solid #6400FF;border-radius:8px">
+    <div style="font-size:12px;color:#FF64FF;margin-bottom:8px">⚛️ TÉLÉPORTATION QUANTIQUE</div>
+    <input id="tpDest" placeholder="Destination: Tokyo, New York..." style="width:100%;background:#000;border:1px solid #FF64FF;color:#FFF;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px;margin:6px 0">
+    <button onclick="teleportBody()" style="background:#FF64FF;color:#000;border:none;padding:10px 20px;border-radius:8px;font-family:Orbitron;font-size:11px;width:100%">DISSOLVER + RECONSTRUIRE</button>
+    <div id="tpStatus" style="font-size:9px;color:#AAA;margin-top:8px">État: Prêt</div>
+  </div>`;
+}
+
+window.teleportBody = async function(){
+  const dest = document.getElementById('tpDest').value;
+  if(!dest) return alert('Entre destination');
+  if(!confirm(`⚛️ Téléporter corps vers ${dest}? Processus irréversible 0.8s`)) return;
+  
+  const status = document.getElementById('tpStatus');
+  status.innerText = 'Scan atomique...';
+  await new Promise(r=>setTimeout(r,300));
+  
+  status.innerText = 'Dissolution quantique...';
+  document.body.style.opacity='0.1';
+  await new Promise(r=>setTimeout(r,300));
+  
+  status.innerText = `Reconstruction ${dest}...`;
+  await new Promise(r=>setTimeout(r,200));
+  
+  document.body.style.opacity='1';
+  status.innerText = `Téléporté ${dest}. Bienvenue`;
+  
+  // Update GPS Hall
+  myLocation = await geocodeCity(dest);
+  await fetch(`${UPSTASH_URL}/hset/brothers:${ROOM}:${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({uid:UID,name:USERNAME,country:userCountry,lat:myLocation.lat,lng:myLocation.lng,gold:userGold,xp:userXP,level:userLevel,online:true,lastSeen:Date.now(),teleported:dest})});
+  updateGlobeMarkers();
+};
+
+async function geocodeCity(city){
+  // Simu - réel = API Maps
+  const coords = {tokyo:{lat:35.6762,lng:139.6503},newyork:{lat:40.7128,lng:-74.0060},paris:{lat:48.8566,lng:2.3522}};
+  return coords[city.toLowerCase()]||{lat:0,lng:0};
+}
+
+// WALLET v2.0 : HIVE-MIND FUSION
+let hiveSocket = null;
+let hiveBrains = [];
+
+window.joinHiveMind = async function(){
+  if(!eegDevice) return alert('Connecte casque EEG d\'abord');
+  if(!confirm('🧠 Fusion Hive-Mind? Ta pensée = action 1000 frères. QI collectif. Irréversible.')) return;
+  
+  hiveSocket = new WebSocket(`wss://hive.dounium.app/${ROOM}`);
+  hiveSocket.onopen = ()=>{
+    alert('🧠 Hive-Mind actif. Tu es connecté à 0 frères');
+    initHiveControl();
+  };
+  
+  hiveSocket.onmessage = e=>{
+    const data = JSON.parse(e.data);
+    if(data.type==='brain'){
+      hiveBrains.push(data);
+      updateHiveStats();
+    }
+    if(data.type==='command'){
+      executeHiveCommand(data.command);
+    }
+  };
+};
+
+function initHiveControl(){
+  setInterval(()=>{
+    if(!eegDevice ||!hiveSocket) return;
+    const thought = {type:'brain',uid:UID,focus:Math.random(),command:focus>0.95?'attack':null};
+    hiveSocket.send(JSON.stringify(thought));
+  },100);
+  
+  const c = document.getElementById('overlayContent');
+  c.innerHTML += `
+  <div style="margin:12px 0;padding:12px;background:rgba(255,100,0,0.1);border:1px solid #FF6400;border-radius:8px">
+    <div style="font-size:12px;color:#FF6400;margin-bottom:8px">🧠 HIVE-MIND COLLECTIF</div>
+    <div id="hiveStats" style="font-size:10px;color:#AAA">Cerveaux connectés: 0 • QI Collectif: 0</div>
+    <button onclick="broadcastThought('attack')" style="background:#FF0000;color:#FFF;border:none;padding:10px 20px;border-radius:8px;font-family:Orbitron;font-size:11px;width:100%;margin:6px 0">PENSE: ATTAQUE MASSE</button>
+    <button onclick="broadcastThought('build')" style="background:#00FF00;color:#000;border:none;padding:10px 20px;border-radius:8px;font-family:Orbitron;font-size:11px;width:100%;margin:6px 0">PENSE: CONSTRUIRE</button>
+  </div>`;
+}
+
+function updateHiveStats(){
+  const totalIQ = hiveBrains.reduce((s,b)=>s+b.focus*100,0)|0;
+  document.getElementById('hiveStats').innerText = `Cerveaux connectés: ${hiveBrains.length} • QI Collectif: ${totalIQ}`;
+}
+
+window.broadcastThought = function(command){
+  if(!hiveSocket) return;
+  hiveSocket.send(JSON.stringify({type:'command',uid:UID,command}));
+  alert(`🧠 Pensée "${command}" broadcast à ${hiveBrains.length} frères`);
+};
+
+function executeHiveCommand(cmd){
+  if(cmd==='attack' && vrSession) alert('⚔️ Hive-Mind: Attaque lancée par 1000 frères');
+  if(cmd==='build') alert('🏗️ Hive-Mind: Construction collective démarrée');
+}
+
+// GAME v2.0 : BIG BANG CRÉATEUR
+window.createUniverse = async function(){
+  const name = prompt('Nom de ton univers:');
+  if(!name) return;
+  const gravity = parseFloat(prompt('Gravité (9.8 = Terre, -9.8 = inversée):')||'9.8');
+  const timeScale = parseFloat(prompt('Vitesse temps (1 = normal, 10 = x10):')||'1');
+  
+  const universe = {
+    id:crypto.randomUUID(),
+    name,
+    creator:UID,
+    physics:{gravity,timeScale},
+    created:Date.now(),
+    brothers:[UID]
+  };
+  
+  await fetch(`${UPSTASH_URL}/hset/universes:${ROOM}/${universe.id}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(universe)});
+  alert(`🌌 Big Bang: Univers "${name}" créé. Gravité:${gravity} Temps:x${timeScale}. Tu es Dieu`);
+  loadMyUniverses();
+};
+
+window.loadMyUniverses = async function(){
+  const res = await fetch(`${UPSTASH_URL}/hgetall/universes:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
+  const keys = res.result||[];
+  const myUnis = [];
+  for(let i=0;i<keys.length;i+=2){
+    const u = JSON.parse(keys[i+1]);
+    if(u.creator===UID) myUnis.push(u);
+  }
+  
+  const c = document.getElementById('overlayContent');
+  const html = myUnis.map(u=>`
+    <div style="background:rgba(100,0,255,0.1);border:1px solid #6400FF;padding:10px;border-radius:8px;margin:6px 0;text-align:left">
+      <div style="font-size:11px;color:#FF64FF">${u.name}</div>
+      <div style="font-size:8px;color:#AAA">Gravité:${u.physics.gravity} • Temps:x${u.physics.timeScale} • Frères:${u.brothers.length}</div>
+      <button onclick="enterUniverse('${u.id}')" style="background:#6400FF;color:#FFF;border:none;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px;margin-top:6px">ENTRER</button>
+    </div>
+  `).join('');
+  
+  c.innerHTML += `
+  <div style="margin:12px 0">
+    <div style="font-size:12px;color:#FF64FF;margin-bottom:8px">🌌 TES UNIVERS</div>
+    ${html||'<div style="font-size:9px;color:#666">Aucun univers créé</div>'}
+    <button onclick="createUniverse()" style="background:#6400FF;color:#FFF;border:none;padding:10px 20px;border-radius:8px;font-family:Orbitron;font-size:11px;width:100%;margin-top:8px">+ BIG BANG</button>
+  </div>`;
+};
+
+window.enterUniverse = function(id){
+  alert(`🌌 Entrée univers ${id}. Physique custom active`);
+  // Charge règles univers
+};
+
+// Boutons v2.0
+APPS.MAP.live = async function(){
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div style="margin:10px 0">
+  <div style="font-size:12px;margin-bottom:8px">🗺️ GLOBE FRÈRES LIVE</div>
+  <div style="display:flex;gap:6px;justify-content:center;margin:8px 0;flex-wrap:wrap">
+    <button onclick="zoomGlobe('world')" style="background:${currentZoom==='world'?'#FFD700':'rgba(255,215,0,0.2)'};color:${currentZoom==='world'?'#000':'#FFD700'};border:1px solid #FFD700;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">MONDE</button>
+    <button onclick="zoomGlobe('local')" style="background:${currentZoom==='local'?'#FFD700':'rgba(255,215,0,0.2)'};color:${currentZoom==='local'?'#000':'#FFD700'};border:1px solid #FFD700;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">MON PAYS</button>
+    <button onclick="zoomGlobe('routes')" style="background:${currentZoom==='routes'?'#FFD700':'rgba(255,215,0,0.2)'};color:${currentZoom==='routes'?'#000':'#FFD700'};border:1px solid #FFD700;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">ROUTES</button>
+    <button onclick="toggleGPS()" id="gpsBtn" style="background:rgba(0,255,136,0.2);border:1px solid #00FF88;color:#00FF88;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">📍 GPS LIVE</button>
+    <button onclick="startAR()" id="arBtn" style="background:rgba(255,0,255,0.2);border:1px solid #FF00FF;color:#FF00FF;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">📷 AR</button>
+    <button onclick="enrollFace()" style="background:rgba(0,255,255,0.2);border:1px solid #00FFFF;color:#00FFFF;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">👤 FACE ID</button>
+    <button onclick="connectXReal()" style="background:rgba(255,100,0,0.2);border:1px solid #FF6400;color:#FF6400;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">🕶️ LUNETTES</button>
+    <button onclick="connectProjector()" style="background:rgba(255,0,200,0.2);border:1px solid #FF00C8;color:#FF00C8;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">🔦 HOLO</button>
+    <button onclick="connectQuantumScanner()" style="background:rgba(100,0,255,0.2);border:1px solid #6400FF;color:#6400FF;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">⚛️ TP</button>
+  </div>
+  <div id="arContainer" style="display:none;position:relative">
+    <video id="arVideo" autoplay playsinline style="width:300px;height:300px;border:1px solid #FF00FF;border-radius:8px"></video>
+    <canvas id="arCanvas" width="300" height="300" style="position:absolute;top:0;left:0;pointer-events:none"></canvas>
+    <button onclick="stopAR()" style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(255,0,0,0.3);border:1px solid #FF0000;color:#FF0000;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">STOP AR</button>
+  </div>
+  <canvas id="globe" width="300" height="300" style="border:1px solid #FFD700;border-radius:50%;display:block"></canvas>
+  <div id="globeStats" style="font-size:11px;margin-top:8px;color:#00FF88">0 frères</div>
+  <div id="etaBox" style="display:none;background:rgba(0,255,136,0.1);border:1px solid #00FF88;padding:8px;border-radius:6px;margin:8px 0;font-size:10px;text-align:left"></div>
+  <div id="routesBox" style="display:none;margin-top:12px">
+    <div style="font-size:10px;color:#FFD700;margin-bottom:6px">🚗 COVOITURAGE HALL</div>
+    <div style="display:flex;gap:4px;margin:6px 0">
+      <input id="routeFrom" placeholder="Départ" style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:6px;border-radius:6px;font-family:Orbitron;font-size:9px">
+      <input id="routeTo" placeholder="Arrivée" style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:6px;border-radius:6px;font-family:Orbitron;font-size:9px">
+    </div>
+    <button onclick="postRoute()" style="background:#00FF88;color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:Orbitron;font-size:9px;width:100%">POSTER TRAJET</button>
+    <div id="routesList" style="max-height:80px;overflow-y:auto;margin-top:8px;font-size:9px;text-align:left"></div>
+  </div>
+  <div id="localChatBox" style="display:none;margin-top:12px">
+    <div style="font-size:10px;color:#FFD700;margin-bottom:6px">💬 CHAT LOCAL ${userCountry}</div>
+    <div id="localMsgs" style="max-height:80px;overflow-y:auto;background:rgba(0,0,0,0.3);padding:6px;border-radius:6px;font-size:9px;text-align:left"></div>
+    <div style="display:flex;gap:4px;margin-top:6px">
+      <input id="localInput" placeholder="Message pays..." style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:6px;border-radius:6px;font-family:Orbitron;font-size:9px">
+      <button onclick="sendLocalMsg()" style="background:#00FF88;color:#000;border:none;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">▶</button>
+    </div>
+  </div>
+  <button onclick="pingBrothers()" style="background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px 16px;border-radius:8px;margin-top:8px;font-family:Orbitron">📡 PING HALL</button>
+  </div>`;
+  initGlobe();
+  updateGlobeMarkers();
+  initOrientation();
+  if(currentZoom==='local') loadLocalChat();
+  if(currentZoom==='routes') loadRoutes();
+  checkGPSStatus();
+};
+
+APPS.WALLET.live = async function(){
+  const c = document.getElementById('overlayContent');
+  const nfts = await getMyNFTsList();
+  const pfp = nfts[0]?nfts[0].emoji:'👤';
+  const next = (100 - (userXP%100));
+  c.innerHTML = `
+  <div style="display:flex;align-items:center;gap:12px;margin:12px 0;padding:12px;background:rgba(255,215,0,0.05);border-radius:12px">
+    <div style="font-size:40px">${pfp}</div>
+    <div style="flex:1;text-align:left">
+      <div style="font-size:14px;color:#FFD700;font-weight:700">${USERNAME}</div>
+      <div style="font-size:9px;color:#00FF88">Niveau ${userLevel} • ${userXP} XP</div>
+      <div style="font-size:8px;color:#AAA;margin-top:2px">Prochain: ${next} XP</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:18px;color:#FFD700">${userGold}</div>
+      <div style="font-size:8px;color:#AAA">OR</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:6px;justify-content:center;margin:8px 0;flex-wrap:wrap">
+    <button onclick="enterVR()" style="background:rgba(255,0,255,0.2);border:1px solid #FF00FF;color:#FF00FF;padding:8px 16px;border-radius:8px;font-family:Orbitron;font-size:10px">🥽 GALERIE 3D VR</button>
+    <button onclick="connectEEG()" style="background:rgba(255,0,100,0.2);border:1px solid #FF0064;color:#FF0064;padding:8px 16px;border-radius:8px;font-family:Orbitron;font-size:10px">🧠 NEURALINK</button>
+    <button onclick="uploadConsciousness()" style="background:rgba(100,255,100,0.2);border:1px solid #64FF64;color:#64FF64;padding:8px 16px;border-radius:8px;font-family:Orbitron;font-size:10px">⚰️→🧬 IMMORTEL</button>
+    <button onclick="joinHiveMind()" style="background:rgba(255,100,0,0.2);border:1px solid #FF6400;color:#FF6400;padding:8px 16px;border-radius:8px;font-family:Orbitron;font-size:10px">🧠 HIVE-MIND</button>
+  </div>
+  <div style="font-size:11px;color:#AAA;margin:8px 0">NFT POSSEDES ${nfts.length}</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0">${nfts.map(n=>`<div style="background:rgba(255,215,0,0.05);border:1px solid rgba(255,215,0,0.3);border-radius:8px;padding:8px;font-size:24px">${n.emoji}</div>`).join('')}</div>
+  <button onclick="buyNFT()" style="background:#FFD700;color:#000;border:none;padding:10px 20px;border-radius:8px;font-family:Orbitron;font-size:11px;width:100%;margin:6px 0">ACHETER NFT</button>
+  <button onclick="startMetavers()" style="background:rgba(100,0,255,0.2);border:1px solid #6400FF;color:#6400FF;padding:10px 20px;border-radius:8px;font-family:Orbitron;font-size:11px;width:100%;margin:6px 0">🌌 MÉTAVERS 24/7</button>
+  <button onclick="openMultivers()" style="background:rgba(255,100,255,0.2);border:1px solid #FF64FF;color:#FF64FF;padding:10px 20px;border-radius:8px;font-family:Orbitron;font-size:11px;width:100%;margin:6px 0">🌌 MULTIVERS 1000</button>
+  `;
+  loadMyUniverses();
+};
+</script>
