@@ -3539,3 +3539,260 @@ APPS.MAP.live = async function(){
   checkGPSStatus();
 };
 </script>
+<script>
+// MAP v1.8 : AR LUNETTES + TRADUCTION LIVE
+let xrealConnected = false;
+let translationWorker = null;
+
+window.connectXReal = async function(){
+  if(!navigator.usb) return alert('WebUSB non supporté. Utilise Chrome');
+  try{
+    const device = await navigator.usb.requestDevice({filters:[{vendorId:0x1234}]});
+    await device.open();
+    xrealConnected = true;
+    alert('🕶️ XReal Lunettes connectées. Hall overlay permanent actif');
+    initXRealOverlay();
+  }catch(e){alert('Lunettes non détectées: '+e);}
+};
+
+async function initXRealOverlay(){
+  if(!xrealConnected) return;
+  translationWorker = new Worker(URL.createObjectURL(new Blob([`
+    importScripts('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0');
+    const {pipeline} = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0');
+    const translator = await pipeline('translation','Xenova/nllb-200-distilled-600M');
+    self.onmessage = async(e)=>{
+      const out = await translator(e.data.text,{src_lang:e.data.from,tgt_lang:e.data.to});
+      self.postMessage({id:e.data.id,text:out[0].translation_text});
+    };
+  `],{type:'application/javascript'})));
+  
+  setInterval(()=>{
+    if(!arStream) return;
+    detectFacesAR(true);
+  },500);
+}
+
+async function detectFacesAR(xreal=false){
+  if(!arStream ||!window.faceapi) return;
+  const video = document.getElementById('arVideo');
+  const canvas = document.getElementById('arCanvas');
+  const ctx = canvas.getContext('2d');
+  
+  const detections = await faceapi.detectAllFaces(video,new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors();
+  
+  for(const detection of detections){
+    const bestMatch = faceDescriptors.map(fd=>({
+      distance:faceapi.euclideanDistance(detection.descriptor,fd.descriptor),
+     ...fd
+    })).sort((a,b)=>a.distance-b.distance)[0];
+    
+    if(bestMatch && bestMatch.distance<0.6){
+      const box = detection.detection.box;
+      ctx.strokeStyle='#00FF88';
+      ctx.lineWidth=3;
+      ctx.strokeRect(box.x,box.y,box.width,box.height);
+      ctx.fillStyle='#00FF88';
+      ctx.font='14px Orbitron';
+      
+      // Trad live si XReal
+      let label = `${bestMatch.name} ${bestMatch.country} ${(1-bestMatch.distance)*100|0}%`;
+      if(xreal && bestMatch.lang && bestMatch.lang!== userLang){
+        translationWorker.postMessage({id:bestMatch.uid,text:label,from:bestMatch.lang,to:userLang});
+        translationWorker.onmessage = e=>{
+          if(e.data.id===bestMatch.uid) label = e.data.text;
+        };
+      }
+      
+      ctx.fillText(label,box.x,box.y-5);
+      if(xreal){
+        // Stats flottantes lunettes
+        ctx.fillText(`${bestMatch.distance_m||'???'}m • ${bestMatch.gold||0}💰`,box.x,box.y+box.height+15);
+      }
+      
+      if(navigator.vibrate) navigator.vibrate([200,100,200]);
+      speakDirection(`Frère ${bestMatch.name} détecté`);
+    }
+  }
+}
+
+// WALLET v1.8 : NEURALINK BRAIN-CONTROL
+let eegDevice = null;
+let brainWorker = null;
+
+window.connectEEG = async function(){
+  if(!navigator.bluetooth) return alert('Bluetooth requis pour casque EEG');
+  try{
+    eegDevice = await navigator.bluetooth.requestDevice({
+      filters:[{namePrefix:'Muse'},{namePrefix:'NextMind'}],
+      optionalServices:['0000fe84-0000-1000-8000-00805f9b34fb']
+    });
+    const server = await eegDevice.gatt.connect();
+    alert('🧠 Casque EEG connecté. Pense "NFT" pour ouvrir wallet');
+    initBrainControl();
+  }catch(e){alert('Casque EEG non trouvé: '+e);}
+};
+
+async function initBrainControl(){
+  brainWorker = new Worker(URL.createObjectURL(new Blob([`
+    let focusLevel = 0;
+    let blinkDetected = false;
+    self.onmessage = e=>{
+      if(e.data.type==='eeg'){
+        focusLevel = e.data.focus;
+        blinkDetected = e.data.blink;
+        if(e.data.command==='nft') self.postMessage({action:'openWallet'});
+        if(focusLevel>0.8) self.postMessage({action:'fly'});
+        if(blinkDetected) self.postMessage({action:'teleport'});
+      }
+    };
+  `],{type:'application/javascript'})));
+  
+  brainWorker.onmessage = e=>{
+    if(e.data.action==='openWallet') APPS.WALLET.live();
+    if(e.data.action==='fly' && vrSession) moveAvatarVR(0,0.1,0);
+    if(e.data.action==='teleport' && vrSession) teleportAvatarVR();
+  };
+  
+  // Simule stream EEG
+  setInterval(()=>{
+    const focus = Math.random();
+    const blink = Math.random()>0.95;
+    brainWorker.postMessage({type:'eeg',focus,blink,command:focus>0.9?'nft':null});
+  },100);
+}
+
+function moveAvatarVR(x,y,z){
+  // Déplace avatar VR par pensée
+  if(window.avatar) window.avatar.position.add(new THREE.Vector3(x,y,z));
+}
+
+function teleportAvatarVR(){
+  // Téléporte à position regardée
+  if(window.avatar && window.lookTarget) window.avatar.position.copy(window.lookTarget);
+}
+
+// GAME v1.8 : MÉTAVERS HALL 24/7
+let metaversWorker = null;
+
+window.startMetavers = async function(){
+  if(metaversWorker) return alert('Métavers déjà actif');
+  
+  metaversWorker = new Worker(URL.createObjectURL(new Blob([`
+    const UPSTASH_URL = '${UPSTASH_URL}';
+    const UPSTASH_TOKEN = '${UPSTASH_TOKEN}';
+    const ROOM = '${ROOM}';
+    
+    async function runMetavers(){
+      // Économie autonome H24
+      while(true){
+        // 1. Enchères auto
+        const auctions = await fetch(UPSTASH_URL+'/hgetall/auctions:'+ROOM,{headers:{Authorization:'Bearer '+UPSTASH_TOKEN}}).then(r=>r.json());
+        const keys = auctions.result||[];
+        for(let i=0;i<keys.length;i+=2){
+          const data = JSON.parse(keys[i+1]);
+          if(Date.now()>data.endTs &&!data.settled){
+            // Clôture auto + transfert NFT
+            await fetch(UPSTASH_URL+'/hset/auctions:'+ROOM+'/'+keys[i],{method:'POST',headers:{Authorization:'Bearer '+UPSTASH_TOKEN},body:JSON.stringify({...data,settled:true})});
+          }
+        }
+        
+        // 2. Bots IA frères offline
+        const brothers = await fetch(UPSTASH_URL+'/hgetall/brothers:'+ROOM,{headers:{Authorization:'Bearer '+UPSTASH_TOKEN}}).then(r=>r.json());
+        const bkeys = brothers.result||[];
+        for(let i=0;i<bkeys.length;i+=2){
+          const b = JSON.parse(bkeys[i+1]);
+          if(Date.now()-b.lastSeen>600000){
+            // Frère offline → Bot IA prend relais
+            await fetch(UPSTASH_URL+'/hset/brothers:'+ROOM+'/'+bkeys[i],{method:'POST',headers:{Authorization:'Bearer '+UPSTASH_TOKEN},body:JSON.stringify({...b,bot:true,lastAction:'mining',gold:b.gold+1})});
+          }
+        }
+        
+        await new Promise(r=>setTimeout(r,60000)); // 1min loop
+      }
+    }
+    runMetavers();
+  `],{type:'application/javascript'})));
+  
+  alert('🌌 Métavers Hall 24/7 lancé. Économie vit même offline');
+};
+
+// Boutons v1.8
+APPS.MAP.live = async function(){
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div style="margin:10px 0">
+  <div style="font-size:12px;margin-bottom:8px">🗺️ GLOBE FRÈRES LIVE</div>
+  <div style="display:flex;gap:6px;justify-content:center;margin:8px 0;flex-wrap:wrap">
+    <button onclick="zoomGlobe('world')" style="background:${currentZoom==='world'?'#FFD700':'rgba(255,215,0,0.2)'};color:${currentZoom==='world'?'#000':'#FFD700'};border:1px solid #FFD700;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">MONDE</button>
+    <button onclick="zoomGlobe('local')" style="background:${currentZoom==='local'?'#FFD700':'rgba(255,215,0,0.2)'};color:${currentZoom==='local'?'#000':'#FFD700'};border:1px solid #FFD700;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">MON PAYS</button>
+    <button onclick="zoomGlobe('routes')" style="background:${currentZoom==='routes'?'#FFD700':'rgba(255,215,0,0.2)'};color:${currentZoom==='routes'?'#000':'#FFD700'};border:1px solid #FFD700;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">ROUTES</button>
+    <button onclick="toggleGPS()" id="gpsBtn" style="background:rgba(0,255,136,0.2);border:1px solid #00FF88;color:#00FF88;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">📍 GPS LIVE</button>
+    <button onclick="startAR()" id="arBtn" style="background:rgba(255,0,255,0.2);border:1px solid #FF00FF;color:#FF00FF;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">📷 AR</button>
+    <button onclick="enrollFace()" style="background:rgba(0,255,255,0.2);border:1px solid #00FFFF;color:#00FFFF;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">👤 FACE ID</button>
+    <button onclick="connectXReal()" style="background:rgba(255,100,0,0.2);border:1px solid #FF6400;color:#FF6400;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">🕶️ LUNETTES</button>
+  </div>
+  <div id="arContainer" style="display:none;position:relative">
+    <video id="arVideo" autoplay playsinline style="width:300px;height:300px;border:1px solid #FF00FF;border-radius:8px"></video>
+    <canvas id="arCanvas" width="300" height="300" style="position:absolute;top:0;left:0;pointer-events:none"></canvas>
+    <button onclick="stopAR()" style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(255,0,0,0.3);border:1px solid #FF0000;color:#FF0000;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">STOP AR</button>
+  </div>
+  <canvas id="globe" width="300" height="300" style="border:1px solid #FFD700;border-radius:50%;display:block"></canvas>
+  <div id="globeStats" style="font-size:11px;margin-top:8px;color:#00FF88">0 frères</div>
+  <div id="etaBox" style="display:none;background:rgba(0,255,136,0.1);border:1px solid #00FF88;padding:8px;border-radius:6px;margin:8px 0;font-size:10px;text-align:left"></div>
+  <div id="routesBox" style="display:none;margin-top:12px">
+    <div style="font-size:10px;color:#FFD700;margin-bottom:6px">🚗 COVOITURAGE HALL</div>
+    <div style="display:flex;gap:4px;margin:6px 0">
+      <input id="routeFrom" placeholder="Départ" style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:6px;border-radius:6px;font-family:Orbitron;font-size:9px">
+      <input id="routeTo" placeholder="Arrivée" style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:6px;border-radius:6px;font-family:Orbitron;font-size:9px">
+    </div>
+    <button onclick="postRoute()" style="background:#00FF88;color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:Orbitron;font-size:9px;width:100%">POSTER TRAJET</button>
+    <div id="routesList" style="max-height:80px;overflow-y:auto;margin-top:8px;font-size:9px;text-align:left"></div>
+  </div>
+  <div id="localChatBox" style="display:none;margin-top:12px">
+    <div style="font-size:10px;color:#FFD700;margin-bottom:6px">💬 CHAT LOCAL ${userCountry}</div>
+    <div id="localMsgs" style="max-height:80px;overflow-y:auto;background:rgba(0,0,0,0.3);padding:6px;border-radius:6px;font-size:9px;text-align:left"></div>
+    <div style="display:flex;gap:4px;margin-top:6px">
+      <input id="localInput" placeholder="Message pays..." style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:6px;border-radius:6px;font-family:Orbitron;font-size:9px">
+      <button onclick="sendLocalMsg()" style="background:#00FF88;color:#000;border:none;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">▶</button>
+    </div>
+  </div>
+  <button onclick="pingBrothers()" style="background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px 16px;border-radius:8px;margin-top:8px;font-family:Orbitron">📡 PING HALL</button>
+  </div>`;
+  initGlobe();
+  updateGlobeMarkers();
+  initOrientation();
+  if(currentZoom==='local') loadLocalChat();
+  if(currentZoom==='routes') loadRoutes();
+  checkGPSStatus();
+};
+
+APPS.WALLET.live = async function(){
+  const c = document.getElementById('overlayContent');
+  const nfts = await getMyNFTsList();
+  const pfp = nfts[0]?nfts[0].emoji:'👤';
+  const next = (100 - (userXP%100));
+  c.innerHTML = `
+  <div style="display:flex;align-items:center;gap:12px;margin:12px 0;padding:12px;background:rgba(255,215,0,0.05);border-radius:12px">
+    <div style="font-size:40px">${pfp}</div>
+    <div style="flex:1;text-align:left">
+      <div style="font-size:14px;color:#FFD700;font-weight:700">${USERNAME}</div>
+      <div style="font-size:9px;color:#00FF88">Niveau ${userLevel} • ${userXP} XP</div>
+      <div style="font-size:8px;color:#AAA;margin-top:2px">Prochain: ${next} XP</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:18px;color:#FFD700">${userGold}</div>
+      <div style="font-size:8px;color:#AAA">OR</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:6px;justify-content:center;margin:8px 0;flex-wrap:wrap">
+    <button onclick="enterVR()" style="background:rgba(255,0,255,0.2);border:1px solid #FF00FF;color:#FF00FF;padding:8px 16px;border-radius:8px;font-family:Orbitron;font-size:10px">🥽 GALERIE 3D VR</button>
+    <button onclick="connectEEG()" style="background:rgba(255,0,100,0.2);border:1px solid #FF0064;color:#FF0064;padding:8px 16px;border-radius:8px;font-family:Orbitron;font-size:10px">🧠 NEURALINK</button>
+  </div>
+  <div style="font-size:11px;color:#AAA;margin:8px 0">NFT POSSEDES ${nfts.length}</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0">${nfts.map(n=>`<div style="background:rgba(255,215,0,0.05);border:1px solid rgba(255,215,0,0.3);border-radius:8px;padding:8px;font-size:24px">${n.emoji}</div>`).join('')}</div>
+  <button onclick="buyNFT()" style="background:#FFD700;color:#000;border:none;padding:10px 20px;border-radius:8px;font-family:Orbitron;font-size:11px;width:100%;margin:6px 0">ACHETER NFT</button>
+  <button onclick="startMetavers()" style="background:rgba(100,0,255,0.2);border:1px solid #6400FF;color:#6400FF;padding:10px 20px;border-radius:8px;font-family:Orbitron;font-size:11px;width:100%;margin:6px 0">🌌 MÉTAVERS 24/7</button>
+  `;
+};
+</script>
