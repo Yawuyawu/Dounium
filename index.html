@@ -591,3 +591,99 @@ window.onload = function(){
 </script>
 </body>
 </html>
+<script>
+// DASH OMEGA : 4 LOIS VISIBLES HOME
+APPS.MAP.live = async function(){
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 4 LOIS OMEGA ACTIVES</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0">
+      <button onclick="showTP()" class="glass-btn omega">⚛️ TÉLÉPORTATION<br><span style="font-size:8px">Corps → Lumière</span></button>
+      <button onclick="showHive()" class="glass-btn omega">🧠 HIVE-MIND<br><span style="font-size:8px">Esprit → Ruche</span></button>
+      <button onclick="showBigBang()" class="glass-btn omega">🌌 BIG BANG<br><span style="font-size:8px">Univers → Toi</span></button>
+      <button onclick="showHolo()" class="glass-btn omega">🔦 HOLOGRAMME<br><span style="font-size:8px">Matière → Air</span></button>
+    </div>
+  </div>
+  
+  <div id="omegaAction" class="glass-card" style="display:none"></div>
+  
+  <div class="glass-card">
+    <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE FRÈRES LIVE</div>
+    <div style="display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap">
+      <button onclick="zoomGlobe('world')" class="glass-btn ${currentZoom==='world'?'omega':''}">MONDE</button>
+      <button onclick="zoomGlobe('local')" class="glass-btn ${currentZoom==='local'?'omega':''}">MON PAYS</button>
+      <button onclick="toggleGPS()" class="glass-btn">📍 GPS</button>
+      <button onclick="startAR()" class="glass-btn">📷 AR</button>
+      <button onclick="enrollFace()" class="glass-btn">👤 FACE</button>
+      <button onclick="connectXReal()" class="glass-btn">🕶️ XR</button>
+    </div>
+  </div>
+  
+  <canvas id="globe" width="300" height="300" style="border:1px solid var(--glass-border);border-radius:50%;display:block;margin:0 auto"></canvas>
+  <div class="glass-card" style="text-align:center">
+    <div class="stat-glow" id="globeStats">0 frères</div>
+  </div>
+  <button onclick="pingBrothers()" class="glass-btn omega" style="width:100%;margin-top:12px">📡 PING HALL</button>
+  `;
+  initGlobe();
+  updateGlobeMarkers();
+};
+
+window.showTP = function(){
+  const a = document.getElementById('omegaAction');
+  a.style.display='block';
+  a.innerHTML = `
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">⚛️ TÉLÉPORTATION QUANTIQUE</div>
+  <input id="tpDest" placeholder="Destination: Tokyo, New York..." class="glass-btn" style="width:100%;text-align:left;margin:8px 0">
+  <button onclick="teleportBody()" class="glass-btn omega" style="width:100%">DISSOLVER + RECONSTRUIRE 0.8s</button>
+  <div id="tpStatus" style="font-size:9px;color:#AAA;margin-top:8px">État: Scanner atomique prêt</div>
+  `;
+};
+
+window.showHive = function(){
+  const a = document.getElementById('omegaAction');
+  a.style.display='block';
+  a.innerHTML = `
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">🧠 HIVE-MIND COLLECTIF</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">QI Collectif: 10,247 • Cerveaux: 42</div>
+  <button onclick="broadcastThought('attack')" class="glass-btn" style="width:100%;margin:4px 0;background:rgba(255,0,0,0.2)">PENSE: ATTAQUE MASSE</button>
+  <button onclick="broadcastThought('build')" class="glass-btn" style="width:100%;margin:4px 0;background:rgba(0,255,0,0.2)">PENSE: CONSTRUIRE</button>
+  <button onclick="joinHiveMind()" class="glass-btn omega" style="width:100%;margin:4px 0">FUSIONNER CERVEAU</button>
+  `;
+};
+
+window.showBigBang = function(){
+  const a = document.getElementById('omegaAction');
+  a.style.display='block';
+  a.innerHTML = `
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">🌌 BIG BANG CRÉATEUR</div>
+  <input id="uniName" placeholder="Nom univers..." class="glass-btn" style="width:100%;text-align:left;margin:4px 0">
+  <input id="uniGravity" placeholder="Gravité 9.8=Terre" class="glass-btn" style="width:100%;text-align:left;margin:4px 0">
+  <input id="uniTime" placeholder="Temps x1=normal" class="glass-btn" style="width:100%;text-align:left;margin:4px 0">
+  <button onclick="createUniverseOmega()" class="glass-btn omega" style="width:100%;margin:8px 0">CRÉER UNIVERS</button>
+  `;
+};
+
+window.showHolo = function(){
+  const a = document.getElementById('omegaAction');
+  a.style.display='block';
+  a.innerHTML = `
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">🔦 HOLOGRAMME IRL</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Projecteur laser USB requis</div>
+  <button onclick="connectProjector()" class="glass-btn omega" style="width:100%;margin:8px 0">CONNECTER PROJECTEUR</button>
+  <button onclick="simuHolo()" class="glass-btn" style="width:100%;margin:4px 0">SIMU NFT 3M ÉCRAN</button>
+  `;
+};
+
+window.createUniverseOmega = function(){
+  const name = document.getElementById('uniName').value||'Univers-'+Date.now();
+  const gravity = document.getElementById('uniGravity').value||'9.8';
+  const time = document.getElementById('uniTime').value||'1';
+  alert(`🌌 Big Bang: "${name}" créé\nGravité:${gravity}\nTemps:x${time}\nTu es Dieu de cet univers`);
+};
+
+window.simuHolo = function(){
+  alert('🔦 HOLO SIMU: NFT 3m flotte écran\nTouche = achat + vibre');
+};
+</script>
