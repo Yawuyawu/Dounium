@@ -2716,3 +2716,29 @@ document.getElementById('globe').addEventListener('click',function(e){
 });
 console.log('🌍 RÉSEAU ACTIF: Globe connecté au monde');
 </script>
+<script>
+// v11.2 FIX FINAL : GLOBE APRÈS MAP.LIVE
+const originalMapLive = APPS.MAP.live;
+APPS.MAP.live = async function(){
+  await originalMapLive.apply(this, arguments);
+  
+  const omega = document.getElementById('omegaAction');
+  if(!omega) return;
+  
+  // 1. Injecte canvas si absent
+  if(!document.getElementById('globe')){
+    omega.insertAdjacentHTML('afterbegin', `
+      <div style="text-align:center;margin:20px 0">
+        <canvas id="globe" width="300" height="300" 
+        style="border:2px solid #FFD700;border-radius:50%;display:block;margin:0 auto;background:#000"></canvas>
+        <div id="globeStats" style="font-size:10px;color:#FFD700;margin-top:8px">0 frères connectés</div>
+      </div>
+    `);
+  }
+  
+  // 2. Force initGlobe ligne 121
+  setTimeout(initGlobe, 50);
+  
+  console.log('🌍 GLOBE: Injecté + initGlobe ligne 121 appelé');
+};
+</script>
