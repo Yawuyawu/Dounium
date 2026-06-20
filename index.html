@@ -418,3 +418,213 @@ async function loadVocals(){
   feed.innerHTML = vocals.map(v=>{const d=JSON.parse(v);const ago=Math.floor((Date.now()-d.ts)/1000);return `<div style="background:rgba(255,215,0,0.1);padding:8px;border-radius:8px;margin:6px 0;font-size:11px"><b>${d.name}</b> • ${ago}s <audio controls src="${d.b64}" style="width:100%;height:30px;margin-top:4px"></audio></div>`;}).join('');
 }
 </script>
+<script>
+// MAP LIVE 3D GLOBE
+let globeScene, globeCamera, globeRenderer, globeMarkers=[];
+
+APPS.MAP.live = async function(){
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div style="margin:10px 0">
+  <div style="font-size:12px;margin-bottom:8px">🗺️ GLOBE FRÈRES LIVE</div>
+  <canvas id="globe" width="300" height="300" style="border:1px solid #FFD700;border-radius:50%"></canvas>
+  <div id="globeStats" style="font-size:11px;margin-top:8px;color:#00FF88">0 frères géolocalisés</div>
+  <button onclick="pingBrothers()" style="background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px 16px;border-radius:8px;margin-top:8px;font-family:Orbitron">📡 PING HALL</button>
+  </div>`;
+  initGlobe();
+  updateGlobeMarkers();
+};
+
+function initGlobe(){
+  const canvas = document.getElementById('globe');
+  if(!canvas || !window.THREE) {
+    // Load Three.js
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+    script.onload = ()=>{initGlobe();};
+    document.head.appendChild(script);
+    return;
+  }
+  globeScene = new THREE.Scene();
+  globeCamera = new THREE.PerspectiveCamera(50,1,0.1,1000);
+  globeRenderer = new THREE.WebGLRenderer({canvas,alpha:true});
+  globeRenderer.setSize(300,300);
+  
+  const geometry = new THREE.SphereGeometry(1,32,32);
+  const material = new THREE.MeshBasicMaterial({color:0x001122,wireframe:true});
+  const sphere = new THREE.Mesh(geometry,material);
+  globeScene.add(sphere);
+  globeCamera.position.z = 3;
+  
+  function animate(){
+    requestAnimationFrame(animate);
+    sphere.rotation.y += 0.005;
+    globeMarkers.forEach(m=>m.rotation.y += 0.005);
+    globeRenderer.render(globeScene,globeCamera);
+  }
+  animate();
+}
+
+async function updateGlobeMarkers(){
+  const r = await fetch(`${UPSTASH_URL}/hgetall/geo:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  const raw = data.result||[];
+  globeMarkers.forEach(m=>globeScene.remove(m));
+  globeMarkers=[];
+  
+  for(let i=0;i<raw.length;i+=2){
+    try{
+      const geo = JSON.parse(raw[i+1]);
+      if(Date.now()-geo.ts>30000) continue;
+      const lat = geo.lat*Math.PI/180;
+      const lon = geo.lon*Math.PI/180;
+      const marker = new THREE.Mesh(new THREE.SphereGeometry(0.05,8,8),new THREE.MeshBasicMaterial({color:0xFFD700}));
+      marker.position.set(Math.cos(lat)*Math.cos(lon)*1.1, Math.sin(lat)*1.1, Math.cos(lat)*Math.sin(lon)*1.1);
+      globeScene.add(marker);
+      globeMarkers.push(marker);
+    }catch(e){}
+  }
+  document.getElementById('globeStats').textContent = `${globeMarkers.length} frères géolocalisés`;
+}
+
+window.pingBrothers = async function(){
+  if(!navigator.geolocation) return alert('GPS requis');
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    const geo = {lat:pos.coords.latitude,lon:pos.coords.longitude,uid:UID,ts:Date.now()};
+    await fetch(`${UPSTASH_URL}/hset/geo:${ROOM}/${UID}`,{
+      method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(geo)
+    });
+    await fetch(`${UPSTASH_URL}/expire/geo:${ROOM}/60`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+    updateGlobeMarkers();
+    alert('📡 Position partagée au Hall');
+  });
+};
+
+// WALLET P2P DOUNIUM COIN
+let myBalance = parseInt(localStorage.getItem('dounium_balance')||'100');
+
+APPS.WALLET.live = async function(){
+  await syncWallet();
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div style="margin:10px 0">
+  <div style="font-size:24px;color:#FFD700;margin:12px 0">${myBalance} 💰</div>
+  <div style="font-size:10px;color:rgba(255,255,255,0.6)">DOUNUIM COIN</div>
+  <div style="display:flex;gap:8px;margin:16px 0">
+  <input id="sendTo" placeholder="Nom frère" style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:8px;font-family:Orbitron;font-size:11px">
+  <input id="sendAmount" type="number" placeholder="Montant" style="width:80px;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:8px;font-family:Orbitron;font-size:11px">
+  </div>
+  <button onclick="sendCoin()" style="background:#00FF88;color:#000;border:none;padding:10px 24px;border-radius:8px;font-family:Orbitron;font-weight:700">💸 SEND</button>
+  <div id="walletTx" style="margin-top:16px;max-height:120px;overflow-y:auto;font-size:10px"></div>
+  </div>`;
+  loadWalletTx();
+};
+
+async function syncWallet(){
+  const r = await fetch(`${UPSTASH_URL}/hget/wallet:${ROOM}/${UID}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  if(data.result) myBalance = parseInt(data.result);
+  localStorage.setItem('dounium_balance',myBalance);
+}
+
+window.sendCoin = async function(){
+  const to = document.getElementById('sendTo').value.trim();
+  const amount = parseInt(document.getElementById('sendAmount').value);
+  if(!to || !amount || amount<=0 || amount>myBalance) return alert('Montant invalide');
+  
+  const toUser = hallUsers.find(u=>u.name.toLowerCase()===to.toLowerCase());
+  if(!toUser) return alert('Frère pas dans le Hall');
+  
+  myBalance -= amount;
+  await fetch(`${UPSTASH_URL}/hset/wallet:${ROOM}/${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:String(myBalance)});
+  
+  const toR = await fetch(`${UPSTASH_URL}/hget/wallet:${ROOM}/${toUser.uid}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const toD = await toR.json();
+  const toBal = parseInt(toD.result||'0')+amount;
+  await fetch(`${UPSTASH_URL}/hset/wallet:${ROOM}/${toUser.uid}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:String(toBal)});
+  
+  await fetch(`${UPSTASH_URL}/lpush/tx:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({from:USERNAME,to:to,amount,ts:Date.now()})});
+  await fetch(`${UPSTASH_URL}/ltrim/tx:${ROOM}/0/19`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  
+  localStorage.setItem('dounium_balance',myBalance);
+  APPS.WALLET.live();
+  alert(`✅ ${amount} 💰 envoyé à ${to}`);
+};
+
+async function loadWalletTx(){
+  const r = await fetch(`${UPSTASH_URL}/lrange/tx:${ROOM}/0/9`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  const txs = data.result||[];
+  const feed = document.getElementById('walletTx');
+  if(!feed) return;
+  feed.innerHTML = txs.map(t=>{
+    const d=JSON.parse(t);
+    const ago = Math.floor((Date.now()-d.ts)/60000);
+    return `<div style="background:rgba(255,215,0,0.05);padding:6px;border-radius:6px;margin:4px 0">${d.from} → ${d.to}: ${d.amount}💰 • ${ago}min</div>`;
+  }).join('');
+}
+
+// GAME RAP BATTLE 1v1 LIVE
+let battleActive=false, battleOpponent=null, battleTimer=0, battleInterval;
+
+APPS.GAME.live = async function(){
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div style="margin:10px 0">
+  <div style="font-size:12px;margin-bottom:8px">🎮 RAP BATTLE HALL</div>
+  <div id="battleStatus" style="font-size:14px;color:#FFD700;margin:12px 0">Choisis un frère</div>
+  <div id="battleRoster" style="max-height:100px;overflow-y:auto;margin:8px 0"></div>
+  <div id="battleTimer" style="font-size:32px;color:#FF0066;margin:12px 0;display:none">30s</div>
+  <div id="battleScore" style="font-size:11px;display:none">Toi: 0 🔥 • Adversaire: 0 🔥</div>
+  <button id="battleBtn" onclick="startBattle()" style="background:#FF0066;color:#FFF;border:none;padding:10px 24px;border-radius:8px;font-family:Orbitron;font-weight:700;display:none">🎤 COMMENCER</button>
+  </div>`;
+  renderBattleRoster();
+};
+
+function renderBattleRoster(){
+  const roster = document.getElementById('battleRoster');
+  const available = hallUsers.filter(u=>u.uid!==UID);
+  if(!available.length){roster.innerHTML='<div style="color:rgba(255,255,255,0.5)">Aucun frère dispo</div>';return;}
+  roster.innerHTML = available.map(u=>`<button onclick="challengeBrother('${u.uid}','${u.name}')" style="background:rgba(255,215,0,0.1);border:1px solid #FFD700;color:#FFF;padding:8px;margin:4px;border-radius:8px;font-family:Orbitron;font-size:11px;width:100%">${u.country||'🌍'} ${u.name}</button>`).join('');
+}
+
+window.challengeBrother = async function(uid,name){
+  battleOpponent={uid,name};
+  document.getElementById('battleStatus').textContent=`VS ${name}`;
+  document.getElementById('battleBtn').style.display='block';
+  await fetch(`${UPSTASH_URL}/lpush/battle:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'challenge',from:UID,fromName:USERNAME,to:uid,ts:Date.now()})});
+};
+
+window.startBattle = async function(){
+  if(!battleOpponent) return;
+  battleActive=true; battleTimer=30;
+  document.getElementById('battleTimer').style.display='block';
+  document.getElementById('battleScore').style.display='block';
+  document.getElementById('battleBtn').style.display='none';
+  document.getElementById('battleStatus').textContent='🎤 RAP 30s!';
+  
+  await fetch(`${UPSTASH_URL}/lpush/battle:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'start',player1:UID,player2:battleOpponent.uid,ts:Date.now()})});
+  
+  battleInterval = setInterval(()=>{
+    battleTimer--;
+    document.getElementById('battleTimer').textContent=battleTimer+'s';
+    if(battleTimer<=0){
+      clearInterval(battleInterval);
+      endBattle();
+    }
+  },1000);
+};
+
+async function endBattle(){
+  battleActive=false;
+  const myScore = Math.floor(Math.random()*50)+50;
+  const oppScore = Math.floor(Math.random()*50)+50;
+  document.getElementById('battleScore').innerHTML=`Toi: ${myScore} 🔥 • ${battleOpponent.name}: ${oppScore} 🔥`;
+  document.getElementById('battleStatus').textContent = myScore>oppScore?'🏆 VICTOIRE!':myScore<oppScore?'💀 DÉFAITE':'🤝 ÉGALITÉ';
+  document.getElementById('battleTimer').style.display='none';
+  
+  await fetch(`${UPSTASH_URL}/lpush/battle:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'end',winner:myScore>oppScore?UID:battleOpponent.uid,score1:myScore,score2:oppScore,ts:Date.now()})});
+  
+  setTimeout(()=>{APPS.GAME.live();},3000);
+}
+</script>
