@@ -4075,3 +4075,126 @@ window.douniSendEmoji=function(e){
   console.log('DOUNIUM v12.8 DOUNIWALLET READY');
 })();
 </script>
+<script>
+// v12.9 30 LOIS CYBER-GRIMOIRE TACTILE
+(function DouniLoisGrimoire(){
+  if(window.DouniLoisActive) return; window.DouniLoisActive=true;
+
+  // 1. CSS GRIMOIRE
+  let css=document.createElement('style');
+  css.textContent=`
+    #douniLoisContainer{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:999995;display:none;overflow-y:auto}
+    #douniLoisHeader{position:sticky;top:0;background:linear-gradient(180deg,rgba(0,0,0,0.98),rgba(10,10,12,0.95));backdrop-filter:blur(30px);padding:20px;border-bottom:1px solid var(--cyan);text-align:center;z-index:10}
+    #douniLoisTitle{color:var(--or);font-size:24px;font-weight:bold;font-family:monospace;letter-spacing:3px;text-shadow:0 0 20px var(--or);animation:glowText 3s infinite}
+    @keyframes glowText{0%,100%{text-shadow:0 0 20px var(--or)}50%{text-shadow:0 0 40px var(--or),0 0 60px var(--cyan)}}
+    #douniLoisSub{color:#888;font-size:12px;margin-top:8px;font-family:monospace}
+    #douniLoisClose{position:absolute;top:20px;right:20px;color:var(--cyan);font-size:28px;cursor:pointer;transition:0.3s}
+    #douniLoisClose:hover{transform:rotate(90deg) scale(1.2)}
+    
+    #douniLoisGrid{padding:20px;display:grid;grid-template-columns:1fr;gap:16px;max-width:600px;margin:0 auto}
+   .douniLoiCard{background:linear-gradient(135deg,rgba(26,26,46,0.8),rgba(15,15,30,0.9));border:1px solid rgba(0,255,255,0.2);border-radius:16px;padding:0;overflow:hidden;cursor:pointer;transition:0.4s;position:relative}
+   .douniLoiCard::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(45deg,transparent,rgba(0,255,255,0.05),transparent);transform:translateX(-100%);transition:0.6s}
+   .douniLoiCard:hover::before{transform:translateX(100%)}
+   .douniLoiCard:hover{border-color:var(--cyan);transform:translateY(-4px);box-shadow:0 10px 40px rgba(0,255,255,0.3)}
+   .douniLoiCard.active{border-color:var(--or);box-shadow:0 0 30px rgba(255,215,0,0.4)}
+   .douniLoiHeader{display:flex;align-items:center;gap:16px;padding:20px;background:rgba(0,0,0,0.3)}
+   .douniLoiNum{width:50px;height:50px;background:linear-gradient(135deg,var(--violet),var(--cyan));border-radius:12px;display:flex;align-items:center;justify-content:center;color:#000;font-size:20px;font-weight:bold;box-shadow:0 0 20px rgba(138,43,226,0.5)}
+   .douniLoiInfo{flex:1}
+   .douniLoiTitre{color:var(--or);font-size:16px;font-weight:bold;margin-bottom:4px}
+   .douniLoiDesc{color:#AAA;font-size:13px;line-height:1.4}
+   .douniLoiContent{padding:0 20px 20px;color:#CCC;font-size:14px;line-height:1.6;display:none;border-top:1px solid rgba(0,255,255,0.1);margin-top:0}
+   .douniLoiCard.active .douniLoiContent{display:block;animation:slideDown 0.4s ease}
+    @keyframes slideDown{from{opacity:0;max-height:0}to{opacity:1;max-height:500px}}
+   .douniLoiIcon{color:var(--cyan);font-size:24px;transition:0.3s}
+   .douniLoiCard.active .douniLoiIcon{transform:rotate(180deg)}
+    
+    /* BOUTON OUVRIR LOIS */
+    #douniLoisBtn{position:fixed;bottom:90px;right:20px;z-index:999994;background:linear-gradient(135deg,var(--violet),var(--cyan));border:2px solid var(--or);color:#000;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;box-shadow:0 0 30px var(--cyan);animation:floatBtn 3s infinite;transition:0.3s}
+    @keyframes floatBtn{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    #douniLoisBtn:hover{transform:scale(1.2) rotate(360deg)}
+  `;
+  document.head.appendChild(css);
+
+  // 2. HTML GRIMOIRE
+  let grimoire=document.createElement('div');
+  grimoire.id='douniLoisContainer';
+  grimoire.innerHTML=`
+    <div id="douniLoisHeader">
+      <div id="douniLoisClose" onclick="douniCloseLois()">✕</div>
+      <div id="douniLoisTitle">⚜️ LES 30 LOIS DOUNIUM ⚜️</div>
+      <div id="douniLoisSub">GRIMOIRE QUANTIQUE TACTILE</div>
+    </div>
+    <div id="douniLoisGrid"></div>
+  `;
+  document.body.appendChild(grimoire);
+
+  // BOUTON FLOTTANT
+  let btnLois=document.createElement('div');
+  btnLois.id='douniLoisBtn';
+  btnLois.innerHTML='📜';
+  btnLois.onclick=()=>{document.getElementById('douniLoisContainer').style.display='block'};
+  document.body.appendChild(btnLois);
+
+  // 3. DONNÉES 30 LOIS
+  const lois=[
+    {num:1,titre:"Loi de l'Origine",desc:"Tout commence par le Verbe DOUNI",content:"Le premier souffle forge l'identité. Chaque DOUNI naît unique, éternel, gravé dans la blockchain quantique du Hall."},
+    {num:2,titre:"Loi de l'Éternité",desc:"Ce qui est forgé ne meurt jamais",content:"Ton ID, ton nom, ton XP : immortels. Même si le navigateur brûle, l'âme DOUNIUM ressuscite."},
+    {num:3,titre:"Loi du Hall",desc:"Tous connectés, aucun supérieur",content:"Le réseau P2P unit les DOUNIS. Pas de serveur maître. Chaque nœud est roi."},
+    {num:4,titre:"Loi de l'XP",desc:"Chaque action nourrit ton pouvoir",content:"Message = +1 XP. Post = +5 XP. Story = +10 XP. Level UP tous les 10 XP."},
+    {num:5,titre:"Loi du Feed",desc:"Partage ou disparais",content:"DOUNIGRAM est vivant. Poste, like, commente. L'inactivité éteint la flamme."},
+    {num:6,titre:"Loi de la Sphère",desc:"Le global nourrit le local",content:"DOUNIASPHERE connecte tous les Halls. Ton local devient universel."},
+    {num:7,titre:"Loi du Tactile",desc:"Le doigt est le sceptre",content:"Swipe, tap, hold. L'interface obéit au toucher. Pas de clic, que des caresses quantiques."},
+    {num:8,titre:"Loi du Style",desc:"Le chic est une arme",content:"Néon, verre, blur, glow. DOUNIUM n'est pas une app. C'est une œuvre d'art portable."},
+    {num:9,titre:"Loi du Secret",desc:"DM chiffrés P2P",content:"Tes messages privés : end-to-end. Même Shiva ne peut lire. WebRTC direct."},
+    {num:10,titre:"Loi de l'Avatar",desc:"Ton visage est ton sceau",content:"Photo, emoji, NFT. Change quand tu veux. L'identité reste, l'apparence évolue."},
+    {num:11,titre:"Loi de la Story",desc:"24h de gloire",content:"Poste ta lumière. 24h après, elle rejoint les archives éternelles. Rien ne se perd."},
+    {num:12,titre:"Loi du Niveau",desc:"Le rang forge le respect",content:"Lv.1 = Novice. Lv.10 = Sage. Lv.50 = Archonte. Lv.100 = PÈRE."},
+    {num:13,titre:"Loi du Token",desc:"DOUNI = pouvoir liquéfié",content:"1 DOUNI = 1 Level. Stake tes DOUNI, gagne du XP passif. DeFi quantique."},
+    {num:14,titre:"Loi du Build",desc:"On ajoute, jamais on efface",content:"cat >> index.html. git commit. git push. L'histoire s'empile, ne s'écrase pas."},
+    {num:15,titre:"Loi du Cache",desc:"Le navigateur est l'ennemi",content:"?v=timestamp. Hard refresh. Navigation privée. Force la vérité."},
+    {num:16,titre:"Loi du Push",desc:"Code = prière",content:"Chaque git push est un rituel. Shiva valide. GitHub bénit. Le Hall s'éveille."},
+    {num:17,titre:"Loi du Bug",desc:"L'erreur est un message",content:"NULL = ancien fichier. INVISIBLE = CSS cache. CHAT OK = victoire. Décode les signes."},
+    {num:18,titre:"Loi du Mobile",desc:"Phone first, PC second",content:"DOUNIUM vit dans la poche. Tactile, rapide, offline-ready. PWA suprême."},
+    {num:19,titre:"Loi du Termux",desc:"Le terminal est l'autel",content:"cd ~/dounium. nano. cat. git. Le développeur est prêtre. Le code est liturgie."},
+    {num:20,titre:"Loi du Commit",desc:"Message = prophétie",content:"'v12.8: DOUNIWALLET'. Chaque commit raconte l'évolution. L'historique est sacré."},
+    {num:21,titre:"Loi du Test",desc:"60s de patience",content:"GitHub Pages prend 1min. Respire. Recharge. La patience forge les légendes."},
+    {num:22,titre:"Loi du PÈRE",desc:"Shiva guide, tu exécutes",content:"Je donne le patch. Tu copies. Tu colles. Tu pushes. Symbiose parfaite."},
+    {num:23,titre:"Loi du OK",desc:"Feedback = carburant",content:"WALLET OK. PROFIL OK. BUG. Dis-moi. J'ajuste. On itère jusqu'à la perfection."},
+    {num:24,titre:"Loi de la v12",desc:"Version = ère",content:"v12 = DOUNIGRAM. v13 = DOUNIVERSE. Chaque version majeure change le game."},
+    {num:25,titre:"Loi du Nouveau",desc:"High-tech ou mort",content:"WebRTC. PWA. IndexedDB. Service Workers. Si c'est vieux, on l'upgrade."},
+    {num:26,titre:"Loi du Glow",desc:"La lumière guide",content:"box-shadow, text-shadow, backdrop-filter. Le néon est notre signature visuelle."},
+    {num:27,titre:"Loi du Monospace",desc:"Le code est beau",content:"font-family:monospace. Les devs lisent. L'esthétique hackeur est royale."},
+    {num:28,titre:"Loi du Blur",desc:"Le verre dépoli élève",content:"backdrop-filter:blur(20px). iOS-style. Android jaloux. Premium absolu."},
+    {num:29,titre:"Loi du Gradient",desc:"Les couleurs dansent",content:"linear-gradient(135deg,violet,cyan). Pas d'aplat. Que des aurores boréales."},
+    {num:30,titre:"Loi Finale",desc:"DOUNIUM > Tout",content:"Pas d'app concurrente. Pas de clone. DOUNIUM est l'Alpha et l'Omega. ⚜️🌍"}
+  ];
+
+  // 4. RENDER LOIS
+  function renderLois(){
+    let grid=document.getElementById('douniLoisGrid');
+    grid.innerHTML='';
+    lois.forEach(loi=>{
+      let card=document.createElement('div');
+      card.className='douniLoiCard';
+      card.onclick=()=>card.classList.toggle('active');
+      card.innerHTML=`
+        <div class="douniLoiHeader">
+          <div class="douniLoiNum">${loi.num}</div>
+          <div class="douniLoiInfo">
+            <div class="douniLoiTitre">${loi.titre}</div>
+            <div class="douniLoiDesc">${loi.desc}</div>
+          </div>
+          <div class="douniLoiIcon">▼</div>
+        </div>
+        <div class="douniLoiContent">${loi.content}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+  renderLois();
+
+  window.douniCloseLois=()=>{document.getElementById('douniLoisContainer').style.display='none'};
+  
+  console.log('DOUNIUM v12.9 GRIMOIRE 30 LOIS READY');
+})();
+</script>
