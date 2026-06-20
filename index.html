@@ -147,6 +147,7 @@ body{
   border-radius:50%;
   pointer-events:none;
   animation:particleFloat 8s linear infinite;
+  z-index:0;
 }
 
 @keyframes particleFloat{
@@ -223,6 +224,10 @@ canvas{
   border-radius:12px;
   background:var(--glass);
   backdrop-filter:blur(10px);
+  width:100%;
+  max-width:300px;
+  margin:0 auto;
+  display:block;
 }
 
 input{
@@ -410,7 +415,8 @@ function initGlobe(){
   const ctx = canvas.getContext('2d');
   ctx.fillStyle='#000';
   ctx.fillRect(0,0,300,300);
-  ctx.strokeStyle=var(--hall-gold);
+  ctx.strokeStyle='#FFD700';
+  ctx.lineWidth=2;
   ctx.beginPath();
   ctx.arc(150,150,140,0,Math.PI*2);
   ctx.stroke();
@@ -578,8 +584,10 @@ function startLocalChat(){
   alert('💬 Chat pays actif');
 }
 
-// INIT
-APPS.MAP.live();
+// INIT HALL
+window.onload = function(){
+  APPS.MAP.live();
+};
 </script>
 </body>
 </html>
