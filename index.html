@@ -2341,7 +2341,7 @@ initGlobe=function(){
 
 async function updateReseau(){
   if(!reseauActive)return;
-  const r=await fetch(`${UPSTASH_URL}/smembers/agora:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
+  const r=await fetch(`${UPSTASH_URL}/smembers/douniasphere:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
   if(!r.result)return;
   
   brotherNodes=r.result.map(uid=>{
@@ -2428,7 +2428,7 @@ function projectGlobe(lat,lng){
 
 // PING DEPUIS GLOBE
 window.pingFromGlobe=function(targetUid){
-  fetch(`${UPSTASH_URL}/publish/agora:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'PING',from:UID,to:targetUid,ts:Date.now()})});
+  fetch(`${UPSTASH_URL}/publish/douniasphere:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'PING',from:UID,to:targetUid,ts:Date.now()})});
   alert(`📡 PING ENVOYÉ\n\nToi → ${targetUid}\n\nOnde partie sur le globe`);
 };
 
@@ -2472,14 +2472,14 @@ window.showAgora=function(){
 window.joinAgora=async function(){
   const s=document.getElementById('agoraStatus');
   s.innerText='Connexion Agora...';await new Promise(r=>setTimeout(r,1000));
-  await fetch(`${UPSTASH_URL}/sadd/agora:${agoraRoom}/${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  await fetch(`${UPSTASH_URL}/sadd/douniasphere:${agoraRoom}/${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
   s.innerText='État: CONNECTÉ. Hall partagé actif';
   setInterval(updateAgoraList,2000);
   alert('🌐 AGORA REJOINTE\n\nTu es maintenant en ligne\nDOUNIS connectés visibles\nActions synchronisées\n\nJoue. Execute. Trade. Sync.');
 };
 
 async function updateAgoraList(){
-  const r=await fetch(`${UPSTASH_URL}/smembers/agora:${agoraRoom}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
+  const r=await fetch(`${UPSTASH_URL}/smembers/douniasphere:${agoraRoom}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
   const l=document.getElementById('agoraList');
   if(!l||!r.result)return;
   agoraOnline=r.result;
@@ -2490,26 +2490,26 @@ async function updateAgoraList(){
 window.agoraPlay=async function(){
   if(agoraOnline.length<2)return alert('Agora vide. Attends des DOUNIS');
   const target=agoraOnline.filter(u=>u!==UID)[Math.floor(Math.random()*(agoraOnline.length-1))];
-  await fetch(`${UPSTASH_URL}/publish/agora:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'PLAY',from:UID,to:target,ts:Date.now()})});
+  await fetch(`${UPSTASH_URL}/publish/douniasphere:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'PLAY',from:UID,to:target,ts:Date.now()})});
   alert(`🎮 DÉFI LANCÉ\n\nToi vs ${target}\n\nGagnant = +100 Pouvoir\nPerdant = -50\n\nQue le meilleur gagne`);
 };
 
 window.agoraExecute=async function(){
   const cmd=prompt('Commande globale pour Agora:');
   if(!cmd)return;
-  await fetch(`${UPSTASH_URL}/publish/agora:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'EXECUTE',from:UID,cmd:cmd,ts:Date.now()})});
+  await fetch(`${UPSTASH_URL}/publish/douniasphere:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'EXECUTE',from:UID,cmd:cmd,ts:Date.now()})});
   alert(`⚡ EXECUTE GLOBAL\n\nCommande: ${cmd}\nEnvoyée à ${agoraOnline.length} DOUNIS\n\nEffet synchronisé`);
 };
 
 window.agoraTrade=async function(){
   if(agoraOnline.length<2)return alert('Personne à trader');
   const target=agoraOnline.filter(u=>u!==UID)[0];
-  await fetch(`${UPSTASH_URL}/publish/agora:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'TRADE',from:UID,to:target,offer:'GENE',ts:Date.now()})});
+  await fetch(`${UPSTASH_URL}/publish/douniasphere:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'TRADE',from:UID,to:target,offer:'GENE',ts:Date.now()})});
   alert(`🔗 TRADE PROPOSÉ\n\nToi → ${target}\nOffre: GÈNE DIVIN\n\nEn attente acceptation`);
 };
 
 window.agoraSync=async function(){
-  await fetch(`${UPSTASH_URL}/publish/agora:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'SYNC',from:UID,power:absoluPower,ts:Date.now()})});
+  await fetch(`${UPSTASH_URL}/publish/douniasphere:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'SYNC',from:UID,power:absoluPower,ts:Date.now()})});
   alert(`🌀 SYNC RAID LANCÉ\n\nDOUNIS: ${agoraOnline.length}\nPouvoir total: ${agoraOnline.length * 1000}\n\nFusion temporaire active\nVous êtes Légion`);
 };
 
@@ -2544,7 +2544,7 @@ initGlobe=function(){
 
 async function updateReseau(){
   if(!reseauActive)return;
-  const r=await fetch(`${UPSTASH_URL}/smembers/agora:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
+  const r=await fetch(`${UPSTASH_URL}/smembers/douniasphere:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
   if(!r.result)return;
   
   brotherNodes=r.result.map(uid=>{
@@ -2631,7 +2631,7 @@ function projectGlobe(lat,lng){
 
 // PING DEPUIS GLOBE
 window.pingFromGlobe=function(targetUid){
-  fetch(`${UPSTASH_URL}/publish/agora:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'PING',from:UID,to:targetUid,ts:Date.now()})});
+  fetch(`${UPSTASH_URL}/publish/douniasphere:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'PING',from:UID,to:targetUid,ts:Date.now()})});
   alert(`📡 PING ENVOYÉ\n\nToi → ${targetUid}\n\nOnde partie sur le globe`);
 };
 
@@ -2663,7 +2663,7 @@ initGlobe=function(){
 };
 async function updateReseau(){
   if(!reseauActive)return;
-  const r=await fetch(`${UPSTASH_URL}/smembers/agora:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
+  const r=await fetch(`${UPSTASH_URL}/smembers/douniasphere:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
   if(!r.result)return;
   brotherNodes=r.result.map(uid=>{
     const hash=uid.split('').reduce((a,b)=>a+b.charCodeAt(0),0);
@@ -2702,7 +2702,7 @@ function projectGlobe(lat,lng){
   const z=r*Math.sin(phi)*Math.sin(theta);if(z<0)return null;return {x,y};
 }
 window.pingFromGlobe=function(targetUid){
-  fetch(`${UPSTASH_URL}/publish/agora:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'PING',from:UID,to:targetUid,ts:Date.now()})});
+  fetch(`${UPSTASH_URL}/publish/douniasphere:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'PING',from:UID,to:targetUid,ts:Date.now()})});
   alert(`📡 PING ENVOYÉ\n\nToi → ${targetUid}\n\nOnde partie sur le globe`);
 };
 document.getElementById('globe').addEventListener('click',function(e){
