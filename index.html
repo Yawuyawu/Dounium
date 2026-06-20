@@ -1579,3 +1579,341 @@ async function incrementViewer(){
   await fetch(`${UPSTASH_URL}/hset/finale:${ROOM}:viewers/${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:Date.now()});
 }
 </script>
+<script>
+// MAP v1.5 : NAVIGATION VOCALE P2P + ETA TEMPS RÉEL
+let voiceNavActive = false;
+let navTarget = null;
+
+window.toggleGPS = function(){
+  if(gpsInterval){
+    clearInterval(gpsInterval);
+    gpsInterval = null;
+    document.getElementById('gpsBtn').textContent = '📍 GPS LIVE';
+    document.getElementById('gpsBtn').style.background = 'rgba(0,255,136,0.2)';
+    document.getElementById('etaBox').style.display = 'none';
+    stopGPSTracking();
+  } else {
+    startGPSTracking();
+    document.getElementById('gpsBtn').textContent = '⏹️ STOP GPS';
+    document.getElementById('gpsBtn').style.background = 'rgba(255,0,0,0.2)';
+    document.getElementById('gpsBtn').style.borderColor = '#FF0000';
+    document.getElementById('gpsBtn').style.color = '#FF0000';
+  }
+};
+
+function startGPSTracking(){
+  if(!navigator.geolocation) return alert('GPS non supporté');
+  gpsInterval = setInterval(()=>{
+    navigator.geolocation.getCurrentPosition(async pos=>{
+      myLocation = {lat:pos.coords.latitude,lon:pos.coords.longitude,uid:UID,ts:Date.now(),speed:pos.coords.speed||0,heading:pos.coords.heading};
+      await fetch(`${UPSTASH_URL}/hset/gps:${ROOM}/${UID}`,{
+        method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(myLocation)
+      });
+      await fetch(`${UPSTASH_URL}/expire/gps:${ROOM}/120`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+      updateETAToBrothers();
+      if(voiceNavActive && navTarget) updateVoiceNav();
+    });
+  },3000);
+}
+
+async function updateETAToBrothers(){
+  if(!myLocation) return;
+  const r = await fetch(`${UPSTASH_URL}/hgetall/gps:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  const raw = data.result||[];
+  const brothers = [];
+  for(let i=0;i<raw.length;i+=2){
+    try{
+      const bro = JSON.parse(raw[i+1]);
+      if(bro.uid!==UID && Date.now()-bro.ts<60000) brothers.push(bro);
+    }catch(e){}
+  }
+  if(!brothers.length) return;
+  const etas = brothers.map(bro=>{
+    const dist = haversine(myLocation.lat,myLocation.lon,bro.lat,bro.lon);
+    const brother = hallUsers.find(u=>u.uid===bro.uid);
+    const bearing = calculateBearing(myLocation.lat,myLocation.lon,bro.lat,bro.lon);
+    return {name:brother?.name||'Frère',dist:dist.toFixed(1),country:brother?.country||'🌍',bearing,uid:bro.uid};
+  }).sort((a,b)=>a.dist-b.dist).slice(0,3);
+  
+  document.getElementById('etaBox').style.display = 'block';
+  document.getElementById('etaBox').innerHTML = `<div style="font-size:9px;color:#00FF88;margin-bottom:4px">📍 FRÈRES PROCHES</div>${etas.map(e=>`
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:3px 0">
+      <span>${e.name} ${e.country} • ${e.dist}km</span>
+      <button onclick="startVoiceNav('${e.uid}','${e.name}')" style="background:#00FF88;color:#000;border:none;padding:2px 6px;border-radius:4px;font-size:8px">GUIDER</button>
+    </div>`).join('')}`;
+}
+
+window.startVoiceNav = function(uid,name){
+  navTarget = {uid,name};
+  voiceNavActive = true;
+  alert(`🎤 Navigation vocale activée vers ${name}`);
+  speakDirection('Navigation démarrée vers '+name);
+};
+
+function updateVoiceNav(){
+  const target = hallUsers.find(u=>u.uid===navTarget.uid);
+  if(!target) return;
+  const r = fetch(`${UPSTASH_URL}/hget/gps:${ROOM}/${navTarget.uid}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}})
+   .then(r=>r.json()).then(data=>{
+      if(!data.result) return;
+      const bro = JSON.parse(data.result);
+      const dist = haversine(myLocation.lat,myLocation.lon,bro.lat,bro.lon);
+      const bearing = calculateBearing(myLocation.lat,myLocation.lon,bro.lat,bro.lon);
+      const direction = getDirectionText(bearing);
+      if(dist<0.05){
+        speakDirection('Tu es arrivé frère');
+        voiceNavActive=false;
+      } else if(Math.random()<0.3){ // 30% chance pour pas spam
+        speakDirection(`${navTarget.name} à ${Math.round(dist*1000)} mètres. ${direction}`);
+      }
+    });
+}
+
+function calculateBearing(lat1,lon1,lat2,lon2){
+  const dLon = (lon2-lon1)*Math.PI/180;
+  const y = Math.sin(dLon)*Math.cos(lat2*Math.PI/180);
+  const x = Math.cos(lat1*Math.PI/180)*Math.sin(lat2*Math.PI/180)-Math.sin(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.cos(dLon);
+  return (Math.atan2(y,x)*180/Math.PI+360)%360;
+}
+
+function getDirectionText(bearing){
+  if(bearing<45||bearing>315) return 'devant toi';
+  if(bearing<135) return 'à ta droite';
+  if(bearing<225) return 'derrière toi';
+  return 'à ta gauche';
+}
+
+function speakDirection(text){
+  if('speechSynthesis' in window){
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang='fr-FR';msg.rate=1.1;
+    speechSynthesis.speak(msg);
+  }
+}
+
+// WALLET v1.5 : VERNISSAGE LIVE + ENCHÈRES TEMPS RÉEL
+let auctionActive = null;
+let auctionInterval = null;
+
+APPS.WALLET.live = async function(){
+  await syncWallet();
+  await loadNFTs();
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div style="margin:10px 0">
+  <div style="font-size:24px;color:#FFD700;margin:12px 0">${myBalance} 💰</div>
+  <div style="display:flex;gap:8px;margin:16px 0;flex-wrap:wrap">
+    <button onclick="showWalletTab('send')" id="walletTabSend" style="flex:1;background:#FFD700;color:#000;border:none;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px">SEND</button>
+    <button onclick="showWalletTab('shop')" id="walletTabShop" style="flex:1;background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px">SHOP</button>
+    <button onclick="showWalletTab('mint')" id="walletTabMint" style="flex:1;background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px">MINT</button>
+    <button onclick="showWalletTab('mine')" id="walletTabMine" style="flex:1;background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px">MES NFT</button>
+    <button onclick="showWalletTab('gallery')" id="walletTabGallery" style="flex:1;background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px">GALERIE 3D</button>
+    <button onclick="showWalletTab('auction')" id="walletTabAuction" style="flex:1;background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px">VERNISSAGE</button>
+  </div>
+  <div id="walletTabContent"></div>
+  </div>`;
+  showWalletTab('send');
+  checkAuctionStatus();
+};
+
+window.showWalletTab = function(tab){
+  ['Send','Shop','Mint','Mine','Gallery','Auction'].forEach(t=>{
+    document.getElementById('walletTab'+t).style.background = t.toLowerCase()===tab?'#FFD700':'rgba(255,215,0,0.2)';
+    document.getElementById('walletTab'+t).style.color = t.toLowerCase()===tab?'#000':'#FFD700';
+  });
+  const content = document.getElementById('walletTabContent');
+  if(tab==='send'){
+    content.innerHTML = `
+    <div style="display:flex;gap:8px;margin:12px 0">
+      <input id="sendTo" placeholder="Nom frère" style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:8px;font-family:Orbitron;font-size:11px">
+      <input id="sendAmount" type="number" placeholder="Montant" style="width:80px;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:8px;font-family:Orbitron;font-size:11px">
+    </div>
+    <button onclick="sendCoin()" style="background:#00FF88;color:#000;border:none;padding:10px 24px;border-radius:8px;font-family:Orbitron;font-weight:700">💸 SEND</button>
+    <div id="walletTx" style="margin-top:16px;max-height:120px;overflow-y:auto;font-size:10px"></div>`;
+    loadWalletTx();
+  } else if(tab==='shop'){
+    content.innerHTML = `<div style="max-height:200px;overflow-y:auto">${nftList.map(nft=>`
+      <div style="background:rgba(255,215,0,0.05);border:1px solid rgba(255,215,0,0.3);padding:10px;border-radius:8px;margin:8px 0;text-align:left">
+        <div style="font-size:12px;color:#FFD700">${nft.emoji} ${nft.name}</div>
+        <div style="font-size:9px;color:rgba(255,255,0.6);margin:4px 0">par ${nft.artist} ${nft.flag}</div>
+        <div style="font-size:10px;margin:6px 0">${nft.desc}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="color:#00FF88;font-size:11px">${nft.price} 💰</span>
+          <button onclick="buyNFT('${nft.id}')" style="background:#FFD700;color:#000;border:none;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">ACHETER</button>
+        </div>
+      </div>`).join('')}</div>`;
+  } else if(tab==='mint'){
+    content.innerHTML = `
+    <div style="font-size:10px;color:#FFD700;margin:8px 0">🎨 MINT TON NFT • 10💰</div>
+    <input id="mintEmoji" placeholder="Emoji" maxlength="2" style="width:100%;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:6px;font-family:Orbitron;font-size:11px;margin:4px 0">
+    <input id="mintName" placeholder="Nom œuvre" style="width:100%;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:6px;font-family:Orbitron;font-size:11px;margin:4px 0">
+    <input id="mintDesc" placeholder="Description" style="width:100%;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:6px;font-family:Orbitron;font-size:11px;margin:4px 0">
+    <input id="mintPrice" type="number" placeholder="Prix" style="width:100%;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:6px;font-family:Orbitron;font-size:11px;margin:4px 0">
+    <button onclick="mintNFT()" style="background:#FF00FF;color:#FFF;border:none;padding:10px 24px;border-radius:8px;font-family:Orbitron;font-weight:700;margin-top:8px;width:100%">✨ MINT NFT</button>
+    <button onclick="startVernissage()" style="background:#FFD700;color:#000;border:none;padding:10px 24px;border-radius:8px;font-family:Orbitron;font-weight:700;margin-top:8px;width:100%">🎨 LANCER VERNISSAGE</button>`;
+  } else if(tab==='mine'){
+    loadMyNFTs();
+  } else if(tab==='gallery'){
+    content.innerHTML = `
+    <div style="font-size:10px;color:#FFD700;margin:8px 0">🎨 GALERIE 3D HALL</div>
+    <canvas id="nftGallery" width="300" height="200" style="border:1px solid #FFD700;border-radius:8px"></canvas>
+    <div style="font-size:9px;color:rgba(255,255,255,0.6);margin-top:6px">Swipe pour visiter</div>`;
+    setTimeout(initNFTGallery,100);
+  } else if(tab==='auction'){
+    loadAuctionRoom();
+  }
+};
+
+window.startVernissage = async function(){
+  const myNfts = await getMyNFTsList();
+  if(!myNfts.length) return alert('Mint un NFT d\'abord');
+  const nft = myNfts[0]; // Premier NFT
+  const auction = {
+    id:'auction_'+Date.now(),
+    nftId:nft.id,
+    nft:nft,
+    host:UID,
+    hostName:USERNAME,
+    startPrice:nft.price,
+    currentBid:nft.price,
+    currentBidder:null,
+    ends:Date.now()+60000, // 1 min
+    ts:Date.now()
+  };
+  await fetch(`${UPSTASH_URL}/hset/auction:${ROOM}/current`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(auction)});
+  await fetch(`${UPSTASH_URL}/expire/auction:${ROOM}/120`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  alert('🎨 Vernissage lancé! Tout le Hall voit ton NFT');
+  showWalletTab('auction');
+};
+
+async function loadAuctionRoom(){
+  const r = await fetch(`${UPSTASH_URL}/hget/auction:${ROOM}/current`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  const content = document.getElementById('walletTabContent');
+  if(!data.result){
+    content.innerHTML = '<div style="color:rgba(255,255,255,0.5);margin:20px 0">Aucun vernissage actif. Mint un NFT et lance le tien</div>';
+    return;
+  }
+  auctionActive = JSON.parse(data.result);
+  const timeLeft = Math.max(0,Math.floor((auctionActive.ends-Date.now())/1000));
+  content.innerHTML = `
+  <div style="background:rgba(255,215,0,0.1);border:1px solid #FFD700;padding:12px;border-radius:8px">
+    <div style="font-size:14px;color:#FFD700">${auctionActive.nft.emoji} ${auctionActive.nft.name}</div>
+    <div style="font-size:10px;color:rgba(255,255,255,0.7);margin:6px 0">par ${auctionActive.nft.artist} ${auctionActive.nft.flag}</div>
+    <div style="font-size:9px;margin:8px 0">${auctionActive.nft.desc}</div>
+    <div style="font-size:12px;color:#00FF88;margin:8px 0">Enchère: ${auctionActive.currentBid} 💰</div>
+    <div style="font-size:10px;color:${timeLeft<10?'#FF0066':'#FFF'}">${timeLeft}s restantes</div>
+    <div style="font-size:9px;color:rgba(255,255,255,0.6);margin:6px 0">Meilleur: ${auctionActive.currentBidder||'Aucun'}</div>
+    <div style="display:flex;gap:6px;margin-top:10px">
+      <input id="bidAmount" type="number" placeholder="Ton enchère" min="${auctionActive.currentBid+1}" style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px">
+      <button onclick="placeBid()" style="background:#FF0066;color:#FFF;border:none;padding:8px 16px;border-radius:6px;font-family:Orbitron;font-size:10px">ENCHÉRIR</button>
+    </div>
+  </div>`;
+  if(timeLeft>0 &&!auctionInterval){
+    auctionInterval = setInterval(()=>{loadAuctionRoom();},1000);
+  } else if(timeLeft<=0){
+    clearInterval(auctionInterval);
+    endAuction();
+  }
+}
+
+window.placeBid = async function(){
+  const amount = parseInt(document.getElementById('bidAmount').value);
+  if(!amount || amount<=auctionActive.currentBid) return alert('Enchère trop basse');
+  if(amount>myBalance) return alert('Balance insuffisante');
+  auctionActive.currentBid = amount;
+  auctionActive.currentBidder = USERNAME;
+  auctionActive.currentBidderUid = UID;
+  await fetch(`${UPSTASH_URL}/hset/auction:${ROOM}/current`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(auctionActive)});
+  loadAuctionRoom();
+};
+
+async function endAuction(){
+  if(!auctionActive.currentBidderUid) return;
+  const winner = auctionActive.currentBidderUid;
+  const price = auctionActive.currentBid;
+  // Transfert coins
+  const r = await fetch(`${UPSTASH_URL}/hget/wallet:${ROOM}/${winner}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  const winnerBal = parseInt(data.result||'0');
+  await fetch(`${UPSTASH_URL}/hset/wallet:${ROOM}/${winner}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:String(winnerBal-price)});
+  // Transfert NFT
+  await fetch(`${UPSTASH_URL}/hset/mynft:${ROOM}:${winner}/${auctionActive.nftId}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({...auctionActive.nft,bought:Date.now()})});
+  await fetch(`${UPSTASH_URL}/hdel/mynft:${ROOM}:${auctionActive.host}/${auctionActive.nftId}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  await fetch(`${UPSTASH_URL}/hdel/auction:${ROOM}/current`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  alert(`🔨 Adjugé! ${auctionActive.currentBidder} remporte ${auctionActive.nft.name} pour ${price}💰`);
+}
+
+function checkAuctionStatus(){
+  loadAuctionRoom();
+  setInterval(loadAuctionRoom,3000);
+}
+
+// GAME v1.5 : CLIPS AUTO HIGHLIGHTS IA
+let highlightBuffer = [];
+let highlightRecording = false;
+
+const _endBattle = window.endBattle;
+window.endBattle = async function(){
+  const myScore = Math.floor(Math.random()*50)+50;
+  const oppScore = Math.floor(Math.random()*50)+50;
+  document.getElementById('battleScore').innerHTML=`Toi: ${myScore} 🔥 • ${battleOpponent.name}: ${oppScore} 🔥`;
+  document.getElementById('battleStatus').textContent = myScore>oppScore?'🏆 VICTOIRE!':myScore<oppScore?'💀 DÉFAITE':'🤝 ÉGALITÉ';
+  document.getElementById('battleTimer').style.display='none';
+  
+  // Ajouter points tournoi
+  if(tournamentData.players && tournamentData.players[UID]){
+    tournamentData.players[UID].score += myScore;
+    await fetch(`${UPSTASH_URL}/hset/tournament:${ROOM}/current`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(tournamentData)});
+  }
+  
+  // Détection highlight IA
+  if(myScore>80 || Math.abs(myScore-oppScore)<5){
+    generateHighlight(myScore,oppScore);
+  }
+  
+  await fetch(`${UPSTASH_URL}/lpush/battle:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'end',winner:myScore>oppScore?UID:battleOpponent.uid,score1:myScore,score2:oppScore,ts:Date.now()})});
+  setTimeout(()=>{APPS.GAME.live();},3000);
+};
+
+async function generateHighlight(myScore,oppScore){
+  const highlight = {
+    id:'clip_'+Date.now(),
+    type:'highlight',
+    title: myScore>oppScore? '🏆 CLUTCH VICTOIRE' : '💀 COMEBACK ÉPIQUE',
+    players:`${USERNAME} ${myScore}-${oppScore} ${battleOpponent.name}`,
+    ts:Date.now(),
+    duration:8
+  };
+  await fetch(`${UPSTASH_URL}/lpush/highlights:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(highlight)});
+  await fetch(`${UPSTASH_URL}/ltrim/highlights:${ROOM}/0/19`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  
+  // Auto-post SOCIAL
+  await fetch(`${UPSTASH_URL}/lpush/vocals:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({uid:UID,name:USERNAME,b64:'',ts:Date.now(),highlight:highlight.title})});
+  
+  // Notif
+  const notif = document.createElement('div');
+  notif.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,0,102,0.95);color:#FFF;padding:20px;border-radius:12px;font-family:Orbitron;z-index:3000;text-align:center';
+  notif.innerHTML=`<div style="font-size:24px">🔥</div><div style="font-size:14px;margin:8px 0">${highlight.title}</div><div style="font-size:10px">Clip auto posté SOCIAL</div>`;
+  document.body.appendChild(notif);
+  setTimeout(()=>notif.remove(),3000);
+}
+
+// Override openModule pour charger replays
+const _openModule = window.openModule;
+window.openModule = function(type){
+  _openModule(type);
+  if(type==='GAME') setTimeout(loadReplays,500);
+};
+
+async function loadReplays(){
+  const r = await fetch(`${UPSTASH_URL}/lrange/replay:${ROOM}/0/4`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  replaysList = [];
+  const raw = data.result||[];
+  for(let i=0;i<raw.length;i++){
+    try{replaysList.push(JSON.parse(raw[i]));}catch(e){}
+  }
+}
+</script>
