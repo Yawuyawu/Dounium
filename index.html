@@ -32,17 +32,20 @@ body{background:#0A0A0A;color:#FFF;font-family:Orbitron,sans-serif;overflow:hidd
 .chat-defile{position:absolute;bottom:100px;left:0;right:0;height:60px;overflow:hidden}
 .chat-msg{font-size:11px;padding:4px 16px;animation:slideUp 8s linear infinite}
 @keyframes slideUp{0%{transform:translateY(60px);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-60px);opacity:0}}
-.bottom-bar{position:fixed;bottom:0;left:0;right:0;height:80px;background:#1A1A1A;display:flex;border-top:1px solid rgba(255,215,0,0.2)}
-.bottom-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:all 0.2s}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;height:80px;background:#1A1A1A;display:flex;border-top:1px solid rgba(255,215,0,0.2);overflow-x:auto}
+.bottom-btn{min-width:20%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:all 0.2s}
 .bottom-btn:active{background:rgba(255,215,0,0.1)}
-.btn-icon{font-size:24px}
-.btn-text{font-size:10px;color:rgba(255,255,255,0.8)}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:2000;display:none;align-items:center;justify-content:center;flex-direction:column}
+.btn-icon{font-size:22px}
+.btn-text{font-size:9px;color:rgba(255,255,255,0.8)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:2000;display:none;align-items:center;justify-content:center;flex-direction:column;padding:20px}
 .overlay.active{display:flex}
-.overlay-title{font-size:24px;color:#FFD700;margin-bottom:20px}
-.breath-circle{width:200px;height:200px;border:4px solid #00FF88;border-radius:50%;animation:breath 4s ease-in-out infinite}
+.overlay-title{font-size:24px;color:#FFD700;margin-bottom:20px;text-align:center}
+.overlay-content{font-size:14px;color:#FFF;text-align:center;line-height:1.6;max-width:300px}
+.breath-circle{width:200px;height:200px;border:4px solid #00FF88;border-radius:50%;animation:breath 4s ease-in-out infinite;margin:20px 0}
 @keyframes breath{0%,100%{transform:scale(0.8)}50%{transform:scale(1.2)}}
 .close-overlay{position:absolute;bottom:40px;background:rgba(255,255,255,0.1);border:1px solid #FFF;padding:12px 32px;border-radius:20px;color:#FFF}
+.app-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:20px 0}
+.app-card{background:rgba(255,215,0,0.1);border:1px solid #FFD700;padding:16px;border-radius:12px;text-align:center}
 </style>
 </head>
 <body>
@@ -52,7 +55,6 @@ body{background:#0A0A0A;color:#FFF;font-family:Orbitron,sans-serif;overflow:hidd
 </div>
 
 <div class="world-indicator">🌍 HALL MONDIAL CONNECTÉ</div>
-
 <div class="circles-scroll" id="circles"></div>
 
 <div class="hall">
@@ -67,25 +69,44 @@ body{background:#0A0A0A;color:#FFF;font-family:Orbitron,sans-serif;overflow:hidd
 <div class="bottom-btn" onclick="openModule('MEDIT')"><div class="btn-icon">🧘</div><div class="btn-text">MEDIT</div></div>
 <div class="bottom-btn" onclick="openModule('SPORT')"><div class="btn-icon">🏃</div><div class="btn-text">SPORT</div></div>
 <div class="bottom-btn" onclick="openModule('RESTO')"><div class="btn-icon">🍲</div><div class="btn-text">RESTO</div></div>
+<div class="bottom-btn" onclick="openModule('MUSIC')"><div class="btn-icon">🎵</div><div class="btn-text">MUSIC</div></div>
+<div class="bottom-btn" onclick="openModule('WALLET')"><div class="btn-icon">💰</div><div class="btn-text">WALLET</div></div>
+<div class="bottom-btn" onclick="openModule('SOCIAL')"><div class="btn-icon">💬</div><div class="btn-text">SOCIAL</div></div>
+<div class="bottom-btn" onclick="openModule('MAP')"><div class="btn-icon">🗺️</div><div class="btn-text">MAP</div></div>
+<div class="bottom-btn" onclick="openModule('GAME')"><div class="btn-icon">🎮</div><div class="btn-text">GAME</div></div>
 <div class="bottom-btn" onclick="openModule('IA')"><div class="btn-icon">🤖</div><div class="btn-text">IA</div></div>
 </div>
 
 <div class="overlay" id="overlay">
 <div class="overlay-title" id="overlayTitle"></div>
 <div class="breath-circle" id="breathCircle" style="display:none"></div>
+<div class="overlay-content" id="overlayContent"></div>
 <button class="close-overlay" onclick="closeOverlay()">⬇️ RETOUR HALL</button>
 </div>
 
 <script>
 const UPSTASH_URL='https://golden-sturgeon-78265.upstash.io';
 const UPSTASH_TOKEN='gQAAAAAAATG5AAIgcDIwMTg0YzNlYzBiOGE0MDEyODBkNTRmMTA4ZDhlYWRjNw';
-const ROOM='WORLD'; // HALL MONDIAL UNIQUE
+const ROOM='WORLD';
 const UID='user_'+Math.random().toString(36).slice(2,9);
 const USERNAME = localStorage.getItem('dounium_name') || prompt('Ton nom dans le Hall Mondial:') || 'Anonyme';
 localStorage.setItem('dounium_name', USERNAME);
 
 let micStream, analyser, audioCtx, mySpeaking=false, lastSync=0, hallUsers=[];
 let userCountry = '🌍';
+
+const APPS = {
+RESPIR: {title:'🫁 RESPIRATION 6D', content:'Inspire 4s • Bloque 4s • Expire 4s<br>Cercle = tes poumons', breath:true},
+MEDIT: {title:'🧘 MÉDITATION PLANÉTAIRE', content:'Ferme les yeux<br>Écoute les frères du monde<br>Silence partagé = force'},
+SPORT: {title:'🏃 WORKOUT MONDIAL', content:'20 Pompes<br>30 Squats<br>1min Gainage<br>Score sync mondial'},
+RESTO: {title:'🍲 RECETTES DU MONDE', content:'Thieb Sénégal 🇸🇳<br>Tajine Maroc 🇲🇦<br>Couscous Algérie 🇩🇿<br>Sang réel cuisine'},
+MUSIC: {title:'🎵 RADIO DOUNIUM', content:'Lo-fi Sénégal<br>Trap Bamako<br>Amapiano Lagos<br>Live 24/7 Mondial'},
+WALLET: {title:'💰 WALLET DOUNIUM', content:'0 DOUNUIM Coin<br>Send • Receive • Stack<br>Bientôt: P2P frères', coming:true},
+SOCIAL: {title:'💬 SOCIAL HALL', content:'Poste vocal 8s<br>Réagis ❤️🔥<br>Stories 24h<br>Tout reste dans le Hall'},
+MAP: {title:'🗺️ MAP FRÈRES', content:'Voir frères connectés<br>🌍 Globe live<br>Ping un frère proche', coming:true},
+GAME: {title:'🎮 DOUNIUM GAMES', content:'Wati Puzzle<br>Course Dakar<br>Rap Battle Live<br>Leaderboard mondial', coming:true},
+IA: {title:'🤖 IA DOUNIUM WORLD', content:'Assistant Hall<br>Traducteur 100 langues<br>Coach vie<br>Parle dans le micro'}
+};
 
 async function init(){
 updateTime();
@@ -203,7 +224,8 @@ function startChat(){
 const msgs = [
 '🌍 Hall Mondial actif',
 '🫁 Respire avec tes frères',
-'🤖 IA Dounium veille',
+'🎵 Radio Dounium live',
+'💰 Wallet arrive bientôt',
 '🔥 Sang réel connecte'
 ];
 let i=0;
@@ -216,13 +238,14 @@ i++;
 function openModule(type){
 const o=document.getElementById('overlay');
 const t=document.getElementById('overlayTitle');
+const c=document.getElementById('overlayContent');
 const b=document.getElementById('breathCircle');
+const app = APPS[type];
 o.classList.add('active');
-if(type==='RESPIR'){t.textContent='🫁 RESPIRATION MONDIALE';b.style.display='block';navigator.vibrate&&navigator.vibrate([200,100,200])}
-else if(type==='MEDIT'){t.textContent='🧘 MÉDITATION PLANÉTAIRE';b.style.display='none'}
-else if(type==='SPORT'){t.textContent='🏃 WORKOUT MONDIAL';b.style.display='none'}
-else if(type==='RESTO'){t.textContent='🍲 RECETTES DU MONDE';b.style.display='none'}
-else if(type==='IA'){t.textContent='🤖 IA DOUNIUM WORLD';b.style.display='none'}
+t.textContent = app.title;
+c.innerHTML = app.content + (app.coming?'<br><br><b>🚀 Bientôt disponible</b>':'');
+b.style.display = app.breath? 'block' : 'none';
+if(app.breath) navigator.vibrate&&navigator.vibrate([200,100,200]);
 document.getElementById('hallStatus').textContent=type+' - Actif';
 }
 
