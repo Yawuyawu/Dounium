@@ -2,285 +2,128 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Dounium V19.1 FULL 8D</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#0A0A0A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>DOUNUIM OS</title>
+<link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;DOUNUIM OS&quot;,&quot;short_name&quot;:&quot;DOUNUIM&quot;,&quot;start_url&quot;:&quot;.&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#0A0A0A&quot;,&quot;theme_color&quot;:&quot;#FFD700&quot;}">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-:root{--gold:#FFD700;--neon:#00FF88;--tesla-red:#E31937;--blue-8k:#00BFFF}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0A0A0A;color:#FFF;font-family:Orbitron,sans-serif;overflow-x:hidden}
-body.tv-mode{background:#000;cursor:none}
-.header{position:fixed;top:0;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.2);padding:12px 16px;z-index:1000;display:flex;align-items:center;justify-content:space-between}
-.logo{display:flex;align-items:center;gap:12px}
-.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--neon));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
-.logo-text{font-size:18px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.theme-toggle{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);width:40px;height:40px;border-radius:12px;color:#FFF;cursor:pointer}
-.upstash-live{background:rgba(0,255,136,0.1);border:1px solid var(--neon);border-radius:12px;padding:8px;text-align:center;font-size:10px;color:var(--neon);margin:70px 16px 8px}
-.upstash-live.off{background:rgba(255,0,0,0.1);border-color:red;color:red}
-.content{margin-top:110px;padding-bottom:80px}
-.stories-bar{display:flex;gap:12px;padding:16px;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,0.05)}
-.story-ring{width:68px;height:68px;border-radius:50%;padding:3px;background:linear-gradient(45deg,var(--gold),var(--neon),var(--tesla-red));cursor:pointer}
-.story-avatar{width:100%;height:100%;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:24px}
-.story-add{background:rgba(255,255,255,0.1)}
-.post{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:20px;margin:16px;overflow:hidden}
-.post-header{display:flex;align-items:center;gap:12px;padding:16px}
-.post-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--neon));display:flex;align-items:center;justify-content:center;font-weight:700}
-.post-user{flex:1}
-.post-name{font-weight:700;font-size:14px}
-.post-time{font-size:11px;color:rgba(255,255,255,0.5)}
-.post-content{padding:0 16px 16px;font-size:14px;line-height:1.6}
-.reaction-bar{display:flex;gap:16px;padding:12px 16px;border-top:1px solid rgba(255,255,255,0.05)}
-.react-btn{background:none;border:none;color:rgba(255,255,255,0.6);font-size:20px;cursor:pointer;transition:all 0.3s}
-.react-btn.liked{color:var(--tesla-red);transform:scale(1.2)}
-.dm-fab{position:fixed;bottom:80px;left:16px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--gold));border:none;color:#000;font-size:24px;cursor:pointer;box-shadow:0 8px 24px rgba(0,255,136,0.4);z-index:998}
-.fab-menu{position:fixed;bottom:80px;right:16px;display:flex;flex-direction:column;gap:12px;z-index:998}
-.fab-mini{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#FFF;font-size:20px;cursor:pointer;backdrop-filter:blur(10px)}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);z-index:2000;display:none;align-items:center;justify-content:center}
-.modal.active{display:flex}
-.modal-content{background:rgba(20,20,20,0.95);border:1px solid rgba(255,215,0,0.3);border-radius:24px;padding:24px;width:90%;max-width:400px}
-.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.modal-title{font-size:18px;font-weight:700}
-.close-modal{background:none;border:none;color:#FFF;font-size:24px;cursor:pointer}
-input,textarea{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px;color:#FFF;margin-bottom:12px;font-family:Orbitron}
-.btn-whatsapp{width:100%;background:linear-gradient(135deg,var(--gold),var(--neon));color:#000;border:none;padding:16px;border-radius:20px;font-size:15px;font-weight:700;font-family:Orbitron;cursor:pointer}
-.comment-section{padding:0 16px 16px;border-top:1px solid rgba(255,255,255,0.05);display:none}
-.comment-input{display:flex;gap:8px;margin-top:12px}
-.comment-input input{flex:1;margin:0}
-.comment-list{margin-top:12px;font-size:12px}
-video{width:100%;height:100vh;object-fit:contain;background:#000}
-.video-ui{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.9));padding:40px;opacity:0;transition:opacity 0.3s}
-.modal:hover.video-ui{opacity:1}
-.progress-bar{width:100%;height:6px;background:rgba(255,255,255,0.2);border-radius:3px;margin-bottom:20px;cursor:pointer}
-.progress-fill{height:100%;background:var(--gold);border-radius:3px;width:0%}
-.controls{display:flex;align-items:center;gap:20px}
-.ctrl-btn{background:rgba(255,255,255,0.1);border:none;width:50px;height:50px;border-radius:50%;color:#FFF;font-size:20px;cursor:pointer}
-.codec-badge{position:absolute;top:80px;right:40px;background:rgba(0,191,255,0.2);border:1px solid var(--blue-8k);padding:8px 16px;border-radius:12px;font-size:12px}
-.usb-input{display:none}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:#0A0A0A;color:#FFF;font-family:Orbitron,sans-serif;overflow:hidden;position:fixed;width:100%;height:100%}
+.status-bar{position:fixed;top:0;left:0;right:0;height:32px;background:#1A1A1A;display:flex;align-items:center;padding:0 16px;font-size:12px;z-index:1000}
+.status-left{font-weight:900;color:#FFD700}
+.status-right{margin-left:auto;display:flex;gap:8px}
+.circles-scroll{position:fixed;top:40px;left:0;right:0;height:100px;overflow-x:auto;display:flex;gap:16px;padding:16px;z-index:900}
+.circle-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:70px}
+.circle{width:60px;height:60px;border-radius:50%;border:3px solid #FFD700;background:#000;display:flex;align-items:center;justify-content:center;font-size:24px}
+.circle.pulse{animation:pulse 1.5s infinite;border-color:#00FF88}
+@keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(0,255,136,0.7)}50%{transform:scale(1.1);box-shadow:0 0 20px 10px rgba(0,255,136,0)}}
+.circle-name{font-size:10px;color:#FFF}
+.circle-status{font-size:8px;color:rgba(255,255,255,0.5)}
+.hall{position:fixed;top:140px;bottom:80px;left:0;right:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
+.hall-title{font-size:20px;font-weight:900;color:#FFD700;margin-bottom:8px}
+.hall-status{font-size:12px;color:#00FF88}
+.chat-defile{position:absolute;bottom:100px;left:0;right:0;height:60px;overflow:hidden}
+.chat-msg{font-size:11px;padding:4px 16px;animation:slideUp 8s linear infinite}
+@keyframes slideUp{0%{transform:translateY(60px);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-60px);opacity:0}}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;height:80px;background:#1A1A1A;display:flex;border-top:1px solid rgba(255,215,0,0.2)}
+.bottom-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:all 0.2s}
+.bottom-btn:active{background:rgba(255,215,0,0.1)}
+.btn-icon{font-size:24px}
+.btn-text{font-size:10px;color:rgba(255,255,255,0.8)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:2000;display:none;align-items:center;justify-content:center;flex-direction:column}
+.overlay.active{display:flex}
+.overlay-title{font-size:24px;color:#FFD700;margin-bottom:20px}
+.breath-circle{width:200px;height:200px;border:4px solid #00FF88;border-radius:50%;animation:breath 4s ease-in-out infinite}
+@keyframes breath{0%,100%{transform:scale(0.8)}50%{transform:scale(1.2)}}
+.close-overlay{position:absolute;bottom:40px;background:rgba(255,255,255,0.1);border:1px solid #FFF;padding:12px 32px;border-radius:20px;color:#FFF}
 </style>
 </head>
 <body>
-<div class="header">
-<div class="logo"><div class="logo-icon">⚜️</div><div class="logo-text">DOUNIUM FULL</div></div>
-<div style="display:flex;gap:8px">
-<button class="theme-toggle" onclick="openEmailModal()">👤</button>
-<button class="theme-toggle" onclick="toggleTVMode()">📺</button>
-<button class="theme-toggle" onclick="openUSB()">💾</button>
-</div></div>
-
-<div class="upstash-live off" id="upstash-badge">● MODE LOCAL</div>
-
-<div class="content" id="main-content">
-<div class="stories-bar" id="stories-bar">
-<div class="story-ring" onclick="addStory()"><div class="story-avatar story-add">+</div></div>
-</div>
-<div id="posts-container"></div>
+<div class="status-bar">
+<div class="status-left">DOUNUIM</div>
+<div class="status-right"><span id="time">14:32</span><span>🔋 87%</span><span>📶</span></div>
 </div>
 
-<button class="dm-fab" onclick="openDM()">💬</button>
-<div class="fab-menu">
-<button class="fab-mini" onclick="openBank()">🏦</button>
-<button class="fab-mini" onclick="openComposer()">✍️</button>
+<div class="circles-scroll" id="circles"></div>
+
+<div class="hall">
+<div class="hall-title">LE HALL DOUNUIM LIVE</div>
+<div class="hall-status" id="hallStatus">Audio Clubhouse Mode</div>
+<div class="chat-defile" id="chat"></div>
 </div>
 
-<!-- MODALS -->
-<div class="modal" id="email-modal"><div class="modal-content">
-<div class="modal-header"><div class="modal-title">⚜️ PROFIL 8D</div><button class="close-modal" onclick="closeEmailModal()">×</button></div>
-<input type="text" id="reg-name" placeholder="Nom / Pseudo">
-<input type="email" id="reg-email" placeholder="Email">
-<input type="password" id="reg-pass" placeholder="Mot de passe">
-<button class="btn-whatsapp" onclick="registerEmail()">⚡ VALIDER + 100⚜️</button>
-</div></div>
-
-<div class="modal" id="verify-modal"><div class="modal-content">
-<div class="modal-title" style="margin-bottom:16px">📧 CODE EMAIL</div>
-<input type="tel" id="email-code" placeholder="000000" maxlength="6" style="text-align:center;letter-spacing:8px;font-size:20px">
-<button class="btn-whatsapp" onclick="verifyEmailCode()">✅ CONFIRMER</button>
-</div></div>
-
-<div class="modal" id="composer-modal"><div class="modal-content">
-<div class="modal-header"><div class="modal-title">✍️ NOUVEAU POST</div><button class="close-modal" onclick="closeComposer()">×</button></div>
-<textarea id="post-content" placeholder="Exprime ton Sang Réel..."></textarea>
-<button class="btn-whatsapp" onclick="submitPost()">🚀 POSTER 8D</button>
-</div></div>
-
-<div class="modal" id="bank-modal"><div class="modal-content">
-<div class="modal-header"><div class="modal-title">🏦 DOUNIUM BANK 8D</div><button class="close-modal" onclick="closeBank()">×</button></div>
-<div style="text-align:center;margin-bottom:16px">
-<div style="font-size:12px;color:rgba(255,255,255,0.6)">SOLDE SANG RÉEL</div>
-<div style="font-size:32px;font-weight:900;color:var(--gold)" id="bank-balance">0 ⚜️</div>
+<div class="bottom-bar">
+<div class="bottom-btn" onclick="openModule('RESPIR')"><div class="btn-icon">🫁</div><div class="btn-text">RESPIR</div></div>
+<div class="bottom-btn" onclick="openModule('MEDIT')"><div class="btn-icon">🧘</div><div class="btn-text">MEDIT</div></div>
+<div class="bottom-btn" onclick="openModule('SPORT')"><div class="btn-icon">🏃</div><div class="btn-text">SPORT</div></div>
+<div class="bottom-btn" onclick="openModule('RESTO')"><div class="btn-icon">🍲</div><div class="btn-text">RESTO</div></div>
+<div class="bottom-btn" onclick="openModule('IA')"><div class="btn-icon">🤖</div><div class="btn-text">IA</div></div>
 </div>
-<input type="text" id="bank-to" placeholder="Destinataire @pseudo">
-<input type="number" id="bank-amount" placeholder="Montant ⚜️">
-<button class="btn-whatsapp" onclick="sendCoins()">💸 ENVOYER</button>
-<div style="margin-top:20px;font-size:12px;font-weight:700">HISTORIQUE</div>
-<div id="bank-history" style="max-height:200px;overflow-y:auto;margin-top:8px;font-size:11px"></div>
-</div></div>
 
-<div class="modal" id="player-modal">
-<div class="codec-badge" id="codec-info">Codec: --</div>
-<video id="video-player"></video>
-<div class="video-ui">
-<div class="progress-bar" onclick="seekVideo(event)"><div class="progress-fill" id="progress"></div></div>
-<div class="controls">
-<button class="ctrl-btn" onclick="togglePlay()">⏯️</button>
-<button class="ctrl-btn" onclick="seek(-10)">⏪</button>
-<button class="ctrl-btn" onclick="seek(10)">⏩</button>
-<button class="ctrl-btn" onclick="toggleAI()">🧠</button>
-<button class="ctrl-btn" onclick="closeModal()">❌</button>
-<div style="flex:1"></div>
-<div id="video-time">00:00 / 00:00</div>
-</div>
-<input type="file" id="usb-input" class="usb-input" accept="video/mp4,video/*" onchange="loadVideo(this)">
+<div class="overlay" id="overlay">
+<div class="overlay-title" id="overlayTitle"></div>
+<div class="breath-circle" id="breathCircle" style="display:none"></div>
+<button class="close-overlay" onclick="closeOverlay()">⬇️ RETOUR HALL</button>
 </div>
 
 <script>
-const UPSTASH_URL="https://golden-sturgeon-78265.upstash.io";
-const UPSTASH_TOKEN="gQAAAAAAATG5AAIgcDIwMTg0YzNlYzBiOGE0MDEyODBkNTRmMTA4ZDhlYWRjNw";
-let currentUser=null,aiUpscale=false;
+const users=[{name:"Amadou",status:"Live",pulse:true},{name:"Fatou",status:"Médite",pulse:false},{name:"Toi",status:"Respire",pulse:true},{name:"IA",status:"Idle",pulse:false}];
+const chats=["Amadou: Sang réel PÈRE","Fatou: 2min de silence","Toi: On respire ensemble","IA: Hall actif 4 users"];
+let chatIndex=0;
 
-window.addEventListener("load",()=>{
-let user=localStorage.getItem("dounium_user");
-currentUser=user?JSON.parse(user):{name:"Visiteur",email:"",verified:false};
-if(!user)localStorage.setItem("dounium_user",JSON.stringify(currentUser));
-checkUpstash();loadCloudPosts();loadStories();setInterval(checkUpstash,10000);
-});
-
-async function checkUpstash(){
-if(!UPSTASH_URL)return;
-try{
-const res=await fetch(`${UPSTASH_URL}/ping`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
-const data=await res.json();
-document.getElementById("upstash-badge").textContent=data.result==="PONG"?"● SANG RÉEL - CLOUD LIVE":"● MODE LOCAL";
-document.getElementById("upstash-badge").classList.toggle("off",data.result!=="PONG");
-}catch(e){document.getElementById("upstash-badge").classList.add("off")}
+function init(){
+updateTime();
+setInterval(updateTime,1000);
+renderCircles();
+startChat();
 }
 
-async function saveToUpstash(key,data){
-if(!UPSTASH_URL)return;
-try{await fetch(`${UPSTASH_URL}/set/${key}`,{method:"POST",headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(data)})}catch(e){}
-}
-async function getFromUpstash(key){
-if(!UPSTASH_URL)return null;
-try{const res=await fetch(`${UPSTASH_URL}/get/${key}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});const data=await res.json();return data.result?JSON.parse(data.result):null}catch(e){return null}
+function updateTime(){
+document.getElementById('time').textContent=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
 }
 
-// AUTH
-function openEmailModal(){document.getElementById("email-modal").classList.add("active")}
-function closeEmailModal(){document.getElementById("email-modal").classList.remove("active")}
-async function registerEmail(){
-const name=document.getElementById("reg-name").value,email=document.getElementById("reg-email").value,pass=document.getElementById("reg-pass").value;
-if(!name||!email||!pass||!email.includes("@")){alert("Remplis tout");return}
-const code=Math.floor(100000+Math.random()*900000).toString();
-localStorage.setItem("dounium_email_code",code);localStorage.setItem("dounium_temp_user",JSON.stringify({name,email}));
-closeEmailModal();document.getElementById("verify-modal").classList.add("active");alert("📧 Code: "+code);
-}
-async function verifyEmailCode(){
-if(document.getElementById("email-code").value===localStorage.getItem("dounium_email_code")){
-const temp=JSON.parse(localStorage.getItem("dounium_temp_user"));
-currentUser={name:temp.name,email:temp.email,verified:true};
-localStorage.setItem("dounium_user",JSON.stringify(currentUser));
-await saveToUpstash(`user_${temp.name}`,{email:temp.email,name:temp.name});
-await setBalance(temp.email,100);
-document.getElementById("verify-modal").classList.remove("active");alert("⚜️ Profil Vérifié + 100⚜️");
-}else alert("Code incorrect");
-}
-
-// POSTS + COMMENTS
-function openComposer(){if(!currentUser.verified){openEmailModal();return}document.getElementById("composer-modal").classList.add("active")}
-function closeComposer(){document.getElementById("composer-modal").classList.remove("active")}
-async function submitPost(){
-const content=document.getElementById("post-content").value;if(!content)return;
-const postId=Date.now(),newPost={id:postId,user:currentUser.name,email:currentUser.email,content,org:"8D",time:Date.now(),likes:0,comments:[]};
-renderPost(newPost);let posts=await getFromUpstash("dounium_posts")||[];posts.push(newPost);await saveToUpstash("dounium_posts",posts);
-closeComposer();document.getElementById("post-content").value="";
-}
-function renderPost(p){
-const postHTML=`<div class="post" id="post-${p.id}">
-<div class="post-header"><div class="post-avatar">${p.user[0]}</div>
-<div class="post-user"><div class="post-name">${p.user}</div>
-<div class="post-time">${new Date(p.time).toLocaleTimeString()} · ${p.org}</div></div></div>
-<div class="post-content">${p.content}</div>
-<div class="reaction-bar">
-<button class="react-btn" onclick="toggleLike(${p.id},this)">❤️ <span>${p.likes}</span></button>
-<button class="react-btn" onclick="toggleComments(${p.id})">💬 <span>${p.comments.length}</span></button>
-<button class="react-btn" onclick="sharePost(${p.id})">🔗</button>
+function renderCircles(){
+const c=document.getElementById('circles');
+c.innerHTML=users.map(u=>`
+<div class="circle-wrap">
+<div class="circle ${u.pulse?'pulse':''}">${u.name[0]}</div>
+<div class="circle-name">● ${u.name}</div>
+<div class="circle-status">${u.status}</div>
 </div>
-<div class="comment-section" id="comments-${p.id}">
-<div class="comment-list">${p.comments.map(c=>`<div><b>${c.user}:</b> ${c.text}</div>`).join('')}</div>
-<div class="comment-input"><input id="comment-${p.id}" placeholder="Commenter..."><button class="ctrl-btn" onclick="addComment(${p.id})">➤</button></div>
-</div></div>`;
-document.getElementById("posts-container").insertAdjacentHTML("afterbegin",postHTML);
-}
-async function loadCloudPosts(){const posts=await getFromUpstash("dounium_posts");if(posts&&posts.length){document.getElementById("posts-container").innerHTML="";posts.reverse().forEach(p=>renderPost(p))}}
-async function toggleLike(postId,btn){
-if(!currentUser.verified){openEmailModal();return}
-btn.classList.toggle("liked");let posts=await getFromUpstash("dounium_posts")||[];let post=posts.find(p=>p.id==postId);
-if(post){post.likes=btn.classList.contains("liked")?post.likes+1:post.likes-1;btn.querySelector("span").textContent=post.likes;await saveToUpstash("dounium_posts",posts)}
-}
-function toggleComments(id){document.getElementById(`comments-${id}`).style.display=document.getElementById(`comments-${id}`).style.display==='block'?'none':'block'}
-async function addComment(id){
-if(!currentUser.verified){openEmailModal();return}
-const text=document.getElementById(`comment-${id}`).value;if(!text)return;
-let posts=await getFromUpstash("dounium_posts")||[];let post=posts.find(p=>p.id==id);
-post.comments.push({user:currentUser.name,text,time:Date.now()});await saveToUpstash("dounium_posts",posts);
-document.getElementById(`comment-${id}`).value='';loadCloudPosts();
-}
-function sharePost(id){navigator.clipboard.writeText(location.href);alert("🔗 Lien copié")}
-
-// STORIES
-async function addStory(){if(!currentUser.verified){openEmailModal();return}const stories=await getFromUpstash("dounium_stories")||[];stories.push({user:currentUser.name,time:Date.now()});await saveToUpstash("dounium_stories",stories);loadStories()}
-async function loadStories(){
-const stories=await getFromUpstash("dounium_stories")||[];
-const bar=document.getElementById("stories-bar");bar.innerHTML='<div class="story-ring" onclick="addStory()"><div class="story-avatar story-add">+</div></div>';
-stories.slice(-10).forEach(s=>{bar.innerHTML+=`<div class="story-ring"><div class="story-avatar">${s.user[0]}</div></div>`});
+`).join('');
 }
 
-// BANK
-async function getBalance(email){let bal=await getFromUpstash(`bank_${email}`);return bal?parseInt(bal):0}
-async function setBalance(email,amount){await saveToUpstash(`bank_${email}`,amount.toString())}
-async function addTransaction(from,to,amount){
-let hist=await getFromUpstash(`bank_hist_${from}`)||[];hist.push({to,amount,time:Date.now(),type:"out"});await saveToUpstash(`bank_hist_${from}`,hist);
-let histTo=await getFromUpstash(`bank_hist_${to}`)||[];histTo.push({from,amount,time:Date.now(),type:"in"});await saveToUpstash(`bank_hist_${to}`,histTo);
-}
-function openBank(){if(!currentUser.verified){openEmailModal();return}document.getElementById("bank-modal").classList.add("active");updateBankUI()}
-function closeBank(){document.getElementById("bank-modal").classList.remove("active")}
-async function updateBankUI(){
-let bal=await getBalance(currentUser.email);document.getElementById("bank-balance").textContent=bal+" ⚜️";
-let hist=await getFromUpstash(`bank_hist_${currentUser.email}`)||[];let html="";
-hist.reverse().slice(0,10).forEach(t=>{let sign=t.type==="in"?"+":"-";let color=t.type==="in"?"var(--neon)":"var(--tesla-red)";let name=t.type==="in"?t.from:t.to;
-html+=`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span>${t.type==="in"?"Reçu de":"Envoyé à"} ${name}</span><span style="color:${color}">${sign}${t.amount} ⚜️</span></div>`});
-document.getElementById("bank-history").innerHTML=html||"<div style=\"color:rgba(255,255,255,0.4);text-align:center\">Aucune transaction</div>";
-}
-async function sendCoins(){
-const to=document.getElementById("bank-to").value.replace("@",""),amount=parseInt(document.getElementById("bank-amount").value);
-if(!to||!amount||amount<=0){alert("Remplis tout PÈRE");return}
-let myBal=await getBalance(currentUser.email);if(myBal<amount){alert("Solde insuffisant");return}
-let toUser=await getFromUpstash(`user_${to}`);if(!toUser){alert("User introuvable");return}
-await setBalance(currentUser.email,myBal-amount);let toBal=await getBalance(toUser.email);await setBalance(toUser.email,toBal+amount);
-await addTransaction(currentUser.email,to,amount);document.getElementById("bank-to").value="";document.getElementById("bank-amount").value="";updateBankUI();alert(`💸 ${amount} ⚜️ envoyé à ${to}`);
+function startChat(){
+setInterval(()=>{
+const chat=document.getElementById('chat');
+chat.innerHTML=`<div class="chat-msg">${chats[chatIndex%chats.length]}</div>`;
+chatIndex++;
+},3000);
 }
 
-// DM
-function openDM(){if(!currentUser.verified){openEmailModal();return}alert("💬 DM 8D: Clique sur un post pour répondre en privé")}
+function openModule(type){
+const o=document.getElementById('overlay');
+const t=document.getElementById('overlayTitle');
+const b=document.getElementById('breathCircle');
+o.classList.add('active');
+if(type==='RESPIR'){t.textContent='🫁 RESPIRATION 2MIN';b.style.display='block';navigator.vibrate&&navigator.vibrate([200,100,200])}
+else if(type==='MEDIT'){t.textContent='🧘 MÉDITATION GUIDÉE';b.style.display='none'}
+else if(type==='SPORT'){t.textContent='🏃 WORKOUT 8D';b.style.display='none'}
+else if(type==='RESTO'){t.textContent='🍲 RECETTES SANG RÉEL';b.style.display='none'}
+else if(type==='IA'){t.textContent='🤖 IA DOUNIUM ACTIVE';b.style.display='none'}
+document.getElementById('hallStatus').textContent=type+' - Actif';
+}
 
-// PLAYER TV
-const player=document.getElementById('video-player');
-function openUSB(){document.getElementById('usb-input').click()}
-function loadVideo(input){const file=input.files[0];if(!file)return;player.src=URL.createObjectURL(file);document.getElementById('player-modal').classList.add('active');player.play();detectCodec(file)}
-function detectCodec(file){const v=document.createElement('video');v.src=URL.createObjectURL(file);v.onloadedmetadata=()=>{let codec='H.264';if(file.name.includes('265')||file.name.includes('HEVC'))codec='H.265/HEVC';if(file.name.includes('AV1'))codec='AV1';document.getElementById('codec-info').textContent=`Codec: ${codec} | ${v.videoWidth}x${v.videoHeight} | ${Math.round(file.size/1e6)}MB`}}
-function togglePlay(){player.paused?player.play():player.pause()}
-function seek(s){player.currentTime+=s}
-function seekVideo(e){const rect=e.currentTarget.getBoundingClientRect();player.currentTime=((e.clientX-rect.left)/rect.width)*player.duration}
-player.ontimeupdate=()=>{document.getElementById('progress').style.width=(player.currentTime/player.duration)*100+'%';document.getElementById('video-time').textContent=formatTime(player.currentTime)+' / '+formatTime(player.duration)}
-function formatTime(s){return new Date(s*1000).toISOString().substr(14,5)}
-function toggleAI(){aiUpscale=!aiUpscale;player.style.filter=aiUpscale?'contrast(1.1) saturate(1.2) brightness(1.05)':'none';alert('🧠 IA '+(aiUpscale?'ON: 8K Upscale':'OFF'))}
-function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('active'));player.pause()}
+function closeOverlay(){
+document.getElementById('overlay').classList.remove('active');
+document.getElementById('hallStatus').textContent='Audio Clubhouse Mode';
+}
 
-// TV MODE
-function toggleTVMode(){document.body.classList.toggle('tv-mode');alert('📺 TV Mode '+(document.body.classList.contains('tv-mode')?'ON':'OFF')+'\nF11 pour plein écran')}
-
-// Keyboard
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();if(e.key===' ')togglePlay();if(e.key==='ArrowLeft')seek(-10);if(e.key==='ArrowRight')seek(10)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeOverlay()});
+init();
 </script>
 </body>
 </html>
