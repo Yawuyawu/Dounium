@@ -1086,3 +1086,251 @@ window.endBattle = async function(){
   setTimeout(()=>{APPS.GAME.live();},3000);
 };
 </script>
+<script>
+// MAP 3D ÉVOLUTION : ZOOM PAYS + CHAT LOCAL
+let currentZoom = 'world';
+let localChatInterval;
+
+APPS.MAP.live = async function(){
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div style="margin:10px 0">
+  <div style="font-size:12px;margin-bottom:8px">🗺️ GLOBE FRÈRES LIVE</div>
+  <div style="display:flex;gap:6px;justify-content:center;margin:8px 0">
+    <button onclick="zoomGlobe('world')" style="background:${currentZoom==='world'?'#FFD700':'rgba(255,215,0,0.2)'};color:${currentZoom==='world'?'#000':'#FFD700'};border:1px solid #FFD700;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">MONDE</button>
+    <button onclick="zoomGlobe('local')" style="background:${currentZoom==='local'?'#FFD700':'rgba(255,215,0,0.2)'};color:${currentZoom==='local'?'#000':'#FFD700'};border:1px solid #FFD700;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">MON PAYS</button>
+  </div>
+  <canvas id="globe" width="300" height="300" style="border:1px solid #FFD700;border-radius:50%"></canvas>
+  <div id="globeStats" style="font-size:11px;margin-top:8px;color:#00FF88">0 frères</div>
+  <div id="localChatBox" style="display:none;margin-top:12px">
+    <div style="font-size:10px;color:#FFD700;margin-bottom:6px">💬 CHAT LOCAL ${userCountry}</div>
+    <div id="localMsgs" style="max-height:80px;overflow-y:auto;background:rgba(0,0,0,0.3);padding:6px;border-radius:6px;font-size:9px;text-align:left"></div>
+    <div style="display:flex;gap:4px;margin-top:6px">
+      <input id="localInput" placeholder="Message pays..." style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:6px;border-radius:6px;font-family:Orbitron;font-size:9px">
+      <button onclick="sendLocalMsg()" style="background:#00FF88;color:#000;border:none;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">▶</button>
+    </div>
+  </div>
+  <button onclick="pingBrothers()" style="background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px 16px;border-radius:8px;margin-top:8px;font-family:Orbitron">📡 PING HALL</button>
+  </div>`;
+  initGlobe();
+  updateGlobeMarkers();
+  if(currentZoom==='local') loadLocalChat();
+};
+
+window.zoomGlobe = function(zone){
+  currentZoom = zone;
+  if(zone==='local'){
+    globeCamera.position.z = 1.5;
+    document.getElementById('localChatBox').style.display='block';
+    loadLocalChat();
+  } else {
+    globeCamera.position.z = 3;
+    document.getElementById('localChatBox').style.display='none';
+    clearInterval(localChatInterval);
+  }
+};
+
+window.sendLocalMsg = async function(){
+  const msg = document.getElementById('localInput').value.trim();
+  if(!msg) return;
+  const countryCode = userCountry.replace(/[^\w]/g,'');
+  await fetch(`${UPSTASH_URL}/lpush/chat:${ROOM}:${countryCode}`,{
+    method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},
+    body:JSON.stringify({uid:UID,name:USERNAME,msg,ts:Date.now(),country:userCountry})
+  });
+  await fetch(`${UPSTASH_URL}/ltrim/chat:${ROOM}:${countryCode}/0/49`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  document.getElementById('localInput').value='';
+  loadLocalChat();
+};
+
+async function loadLocalChat(){
+  const countryCode = userCountry.replace(/[^\w]/g,'');
+  const r = await fetch(`${UPSTASH_URL}/lrange/chat:${ROOM}:${countryCode}/0/9`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  const msgs = data.result||[];
+  const box = document.getElementById('localMsgs');
+  if(!box) return;
+  box.innerHTML = msgs.reverse().map(m=>{
+    const d=JSON.parse(m);
+    const ago = Math.floor((Date.now()-d.ts)/60000);
+    return `<div style="margin:3px 0"><b>${d.name}:</b> ${d.msg} <span style="color:rgba(255,255,255,0.4)">${ago}min</span></div>`;
+  }).join('');
+  box.scrollTop = box.scrollHeight;
+  if(!localChatInterval) localChatInterval = setInterval(loadLocalChat,3000);
+}
+
+// WALLET ÉVOLUTION : SHOP NFT FRÈRES ARTISTES
+let nftList = [];
+
+APPS.WALLET.live = async function(){
+  await syncWallet();
+  await loadNFTs();
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div style="margin:10px 0">
+  <div style="font-size:24px;color:#FFD700;margin:12px 0">${myBalance} 💰</div>
+  <div style="display:flex;gap:8px;margin:16px 0">
+    <button onclick="showWalletTab('send')" id="walletTabSend" style="flex:1;background:#FFD700;color:#000;border:none;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px">SEND</button>
+    <button onclick="showWalletTab('shop')" id="walletTabShop" style="flex:1;background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px">NFT SHOP</button>
+    <button onclick="showWalletTab('mine')" id="walletTabMine" style="flex:1;background:rgba(255,215,0,0.2);border:1px solid #FFD700;color:#FFD700;padding:8px;border-radius:6px;font-family:Orbitron;font-size:10px">MES NFT</button>
+  </div>
+  <div id="walletTabContent"></div>
+  </div>`;
+  showWalletTab('send');
+};
+
+window.showWalletTab = function(tab){
+  ['Send','Shop','Mine'].forEach(t=>{
+    document.getElementById('walletTab'+t).style.background = t.toLowerCase()===tab?'#FFD700':'rgba(255,215,0,0.2)';
+    document.getElementById('walletTab'+t).style.color = t.toLowerCase()===tab?'#000':'#FFD700';
+  });
+  const content = document.getElementById('walletTabContent');
+  if(tab==='send'){
+    content.innerHTML = `
+    <div style="display:flex;gap:8px;margin:12px 0">
+      <input id="sendTo" placeholder="Nom frère" style="flex:1;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:8px;font-family:Orbitron;font-size:11px">
+      <input id="sendAmount" type="number" placeholder="Montant" style="width:80px;background:#000;border:1px solid #FFD700;color:#FFF;padding:8px;border-radius:8px;font-family:Orbitron;font-size:11px">
+    </div>
+    <button onclick="sendCoin()" style="background:#00FF88;color:#000;border:none;padding:10px 24px;border-radius:8px;font-family:Orbitron;font-weight:700">💸 SEND</button>
+    <div id="walletTx" style="margin-top:16px;max-height:120px;overflow-y:auto;font-size:10px"></div>`;
+    loadWalletTx();
+  } else if(tab==='shop'){
+    content.innerHTML = `<div style="max-height:200px;overflow-y:auto">${nftList.map(nft=>`
+      <div style="background:rgba(255,215,0,0.05);border:1px solid rgba(255,215,0,0.3);padding:10px;border-radius:8px;margin:8px 0;text-align:left">
+        <div style="font-size:12px;color:#FFD700">${nft.emoji} ${nft.name}</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.6);margin:4px 0">par ${nft.artist} ${nft.flag}</div>
+        <div style="font-size:10px;margin:6px 0">${nft.desc}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="color:#00FF88;font-size:11px">${nft.price} 💰</span>
+          <button onclick="buyNFT('${nft.id}')" style="background:#FFD700;color:#000;border:none;padding:6px 12px;border-radius:6px;font-family:Orbitron;font-size:9px">ACHETER</button>
+        </div>
+      </div>`).join('')}</div>`;
+  } else if(tab==='mine'){
+    loadMyNFTs();
+  }
+};
+
+async function loadNFTs(){
+  const r = await fetch(`${UPSTASH_URL}/hgetall/nftshop:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  const raw = data.result||[];
+  nftList = [];
+  for(let i=0;i<raw.length;i+=2){
+    try{nftList.push(JSON.parse(raw[i+1]));}catch(e){}
+  }
+  // NFT par défaut si vide
+  if(!nftList.length){
+    nftList = [
+      {id:'nft1',emoji:'🎨',name:'Soleil Dakar',artist:'Amadou',flag:'🇸🇳',desc:'Acrylique sur toile',price:50},
+      {id:'nft2',emoji:'📜',name:'Poème Hall',artist:'Fatou',flag:'🇲🇱',desc:'Vers libres 6D',price:30},
+      {id:'nft3',emoji:'🎵',name:'Beat Bamako',artist:'Ibra',flag:'🇲🇱',desc:'Trap 128bpm',price:40}
+    ];
+  }
+}
+
+window.buyNFT = async function(nftId){
+  const nft = nftList.find(n=>n.id===nftId);
+  if(!nft || myBalance<nft.price) return alert('Balance insuffisante');
+  myBalance -= nft.price;
+  await fetch(`${UPSTASH_URL}/hset/wallet:${ROOM}/${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:String(myBalance)});
+  await fetch(`${UPSTASH_URL}/hset/mynft:${ROOM}:${UID}/${nftId}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({...nft,bought:Date.now()})});
+  localStorage.setItem('dounium_balance',myBalance);
+  alert(`✅ NFT "${nft.name}" acheté!`);
+  APPS.WALLET.live();
+};
+
+async function loadMyNFTs(){
+  const r = await fetch(`${UPSTASH_URL}/hgetall/mynft:${ROOM}:${UID}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  const raw = data.result||[];
+  const myNfts = [];
+  for(let i=0;i<raw.length;i+=2){
+    try{myNfts.push(JSON.parse(raw[i+1]));}catch(e){}
+  }
+  const content = document.getElementById('walletTabContent');
+  if(!myNfts.length){
+    content.innerHTML = '<div style="color:rgba(255,255,255,0.5);margin:20px 0">Aucun NFT. Visite le SHOP</div>';
+    return;
+  }
+  content.innerHTML = `<div style="max-height:200px;overflow-y:auto">${myNfts.map(nft=>`
+    <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.3);padding:10px;border-radius:8px;margin:8px 0;text-align:left">
+      <div style="font-size:12px;color:#00FF88">${nft.emoji} ${nft.name}</div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.6)">Acheté le ${new Date(nft.bought).toLocaleDateString()}</div>
+    </div>`).join('')}</div>`;
+}
+
+// GAME ÉVOLUTION : TOURNOI HALL HEBDO
+let tournamentData = null;
+
+APPS.GAME.live = async function(){
+  await loadTournament();
+  const c = document.getElementById('overlayContent');
+  c.innerHTML = `
+  <div style="margin:10px 0">
+  <div style="font-size:12px;margin-bottom:8px">🎮 TOURNOI HALL HEBDO</div>
+  <div style="background:rgba(255,215,0,0.1);border:1px solid #FFD700;padding:12px;border-radius:8px;margin:8px 0">
+    <div style="font-size:11px;color:#FFD700">🏆 PRIX: ${tournamentData.prize} 💰</div>
+    <div style="font-size:9px;color:rgba(255,255,255,0.7);margin-top:4px">Fin: ${tournamentData.ends}</div>
+  </div>
+  <div id="leaderboard" style="max-height:120px;overflow-y:auto;margin:12px 0;text-align:left;font-size:10px"></div>
+  <button onclick="joinTournament()" style="background:#FF0066;color:#FFF;border:none;padding:10px 24px;border-radius:8px;font-family:Orbitron;font-weight:700">⚔️ REJOINDRE</button>
+  <div style="margin-top:12px;font-size:9px;color:rgba(255,255,255,0.5)">Ou 1v1 RAP BATTLE:</div>
+  <div id="battleRoster" style="max-height:80px;overflow-y:auto;margin:8px 0"></div>
+  </div>`;
+  renderLeaderboard();
+  renderBattleRoster();
+};
+
+async function loadTournament(){
+  const r = await fetch(`${UPSTASH_URL}/hget/tournament:${ROOM}/current`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  const data = await r.json();
+  if(data.result){
+    tournamentData = JSON.parse(data.result);
+  } else {
+    const endDate = new Date(); endDate.setDate(endDate.getDate()+7);
+    tournamentData = {prize:1000,ends:endDate.toLocaleDateString('fr-FR'),players:{}};
+    await fetch(`${UPSTASH_URL}/hset/tournament:${ROOM}/current`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(tournamentData)});
+  }
+}
+
+function renderLeaderboard(){
+  const board = document.getElementById('leaderboard');
+  const players = Object.entries(tournamentData.players||{}).sort((a,b)=>b[1].score-a[1].score).slice(0,10);
+  if(!players.length){
+    board.innerHTML = '<div style="color:rgba(255,255,255,0.5)">Sois le premier!</div>';
+    return;
+  }
+  board.innerHTML = players.map((p,i)=>`
+    <div style="background:rgba(255,215,0,${i===0?0.2:0.05});padding:6px;border-radius:6px;margin:4px 0">
+      ${i+1}. ${p[1].name} • ${p[1].score} pts ${p[1].country||'🌍'}
+    </div>`).join('');
+}
+
+window.joinTournament = async function(){
+  if(!tournamentData.players) tournamentData.players={};
+  if(tournamentData.players[UID]) return alert('Déjà inscrit');
+  tournamentData.players[UID] = {name:USERNAME,score:0,country:userCountry};
+  await fetch(`${UPSTASH_URL}/hset/tournament:${ROOM}/current`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(tournamentData)});
+  alert('✅ Inscrit au Tournoi!');
+  APPS.GAME.live();
+};
+
+// Override battle end pour ajouter points tournoi
+const _endBattle = window.endBattle;
+window.endBattle = async function(){
+  const myScore = Math.floor(Math.random()*50)+50;
+  const oppScore = Math.floor(Math.random()*50)+50;
+  document.getElementById('battleScore').innerHTML=`Toi: ${myScore} 🔥 • ${battleOpponent.name}: ${oppScore} 🔥`;
+  document.getElementById('battleStatus').textContent = myScore>oppScore?'🏆 VICTOIRE!':myScore<oppScore?'💀 DÉFAITE':'🤝 ÉGALITÉ';
+  document.getElementById('battleTimer').style.display='none';
+  
+  // Ajouter points tournoi
+  if(tournamentData.players && tournamentData.players[UID]){
+    tournamentData.players[UID].score += myScore;
+    await fetch(`${UPSTASH_URL}/hset/tournament:${ROOM}/current`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(tournamentData)});
+  }
+  
+  await fetch(`${UPSTASH_URL}/lpush/battle:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'end',winner:myScore>oppScore?UID:battleOpponent.uid,score1:myScore,score2:oppScore,ts:Date.now()})});
+  setTimeout(()=>{APPS.GAME.live();},3000);
+};
+</script>
