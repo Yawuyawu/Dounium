@@ -2461,3 +2461,84 @@ document.getElementById('globe').addEventListener('click',function(e){
 
 console.log('🌍 RÉSEAU ACTIF: Globe connecté au monde');
 </script>
+<script>
+// v11.1 AGORA : ESPACE MULTIJOUEUR TEMPS RÉEL
+let agoraOnline=[],agoraRoom='HALL-OMEGA';
+
+window.showAgora=function(){
+  const a=document.getElementById('omegaAction');a.style.display='block';
+  a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">🌐 AGORA GLOBAL</div>
+  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Espace partagé. Frères en ligne. Actions communes</div>
+  <div id="agoraList" style="max-height:120px;overflow-y:auto;background:#000;border-radius:8px;padding:6px;margin:8px 0;font-size:8px"></div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin:8px 0">
+    <button onclick="agoraPlay()" class="glass-btn">🎮 PLAY</button>
+    <button onclick="agoraExecute()" class="glass-btn">⚡ EXECUTE</button>
+    <button onclick="agoraTrade()" class="glass-btn">🔗 TRADE</button>
+    <button onclick="agoraSync()" class="glass-btn omega">🌀 SYNC</button>
+  </div>
+  <div id="agoraStatus" style="font-size:9px;color:#AAA;margin-top:6px">État: Solo. Rejoins Agora</div>
+  <button onclick="joinAgora()" class="glass-btn omega" style="width:100%;margin-top:8px">🌐 REJOINDRE AGORA</button>`;
+  updateAgoraList();
+};
+
+window.joinAgora=async function(){
+  const s=document.getElementById('agoraStatus');
+  s.innerText='Connexion Agora...';await new Promise(r=>setTimeout(r,1000));
+  await fetch(`${UPSTASH_URL}/sadd/agora:${agoraRoom}/${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});
+  s.innerText='État: CONNECTÉ. Hall partagé actif';
+  setInterval(updateAgoraList,2000);
+  alert('🌐 AGORA REJOINTE\n\nTu es maintenant en ligne\nFrères connectés visibles\nActions synchronisées\n\nJoue. Execute. Trade. Sync.');
+};
+
+async function updateAgoraList(){
+  const r=await fetch(`${UPSTASH_URL}/smembers/agora:${agoraRoom}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
+  const l=document.getElementById('agoraList');
+  if(!l||!r.result)return;
+  agoraOnline=r.result;
+  l.innerHTML=r.result.map(u=>`<div style="padding:3px;color:${u===UID?'var(--hall-gold)':'#AAA'}">${u===UID?'👑 ':''}${u}</div>`).join('');
+  document.getElementById('onlineCount').innerText=r.result.length;
+}
+
+window.agoraPlay=async function(){
+  if(agoraOnline.length<2)return alert('Agora vide. Attends des frères');
+  const target=agoraOnline.filter(u=>u!==UID)[Math.floor(Math.random()*(agoraOnline.length-1))];
+  await fetch(`${UPSTASH_URL}/publish/agora:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'PLAY',from:UID,to:target,ts:Date.now()})});
+  alert(`🎮 DÉFI LANCÉ\n\nToi vs ${target}\n\nGagnant = +100 Pouvoir\nPerdant = -50\n\nQue le meilleur gagne`);
+};
+
+window.agoraExecute=async function(){
+  const cmd=prompt('Commande globale pour Agora:');
+  if(!cmd)return;
+  await fetch(`${UPSTASH_URL}/publish/agora:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'EXECUTE',from:UID,cmd:cmd,ts:Date.now()})});
+  alert(`⚡ EXECUTE GLOBAL\n\nCommande: ${cmd}\nEnvoyée à ${agoraOnline.length} frères\n\nEffet synchronisé`);
+};
+
+window.agoraTrade=async function(){
+  if(agoraOnline.length<2)return alert('Personne à trader');
+  const target=agoraOnline.filter(u=>u!==UID)[0];
+  await fetch(`${UPSTASH_URL}/publish/agora:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'TRADE',from:UID,to:target,offer:'GENE',ts:Date.now()})});
+  alert(`🔗 TRADE PROPOSÉ\n\nToi → ${target}\nOffre: GÈNE DIVIN\n\nEn attente acceptation`);
+};
+
+window.agoraSync=async function(){
+  await fetch(`${UPSTASH_URL}/publish/agora:${agoraRoom}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'SYNC',from:UID,power:absoluPower,ts:Date.now()})});
+  alert(`🌀 SYNC RAID LANCÉ\n\nFrères: ${agoraOnline.length}\nPouvoir total: ${agoraOnline.length * 1000}\n\nFusion temporaire active\nVous êtes Légion`);
+};
+
+// AJOUT AU DASH v11.1
+const oldLive=APPS.MAP.live;
+APPS.MAP.live=async function(){
+  await oldLive();
+  const grid=document.querySelector('.glass-card div[style*="grid-template-columns"]');
+  if(grid&&!document.getElementById('agoraBtn')){
+    const btn=document.createElement('button');
+    btn.id='agoraBtn';
+    btn.className='glass-btn omega';
+    btn.style.cssText='font-size:6px;background:rgba(0,255,255,0.3)';
+    btn.onclick=showAgora;
+    btn.innerText='🌐AGORA';
+    grid.appendChild(btn);
+  }
+};
+</script>
