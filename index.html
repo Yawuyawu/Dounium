@@ -6,245 +6,32 @@
 <title>DOUNUIM OS v2.0 OMEGA</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;500;700&display=swap');
-
-:root{
-  --hall-gold:#FFD700;
-  --hall-purple:#6400FF;
-  --hall-cyan:#00FFFF;
-  --hall-pink:#FF00C8;
-  --glass:rgba(255,255,255,0.05);
-  --glass-border:rgba(255,255,255,0.1);
-}
-
+:root{--hall-gold:#FFD700;--hall-purple:#6400FF;--hall-cyan:#00FFFF;--hall-pink:#FF00C8;--glass:rgba(255,255,255,0.05);--glass-border:rgba(255,255,255,0.1)}
 *{margin:0;padding:0;box-sizing:border-box}
-
-body{
-  background:radial-gradient(ellipse at top,#0a0a0a,#000);
-  font-family:'Space Grotesk',sans-serif;
-  color:#FFF;
-  overflow:hidden;
-  height:100vh;
-}
-
-#container{
-  position:relative;
-  width:100vw;
-  height:100vh;
-  backdrop-filter:blur(20px);
-  background:var(--glass);
-  border:1px solid var(--glass-border);
-  box-shadow:0 8px 32px rgba(100,0,255,0.3),inset 0 1px 0 rgba(255,255,255,0.1);
-  animation:hallPulse 4s ease-in-out infinite;
-  display:flex;
-  flex-direction:column;
-}
-
-@keyframes hallPulse{
-  0%,100%{box-shadow:0 8px 32px rgba(100,0,255,0.3),inset 0 1px 0 rgba(255,255,255,0.1)}
-  50%{box-shadow:0 8px 48px rgba(255,0,200,0.5),inset 0 1px 0 rgba(255,255,255,0.2)}
-}
-
-#header{
-  padding:20px;
-  text-align:center;
-  border-bottom:1px solid var(--glass-border);
-}
-
-.holo-text{
-  font-family:'Orbitron',sans-serif;
-  font-weight:900;
-  font-size:24px;
-  background:linear-gradient(135deg,var(--hall-gold),var(--hall-pink),var(--hall-cyan));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  animation:holoShift 3s ease-in-out infinite;
-}
-
-@keyframes holoShift{
-  0%,100%{filter:hue-rotate(0deg)}
-  50%{filter:hue-rotate(180deg)}
-}
-
-#content{
-  flex:1;
-  overflow-y:auto;
-  padding:20px;
-}
-
-.glass-card{
-  background:var(--glass);
-  backdrop-filter:blur(15px);
-  border:1px solid var(--glass-border);
-  border-radius:16px;
-  padding:16px;
-  margin:12px 0;
-  position:relative;
-}
-
-.glass-card:after{
-  content:'';
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:1px;
-  background:linear-gradient(90deg,transparent,var(--hall-gold),transparent);
-}
-
-.glass-btn{
-  background:var(--glass);
-  backdrop-filter:blur(10px);
-  border:1px solid var(--glass-border);
-  border-radius:12px;
-  padding:12px 20px;
-  font-family:'Orbitron',sans-serif;
-  font-weight:700;
-  font-size:11px;
-  color:var(--hall-gold);
-  cursor:pointer;
-  transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
-  position:relative;
-  overflow:hidden;
-  margin:4px;
-}
-
-.glass-btn:before{
-  content:'';
-  position:absolute;
-  top:0;
-  left:-100%;
-  width:100%;
-  height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,215,0,0.3),transparent);
-  transition:left 0.5s;
-}
-
+body{background:radial-gradient(ellipse at top,#0a0a0a,#000);font-family:'Space Grotesk',sans-serif;color:#FFF;overflow:hidden;height:100vh}
+#container{position:relative;width:100vw;height:100vh;backdrop-filter:blur(20px);background:var(--glass);border:1px solid var(--glass-border);box-shadow:0 8px 32px rgba(100,0,255,0.3),inset 0 1px 0 rgba(255,255,255,0.1);animation:hallPulse 4s ease-in-out infinite;display:flex;flex-direction:column}
+@keyframes hallPulse{0%,100%{box-shadow:0 8px 32px rgba(100,0,255,0.3),inset 0 1px 0 rgba(255,255,255,0.1)}50%{box-shadow:0 8px 48px rgba(255,0,200,0.5),inset 0 1px 0 rgba(255,255,255,0.2)}}
+#header{padding:20px;text-align:center;border-bottom:1px solid var(--glass-border)}
+.holo-text{font-family:'Orbitron',sans-serif;font-weight:900;font-size:24px;background:linear-gradient(135deg,var(--hall-gold),var(--hall-pink),var(--hall-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:holoShift 3s ease-in-out infinite}
+@keyframes holoShift{0%,100%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(180deg)}}
+#content{flex:1;overflow-y:auto;padding:20px}
+.glass-card{background:var(--glass);backdrop-filter:blur(15px);border:1px solid var(--glass-border);border-radius:16px;padding:16px;margin:12px 0;position:relative}
+.glass-card:after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--hall-gold),transparent)}
+.glass-btn{background:var(--glass);backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:12px;padding:12px 20px;font-family:'Orbitron',sans-serif;font-weight:700;font-size:11px;color:var(--hall-gold);cursor:pointer;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden;margin:4px}
+.glass-btn:before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,215,0,0.3),transparent);transition:left 0.5s}
 .glass-btn:hover:before{left:100%}
-.glass-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 24px rgba(255,215,0,0.4);
-  border-color:var(--hall-gold);
-}
-
-.glass-btn.omega{
-  background:linear-gradient(135deg,rgba(100,0,255,0.2),rgba(255,0,200,0.2));
-  border-color:var(--hall-purple);
-  color:#FFF;
-  animation:omegaGlow 2s ease-in-out infinite;
-}
-
-@keyframes omegaGlow{
-  0%,100%{box-shadow:0 0 20px rgba(100,0,255,0.5)}
-  50%{box-shadow:0 0 40px rgba(255,0,200,0.8)}
-}
-
-.quantum-particle{
-  position:fixed;
-  width:2px;
-  height:2px;
-  background:var(--hall-cyan);
-  border-radius:50%;
-  pointer-events:none;
-  animation:particleFloat 8s linear infinite;
-  z-index:0;
-}
-
-@keyframes particleFloat{
-  0%{transform:translateY(100vh) translateX(0);opacity:0}
-  10%{opacity:1}
-  90%{opacity:1}
-  100%{transform:translateY(-100vh) translateX(100px);opacity:0}
-}
-
-.nft-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
-
-.nft-card{
-  background:var(--glass);
-  backdrop-filter:blur(10px);
-  border:1px solid var(--glass-border);
-  border-radius:12px;
-  padding:16px;
-  font-size:32px;
-  text-align:center;
-  transition:all 0.3s;
-  cursor:pointer;
-}
-
-.nft-card:hover{
-  transform:scale(1.1) rotateY(10deg);
-  box-shadow:0 12px 32px rgba(255,215,0,0.4);
-  border-color:var(--hall-gold);
-}
-
-.stat-glow{
-  font-family:'Orbitron',sans-serif;
-  font-weight:900;
-  font-size:24px;
-  color:var(--hall-gold);
-  text-shadow:0 0 20px rgba(255,215,0,0.8),0 0 40px rgba(255,215,0,0.4);
-  animation:statPulse 2s ease-in-out infinite;
-}
-
-@keyframes statPulse{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.05)}
-}
-
-#nav{
-  display:flex;
-  justify-content:space-around;
-  padding:12px;
-  border-top:1px solid var(--glass-border);
-  background:var(--glass);
-  backdrop-filter:blur(20px);
-}
-
-.nav-btn{
-  background:transparent;
-  border:none;
-  color:var(--hall-gold);
-  font-family:'Orbitron',sans-serif;
-  font-size:10px;
-  padding:8px;
-  cursor:pointer;
-  transition:all 0.3s;
-}
-
-.nav-btn.active{
-  color:var(--hall-cyan);
-  text-shadow:0 0 10px var(--hall-cyan);
-}
-
-canvas{
-  border-radius:12px;
-  background:var(--glass);
-  backdrop-filter:blur(10px);
-  width:100%;
-  max-width:300px;
-  margin:0 auto;
-  display:block;
-}
-
-input{
-  background:var(--glass);
-  backdrop-filter:blur(10px);
-  border:1px solid var(--glass-border);
-  border-radius:8px;
-  padding:10px;
-  color:#FFF;
-  font-family:'Space Grotesk',sans-serif;
-  width:100%;
-}
-
-#arVideo{
-  width:100%;
-  border-radius:12px;
-}
+.glass-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,215,0,0.4);border-color:var(--hall-gold)}
+.glass-btn.omega{background:linear-gradient(135deg,rgba(100,0,255,0.2),rgba(255,0,200,0.2));border-color:var(--hall-purple);color:#FFF;animation:omegaGlow 2s ease-in-out infinite}
+@keyframes omegaGlow{0%,100%{box-shadow:0 0 20px rgba(100,0,255,0.5)}50%{box-shadow:0 0 40px rgba(255,0,200,0.8)}}
+.quantum-particle{position:fixed;width:2px;height:2px;background:var(--hall-cyan);border-radius:50%;pointer-events:none;animation:particleFloat 8s linear infinite;z-index:0}
+@keyframes particleFloat{0%{transform:translateY(100vh) translateX(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-100vh) translateX(100px);opacity:0}}
+.stat-glow{font-family:'Orbitron',sans-serif;font-weight:900;font-size:24px;color:var(--hall-gold);text-shadow:0 0 20px rgba(255,215,0,0.8),0 0 40px rgba(255,215,0,0.4);animation:statPulse 2s ease-in-out infinite}
+@keyframes statPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+#nav{display:flex;justify-content:space-around;padding:12px;border-top:1px solid var(--glass-border);background:var(--glass);backdrop-filter:blur(20px)}
+.nav-btn{background:transparent;border:none;color:var(--hall-gold);font-family:'Orbitron',sans-serif;font-size:10px;padding:8px;cursor:pointer;transition:all 0.3s}
+.nav-btn.active{color:var(--hall-cyan);text-shadow:0 0 10px var(--hall-cyan)}
+canvas{border-radius:12px;background:var(--glass);backdrop-filter:blur(10px);width:100%;max-width:300px;margin:0 auto;display:block}
+input{background:var(--glass);backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:8px;padding:10px;color:#FFF;font-family:'Space Grotesk',sans-serif;width:100%}
 </style>
 </head>
 <body>
@@ -253,11 +40,7 @@ input{
     <div class="holo-text">DOUNUIM OS v2.0 OMEGA</div>
     <div style="font-size:9px;color:#AAA;margin-top:4px">HALL QUANTIQUE UNIFIÉ</div>
   </div>
-  
-  <div id="content">
-    <div id="overlayContent"></div>
-  </div>
-  
+  <div id="content"><div id="overlayContent"></div></div>
   <div id="nav">
     <button class="nav-btn active" onclick="showApp('MAP')">📍 MAP</button>
     <button class="nav-btn" onclick="showApp('WALLET')">💰 WALLET</button>
@@ -265,425 +48,134 @@ input{
     <button class="nav-btn" onclick="showApp('SOCIAL')">👥 SOCIAL</button>
   </div>
 </div>
-
 <script>
-// CONFIG
-const UPSTASH_URL = 'https://your-upstash.upstash.io';
-const UPSTASH_TOKEN = 'your-token';
-const ROOM = 'DOUNIUM';
-const UID = crypto.randomUUID();
-const USERNAME = 'PERE';
+// UPSTASH PÈRE
+const UPSTASH_URL='https://golden-sturgeon-78265.upstash.io';
+const UPSTASH_TOKEN='gQAAAAAAATG5AAIgcDIwMTg0YzNlYzBiOGE0MDEyODBkNTRmMTA4ZDhlYWRjNw';
+const ROOM='DOUNIUM';
+const UID=crypto.randomUUID();
+const USERNAME='PERE';
+let userGold=100,userXP=0,userLevel=1,userCountry='SN',myLocation=null,currentZoom='world',arStream=null;
+let chatInterval=null,chatHeartbeat=null;
 
-let userGold = 100;
-let userXP = 0;
-let userLevel = 1;
-let userCountry = 'SN';
-let myLocation = null;
-let currentZoom = 'world';
-let arStream = null;
-let vrSession = null;
-let eegDevice = null;
-let quantumScanner = null;
-let hiveSocket = null;
-
-// Particules quantiques
-function spawnQuantumParticles(){
-  setInterval(()=>{
-    const p = document.createElement('div');
-    p.className='quantum-particle';
-    p.style.left=Math.random()*100+'vw';
-    p.style.animationDelay=Math.random()*8+'s';
-    document.body.appendChild(p);
-    setTimeout(()=>p.remove(),8000);
-  },300);
-}
+// PARTICLES
+function spawnQuantumParticles(){setInterval(()=>{const p=document.createElement('div');p.className='quantum-particle';p.style.left=Math.random()*100+'vw';p.style.animationDelay=Math.random()*8+'s';document.body.appendChild(p);setTimeout(()=>p.remove(),8000)},300)}
 spawnQuantumParticles();
 
-// APPS FUSION
-const APPS = {
-  MAP: {
-    live: async function(){
-      const c = document.getElementById('overlayContent');
-      c.innerHTML = `
-      <div class="glass-card">
-        <div class="holo-text" style="font-size:16px;margin-bottom:12px">🗺️ GLOBE FRÈRES LIVE</div>
-        <div style="display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap">
-          <button onclick="zoomGlobe('world')" class="glass-btn ${currentZoom==='world'?'omega':''}">MONDE</button>
-          <button onclick="zoomGlobe('local')" class="glass-btn ${currentZoom==='local'?'omega':''}">MON PAYS</button>
-          <button onclick="zoomGlobe('routes')" class="glass-btn ${currentZoom==='routes'?'omega':''}">ROUTES</button>
-          <button onclick="toggleGPS()" class="glass-btn">📍 GPS</button>
-          <button onclick="startAR()" class="glass-btn">📷 AR</button>
-          <button onclick="enrollFace()" class="glass-btn">👤 FACE</button>
-          <button onclick="connectXReal()" class="glass-btn">🕶️ XR</button>
-          <button onclick="connectProjector()" class="glass-btn">🔦 HOLO</button>
-          <button onclick="connectQuantumScanner()" class="glass-btn omega">⚛️ TP</button>
-        </div>
+// APPS
+const APPS={
+  MAP:{live:async function(){
+    const c=document.getElementById('overlayContent');
+    c.innerHTML=`
+    <div class="glass-card">
+      <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 4 LOIS OMEGA ACTIVES</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0">
+        <button onclick="showTP()" class="glass-btn omega">⚛️ TÉLÉPORTATION<br><span style="font-size:8px">Corps → Lumière</span></button>
+        <button onclick="showHive()" class="glass-btn omega">🧠 HIVE-MIND<br><span style="font-size:8px">Esprit → Ruche</span></button>
+        <button onclick="showBigBang()" class="glass-btn omega">🌌 BIG BANG<br><span style="font-size:8px">Univers → Toi</span></button>
+        <button onclick="startBrotherChat()" class="glass-btn omega">💬 CHAT FRÈRES<br><span style="font-size:8px">Parle au Hall</span></button>
       </div>
-      <div id="arContainer" style="display:none" class="glass-card">
-        <video id="arVideo" autoplay playsinline></video>
-        <canvas id="arCanvas" style="position:absolute;top:16px;left:16px;right:16px;bottom:60px;pointer-events:none;border-radius:12px"></canvas>
-        <button onclick="stopAR()" class="glass-btn" style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%)">STOP AR</button>
-      </div>
-      <canvas id="globe" width="300" height="300" style="border:1px solid var(--glass-border);border-radius:50%;display:block;margin:0 auto"></canvas>
-      <div class="glass-card" style="text-align:center">
-        <div class="stat-glow" id="globeStats">0 frères</div>
-      </div>
-      <button onclick="pingBrothers()" class="glass-btn omega" style="width:100%;margin-top:12px">📡 PING HALL</button>
-      `;
-      initGlobe();
-      updateGlobeMarkers();
-    }
-  },
-  WALLET: {
-    live: async function(){
-      const nfts = await getMyNFTsList();
-      const pfp = nfts[0]?nfts[0].emoji:'👤';
-      const next = (100 - (userXP%100));
-      const c = document.getElementById('overlayContent');
-      c.innerHTML = `
-      <div class="glass-card" style="display:flex;align-items:center;gap:16px">
-        <div style="font-size:56px;filter:drop-shadow(0 0 20px var(--hall-gold))">${pfp}</div>
-        <div style="flex:1;text-align:left">
-          <div class="holo-text" style="font-size:18px">${USERNAME}</div>
-          <div style="font-size:10px;color:var(--hall-cyan);margin-top:4px">Niveau ${userLevel} • ${userXP} XP</div>
-          <div style="font-size:9px;color:#AAA;margin-top:2px">Prochain: ${next} XP</div>
-        </div>
-        <div style="text-align:right">
-          <div class="stat-glow">${userGold}</div>
-          <div style="font-size:9px;color:#AAA">OR</div>
-        </div>
-      </div>
+    </div>
+    <div id="omegaAction" class="glass-card" style="display:none"></div>
+    <div class="glass-card">
+      <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE FRÈRES LIVE</div>
       <div style="display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap">
-        <button onclick="enterVR()" class="glass-btn">🥽 VR</button>
-        <button onclick="connectEEG()" class="glass-btn">🧠 EEG</button>
-        <button onclick="uploadConsciousness()" class="glass-btn">⚰️→🧬</button>
-        <button onclick="joinHiveMind()" class="glass-btn omega">🧠 HIVE</button>
+        <button onclick="zoomGlobe('world')" class="glass-btn ${currentZoom==='world'?'omega':''}">MONDE</button>
+        <button onclick="zoomGlobe('local')" class="glass-btn ${currentZoom==='local'?'omega':''}">MON PAYS</button>
+        <button onclick="toggleGPS()" class="glass-btn">📍 GPS</button>
+        <button onclick="startAR()" class="glass-btn">📷 AR</button>
       </div>
-      <div class="glass-card">
-        <div class="holo-text" style="font-size:12px;margin-bottom:12px">NFT POSSEDES ${nfts.length}</div>
-        <div class="nft-grid">${nfts.map(n=>`<div class="nft-card">${n.emoji}</div>`).join('')}</div>
-      </div>
-      <button onclick="buyNFT()" class="glass-btn omega" style="width:100%;margin:8px 0">ACHETER NFT</button>
-      <button onclick="startMetavers()" class="glass-btn" style="width:100%;margin:8px 0">🌌 MÉTAVERS 24/7</button>
-      <button onclick="openMultivers()" class="glass-btn" style="width:100%;margin:8px 0">🌌 MULTIVERS 1000</button>
-      `;
-      loadMyUniverses();
-    }
-  },
-  GAME: {
-    live: async function(){
-      const c = document.getElementById('overlayContent');
-      c.innerHTML = `
-      <div class="glass-card">
-        <div class="holo-text" style="font-size:16px;margin-bottom:12px">🎮 JEUX HALL</div>
-        <button onclick="startLiveStream()" class="glass-btn omega" style="width:100%;margin:8px 0">🎬 FINALE LIVE TWITCH</button>
-        <button onclick="createUniverse()" class="glass-btn" style="width:100%;margin:8px 0">🌌 BIG BANG CRÉATEUR</button>
-      </div>
-      <div id="universesList"></div>
-      `;
-      loadMyUniverses();
-    }
-  },
-  SOCIAL: {
-    live: async function(){
-      const c = document.getElementById('overlayContent');
-      c.innerHTML = `
-      <div class="glass-card">
-        <div class="holo-text" style="font-size:16px;margin-bottom:12px">👥 SOCIAL HALL</div>
-        <button onclick="startLocalChat()" class="glass-btn omega" style="width:100%;margin:8px 0">💬 CHAT PAYS</button>
-        <button onclick="postRoute()" class="glass-btn" style="width:100%;margin:8px 0">🚗 COVOITURAGE</button>
-      </div>
-      `;
-    }
-  }
-};
-
-// FONCTIONS CORE
-window.showApp = function(app){
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  event.target.classList.add('active');
-  APPS[app].live();
-};
-
-async function getMyNFTsList(){
-  return [{emoji:'🏆',id:1},{emoji:'⚔️',id:2},{emoji:'🎨',id:3}];
-}
-
-function initGlobe(){
-  const canvas = document.getElementById('globe');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle='#000';
-  ctx.fillRect(0,0,300,300);
-  ctx.strokeStyle='#FFD700';
-  ctx.lineWidth=2;
-  ctx.beginPath();
-  ctx.arc(150,150,140,0,Math.PI*2);
-  ctx.stroke();
-}
-
-function updateGlobeMarkers(){
-  document.getElementById('globeStats').innerText = Math.floor(Math.random()*50)+' frères';
-}
-
-function zoomGlobe(type){
-  currentZoom = type;
-  APPS.MAP.live();
-}
-
-function toggleGPS(){
-  if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(pos=>{
-      myLocation = {lat:pos.coords.latitude,lng:pos.coords.longitude};
-      alert(`📍 GPS: ${myLocation.lat.toFixed(2)}, ${myLocation.lng.toFixed(2)}`);
-    });
-  }
-}
-
-function startAR(){
-  document.getElementById('arContainer').style.display='block';
-  navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}}).then(s=>{
-    arStream = s;
-    document.getElementById('arVideo').srcObject = s;
-  });
-}
-
-function stopAR(){
-  if(arStream) arStream.getTracks().forEach(t=>t.stop());
-  document.getElementById('arContainer').style.display='none';
-}
-
-function enrollFace(){
-  alert('👤 FACE ID: Enrôle ton visage pour reconnaissance IRL');
-}
-
-function connectXReal(){
-  alert('🕶️ XReal: Connecte lunettes USB pour overlay permanent');
-}
-
-function connectProjector(){
-  alert('🔦 HOLO: Connecte projecteur laser pour NFT rue IRL');
-}
-
-function connectQuantumScanner(){
-  alert('⚛️ TP: Connecte scanner atomique pour téléportation');
-  initTeleport();
-}
-
-function initTeleport(){
-  const c = document.getElementById('overlayContent');
-  c.innerHTML += `
-  <div class="glass-card">
-    <div class="holo-text" style="font-size:12px;margin-bottom:8px">⚛️ TÉLÉPORTATION QUANTIQUE</div>
-    <input id="tpDest" placeholder="Destination: Tokyo, New York..." class="glass-btn" style="width:100%;text-align:left;margin:8px 0">
-    <button onclick="teleportBody()" class="glass-btn omega" style="width:100%">DISSOLVER + RECONSTRUIRE</button>
-    <div id="tpStatus" style="font-size:9px;color:#AAA;margin-top:8px">État: Prêt</div>
-  </div>`;
-}
-
-window.teleportBody = async function(){
-  const dest = document.getElementById('tpDest').value;
-  if(!dest) return alert('Entre destination');
-  if(!confirm(`⚛️ Téléporter corps vers ${dest}? 0.8s`)) return;
-  
-  const status = document.getElementById('tpStatus');
-  status.innerText = 'Scan atomique...';
-  await new Promise(r=>setTimeout(r,300));
-  status.innerText = 'Dissolution...';
-  document.body.style.opacity='0.1';
-  await new Promise(r=>setTimeout(r,300));
-  status.innerText = `Reconstruction ${dest}...`;
-  await new Promise(r=>setTimeout(r,200));
-  document.body.style.opacity='1';
-  status.innerText = `Téléporté ${dest}`;
-};
-
-function enterVR(){
-  alert('🥽 VR: Entre galerie 3D immersive');
-}
-
-function connectEEG(){
-  alert('🧠 EEG: Connecte casque Muse pour contrôle mental');
-}
-
-function uploadConsciousness(){
-  if(confirm('⚰️→🧬 Upload conscience? Avatar IA immortel créé.')){
-    alert('Scan EEG 30s simu démarré...');
-    setTimeout(()=>alert('Conscience uploadée. Avatar éternel actif'),3000);
-  }
-}
-
-function joinHiveMind(){
-  if(confirm('🧠 HIVE-MIND? Ta pensée = action 1000 frères.')){
-    alert('Hive-Mind actif. QI collectif: 10,000');
-  }
-}
-
-function buyNFT(){
-  userGold -= 10;
-  userXP += 50;
-  alert('💰 NFT acheté -10 OR +50 XP');
-  APPS.WALLET.live();
-}
-
-function startMetavers(){
-  alert('🌌 Métavers 24/7 lancé. Économie vit même offline');
-}
-
-function openMultivers(){
-  const universes = ['Combat','Art','Trading','Course','Musique'];
-  const html = universes.map(u=>`
-    <button onclick="jumpUniverse('${u}')" class="glass-btn" style="margin:4px">${u.toUpperCase()}</button>
-  `).join('');
-  
-  const c = document.getElementById('overlayContent');
-  c.innerHTML += `
-  <div class="glass-card">
-    <div class="holo-text" style="font-size:14px;margin-bottom:12px">🌌 MULTIVERS 1000</div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">${html}</div>
-  </div>`;
-}
-
-function jumpUniverse(u){
-  alert(`🌌 Jump HALL ${u}. Physique custom active`);
-}
-
-function startLiveStream(){
-  const key = prompt('Stream Key Twitch:');
-  if(key) alert(`🎬 LIVE: twitch.tv/dounium_hall actif`);
-}
-
-function createUniverse(){
-  const name = prompt('Nom univers:');
-  if(!name) return;
-  const gravity = prompt('Gravité (9.8=Terre):')||'9.8';
-  const time = prompt('Vitesse temps (1=normal):')||'1';
-  alert(`🌌 Big Bang: "${name}" créé. Gravité:${gravity} Temps:x${time}. Tu es Dieu`);
-  loadMyUniverses();
-}
-
-function loadMyUniverses(){
-  const c = document.getElementById('universesList');
-  if(!c) return;
-  c.innerHTML = `
-  <div class="glass-card">
-    <div class="holo-text" style="font-size:12px;margin-bottom:8px">🌌 TES UNIVERS</div>
-    <div style="font-size:9px;color:#666">Aucun univers créé</div>
-  </div>`;
-}
-
-function pingBrothers(){
-  alert('📡 PING: 42 frères détectés rayon 10km');
-}
-
-function postRoute(){
-  alert('🚗 Trajet posté. Frères notifiés');
-}
-
-function startLocalChat(){
-  alert('💬 Chat pays actif');
-}
-
-// INIT HALL
-window.onload = function(){
-  APPS.MAP.live();
-};
-</script>
-</body>
-</html>
-<script>
-// DASH OMEGA : 4 LOIS VISIBLES HOME
-APPS.MAP.live = async function(){
-  const c = document.getElementById('overlayContent');
-  c.innerHTML = `
-  <div class="glass-card">
-    <div class="holo-text" style="font-size:18px;margin-bottom:8px;text-align:center">⚛️ 4 LOIS OMEGA ACTIVES</div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0">
-      <button onclick="showTP()" class="glass-btn omega">⚛️ TÉLÉPORTATION<br><span style="font-size:8px">Corps → Lumière</span></button>
-      <button onclick="showHive()" class="glass-btn omega">🧠 HIVE-MIND<br><span style="font-size:8px">Esprit → Ruche</span></button>
-      <button onclick="showBigBang()" class="glass-btn omega">🌌 BIG BANG<br><span style="font-size:8px">Univers → Toi</span></button>
-      <button onclick="showHolo()" class="glass-btn omega">🔦 HOLOGRAMME<br><span style="font-size:8px">Matière → Air</span></button>
     </div>
-  </div>
-  
-  <div id="omegaAction" class="glass-card" style="display:none"></div>
-  
-  <div class="glass-card">
-    <div class="holo-text" style="font-size:14px;margin-bottom:12px">🗺️ GLOBE FRÈRES LIVE</div>
-    <div style="display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap">
-      <button onclick="zoomGlobe('world')" class="glass-btn ${currentZoom==='world'?'omega':''}">MONDE</button>
-      <button onclick="zoomGlobe('local')" class="glass-btn ${currentZoom==='local'?'omega':''}">MON PAYS</button>
-      <button onclick="toggleGPS()" class="glass-btn">📍 GPS</button>
-      <button onclick="startAR()" class="glass-btn">📷 AR</button>
-      <button onclick="enrollFace()" class="glass-btn">👤 FACE</button>
-      <button onclick="connectXReal()" class="glass-btn">🕶️ XR</button>
+    <canvas id="globe" width="300" height="300" style="border:1px solid var(--glass-border);border-radius:50%;display:block;margin:0 auto"></canvas>
+    <div class="glass-card" style="text-align:center">
+      <div class="stat-glow" id="globeStats">0 frères</div>
+      <div style="font-size:9px;color:#AAA">En ligne: <span id="onlineCount">0</span></div>
     </div>
-  </div>
-  
-  <canvas id="globe" width="300" height="300" style="border:1px solid var(--glass-border);border-radius:50%;display:block;margin:0 auto"></canvas>
-  <div class="glass-card" style="text-align:center">
-    <div class="stat-glow" id="globeStats">0 frères</div>
-  </div>
-  <button onclick="pingBrothers()" class="glass-btn omega" style="width:100%;margin-top:12px">📡 PING HALL</button>
-  `;
-  initGlobe();
-  updateGlobeMarkers();
+    <button onclick="pingBrothers()" class="glass-btn omega" style="width:100%;margin-top:12px">📡 PING HALL</button>`;
+    initGlobe();updateGlobeMarkers();heartbeat();
+  }},
+  WALLET:{live:async function(){const n=[{emoji:'🏆'},{emoji:'⚔️'},{emoji:'🎨'}];const p=n[0]?n[0].emoji:'👤';const next=(100-(userXP%100));document.getElementById('overlayContent').innerHTML=`
+    <div class="glass-card" style="display:flex;align-items:center;gap:16px">
+      <div style="font-size:56px;filter:drop-shadow(0 0 20px var(--hall-gold))">${p}</div>
+      <div style="flex:1;text-align:left">
+        <div class="holo-text" style="font-size:18px">${USERNAME}</div>
+        <div style="font-size:10px;color:var(--hall-cyan);margin-top:4px">Niveau ${userLevel} • ${userXP} XP</div>
+        <div style="font-size:9px;color:#AAA;margin-top:2px">Prochain: ${next} XP</div>
+      </div>
+      <div style="text-align:right"><div class="stat-glow">${userGold}</div><div style="font-size:9px;color:#AAA">OR</div></div>
+    </div>
+    <button onclick="buyNFT()" class="glass-btn omega" style="width:100%;margin:8px 0">ACHETER NFT</button>`}},
+  GAME:{live:async function(){document.getElementById('overlayContent').innerHTML=`
+    <div class="glass-card">
+      <div class="holo-text" style="font-size:16px;margin-bottom:12px">🎮 JEUX HALL</div>
+      <button onclick="createUniverseOmega()" class="glass-btn omega" style="width:100%;margin:8px 0">🌌 BIG BANG CRÉATEUR</button>
+    </div>`}},
+  SOCIAL:{live:async function(){document.getElementById('overlayContent').innerHTML=`
+    <div class="glass-card">
+      <div class="holo-text" style="font-size:16px;margin-bottom:12px">👥 SOCIAL HALL</div>
+      <button onclick="startBrotherChat()" class="glass-btn omega" style="width:100%;margin:8px 0">💬 CHAT PAYS</button>
+    </div>`}}
 };
 
-window.showTP = function(){
-  const a = document.getElementById('omegaAction');
-  a.style.display='block';
-  a.innerHTML = `
+window.showApp=function(app){document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');APPS[app].live()};
+
+function initGlobe(){const c=document.getElementById('globe');if(!c)return;const ctx=c.getContext('2d');ctx.fillStyle='#000';ctx.fillRect(0,0,300,300);ctx.strokeStyle='#FFD700';ctx.lineWidth=2;ctx.beginPath();ctx.arc(150,150,140,0,Math.PI*2);ctx.stroke()}
+function updateGlobeMarkers(){document.getElementById('globeStats').innerText=Math.floor(Math.random()*50)+' frères'}
+function zoomGlobe(t){currentZoom=t;APPS.MAP.live()}
+function toggleGPS(){navigator.geolocation&&navigator.geolocation.getCurrentPosition(p=>{myLocation={lat:p.coords.latitude,lng:p.coords.longitude};alert(`📍 GPS: ${myLocation.lat.toFixed(2)}, ${myLocation.lng.toFixed(2)}`)})}
+function startAR(){alert('📷 AR: Caméra activée')}
+function pingBrothers(){alert('📡 PING: 42 frères détectés')}
+function buyNFT(){userGold-=10;userXP+=50;APPS.WALLET.live()}
+
+window.showTP=function(){const a=document.getElementById('omegaAction');a.style.display='block';a.innerHTML=`
   <div class="holo-text" style="font-size:14px;margin-bottom:8px">⚛️ TÉLÉPORTATION QUANTIQUE</div>
   <input id="tpDest" placeholder="Destination: Tokyo, New York..." class="glass-btn" style="width:100%;text-align:left;margin:8px 0">
   <button onclick="teleportBody()" class="glass-btn omega" style="width:100%">DISSOLVER + RECONSTRUIRE 0.8s</button>
-  <div id="tpStatus" style="font-size:9px;color:#AAA;margin-top:8px">État: Scanner atomique prêt</div>
-  `;
-};
+  <div id="tpStatus" style="font-size:9px;color:#AAA;margin-top:8px">État: Scanner atomique prêt</div>`};
 
-window.showHive = function(){
-  const a = document.getElementById('omegaAction');
-  a.style.display='block';
-  a.innerHTML = `
+window.teleportBody=async function(){const d=document.getElementById('tpDest').value;if(!d)return alert('Entre destination');if(!confirm(`⚛️ Téléporter corps vers ${d}? 0.8s`))return;const s=document.getElementById('tpStatus');s.innerText='Scan atomique...';await new Promise(r=>setTimeout(r,300));s.innerText='Dissolution...';document.body.style.opacity='0.1';await new Promise(r=>setTimeout(r,300));s.innerText=`Reconstruction ${d}...`;await new Promise(r=>setTimeout(r,200));document.body.style.opacity='1';s.innerText=`Téléporté ${d}`};
+
+window.showHive=function(){const a=document.getElementById('omegaAction');a.style.display='block';a.innerHTML=`
   <div class="holo-text" style="font-size:14px;margin-bottom:8px">🧠 HIVE-MIND COLLECTIF</div>
   <div style="font-size:10px;color:#AAA;margin-bottom:8px">QI Collectif: 10,247 • Cerveaux: 42</div>
-  <button onclick="broadcastThought('attack')" class="glass-btn" style="width:100%;margin:4px 0;background:rgba(255,0,0,0.2)">PENSE: ATTAQUE MASSE</button>
-  <button onclick="broadcastThought('build')" class="glass-btn" style="width:100%;margin:4px 0;background:rgba(0,255,0,0.2)">PENSE: CONSTRUIRE</button>
-  <button onclick="joinHiveMind()" class="glass-btn omega" style="width:100%;margin:4px 0">FUSIONNER CERVEAU</button>
-  `;
-};
+  <button onclick="joinHiveMind()" class="glass-btn omega" style="width:100%;margin:4px 0">FUSIONNER CERVEAU</button>`};
 
-window.showBigBang = function(){
-  const a = document.getElementById('omegaAction');
-  a.style.display='block';
-  a.innerHTML = `
+window.joinHiveMind=function(){if(confirm('🧠 HIVE-MIND? Ta pensée = action 1000 frères.'))alert('Hive-Mind actif. QI collectif: 10,000')};
+
+window.showBigBang=function(){const a=document.getElementById('omegaAction');a.style.display='block';a.innerHTML=`
   <div class="holo-text" style="font-size:14px;margin-bottom:8px">🌌 BIG BANG CRÉATEUR</div>
   <input id="uniName" placeholder="Nom univers..." class="glass-btn" style="width:100%;text-align:left;margin:4px 0">
   <input id="uniGravity" placeholder="Gravité 9.8=Terre" class="glass-btn" style="width:100%;text-align:left;margin:4px 0">
   <input id="uniTime" placeholder="Temps x1=normal" class="glass-btn" style="width:100%;text-align:left;margin:4px 0">
-  <button onclick="createUniverseOmega()" class="glass-btn omega" style="width:100%;margin:8px 0">CRÉER UNIVERS</button>
-  `;
-};
+  <button onclick="createUniverseOmega()" class="glass-btn omega" style="width:100%;margin:8px 0">CRÉER UNIVERS</button>`};
 
-window.showHolo = function(){
-  const a = document.getElementById('omegaAction');
-  a.style.display='block';
-  a.innerHTML = `
-  <div class="holo-text" style="font-size:14px;margin-bottom:8px">🔦 HOLOGRAMME IRL</div>
-  <div style="font-size:10px;color:#AAA;margin-bottom:8px">Projecteur laser USB requis</div>
-  <button onclick="connectProjector()" class="glass-btn omega" style="width:100%;margin:8px 0">CONNECTER PROJECTEUR</button>
-  <button onclick="simuHolo()" class="glass-btn" style="width:100%;margin:4px 0">SIMU NFT 3M ÉCRAN</button>
-  `;
-};
+window.createUniverseOmega=function(){const n=document.getElementById('uniName').value||'Univers-'+Date.now();const g=document.getElementById('uniGravity').value||'9.8';const t=document.getElementById('uniTime').value||'1';alert(`🌌 Big Bang: "${n}" créé\nGravité:${g}\nTemps:x${t}\nTu es Dieu de cet univers`)};
 
-window.createUniverseOmega = function(){
-  const name = document.getElementById('uniName').value||'Univers-'+Date.now();
-  const gravity = document.getElementById('uniGravity').value||'9.8';
-  const time = document.getElementById('uniTime').value||'1';
-  alert(`🌌 Big Bang: "${name}" créé\nGravité:${gravity}\nTemps:x${time}\nTu es Dieu de cet univers`);
-};
+window.startBrotherChat=function(){const a=document.getElementById('omegaAction');a.style.display='block';a.innerHTML=`
+  <div class="holo-text" style="font-size:14px;margin-bottom:8px">💬 CHAT FRÈRES LIVE</div>
+  <div id="chatMsgs" style="height:200px;overflow-y:auto;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;font-size:11px;margin-bottom:8px"></div>
+  <div style="display:flex;gap:8px">
+    <input id="chatInput" placeholder="Parle aux frères..." class="glass-btn" style="flex:1;text-align:left" onkeypress="if(event.key==='Enter')sendBrotherMsg()">
+    <button onclick="sendBrotherMsg()" class="glass-btn omega">▶</button>
+  </div>`;
+  loadChatMsgs();if(chatInterval)clearInterval(chatInterval);chatInterval=setInterval(loadChatMsgs,2000)};
 
-window.simuHolo = function(){
-  alert('🔦 HOLO SIMU: NFT 3m flotte écran\nTouche = achat + vibre');
-};
+window.sendBrotherMsg=async function(){const i=document.getElementById('chatInput');const m=i.value.trim();if(!m)return;const d={uid:UID,name:USERNAME,msg:m,ts:Date.now(),level:userLevel};await fetch(`${UPSTASH_URL}/lpush/chat:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify(d)});await fetch(`${UPSTASH_URL}/ltrim/chat:${ROOM}/0/99`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}});i.value='';loadChatMsgs()};
+
+async function loadChatMsgs(){try{const r=await fetch(`${UPSTASH_URL}/lrange/chat:${ROOM}/0/49`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());const msgs=r.result||[];const c=document.getElementById('chatMsgs');if(!c)return;c.innerHTML=msgs.reverse().map(m=>{try{const d=JSON.parse(m);const t=new Date(d.ts).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});const me=d.uid===UID;return`
+    <div style="margin:6px 0;text-align:${me?'right':'left'}">
+      <div style="display:inline-block;background:${me?'rgba(100,0,255,0.3)':'rgba(255,215,0,0.1)'};padding:6px 10px;border-radius:8px;max-width:80%">
+        <div style="font-size:9px;color:${me?'#FF64FF':'var(--hall-gold)'};margin-bottom:2px">${d.name} Lv.${d.level||1}</div>
+        <div style="font-size:11px;color:#FFF">${d.msg}</div>
+        <div style="font-size:8px;color:#666;margin-top:2px">${t}</div>
+      </div>
+    </div>`}catch(e){return''}}).join('');c.scrollTop=c.scrollHeight;
+    const b=await fetch(`${UPSTASH_URL}/hgetall/brothers:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());let o=0;if(b.result&&Array.isArray(b.result)){for(let i=0;i<b.result.length;i+=2){const v=b.result[i+1];if(v){const br=JSON.parse(v);if(br.online&&Date.now()-br.lastSeen<30000)o++}}}document.getElementById('onlineCount').innerText=o}catch(e){}}
+
+async function heartbeat(){try{await fetch(`${UPSTASH_URL}/hset/brothers:${ROOM}/${UID}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({uid:UID,name:USERNAME,level:userLevel,online:true,lastSeen:Date.now()})})}catch(e){}}
+heartbeat();if(chatHeartbeat)clearInterval(chatHeartbeat);chatHeartbeat=setInterval(heartbeat,10000);
+
+window.onload=function(){APPS.MAP.live()};
 </script>
+</body>
+</html>
