@@ -2542,3 +2542,125 @@ APPS.MAP.live=async function(){
   }
 };
 </script>
+<script>
+// v11.2 RÉSEAU : CONNECTE LE MONDE SUR LE GLOBE
+let reseauActive=false,brotherNodes=[],connectionLines=[];
+
+// UPGRADE GLOBE EXISTANT
+const oldInitGlobe=initGlobe;
+initGlobe=function(){
+  oldInitGlobe();
+  reseauActive=true;
+  setInterval(updateReseau,3000);
+  setInterval(drawReseau,100);
+};
+
+async function updateReseau(){
+  if(!reseauActive)return;
+  const r=await fetch(`${UPSTASH_URL}/smembers/agora:${ROOM}`,{headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`}}).then(r=>r.json());
+  if(!r.result)return;
+  
+  brotherNodes=r.result.map(uid=>{
+    // Simule coords depuis UID pour demo. En prod: GPS réel
+    const hash=uid.split('').reduce((a,b)=>a+b.charCodeAt(0),0);
+    return {
+      uid:uid,
+      lat:(hash%180)-90,
+      lng:(hash%360)-180,
+      power:Math.floor(Math.random()*1000),
+      lastPing:Date.now()
+    };
+  });
+  
+  // Génère lignes vers toi
+  const me=brotherNodes.find(b=>b.uid===UID);
+  if(me){
+    connectionLines=brotherNodes.filter(b=>b.uid!==UID).map(b=>({from:me,to:b}));
+  }
+  updateGlobeMarkers();
+}
+
+function drawReseau(){
+  const canvas=document.getElementById('globe');
+  if(!canvas||!reseauActive)return;
+  const ctx=canvas.getContext('2d');
+  
+  // Redraw globe base
+  const oldMarkers=markers;
+  drawGlobeBase();
+  
+  // Dessine lignes Nexus
+  ctx.strokeStyle='rgba(255,215,0,0.3)';
+  ctx.lineWidth=1;
+  connectionLines.forEach(line=>{
+    const p1=projectGlobe(line.from.lat,line.from.lng);
+    const p2=projectGlobe(line.to.lat,line.to.lng);
+    if(p1&&p2){
+      ctx.beginPath();
+      ctx.moveTo(p1.x,p1.y);
+      ctx.lineTo(p2.x,p2.y);
+      ctx.stroke();
+    }
+  });
+  
+  // Dessine points frères
+  brotherNodes.forEach(node=>{
+    const p=projectGlobe(node.lat,node.lng);
+    if(!p)return;
+    const pulse=0.8+Math.sin(Date.now()/500)*0.2;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,node.uid===UID?6:4*pulse,0,Math.PI*2);
+    ctx.fillStyle=node.uid===UID?'#FFD700':'#00FF88';
+    ctx.fill();
+    ctx.strokeStyle='#FFF';
+    ctx.lineWidth=1;
+    ctx.stroke();
+    
+    // Label si c'est toi
+    if(node.uid===UID){
+      ctx.fillStyle='#FFD700';
+      ctx.font='8px Orbitron';
+      ctx.fillText('TOI',p.x+8,p.y+3);
+    }
+  });
+  
+  // Stats live
+  document.getElementById('onlineCount').innerText=brotherNodes.length;
+  document.getElementById('globeStats').innerText=`${brotherNodes.length} frères connectés`;
+}
+
+function projectGlobe(lat,lng){
+  // Projection simple. Remplace par ta fonction globe existante
+  const canvas=document.getElementById('globe');
+  const r=140,cx=150,cy=150;
+  const phi=(90-lat)*Math.PI/180;
+  const theta=(lng+180)*Math.PI/180;
+  const x=cx+r*Math.sin(phi)*Math.cos(theta);
+  const y=cy+r*Math.cos(phi);
+  const z=r*Math.sin(phi)*Math.sin(theta);
+  if(z<0)return null; // Face cachée
+  return {x,y};
+}
+
+// PING DEPUIS GLOBE
+window.pingFromGlobe=function(targetUid){
+  fetch(`${UPSTASH_URL}/publish/agora:${ROOM}`,{method:'POST',headers:{Authorization:`Bearer ${UPSTASH_TOKEN}`},body:JSON.stringify({type:'PING',from:UID,to:targetUid,ts:Date.now()})});
+  alert(`📡 PING ENVOYÉ\n\nToi → ${targetUid}\n\nOnde partie sur le globe`);
+};
+
+// Clic sur globe = ping frère proche
+document.getElementById('globe').addEventListener('click',function(e){
+  const rect=this.getBoundingClientRect();
+  const x=e.clientX-rect.left,y=e.clientY-rect.top;
+  let closest=null,minDist=20;
+  brotherNodes.forEach(node=>{
+    const p=projectGlobe(node.lat,node.lng);
+    if(!p)return;
+    const d=Math.sqrt((p.x-x)**2+(p.y-y)**2);
+    if(d<minDist){minDist=d;closest=node;}
+  });
+  if(closest&&closest.uid!==UID)pingFromGlobe(closest.uid);
+});
+
+console.log('🌍 RÉSEAU ACTIF: Globe connecté au monde');
+</script>
