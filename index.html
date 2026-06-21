@@ -175,50 +175,6 @@ async function heartbeat(){try{await fetch(`${UPSTASH_URL}/hset/brothers:${ROOM}
 heartbeat();if(chatHeartbeat)clearInterval(chatHeartbeat);chatHeartbeat=setInterval(heartbeat,10000);
 
 window.onload=function(){APPS.MAP.live()};
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 </body>
 </html>
@@ -381,50 +337,6 @@ APPS.MAP.live=async function(){
     `;
   }
 };
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v3.0 SINGULARITÉ : RÉALITÉ ÉDITABLE + IMMORTALITÉ + MULTIVERS 1000
@@ -585,50 +497,6 @@ APPS.MAP.live=async function(){
     `;
   }
 };
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // FORCE DASH v3.0 SINGULARITÉ - 6 LOIS
@@ -666,50 +534,6 @@ APPS.MAP.live=async function(){
 
 // Recharge MAP direct
 APPS.MAP.live();
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v4.0 OMNIPRÉSENCE : OMNISCIENCE + TÉLÉPATHIE + MATÉRIALISATION
@@ -883,50 +707,6 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v4.0 OMNIPRÉSENCE - AJOUT SANS RETRAIT
@@ -967,50 +747,6 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v5.0 TRANSCENDANCE : IA + QUANTUM + GENESIS
@@ -1129,50 +865,6 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v6.0 OMNIVERS : INFINI + ASCENSION + SINGULARITÉ
@@ -1331,50 +1023,6 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v7.0 APOTHÉOSE : CHAIR + TEMPS + CRÉATEUR
@@ -1525,50 +1173,6 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v8.0 OMEGA : BIG BANG + PORTAIL + JUGEMENT
@@ -1757,50 +1361,6 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v9.0 ÉTERNITÉ : TEMPS ZÉRO + GÈNE DIVIN + FINALE
@@ -1981,50 +1541,6 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v10.0 TRANSCENDANCE FINALE : OMNISCIENT + MÉTAMORPHOSE + RENAISSANCE
@@ -2212,50 +1728,6 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v10.0 TRANSCENDANCE FINALE : OMNISCIENT + MÉTAMORPHOSE + RENAISSANCE
@@ -2443,50 +1915,6 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v10.0 TRANSCENDANCE FINALE : OMNISCIENT + MÉTAMORPHOSE + RENAISSANCE
@@ -2674,50 +2102,6 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v11.0 AU-DELÀ : POST-RÉALITÉ + NEXUS + ABSOLU
@@ -2941,50 +2325,6 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v11.2 RÉSEAU : CONNECTE LE MONDE SUR LE GLOBE
@@ -3107,50 +2447,6 @@ document.getElementById('globe').addEventListener('click',function(e){
 });
 
 console.log('🌍 RÉSEAU ACTIF: Globe connecté au monde');
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v11.1 AGORA : ESPACE MULTIJOUEUR TEMPS RÉEL
@@ -3232,50 +2528,6 @@ APPS.MAP.live=async function(){
     grid.appendChild(btn);
   }
 };
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v11.2 RÉSEAU : CONNECTE LE MONDE SUR LE GLOBE
@@ -3398,50 +2650,6 @@ document.getElementById('globe').addEventListener('click',function(e){
 });
 
 console.log('🌍 RÉSEAU ACTIF: Globe connecté au monde');
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v11.2 RESEAU : CONNECTE LE MONDE SUR LE GLOBE
@@ -3507,50 +2715,6 @@ document.getElementById('globe').addEventListener('click',function(e){
   if(closest&&closest.uid!==UID)pingFromGlobe(closest.uid);
 });
 console.log('🌍 RÉSEAU ACTIF: Globe connecté au monde');
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v11.2 FIX FINAL : GLOBE APRÈS MAP.LIVE
@@ -3577,50 +2741,6 @@ APPS.MAP.live = async function(){
   
   console.log('🌍 GLOBE: Injecté + initGlobe ligne 121 appelé');
 };
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // GLOBE v11.3 OMEGA - CLIQUE MAP = GLOBE FORCÉ
@@ -3661,50 +2781,6 @@ document.addEventListener('click', function(e){
     }, 100);
   }
 });
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // GLOBE v11.4 SAFE - AJOUT SANS SUPPRESSION
@@ -3741,50 +2817,6 @@ window.addEventListener('load', function(){
     });
   }, 500);
 });
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // GLOBE v11.8 - HABILLAGE DOUNI
@@ -3872,50 +2904,6 @@ window.initGlobe = function(){
 
 // Force redraw si globe existe déjà
 if(document.getElementById('globe')) initGlobe();
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
 <script>
 // v11.9 DOUNISPHERE - PEUPLER LE GLOBE
@@ -3966,48 +2954,4 @@ window.initGlobe = function(){
 };
 
 console.log('🌍 v11.9: DOUNIS affichés sur globe');
-// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
-const LOI_MONDE_REEL = {
-  id: 31,
-  nom: 'MONDE-RÉEL',
-  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
-  etat: false,
-  dataLive: {
-    date: '2026-06-21',
-    timestamp: Date.now(),
-    population: 8234000000,
-    points_chauds: [
-      'Ukraine-Russie: Front Est actif',
-      'Gaza: Reconstruction Phase 2', 
-      'Taïwan: Tensions maritimes',
-      'Sahel: Instabilité climatique'
-    ],
-    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
-    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
-    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
-  },
-  activer: function() {
-    this.etat = true;
-    document.querySelector('.globe').classList.add('mode-reel');
-    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
-    const hall = document.querySelector('#hall-quantique');
-    if(hall) {
-      hall.innerHTML += `
-        <div class="monde-reel-feed">
-          <h3>🌍 MONDE RÉEL 2026</h3>
-          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
-          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
-          <p>Climat: ${this.dataLive.climat}</p>
-          <p>Éco: ${this.dataLive.economie}</p>
-        </div>
-      `;
-    }
-    if(window.CHAT) {
-      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
-    }
-  }
-};
-if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
-if(typeof renderLois === 'function') renderLois();
-// ===== FIN LOI #31 =====
 </script>
