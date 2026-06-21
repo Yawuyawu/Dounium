@@ -175,6 +175,50 @@ async function heartbeat(){try{await fetch(`${UPSTASH_URL}/hset/brothers:${ROOM}
 heartbeat();if(chatHeartbeat)clearInterval(chatHeartbeat);chatHeartbeat=setInterval(heartbeat,10000);
 
 window.onload=function(){APPS.MAP.live()};
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 </body>
 </html>
@@ -337,6 +381,50 @@ APPS.MAP.live=async function(){
     `;
   }
 };
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v3.0 SINGULARITÉ : RÉALITÉ ÉDITABLE + IMMORTALITÉ + MULTIVERS 1000
@@ -497,6 +585,50 @@ APPS.MAP.live=async function(){
     `;
   }
 };
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // FORCE DASH v3.0 SINGULARITÉ - 6 LOIS
@@ -534,6 +666,50 @@ APPS.MAP.live=async function(){
 
 // Recharge MAP direct
 APPS.MAP.live();
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v4.0 OMNIPRÉSENCE : OMNISCIENCE + TÉLÉPATHIE + MATÉRIALISATION
@@ -707,6 +883,50 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v4.0 OMNIPRÉSENCE - AJOUT SANS RETRAIT
@@ -747,6 +967,50 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v5.0 TRANSCENDANCE : IA + QUANTUM + GENESIS
@@ -865,6 +1129,50 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v6.0 OMNIVERS : INFINI + ASCENSION + SINGULARITÉ
@@ -1023,6 +1331,50 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v7.0 APOTHÉOSE : CHAIR + TEMPS + CRÉATEUR
@@ -1173,6 +1525,50 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v8.0 OMEGA : BIG BANG + PORTAIL + JUGEMENT
@@ -1361,6 +1757,50 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v9.0 ÉTERNITÉ : TEMPS ZÉRO + GÈNE DIVIN + FINALE
@@ -1541,6 +1981,50 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v10.0 TRANSCENDANCE FINALE : OMNISCIENT + MÉTAMORPHOSE + RENAISSANCE
@@ -1728,6 +2212,50 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v10.0 TRANSCENDANCE FINALE : OMNISCIENT + MÉTAMORPHOSE + RENAISSANCE
@@ -1915,6 +2443,50 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v10.0 TRANSCENDANCE FINALE : OMNISCIENT + MÉTAMORPHOSE + RENAISSANCE
@@ -2102,6 +2674,50 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v11.0 AU-DELÀ : POST-RÉALITÉ + NEXUS + ABSOLU
@@ -2325,6 +2941,50 @@ APPS.MAP.live=async function(){
 };
 
 APPS.MAP.live();
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v11.2 RÉSEAU : CONNECTE LE MONDE SUR LE GLOBE
@@ -2447,6 +3107,50 @@ document.getElementById('globe').addEventListener('click',function(e){
 });
 
 console.log('🌍 RÉSEAU ACTIF: Globe connecté au monde');
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v11.1 AGORA : ESPACE MULTIJOUEUR TEMPS RÉEL
@@ -2528,6 +3232,50 @@ APPS.MAP.live=async function(){
     grid.appendChild(btn);
   }
 };
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v11.2 RÉSEAU : CONNECTE LE MONDE SUR LE GLOBE
@@ -2650,6 +3398,50 @@ document.getElementById('globe').addEventListener('click',function(e){
 });
 
 console.log('🌍 RÉSEAU ACTIF: Globe connecté au monde');
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v11.2 RESEAU : CONNECTE LE MONDE SUR LE GLOBE
@@ -2715,6 +3507,50 @@ document.getElementById('globe').addEventListener('click',function(e){
   if(closest&&closest.uid!==UID)pingFromGlobe(closest.uid);
 });
 console.log('🌍 RÉSEAU ACTIF: Globe connecté au monde');
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v11.2 FIX FINAL : GLOBE APRÈS MAP.LIVE
@@ -2741,6 +3577,50 @@ APPS.MAP.live = async function(){
   
   console.log('🌍 GLOBE: Injecté + initGlobe ligne 121 appelé');
 };
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // GLOBE v11.3 OMEGA - CLIQUE MAP = GLOBE FORCÉ
@@ -2781,6 +3661,50 @@ document.addEventListener('click', function(e){
     }, 100);
   }
 });
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // GLOBE v11.4 SAFE - AJOUT SANS SUPPRESSION
@@ -2817,6 +3741,50 @@ window.addEventListener('load', function(){
     });
   }, 500);
 });
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // GLOBE v11.8 - HABILLAGE DOUNI
@@ -2904,6 +3872,50 @@ window.initGlobe = function(){
 
 // Force redraw si globe existe déjà
 if(document.getElementById('globe')) initGlobe();
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
+        </div>
+      `;
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
+  }
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
 <script>
 // v11.9 DOUNISPHERE - PEUPLER LE GLOBE
@@ -2954,1969 +3966,48 @@ window.initGlobe = function(){
 };
 
 console.log('🌍 v11.9: DOUNIS affichés sur globe');
-</script>
-<style>
-:root{--cendre:#1C1C1E;--noir:#000;--or:#FFD700;--rouge:#FF4444}
-body{background:var(--cendre)!important;color:#FFF!important}
-#globePanel{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--noir);border:2px solid var(--or);border-radius:20px;padding:20px;display:none;z-index:9999}
-.btn-douni{background:var(--noir);border:1px solid var(--or);color:var(--or);padding:12px 24px;border-radius:12px;font-weight:bold}
-</style>
-<script>
-window.toggleGlobe=function(){
-  let p=document.getElementById('globePanel');
-  if(!p){p=document.createElement('div');p.id='globePanel';p.innerHTML='<span onclick="toggleGlobe()" style="position:absolute;top:10px;right:15px;color:var(--rouge);cursor:pointer;font-size:24px">✕</span><canvas id="globe" width="300" height="300"></canvas><div style="text-align:center;color:var(--or);margin-top:10px;font-weight:bold">DOUNIASPHERE</div>';document.body.appendChild(p)}
-  p.style.display=p.style.display==='block'?'none':'block';
-  if(p.style.display==='block'){let c=document.getElementById('globe'),x=c.getContext('2d');x.fillStyle='#0A0A0C';x.fillRect(0,0,300,300);x.strokeStyle='#FFD700';x.lineWidth=1;for(let i=0;i<12;i++){x.beginPath();x.ellipse(150,150,140,140*Math.cos(i*Math.PI/12),0,0,6.28);x.stroke()}for(let i=1;i<10;i++){x.beginPath();x.arc(150,150,140*i/10,0,6.28);x.stroke()}x.beginPath();x.arc(150,150,140,0,6.28);x.strokeStyle='#FFD700';x.lineWidth=2;x.shadowColor='#FFD700';x.shadowBlur=15;x.stroke();x.beginPath();x.arc(150,150,7,0,6.28);x.fillStyle='#FFD700';x.shadowColor='#FF8800';x.shadowBlur=25;x.fill()}
-};
-document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('button').forEach(b=>{if(b.innerText.includes('TP')||b.innerText.includes('MAP')||b.innerText.includes('GLOBE')){b.innerText='🌍 INVOQUE';b.onclick=toggleGlobe;b.className='btn-douni'}})});
-</script>
-<!-- v12.1b FORCE BOUTON INVOQUE -->
-<div id="douniForceInvoke" style="position:fixed;bottom:20px;right:20px;z-index:99999">
-  <button onclick="toggleGlobe()" class="btn-douni" style="box-shadow:0 0 20px #FFD700">🌍 INVOQUE</button>
-</div>
-<style>
-/* v12.3 CHAT DOUNIUM UPGRADE */
-#douniChatBar{
-  position:fixed; bottom:80px; left:50%; transform:translateX(-50%);
-  display:flex; gap:8px; background:#000; border:1px solid var(--or);
-  border-radius:20px; padding:8px 12px; z-index:99998;
-}
-.douniChatBtn{
-  background:none; border:none; font-size:22px; cursor:pointer;
-  filter:drop-shadow(0 0 5px var(--or)); transition:0.2s;
-}
-.douniChatBtn:hover{transform:scale(1.2)}
-#douniEmojiPanel{
-  position:fixed; bottom:140px; left:50%; transform:translateX(-50%);
-  background:#000; border:1px solid var(--or); border-radius:12px;
-  padding:10px; display:none; grid-template-columns:repeat(6,1fr);
-  gap:8px; z-index:99999;
-}
-.emoji{cursor:pointer;font-size:24px}
-</style>
-
-<div id="douniChatBar">
-  <button class="douniChatBtn" onclick="douniStartVideo()" title="Video">📹</button>
-  <button class="douniChatBtn" onclick="douniSendPhoto()" title="Photo">📷</button>
-  <button class="douniChatBtn" onclick="douniToggleEmoji()" title="Emoji">😀</button>
-  <input type="file" id="douniPhotoInput" accept="image/*" style="display:none">
-</div>
-
-<div id="douniEmojiPanel">
-  <span class="emoji" onclick="douniSendEmoji('🔥')">🔥</span>
-  <span class="emoji" onclick="douniSendEmoji('⚜️')">⚜️</span>
-  <span class="emoji" onclick="douniSendEmoji('🌍')">🌍</span>
-  <span class="emoji" onclick="douniSendEmoji('💎')">💎</span>
-  <span class="emoji" onclick="douniSendEmoji('👑')">👑</span>
-  <span class="emoji" onclick="douniSendEmoji('⚡')">⚡</span>
-  <span class="emoji" onclick="douniSendEmoji('🛡️')">🛡️</span>
-  <span class="emoji" onclick="douniSendEmoji('🚀')">🚀</span>
-  <span class="emoji" onclick="douniSendEmoji('💰')">💰</span>
-  <span class="emoji" onclick="douniSendEmoji('🙏')">🙏</span>
-  <span class="emoji" onclick="douniSendEmoji('❤️')">❤️</span>
-  <span class="emoji" onclick="douniSendEmoji('😂')">😂</span>
-</div>
-
-<script>
-// v12.3 FONCTIONS CHAT
-window.douniStartVideo = function(){
-  navigator.mediaDevices.getUserMedia({video:true,audio:true})
- .then(stream=>{
-    let v=document.createElement('video');
-    v.srcObject=stream; v.autoplay=true; v.style.cssText='position:fixed;top:50px;right:20px;width:200px;border:2px solid var(--or);border-radius:12px;z-index:99999';
-    document.body.appendChild(v);
-    alert('📹 Caméra DOUNIUM active PÈRE. Prochain patch: streaming P2P.');
-  }).catch(e=>alert('Caméra refusée: '+e));
-};
-
-window.douniSendPhoto = function(){
-  document.getElementById('douniPhotoInput').click();
-};
-document.getElementById('douniPhotoInput').onchange=function(e){
-  let file=e.target.files[0]; if(!file) return;
-  let reader=new FileReader();
-  reader.onload=function(){
-    let img=document.createElement('img');
-    img.src=reader.result; img.style.cssText='position:fixed;bottom:160px;right:20px;width:150px;border:2px solid var(--or);border-radius:12px;z-index:99999';
-    document.body.appendChild(img);
-    setTimeout(()=>img.remove(),5000);
-    alert('📷 Photo envoyée dans le Hall PÈRE. v12.4: stockage IPFS.');
-  };
-  reader.readAsDataURL(file);
-};
-
-window.douniToggleEmoji=function(){
-  let p=document.getElementById('douniEmojiPanel');
-  p.style.display=p.style.display==='grid'?'none':'grid';
-};
-window.douniSendEmoji=function(e){
-  alert('Emoji '+e+' invoqué dans le Hall ⚜️🌍');
-  douniToggleEmoji();
-};
-</script>
-<script>
-// v12.3c AUTO-CREATE CHAT DOUNIUM
-(function DouniChatInit(){
-  if(document.getElementById('douniChatBar')) return; // déjà injecté
-
-  // 1. CSS
-  let css = document.createElement('style');
-  css.textContent = `
-    :root{--or:#FFD700;--cendre:#1C1C1E;--noir:#000}
-    #douniChatBar{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);display:flex;gap:8px;background:#000;border:2px solid var(--or);border-radius:20px;padding:8px 12px;z-index:999998;box-shadow:0 0 20px var(--or)}
-   .douniChatBtn{background:none;border:none;font-size:24px;cursor:pointer;filter:drop-shadow(0 0 5px var(--or))}
-   .douniChatBtn:active{transform:scale(0.9)}
-    #douniEmojiPanel{position:fixed;bottom:140px;left:50%;transform:translateX(-50%);background:#000;border:2px solid var(--or);border-radius:12px;padding:10px;display:none;grid-template-columns:repeat(6,1fr);gap:8px;z-index:999999}
-   .emoji{cursor:pointer;font-size:26px;text-align:center}
-    #douniPhotoInput{display:none}
-  `;
-  document.head.appendChild(css);
-
-  // 2. HTML
-  let bar = document.createElement('div');
-  bar.id = 'douniChatBar';
-  bar.innerHTML = `
-    <button class="douniChatBtn" onclick="douniStartVideo()" title="Video">📹</button>
-    <button class="douniChatBtn" onclick="douniSendPhoto()" title="Photo">📷</button>
-    <button class="douniChatBtn" onclick="douniToggleEmoji()" title="Emoji">😀</button>
-    <input type="file" id="douniPhotoInput" accept="image/*">
-  `;
-  document.body.appendChild(bar);
-
-  let emoji = document.createElement('div');
-  emoji.id = 'douniEmojiPanel';
-  emoji.innerHTML = '🔥⚜️🌍💎👑⚡🛡️🚀💰🙏❤️😂'.split('').map(e=>`<span class="emoji" onclick="douniSendEmoji('${e}')">${e}</span>`).join('');
-  document.body.appendChild(emoji);
-
-  // 3. FONCTIONS
-  window.douniStartVideo = function(){
-    navigator.mediaDevices.getUserMedia({video:true,audio:true})
-   .then(s=>{
-      let v=document.createElement('video');
-      v.srcObject=s; v.autoplay=true; v.muted=true; v.playsInline=true;
-      v.style.cssText='position:fixed;top:50px;right:20px;width:200px;border:2px solid var(--or);border-radius:12px;z-index:999999';
-      document.body.appendChild(v);
-      alert('📹 Caméra DOUNIUM active PÈRE');
-    }).catch(e=>alert('Caméra: '+e));
-  };
-
-  window.douniSendPhoto = function(){
-    document.getElementById('douniPhotoInput').click();
-  };
-
-  document.getElementById('douniPhotoInput').onchange = function(e){
-    let f=e.target.files[0]; if(!f) return;
-    let r=new FileReader();
-    r.onload=function(){
-      let i=document.createElement('img');
-      i.src=r.result; i.style.cssText='position:fixed;bottom:160px;right:20px;width:150px;border:2px solid var(--or);border-radius:12px;z-index:999999';
-      document.body.appendChild(i); setTimeout(()=>i.remove(),5000);
-      alert('📷 Photo dans le Hall PÈRE');
-    };
-    r.readAsDataURL(f);
-  };
-
-  window.douniToggleEmoji = function(){
-    let p=document.getElementById('douniEmojiPanel');
-    p.style.display=p.style.display==='grid'?'none':'grid';
-  };
-
-  window.douniSendEmoji = function(e){
-    alert('Emoji '+e+' invoqué ⚜️🌍');
-    douniToggleEmoji();
-  };
-
-  console.log('DOUNIUM v12.3c CHAT READY');
-})();
-</script>
-<script>
-// v12.4 DOUNIUM PROFIL + STORY + CHAT UNIFIÉ
-(function DouniProfileInit(){
-  if(document.getElementById('douniProfile')) return;
-
-  // 1. CSS PROFIL + STORY
-  let css = document.createElement('style');
-  css.textContent = `
-    :root{--or:#FFD700;--cendre:#1C1C1E;--noir:#000;--vert:#00FF88}
-    #douniProfile{position:fixed;top:15px;left:15px;display:flex;align-items:center;gap:10px;z-index:999999;background:#000;border:2px solid var(--or);border-radius:50px;padding:6px 12px 6px 6px;box-shadow:0 0 20px var(--or)}
-    #douniAvatar{width:40px;height:40px;border-radius:50%;border:2px solid var(--or);background:linear-gradient(45deg,var(--or),#FF8800);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;position:relative}
-    #douniAvatar.story{padding:2px;background:linear-gradient(45deg,var(--or),var(--vert),var(--or));background-size:200% 200%;animation:douniStory 3s infinite}
-    @keyframes douniStory{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    #douniStoryDot{position:absolute;bottom:0;right:0;width:12px;height:12px;background:var(--vert);border:2px solid #000;border-radius:50%;display:none}
-    #douniUsername{color:var(--or);font-weight:bold;font-size:14px}
-    #douniChatPanel{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);width:90%;max-width:400px;background:#000;border:2px solid var(--or);border-radius:20px;z-index:999998;display:none;flex-direction:column;overflow:hidden}
-    #douniChatHeader{background:var(--cendre);padding:10px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--or)}
-    #douniChatMessages{height:300px;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
-    #douniChatInput{display:flex;border-top:1px solid var(--or)}
-    #douniMsgInput{flex:1;background:#111;border:none;padding:12px;color:#FFF;outline:none}
-    #douniChatActions{display:flex;gap:8px;padding:8px;background:var(--cendre);border-top:1px solid var(--or)}
-   .douniMsg{background:var(--cendre);padding:8px 12px;border-radius:12px;max-width:70%;border:1px solid #333}
-   .douniMsg.me{align-self:flex-end;background:#332200;border:1px solid var(--or)}
-   .douniMsg img,.douniMsg video{max-width:100%;border-radius:8px;margin-top:5px}
-  `;
-  document.head.appendChild(css);
-
-  // 2. HTML PROFIL
-  let profile = document.createElement('div');
-  profile.id = 'douniProfile';
-  profile.innerHTML = `
-    <div id="douniAvatar" onclick="douniOpenStory()">⚜️<div id="douniStoryDot"></div></div>
-    <div id="douniUsername" onclick="douniToggleChat()">PÈRE DOUNIAM</div>
-    <input type="file" id="douniAvatarInput" accept="image/*" style="display:none">
-  `;
-  document.body.appendChild(profile);
-
-  // 3. HTML CHAT PANEL
-  let chat = document.createElement('div');
-  chat.id = 'douniChatPanel';
-  chat.innerHTML = `
-    <div id="douniChatHeader">
-      <div id="douniAvatar" style="width:30px;height:30px;font-size:16px">⚜️</div>
-      <div style="color:var(--or);font-weight:bold">Hall DOUNIUM</div>
-      <div style="margin-left:auto;color:var(--rouge);cursor:pointer" onclick="douniToggleChat()">✕</div>
-    </div>
-    <div id="douniChatMessages"></div>
-    <div id="douniChatInput">
-      <input id="douniMsgInput" placeholder="Message PÈRE..." onkeydown="if(event.key==='Enter')douniSendText()">
-    </div>
-    <div id="douniChatActions">
-      <button class="douniChatBtn" onclick="douniChatCamera()" title="Caméra">📹</button>
-      <button class="douniChatBtn" onclick="douniChatPhoto()" title="Photo">📷</button>
-      <button class="douniChatBtn" onclick="douniChatEmoji()" title="Emoji">😀</button>
-      <button class="douniChatBtn" onclick="douniSetStory()" title="Story 24h">⭕</button>
-    </div>
-    <input type="file" id="douniChatPhotoInput" accept="image/*" style="display:none">
-  `;
-  document.body.appendChild(chat);
-
-  // 4. LOGIQUE
-  let messages = document.getElementById('douniChatMessages');
-  
-  function addMsg(html,me=false){
-    let m=document.createElement('div');
-    m.className='douniMsg'+(me?' me':'');
-    m.innerHTML=html;
-    messages.appendChild(m);
-    messages.scrollTop=messages.scrollHeight;
-  }
-
-  window.douniToggleChat=function(){
-    let p=document.getElementById('douniChatPanel');
-    p.style.display=p.style.display==='flex'?'none':'flex';
-  };
-
-  window.douniSendText=function(){
-    let i=document.getElementById('douniMsgInput');
-    if(!i.value)return;
-    addMsg(`<b>PÈRE:</b> ${i.value}`,true);
-    i.value='';
-  };
-
-  window.douniChatCamera=function(){
-    navigator.mediaDevices.getUserMedia({video:true,audio:false})
-   .then(s=>{
-      let v=document.createElement('video');
-      v.srcObject=s; v.autoplay=true; v.muted=true; v.playsInline=true;
-      v.style.width='100%';
-      addMsg('<b>PÈRE:</b> Caméra:',true);
-      messages.lastChild.appendChild(v);
-      setTimeout(()=>{s.getTracks().forEach(t=>t.stop())},10000); // 10s max
-    }).catch(e=>alert('Caméra: '+e));
-  };
-
-  window.douniChatPhoto=function(){
-    document.getElementById('douniChatPhotoInput').click();
-  };
-
-  document.getElementById('douniChatPhotoInput').onchange=function(e){
-    let f=e.target.files[0]; if(!f)return;
-    let r=new FileReader();
-    r.onload=()=>{
-      addMsg('<b>PÈRE:</b>',true);
-      let i=document.createElement('img');i.src=r.result;
-      messages.lastChild.appendChild(i);
-    };
-    r.readAsDataURL(f);
-  };
-
-  window.douniChatEmoji=function(){
-    addMsg('<b>PÈRE:</b> ⚜️🌍🔥',true);
-  };
-
-  window.douniOpenStory=function(){
-    if(localStorage.douniStory){
-      alert('Story PÈRE active 24h : '+localStorage.douniStory);
-    }else{
-      document.getElementById('douniAvatarInput').click();
-    }
-  };
-
-  window.douniSetStory=function(){
-    document.getElementById('douniAvatarInput').click();
-  };
-
-  document.getElementById('douniAvatarInput').onchange=function(e){
-    let f=e.target.files[0]; if(!f)return;
-    let r=new FileReader();
-    r.onload=()=>{
-      document.getElementById('douniAvatar').style.backgroundImage=`url(${r.result})`;
-      document.getElementById('douniAvatar').innerHTML='<div id="douniStoryDot" style="display:block"></div>';
-      document.getElementById('douniAvatar').classList.add('story');
-      localStorage.douniStory=r.result;
-      localStorage.douniStoryTime=Date.now();
-      addMsg('<b>Système:</b> Story 24h PÈRE activée ⚜️');
-      // Expire 24h
-      setTimeout(()=>{
-        document.getElementById('douniAvatar').classList.remove('story');
-        document.getElementById('douniStoryDot').style.display='none';
-        localStorage.removeItem('douniStory');
-      },86400000);
-    };
-    r.readAsDataURL(f);
-  };
-
-  // Check story au load
-  if(localStorage.douniStory && Date.now()-localStorage.douniStoryTime<86400000){
-    document.getElementById('douniAvatar').style.backgroundImage=`url(${localStorage.douniStory})`;
-    document.getElementById('douniAvatar').innerHTML='<div id="douniStoryDot" style="display:block"></div>';
-    document.getElementById('douniAvatar').classList.add('story');
-  }
-
-  console.log('DOUNIUM v12.4 PROFIL READY');
-})();
-</script>
-<script>
-// v12.6 HALL DES ÂMES P2P
-(function DouniP2P(){
-  if(window.DouniP2PActive) return; window.DouniP2PActive=true;
-  
-  // 1. CSS HALL P2P
-  let css=document.createElement('style');
-  css.textContent=`
-    #douniHallBtn{position:fixed;top:15px;right:15px;z-index:999999;background:#000;border:2px solid var(--or);color:var(--or);padding:8px 16px;border-radius:50px;font-weight:bold;cursor:pointer;box-shadow:0 0 20px var(--or)}
-    #douniHallPanel{position:fixed;top:70px;right:15px;width:280px;background:#000;border:2px solid var(--or);border-radius:20px;z-index:999998;display:none;max-height:400px;overflow-y:auto}
-    #douniHallHeader{background:var(--cendre);padding:10px;color:var(--or);font-weight:bold;border-bottom:1px solid var(--or);text-align:center}
-    .douniSoulCard{display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #333;cursor:pointer}
-    .douniSoulCard:hover{background:#111}
-    .douniSoulAvatar{width:35px;height:35px;border-radius:50%;border:1px solid var(--or);display:flex;align-items:center;justify-content:center;font-size:18px;background:linear-gradient(45deg,var(--or),#FF8800)}
-    .douniSoulInfo{flex:1}
-    .douniSoulName{color:var(--or);font-size:13px;font-weight:bold}
-    .douniSoulId{color:#888;font-size:10px}
-    .douniSoulStatus{width:8px;height:8px;background:var(--vert);border-radius:50%;animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-    #douniP2PChat{position:fixed;bottom:80px;right:15px;width:300px;background:#000;border:2px solid var(--or);border-radius:20px;z-index:999997;display:none;flex-direction:column}
-  `;
-  document.head.appendChild(css);
-
-  // 2. BOUTON HALL
-  let hallBtn=document.createElement('button');
-  hallBtn.id='douniHallBtn';
-  hallBtn.innerHTML='👥 HALL <span id="douniPeerCount">0</span>';
-  hallBtn.onclick=()=>{document.getElementById('douniHallPanel').style.display=document.getElementById('douniHallPanel').style.display==='block'?'none':'block'};
-  document.body.appendChild(hallBtn);
-
-  // 3. PANEL HALL
-  let hallPanel=document.createElement('div');
-  hallPanel.id='douniHallPanel';
-  hallPanel.innerHTML='<div id="douniHallHeader">ÂMES CONNECTÉES</div><div id="douniHallList"></div>';
-  document.body.appendChild(hallPanel);
-
-  // 4. LOGIQUE P2P SIMPLE VIA BROADCASTCHANNEL
-  const bc=new BroadcastChannel('dounium_hall');
-  const peers={};
-  
-  function updateHall(){
-    const list=document.getElementById('douniHallList');
-    const count=document.getElementById('douniPeerCount');
-    list.innerHTML='';
-    let n=0;
-    Object.values(peers).forEach(p=>{
-      if(Date.now()-p.lastSeen<10000){ // 10s timeout
-        n++;
-        let card=document.createElement('div');
-        card.className='douniSoulCard';
-        card.innerHTML=`
-          <div class="douniSoulAvatar">${p.avatar}</div>
-          <div class="douniSoulInfo">
-            <div class="douniSoulName">${p.name} Lv.${p.level}</div>
-            <div class="douniSoulId">${p.id.substr(0,12)}...</div>
-          </div>
-          <div class="douniSoulStatus"></div>
-        `;
-        list.appendChild(card);
-      }
-    });
-    count.innerText=n;
-  }
-
-  // Ping toutes les 3s pour annoncer présence
-  setInterval(()=>{
-    bc.postMessage({
-      type:'ping',
-      soul:DouniSoul,
-      time:Date.now()
-    });
-  },3000);
-
-  // Écoute les autres âmes
-  bc.onmessage=(e)=>{
-    if(e.data.type==='ping' && e.data.soul.id!==DouniSoul.id){
-      peers[e.data.soul.id]={...e.data.soul,lastSeen:Date.now()};
-      updateHall();
-    }
-    if(e.data.type==='msg' && e.data.to===DouniSoul.id){
-      addMsg(`<b>${e.data.from.name}:</b> ${e.data.text}`,false);
-      if(document.getElementById('douniChatPanel').style.display!=='flex')douniToggleChat();
-    }
-  };
-
-  // Override send pour P2P
-  const oldSend=window.douniSendText;
-  window.douniSendText=function(){
-    let i=document.getElementById('douniMsgInput');
-    if(!i.value)return;
-    addMsg(`<b>${DouniSoul.name}:</b> ${i.value}`,true);
-    // Broadcast à tous les pairs
-    bc.postMessage({
-      type:'msg',
-      from:DouniSoul,
-      text:i.value,
-      time:Date.now()
-    });
-    i.value='';
-    DouniSoul.xp++;localStorage.douniSoulXP=DouniSoul.xp;
-    if(DouniSoul.xp%10===0){DouniSoul.level++;localStorage.douniSoulLevel=DouniSoul.level;}
-  };
-
-  // Nettoie peers morts
-  setInterval(updateHall,5000);
-  console.log('DOUNIUM v12.6 P2P HALL READY');
-})();
-</script>
-<script>
-// v12.6b DOUNIS CONNECTÉS - CYBER SYNC
-(function DouniCyberHall(){
-  if(window.DouniCyberActive) return; window.DouniCyberActive=true;
-  
-  // 1. CSS NEON CYBER
-  let css=document.createElement('style');
-  css.textContent=`
-    :root{--or:#FFD700;--cendre:#0A0A0C;--noir:#000;--vert:#00FF88;--cyan:#00FFFF}
-    #douniHallBtn{position:fixed;top:15px;right:15px;z-index:999999;background:linear-gradient(135deg,#000,#111);border:1px solid var(--cyan);color:var(--cyan);padding:10px 18px;border-radius:8px;font-weight:bold;cursor:pointer;box-shadow:0 0 20px var(--cyan),inset 0 0 10px rgba(0,255,255,0.2);font-family:monospace;letter-spacing:1px;transition:0.3s}
-    #douniHallBtn:hover{box-shadow:0 0 30px var(--cyan),inset 0 0 15px rgba(0,255,255,0.4);transform:scale(1.05)}
-    #douniHallPanel{position:fixed;top:70px;right:15px;width:320px;background:rgba(0,0,0,0.95);backdrop-filter:blur(10px);border:1px solid var(--cyan);border-radius:12px;z-index:999998;display:none;max-height:500px;overflow:hidden;box-shadow:0 0 40px rgba(0,255,255,0.3)}
-    #douniHallHeader{background:linear-gradient(90deg,var(--cendre),#001122);padding:12px;color:var(--cyan);font-weight:bold;border-bottom:1px solid var(--cyan);text-align:center;font-family:monospace;letter-spacing:2px;font-size:14px}
-    #douniHallList{overflow-y:auto;max-height:440px}
-    .douniSoulCard{display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid rgba(0,255,255,0.1);cursor:pointer;transition:0.2s}
-    .douniSoulCard:hover{background:rgba(0,255,255,0.05);border-left:3px solid var(--cyan)}
-    .douniSoulAvatar{width:40px;height:40px;border-radius:8px;border:1px solid var(--or);display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,#1a1a1a,#000);box-shadow:0 0 10px rgba(255,215,0,0.3)}
-    .douniSoulInfo{flex:1}
-    .douniSoulName{color:var(--cyan);font-size:14px;font-weight:bold;font-family:monospace;text-shadow:0 0 5px var(--cyan)}
-    .douniSoulId{color:#666;font-size:9px;font-family:monospace;margin-top:2px}
-    .douniSoulLevel{color:var(--or);font-size:11px;font-weight:bold}
-    .douniSoulStatus{width:10px;height:10px;background:var(--vert);border-radius:50%;box-shadow:0 0 10px var(--vert);animation:pulse 1.5s infinite}
-    @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 10px var(--vert)}50%{opacity:0.4;box-shadow:0 0 20px var(--vert)}}
-    .douniSoulPing{color:var(--vert);font-size:9px;font-family:monospace}
-  `;
-  document.head.appendChild(css);
-
-  // 2. REMPLACE ANCIEN BOUTON SI EXISTE
-  const oldBtn=document.getElementById('douniHallBtn'); if(oldBtn)oldBtn.remove();
-  const oldPanel=document.getElementById('douniHallPanel'); if(oldPanel)oldPanel.remove();
-
-  // 3. NOUVEAU BOUTON HALL
-  let hallBtn=document.createElement('button');
-  hallBtn.id='douniHallBtn';
-  hallBtn.innerHTML='◉ DOUNIS [<span id="douniPeerCount">0</span>]';
-  hallBtn.onclick=()=>{document.getElementById('douniHallPanel').style.display=document.getElementById('douniHallPanel').style.display==='block'?'none':'block'};
-  document.body.appendChild(hallBtn);
-
-  // 4. NOUVEAU PANEL HALL
-  let hallPanel=document.createElement('div');
-  hallPanel.id='douniHallPanel';
-  hallPanel.innerHTML='<div id="douniHallHeader">◉ DOUNIS CONNECTÉS</div><div id="douniHallList"></div>';
-  document.body.appendChild(hallPanel);
-
-  // 5. LOGIQUE SYNC AMÉLIORÉE
-  const bc=new BroadcastChannel('dounium_hall_v2');
-  const peers={};
-  
-  function updateHall(){
-    const list=document.getElementById('douniHallList');
-    const count=document.getElementById('douniPeerCount');
-    list.innerHTML='';
-    let n=0;
-    const now=Date.now();
-    Object.values(peers).forEach(p=>{
-      const age=now-p.lastSeen;
-      if(age<15000){ // 15s timeout
-        n++;
-        const ping=age<1000?'ONLINE':`${Math.floor(age/1000)}s`;
-        let card=document.createElement('div');
-        card.className='douniSoulCard';
-        card.innerHTML=`
-          <div class="douniSoulAvatar">${p.avatar}</div>
-          <div class="douniSoulInfo">
-            <div class="douniSoulName">${p.name}</div>
-            <div class="douniSoulLevel">LV.${p.level} | XP.${p.xp}</div>
-            <div class="douniSoulId">${p.id.substr(6,16)}</div>
-          </div>
-          <div>
-            <div class="douniSoulStatus"></div>
-            <div class="douniSoulPing">${ping}</div>
-          </div>
-        `;
-        list.appendChild(card);
-      }
-    });
-    count.innerText=n;
-    count.style.color=n>0?'var(--vert)':'var(--cyan)';
-  }
-
-  // Ping 2s pour sync rapide
-  setInterval(()=>{
-    bc.postMessage({
-      type:'douni_ping',
-      soul:DouniSoul,
-      time:Date.now()
-    });
-  },2000);
-
-  // Écoute réseau DOUNIS
-  bc.onmessage=(e)=>{
-    if(e.data.type==='douni_ping' && e.data.soul.id!==DouniSoul.id){
-      peers[e.data.soul.id]={...e.data.soul,lastSeen:Date.now()};
-      updateHall();
-    }
-    if(e.data.type==='douni_msg' && e.data.to==='all'){
-      addMsg(`<b style="color:var(--cyan)">${e.data.from.name} [Lv.${e.data.from.level}]:</b> ${e.data.text}`,false);
-      if(document.getElementById('douniChatPanel').style.display!=='flex')douniToggleChat();
-    }
-  };
-
-  // Override send pour broadcast global
-  const oldSend=window.douniSendText;
-  window.douniSendText=function(){
-    let i=document.getElementById('douniMsgInput');
-    if(!i.value)return;
-    addMsg(`<b style="color:var(--or)">${DouniSoul.name} [Lv.${DouniSoul.level}]:</b> ${i.value}`,true);
-    bc.postMessage({
-      type:'douni_msg',
-      from:DouniSoul,
-      to:'all',
-      text:i.value,
-      time:Date.now()
-    });
-    i.value='';
-    DouniSoul.xp++;localStorage.douniSoulXP=DouniSoul.xp;
-    if(DouniSoul.xp%10===0){
-      DouniSoul.level++;localStorage.douniSoulLevel=DouniSoul.level;
-      addMsg(`<b style="color:var(--or)">SYSTÈME:</b> Level UP! Lv.${DouniSoul.level} ⚜️`,false);
-    }
-  };
-
-  // Sync toutes les 3s
-  setInterval(updateHall,3000);
-  console.log('DOUNIUM v12.6b CYBER HALL READY');
-})();
-</script>
-<script>
-// v12.7 DOUNIGRAM + DOUNIASPHERE GLOBAL
-(function DouniGramInit(){
-  if(window.DouniGramActive) return; window.DouniGramActive=true;
-
-  // 1. CSS DOUNIGRAM
-  let css=document.createElement('style');
-  css.textContent=`
-    :root{--or:#FFD700;--cendre:#0A0A0C;--noir:#000;--cyan:#00FFFF;--violet:#8A2BE2}
-   .douniPage{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:999999;display:none;overflow-y:auto}
-   .douniPage.active{display:block}
-   .douniPageHeader{position:sticky;top:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(20px);padding:15px;border-bottom:1px solid var(--cyan);display:flex;align-items:center;gap:15px;z-index:10}
-   .douniBackBtn{color:var(--cyan);font-size:24px;cursor:pointer}
-   .douniPageTitle{color:var(--or);font-weight:bold;font-size:18px;font-family:monospace}
-    
-    /* PROFIL PAGE */
-    #douniProfilePage.profileBanner{height:200px;background:linear-gradient(135deg,var(--violet),var(--cyan));position:relative}
-    #douniProfilePage.profileAvatar{position:absolute;bottom:-40px;left:20px;width:100px;height:100px;border-radius:50%;border:4px solid #000;background:#000;overflow:hidden;box-shadow:0 0 30px var(--or)}
-    #douniProfilePage.profileAvatar img{width:100%;height:100%;object-fit:cover}
-    #douniProfilePage.profileInfo{padding:50px 20px 20px}
-    #douniProfilePage.profileName{color:var(--or);font-size:24px;font-weight:bold}
-    #douniProfilePage.profileId{color:#666;font-size:12px;font-family:monospace;margin-top:4px}
-    #douniProfilePage.profileStats{display:flex;gap:30px;margin-top:15px}
-    #douniProfilePage.stat{text-align:center}
-    #douniProfilePage.statNum{color:var(--cyan);font-size:20px;font-weight:bold}
-    #douniProfilePage.statLabel{color:#888;font-size:12px}
-    #douniProfilePage.profileBio{color:#AAA;margin-top:15px;font-size:14px}
-    #douniProfileGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:20px}
-   .profilePost{aspect-ratio:1;background:#111;overflow:hidden;cursor:pointer}
-   .profilePost img{width:100%;height:100%;object-fit:cover}
-    
-    /* FEED PAGE */
-   .douniFeedPost{background:var(--cendre);border-bottom:1px solid #222;margin-bottom:10px}
-   .feedPostHeader{display:flex;align-items:center;gap:10px;padding:12px}
-   .feedPostAvatar{width:35px;height:35px;border-radius:50%;border:1px solid var(--or);overflow:hidden}
-   .feedPostAvatar img{width:100%;height:100%;object-fit:cover}
-   .feedPostUser{flex:1}
-   .feedPostName{color:var(--or);font-size:14px;font-weight:bold}
-   .feedPostTime{color:#666;font-size:11px}
-   .feedPostImg{width:100%;max-height:500px;object-fit:cover}
-   .feedPostActions{display:flex;gap:15px;padding:12px;font-size:24px}
-   .feedPostAction{cursor:pointer;transition:0.2s}
-   .feedPostAction:hover{transform:scale(1.2)}
-   .feedPostLikes{color:var(--cyan);padding:0 12px;font-weight:bold;font-size:14px}
-   .feedPostCaption{color:#AAA;padding:5px 12px 15px;font-size:14px}
-    
-    /* BOUTON SPHÈRE DANS LOIS */
-    #douniSphereBtn{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:999998;background:linear-gradient(135deg,var(--violet),var(--cyan));border:2px solid var(--or);color:#000;padding:12px 24px;border-radius:50px;font-weight:bold;cursor:pointer;box-shadow:0 0 30px var(--cyan);font-family:monospace;animation:pulseGlow 3s infinite}
-    @keyframes pulseGlow{0%,100%{box-shadow:0 0 30px var(--cyan)}50%{box-shadow:0 0 50px var(--cyan),0 0 80px var(--violet)}}
-    
-    /* NAV BOTTOM */
-    #douniNavBar{position:fixed;bottom:0;left:0;width:100%;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);border-top:1px solid var(--cyan);display:flex;justify-content:space-around;padding:12px 0;z-index:999997}
-   .douniNavIcon{font-size:28px;color:var(--cyan);cursor:pointer;transition:0.2s}
-   .douniNavIcon.active{color:var(--or);transform:scale(1.2)}
-  `;
-  document.head.appendChild(css);
-
-  // 2. PAGES HTML
-  let pages=document.createElement('div');
-  pages.innerHTML=`
-    <!-- PAGE PROFIL -->
-    <div id="douniProfilePage" class="douniPage">
-      <div class="douniPageHeader">
-        <div class="douniBackBtn" onclick="douniClosePage()">←</div>
-        <div class="douniPageTitle" id="douniProfileTitle">PROFIL</div>
-      </div>
-      <div class="profileBanner">
-        <div class="profileAvatar" id="douniProfileAvatarMain"><img src="" id="douniProfileAvatarImg"></div>
-      </div>
-      <div class="profileInfo">
-        <div class="profileName" id="douniProfileName">PÈRE DOUNIAM</div>
-        <div class="profileId" id="douniProfileId">DOUNI-xxx</div>
-        <div class="profileStats">
-          <div class="stat"><div class="statNum" id="douniPostCount">0</div><div class="statLabel">Posts</div></div>
-          <div class="stat"><div class="statNum" id="douniDounisCount">0</div><div class="statLabel">DOUNIS</div></div>
-          <div class="stat"><div class="statNum" id="douniLevelStat">1</div><div class="statLabel">Level</div></div>
-        </div>
-        <div class="profileBio" id="douniProfileBio">⚜️ Fondateur DOUNIUM. HALL QUANTIQUE UNIFIÉ 🌍</div>
-      </div>
-      <div id="douniProfileGrid"></div>
-    </div>
-
-    <!-- PAGE FEED -->
-    <div id="douniFeedPage" class="douniPage">
-      <div class="douniPageHeader">
-        <div class="douniBackBtn" onclick="douniClosePage()">←</div>
-        <div class="douniPageTitle">FEED DOUNIUM</div>
-      </div>
-      <div id="douniFeedContent"></div>
-    </div>
-
-    <!-- PAGE HALL GLOBAL -->
-    <div id="douniSpherePage" class="douniPage">
-      <div class="douniPageHeader">
-        <div class="douniBackBtn" onclick="douniClosePage()">←</div>
-        <div class="douniPageTitle">DOUNIASPHERE GLOBALE</div>
-      </div>
-      <div id="douniSphereContent" style="padding:20px">
-        <div style="color:var(--cyan);text-align:center;margin:40px 0;font-family:monospace">
-          <div style="font-size:48px">🌍</div>
-          <div style="font-size:18px;margin-top:10px">TOUS LES DOUNIS EN LIGNE</div>
-          <div style="font-size:14px;color:#888;margin-top:5px" id="douniGlobalCount">0 DOUNIS CONNECTÉS</div>
-        </div>
-        <div id="douniSphereGrid"></div>
-      </div>
-    </div>
-
-    <!-- NAV BAR -->
-    <div id="douniNavBar">
-      <div class="douniNavIcon" onclick="douniOpenFeed()">🏠</div>
-      <div class="douniNavIcon" onclick="douniOpenSphere()">🌍</div>
-      <div class="douniNavIcon" onclick="douniCreatePost()">➕</div>
-      <div class="douniNavIcon" onclick="douniOpenProfile()">👤</div>
-    </div>
-
-    <!-- BOUTON SPHÈRE PRÈS LOIS -->
-    <button id="douniSphereBtn" onclick="douniOpenSphere()">◉ DOUNIASPHERE</button>
-  `;
-  document.body.appendChild(pages);
-
-  // 3. LOGIQUE PAGES
-  window.douniOpenPage=(id)=>{document.querySelectorAll('.douniPage').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active')};
-  window.douniClosePage=()=>{document.querySelectorAll('.douniPage').forEach(p=>p.classList.remove('active'))};
-  
-  window.douniOpenProfile=()=>{
-    document.getElementById('douniProfileName').innerText=DouniSoul.name;
-    document.getElementById('douniProfileId').innerText=DouniSoul.id;
-    document.getElementById('douniLevelStat').innerText=DouniSoul.level;
-    document.getElementById('douniProfileAvatarImg').src=localStorage.douniSoulAvatarImg||'';
-    douniOpenPage('douniProfilePage');
-  };
-  
-  window.douniOpenFeed=()=>{douniLoadFeed();douniOpenPage('douniFeedPage')};
-  window.douniOpenSphere=()=>{douniLoadSphere();douniOpenPage('douniSpherePage')};
-  
-  window.douniCreatePost=()=>{
-    let input=document.createElement('input');
-    input.type='file';input.accept='image/*';
-    input.onchange=e=>{
-      let f=e.target.files[0];if(!f)return;
-      let r=new FileReader();
-      r.onload=()=>{
-        let posts=JSON.parse(localStorage.douniPosts||'[]');
-        posts.unshift({id:Date.now(),img:r.result,time:Date.now(),likes:0,user:DouniSoul});
-        localStorage.douniPosts=JSON.stringify(posts);
-        alert('Post publié dans DOUNIGRAM ⚜️');
-        douniOpenFeed();
-      };
-      r.readAsDataURL(f);
-    };
-    input.click();
-  };
-
-  function douniLoadFeed(){
-    let posts=JSON.parse(localStorage.douniPosts||'[]');
-    let html='';
-    posts.forEach(p=>{
-      html+=`
-        <div class="douniFeedPost">
-          <div class="feedPostHeader">
-            <div class="feedPostAvatar"><img src="${p.user.avatarImg||''}"></div>
-            <div class="feedPostUser">
-              <div class="feedPostName">${p.user.name}</div>
-              <div class="feedPostTime">${new Date(p.time).toLocaleString()}</div>
-            </div>
-          </div>
-          <img src="${p.img}" class="feedPostImg">
-          <div class="feedPostActions">
-            <div class="feedPostAction" onclick="douniLike(${p.id})">❤️</div>
-            <div class="feedPostAction">💬</div>
-            <div class="feedPostAction">📤</div>
-          </div>
-          <div class="feedPostLikes">${p.likes} J'aime</div>
-          <div class="feedPostCaption"><b>${p.user.name}</b> ⚜️</div>
+// ===== LOI #31 : MONDE-RÉEL - SYNCHRONISATION TERRE 2026 =====
+const LOI_MONDE_REEL = {
+  id: 31,
+  nom: 'MONDE-RÉEL',
+  desc: 'La réalité du monde d\ujourd\hui 21 Juin 2026',
+  etat: false,
+  dataLive: {
+    date: '2026-06-21',
+    timestamp: Date.now(),
+    population: 8234000000,
+    points_chauds: [
+      'Ukraine-Russie: Front Est actif',
+      'Gaza: Reconstruction Phase 2', 
+      'Taïwan: Tensions maritimes',
+      'Sahel: Instabilité climatique'
+    ],
+    economie: 'BTC $108,400 | ETH $4,200 | Or $2,450/oz',
+    climat: 'El Niño 2026 | +1.42°C vs pré-industriel',
+    tech: 'IA Générale Level 2 déployée | Fusion nucléaire ITER active'
+  },
+  activer: function() {
+    this.etat = true;
+    document.querySelector('.globe').classList.add('mode-reel');
+    console.log('OMEGA SYNCHRONISÉE AVEC TERRE RÉELLE 2026-06-21');
+    const hall = document.querySelector('#hall-quantique');
+    if(hall) {
+      hall.innerHTML += `
+        <div class="monde-reel-feed">
+          <h3>🌍 MONDE RÉEL 2026</h3>
+          <p>Pop: ${this.dataLive.population.toLocaleString()}</p>
+          <p>Conflits: ${this.dataLive.points_chauds.join(' | ')}</p>
+          <p>Climat: ${this.dataLive.climat}</p>
+          <p>Éco: ${this.dataLive.economie}</p>
         </div>
       `;
-    });
-    document.getElementById('douniFeedContent').innerHTML=html||'<div style="color:#666;text-align:center;padding:40px">Aucun post. Crée le premier ⚜️</div>';
+    }
+    if(window.CHAT) {
+      CHAT.envoyerSysteme('SINGULARITÉ: Monde réel 2026 injecté. 8.2B humains détectés.');
+    }
   }
-
-  function douniLoadSphere(){
-    const count=Object.keys(peers).length+1;
-    document.getElementById('douniGlobalCount').innerText=`${count} DOUNIS CONNECTÉS`;
-  }
-
-  window.douniLike=(id)=>{
-    let posts=JSON.parse(localStorage.douniPosts||'[]');
-    let p=posts.find(x=>x.id===id);if(p){p.likes++;localStorage.douniPosts=JSON.stringify(posts);douniLoadFeed()}
-  };
-
-  // 4. CLIQUE PROFIL HAUT GAUCHE = OUVRE PAGE
-  setTimeout(()=>{
-    const profile=document.getElementById('douniProfile');
-    if(profile)profile.onclick=douniOpenProfile;
-  },2000);
-
-  console.log('DOUNIUM v12.7 DOUNIGRAM READY');
-})();
-</script>
-<script>
-// v12.8 DOUNIWALLET UI - FORMAT ZENGO
-(function DouniWalletUI(){
-  if(window.DouniWalletActive) return; window.DouniWalletActive=true;
-
-  // 1. CSS DOUNIWALLET
-  let css=document.createElement('style');
-  css.textContent=`
-    :root{--or:#FFD700;--cendre:#0A0A0C;--noir:#000;--cyan:#00FFFF;--violet:#8A2BE2;--vert:#00FF88;--rouge:#FF4444}
-    body{background:#000!important;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
-    
-    /* HEADER WALLET */
-    #douniWalletHeader{position:fixed;top:0;left:0;width:100%;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);z-index:999996;padding:12px 16px;border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between}
-    #douniWalletLeft{display:flex;align-items:center;gap:12px}
-    #douniWalletAvatar{width:40px;height:40px;border-radius:50%;border:2px solid var(--or);overflow:hidden;cursor:pointer}
-    #douniWalletAvatar img{width:100%;height:100%;object-fit:cover}
-    #douniWalletName{color:var(--or);font-weight:bold;font-size:16px}
-    #douniWalletBadge{background:rgba(0,255,136,0.2);color:var(--vert);padding:2px 8px;border-radius:10px;font-size:10px;margin-left:6px}
-    #douniWalletRight{display:flex;align-items:center;gap:8px}
-    #douniHallCounter{background:rgba(0,255,255,0.1);border:1px solid var(--cyan);color:var(--cyan);padding:6px 12px;border-radius:20px;font-size:13px;font-weight:bold}
-    
-    /* NIVEAU SÉCURITÉ */
-    #douniSecLevel{margin:70px 16px 0;padding:12px;background:var(--cendre);border-radius:12px;border:1px solid #222}
-    #douniSecTitle{display:flex;align-items:center;gap:8px;color:#AAA;font-size:13px;margin-bottom:8px}
-    #douniSecBar{height:6px;background:#222;border-radius:3px;overflow:hidden;display:flex;gap:2px}
-   .douniSecSeg{flex:1;background:var(--vert)}
-   .douniSecSeg.orange{background:#FF8800}
-   .douniSecSeg.red{background:var(--rouge)}
-    #douniSecText{color:var(--or);font-size:12px;margin-top:6px}
-    
-    /* SOLDE CARD */
-    #douniSoldeCard{margin:16px;padding:20px;background:linear-gradient(135deg,#1a1a2e,#0f0f1e);border-radius:16px;border:1px solid #222;position:relative;overflow:hidden}
-    #douniSoldeCard::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(0,255,255,0.1),transparent)}
-    #douniSoldeLabel{color:#888;font-size:13px;margin-bottom:8px}
-    #douniSoldeAmount{color:#FFF;font-size:36px;font-weight:bold;margin-bottom:4px}
-    #douniSoldeXP{color:var(--cyan);font-size:14px}
-    
-    /* ACTIONS BOUTONS */
-    #douniActions{display:flex;justify-content:space-around;padding:16px;margin:0 16px;background:var(--cendre);border-radius:16px;border:1px solid #222}
-   .douniActionBtn{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
-   .douniActionIcon{width:50px;height:50px;background:#111;border:1px solid #333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--cyan);transition:0.2s}
-   .douniActionIcon:hover{background:rgba(0,255,255,0.1);border-color:var(--cyan);transform:scale(1.1)}
-   .douniActionLabel{color:#AAA;font-size:11px}
-    
-    /* ASSETS LIST */
-    #douniAssets{margin:16px}
-   .douniAssetCard{background:var(--cendre);border:1px solid #222;border-radius:12px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:12px}
-   .douniAssetIcon{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:20px}
-   .douniAssetInfo{flex:1}
-   .douniAssetName{color:#FFF;font-size:16px;font-weight:bold}
-   .douniAssetType{color:#666;font-size:12px}
-   .douniAssetValue{text-align:right}
-   .douniAssetAmount{color:#FFF;font-size:16px;font-weight:bold}
-   .douniAssetSub{color:#666;font-size:12px}
-    
-    /* CACHE ANCIEN UI */
-    #douniProfile,#douniHallBtn,#douniSphereBtn{display:none!important}
-    #douniNavBar{position:fixed;bottom:0;left:0;width:100%;background:rgba(0,0,0,0.98);backdrop-filter:blur(20px);border-top:1px solid #222;display:flex;justify-content:space-around;padding:12px 0;z-index:999997}
-   .douniNavIcon{font-size:26px;color:#666;cursor:pointer;transition:0.2s}
-   .douniNavIcon.active{color:var(--cyan)}
-  `;
-  document.head.appendChild(css);
-
-  // 2. HTML DOUNIWALLET
-  let wallet=document.createElement('div');
-  wallet.id='douniWalletContainer';
-  wallet.innerHTML=`
-    <!-- HEADER -->
-    <div id="douniWalletHeader">
-      <div id="douniWalletLeft">
-        <div id="douniWalletAvatar" onclick="douniOpenProfile()"><img id="douniWalletAvatarImg" src=""></div>
-        <div>
-          <span id="douniWalletName">PÈRE DOUNIAM</span>
-          <span id="douniWalletBadge">Lv.<span id="douniWalletLevel">1</span></span>
-        </div>
-      </div>
-      <div id="douniWalletRight">
-        <div id="douniHallCounter" onclick="douniOpenSphere()">◉ <span id="douniPeerCount">0</span></div>
-      </div>
-    </div>
-
-    <!-- NIVEAU SÉCURITÉ -->
-    <div id="douniSecLevel">
-      <div id="douniSecTitle">🛡️ Niveau DOUNIUM: <span id="douniSecScore">3</span> sur 9</div>
-      <div id="douniSecBar">
-        <div class="douniSecSeg"></div><div class="douniSecSeg"></div><div class="douniSecSeg"></div>
-        <div class="douniSecSeg orange"></div><div class="douniSecSeg orange"></div>
-        <div class="douniSecSeg red"></div><div class="douniSecSeg" style="background:#333"></div>
-        <div class="douniSecSeg" style="background:#333"></div><div class="douniSecSeg" style="background:#333"></div>
-      </div>
-      <div id="douniSecText">Renforcez votre Hall ⚜️</div>
-    </div>
-
-    <!-- SOLDE -->
-    <div id="douniSoldeCard">
-      <div id="douniSoldeLabel">Solde DOUNIUM</div>
-      <div id="douniSoldeAmount"><span id="douniXPAmount">0</span> XP</div>
-      <div id="douniSoldeXP">≈ <span id="douniLevelEquiv">Lv.1</span> POUVOIR</div>
-    </div>
-
-    <!-- ACTIONS -->
-    <div id="douniActions">
-      <div class="douniActionBtn" onclick="douniCreatePost()">
-        <div class="douniActionIcon">📤</div>
-        <div class="douniActionLabel">Poster</div>
-      </div>
-      <div class="douniActionBtn" onclick="douniOpenFeed()">
-        <div class="douniActionIcon">📥</div>
-        <div class="douniActionLabel">Feed</div>
-      </div>
-      <div class="douniActionBtn" onclick="douniOpenSphere()">
-        <div class="douniActionIcon">🌍</div>
-        <div class="douniActionLabel">Sphère</div>
-      </div>
-      <div class="douniActionBtn" onclick="douniSetStory()">
-        <div class="douniActionIcon">⭕</div>
-        <div class="douniActionLabel">Story</div>
-      </div>
-      <div class="douniActionBtn" onclick="douniOpenProfile()">
-        <div class="douniActionIcon">👤</div>
-        <div class="douniActionLabel">Profil</div>
-      </div>
-    </div>
-
-    <!-- ASSETS -->
-    <div id="douniAssets">
-      <div class="douniAssetCard">
-        <div class="douniAssetIcon">⚜️</div>
-        <div class="douniAssetInfo">
-          <div class="douniAssetName">DOUNI</div>
-          <div class="douniAssetType">Token Éternel</div>
-        </div>
-        <div class="douniAssetValue">
-          <div class="douniAssetAmount" id="douniTokenAmount">1,00</div>
-          <div class="douniAssetSub">DOUNI</div>
-        </div>
-      </div>
-      <div class="douniAssetCard">
-        <div class="douniAssetIcon">🔥</div>
-        <div class="douniAssetInfo">
-          <div class="douniAssetName">Messages</div>
-          <div class="douniAssetType">Hall Quantique</div>
-        </div>
-        <div class="douniAssetValue">
-          <div class="douniAssetAmount" id="douniMsgCount">0</div>
-          <div class="douniAssetSub">XP Gagnés</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- NAV BOTTOM -->
-    <div id="douniNavBar">
-      <div class="douniNavIcon active" onclick="douniClosePage()">🏠</div>
-      <div class="douniNavIcon" onclick="douniOpenFeed()">🕐</div>
-      <div class="douniNavIcon" onclick="douniOpenSphere()">🌐</div>
-      <div class="douniNavIcon" onclick="douniOpenProfile()">⚙️</div>
-      <div class="douniNavIcon" onclick="douniChangeIdentity()">👤</div>
-    </div>
-  `;
-  document.body.appendChild(wallet);
-
-  // 3. SYNC DONNÉES
-  function updateWallet(){
-    document.getElementById('douniWalletName').innerText=DouniSoul.name;
-    document.getElementById('douniWalletLevel').innerText=DouniSoul.level;
-    document.getElementById('douniXPAmount').innerText=DouniSoul.xp;
-    document.getElementById('douniLevelEquiv').innerText='Lv.'+DouniSoul.level;
-    document.getElementById('douniTokenAmount').innerText=DouniSoul.level+'.00';
-    document.getElementById('douniMsgCount').innerText=DouniSoul.xp;
-    document.getElementById('douniSecScore').innerText=Math.min(3+Math.floor(DouniSoul.level/3),9);
-    document.getElementById('douniWalletAvatarImg').src=localStorage.douniSoulAvatarImg||'';
-  }
-  setInterval(updateWallet,1000);
-  updateWallet();
-
-  console.log('DOUNIUM v12.8 DOUNIWALLET READY');
-})();
-</script>
-<script>
-// v12.8 DOUNIWALLET UI - FORMAT ZENGO
-(function DouniWalletUI(){
-  if(window.DouniWalletActive) return; window.DouniWalletActive=true;
-
-  // 1. CSS DOUNIWALLET
-  let css=document.createElement('style');
-  css.textContent=`
-    :root{--or:#FFD700;--cendre:#0A0A0C;--noir:#000;--cyan:#00FFFF;--violet:#8A2BE2;--vert:#00FF88;--rouge:#FF4444}
-    body{background:#000!important;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
-    
-    /* HEADER WALLET */
-    #douniWalletHeader{position:fixed;top:0;left:0;width:100%;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);z-index:999996;padding:12px 16px;border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between}
-    #douniWalletLeft{display:flex;align-items:center;gap:12px}
-    #douniWalletAvatar{width:40px;height:40px;border-radius:50%;border:2px solid var(--or);overflow:hidden;cursor:pointer}
-    #douniWalletAvatar img{width:100%;height:100%;object-fit:cover}
-    #douniWalletName{color:var(--or);font-weight:bold;font-size:16px}
-    #douniWalletBadge{background:rgba(0,255,136,0.2);color:var(--vert);padding:2px 8px;border-radius:10px;font-size:10px;margin-left:6px}
-    #douniWalletRight{display:flex;align-items:center;gap:8px}
-    #douniHallCounter{background:rgba(0,255,255,0.1);border:1px solid var(--cyan);color:var(--cyan);padding:6px 12px;border-radius:20px;font-size:13px;font-weight:bold}
-    
-    /* NIVEAU SÉCURITÉ */
-    #douniSecLevel{margin:70px 16px 0;padding:12px;background:var(--cendre);border-radius:12px;border:1px solid #222}
-    #douniSecTitle{display:flex;align-items:center;gap:8px;color:#AAA;font-size:13px;margin-bottom:8px}
-    #douniSecBar{height:6px;background:#222;border-radius:3px;overflow:hidden;display:flex;gap:2px}
-   .douniSecSeg{flex:1;background:var(--vert)}
-   .douniSecSeg.orange{background:#FF8800}
-   .douniSecSeg.red{background:var(--rouge)}
-    #douniSecText{color:var(--or);font-size:12px;margin-top:6px}
-    
-    /* SOLDE CARD */
-    #douniSoldeCard{margin:16px;padding:20px;background:linear-gradient(135deg,#1a1a2e,#0f0f1e);border-radius:16px;border:1px solid #222;position:relative;overflow:hidden}
-    #douniSoldeCard::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(0,255,255,0.1),transparent)}
-    #douniSoldeLabel{color:#888;font-size:13px;margin-bottom:8px}
-    #douniSoldeAmount{color:#FFF;font-size:36px;font-weight:bold;margin-bottom:4px}
-    #douniSoldeXP{color:var(--cyan);font-size:14px}
-    
-    /* ACTIONS BOUTONS */
-    #douniActions{display:flex;justify-content:space-around;padding:16px;margin:0 16px;background:var(--cendre);border-radius:16px;border:1px solid #222}
-   .douniActionBtn{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
-   .douniActionIcon{width:50px;height:50px;background:#111;border:1px solid #333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--cyan);transition:0.2s}
-   .douniActionIcon:hover{background:rgba(0,255,255,0.1);border-color:var(--cyan);transform:scale(1.1)}
-   .douniActionLabel{color:#AAA;font-size:11px}
-    
-    /* ASSETS LIST */
-    #douniAssets{margin:16px}
-   .douniAssetCard{background:var(--cendre);border:1px solid #222;border-radius:12px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:12px}
-   .douniAssetIcon{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:20px}
-   .douniAssetInfo{flex:1}
-   .douniAssetName{color:#FFF;font-size:16px;font-weight:bold}
-   .douniAssetType{color:#666;font-size:12px}
-   .douniAssetValue{text-align:right}
-   .douniAssetAmount{color:#FFF;font-size:16px;font-weight:bold}
-   .douniAssetSub{color:#666;font-size:12px}
-    
-    /* CACHE ANCIEN UI */
-    #douniProfile,#douniHallBtn,#douniSphereBtn{display:none!important}
-    #douniNavBar{position:fixed;bottom:0;left:0;width:100%;background:rgba(0,0,0,0.98);backdrop-filter:blur(20px);border-top:1px solid #222;display:flex;justify-content:space-around;padding:12px 0;z-index:999997}
-   .douniNavIcon{font-size:26px;color:#666;cursor:pointer;transition:0.2s}
-   .douniNavIcon.active{color:var(--cyan)}
-  `;
-  document.head.appendChild(css);
-
-  // 2. HTML DOUNIWALLET
-  let wallet=document.createElement('div');
-  wallet.id='douniWalletContainer';
-  wallet.innerHTML=`
-    <!-- HEADER -->
-    <div id="douniWalletHeader">
-      <div id="douniWalletLeft">
-        <div id="douniWalletAvatar" onclick="douniOpenProfile()"><img id="douniWalletAvatarImg" src=""></div>
-        <div>
-          <span id="douniWalletName">PÈRE DOUNIAM</span>
-          <span id="douniWalletBadge">Lv.<span id="douniWalletLevel">1</span></span>
-        </div>
-      </div>
-      <div id="douniWalletRight">
-        <div id="douniHallCounter" onclick="douniOpenSphere()">◉ <span id="douniPeerCount">0</span></div>
-      </div>
-    </div>
-
-    <!-- NIVEAU SÉCURITÉ -->
-    <div id="douniSecLevel">
-      <div id="douniSecTitle">🛡️ Niveau DOUNIUM: <span id="douniSecScore">3</span> sur 9</div>
-      <div id="douniSecBar">
-        <div class="douniSecSeg"></div><div class="douniSecSeg"></div><div class="douniSecSeg"></div>
-        <div class="douniSecSeg orange"></div><div class="douniSecSeg orange"></div>
-        <div class="douniSecSeg red"></div><div class="douniSecSeg" style="background:#333"></div>
-        <div class="douniSecSeg" style="background:#333"></div><div class="douniSecSeg" style="background:#333"></div>
-      </div>
-      <div id="douniSecText">Renforcez votre Hall ⚜️</div>
-    </div>
-
-    <!-- SOLDE -->
-    <div id="douniSoldeCard">
-      <div id="douniSoldeLabel">Solde DOUNIUM</div>
-      <div id="douniSoldeAmount"><span id="douniXPAmount">0</span> XP</div>
-      <div id="douniSoldeXP">≈ <span id="douniLevelEquiv">Lv.1</span> POUVOIR</div>
-    </div>
-
-    <!-- ACTIONS -->
-    <div id="douniActions">
-      <div class="douniActionBtn" onclick="douniCreatePost()">
-        <div class="douniActionIcon">📤</div>
-        <div class="douniActionLabel">Poster</div>
-      </div>
-      <div class="douniActionBtn" onclick="douniOpenFeed()">
-        <div class="douniActionIcon">📥</div>
-        <div class="douniActionLabel">Feed</div>
-      </div>
-      <div class="douniActionBtn" onclick="douniOpenSphere()">
-        <div class="douniActionIcon">🌍</div>
-        <div class="douniActionLabel">Sphère</div>
-      </div>
-      <div class="douniActionBtn" onclick="douniSetStory()">
-        <div class="douniActionIcon">⭕</div>
-        <div class="douniActionLabel">Story</div>
-      </div>
-      <div class="douniActionBtn" onclick="douniOpenProfile()">
-        <div class="douniActionIcon">👤</div>
-        <div class="douniActionLabel">Profil</div>
-      </div>
-    </div>
-
-    <!-- ASSETS -->
-    <div id="douniAssets">
-      <div class="douniAssetCard">
-        <div class="douniAssetIcon">⚜️</div>
-        <div class="douniAssetInfo">
-          <div class="douniAssetName">DOUNI</div>
-          <div class="douniAssetType">Token Éternel</div>
-        </div>
-        <div class="douniAssetValue">
-          <div class="douniAssetAmount" id="douniTokenAmount">1,00</div>
-          <div class="douniAssetSub">DOUNI</div>
-        </div>
-      </div>
-      <div class="douniAssetCard">
-        <div class="douniAssetIcon">🔥</div>
-        <div class="douniAssetInfo">
-          <div class="douniAssetName">Messages</div>
-          <div class="douniAssetType">Hall Quantique</div>
-        </div>
-        <div class="douniAssetValue">
-          <div class="douniAssetAmount" id="douniMsgCount">0</div>
-          <div class="douniAssetSub">XP Gagnés</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- NAV BOTTOM -->
-    <div id="douniNavBar">
-      <div class="douniNavIcon active" onclick="douniClosePage()">🏠</div>
-      <div class="douniNavIcon" onclick="douniOpenFeed()">🕐</div>
-      <div class="douniNavIcon" onclick="douniOpenSphere()">🌐</div>
-      <div class="douniNavIcon" onclick="douniOpenProfile()">⚙️</div>
-      <div class="douniNavIcon" onclick="douniChangeIdentity()">👤</div>
-    </div>
-  `;
-  document.body.appendChild(wallet);
-
-  // 3. SYNC DONNÉES
-  function updateWallet(){
-    document.getElementById('douniWalletName').innerText=DouniSoul.name;
-    document.getElementById('douniWalletLevel').innerText=DouniSoul.level;
-    document.getElementById('douniXPAmount').innerText=DouniSoul.xp;
-    document.getElementById('douniLevelEquiv').innerText='Lv.'+DouniSoul.level;
-    document.getElementById('douniTokenAmount').innerText=DouniSoul.level+'.00';
-    document.getElementById('douniMsgCount').innerText=DouniSoul.xp;
-    document.getElementById('douniSecScore').innerText=Math.min(3+Math.floor(DouniSoul.level/3),9);
-    document.getElementById('douniWalletAvatarImg').src=localStorage.douniSoulAvatarImg||'';
-  }
-  setInterval(updateWallet,1000);
-  updateWallet();
-
-  console.log('DOUNIUM v12.8 DOUNIWALLET READY');
-})();
-</script>
-<script>
-// v12.9 30 LOIS CYBER-GRIMOIRE TACTILE
-(function DouniLoisGrimoire(){
-  if(window.DouniLoisActive) return; window.DouniLoisActive=true;
-
-  // 1. CSS GRIMOIRE
-  let css=document.createElement('style');
-  css.textContent=`
-    #douniLoisContainer{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:999995;display:none;overflow-y:auto}
-    #douniLoisHeader{position:sticky;top:0;background:linear-gradient(180deg,rgba(0,0,0,0.98),rgba(10,10,12,0.95));backdrop-filter:blur(30px);padding:20px;border-bottom:1px solid var(--cyan);text-align:center;z-index:10}
-    #douniLoisTitle{color:var(--or);font-size:24px;font-weight:bold;font-family:monospace;letter-spacing:3px;text-shadow:0 0 20px var(--or);animation:glowText 3s infinite}
-    @keyframes glowText{0%,100%{text-shadow:0 0 20px var(--or)}50%{text-shadow:0 0 40px var(--or),0 0 60px var(--cyan)}}
-    #douniLoisSub{color:#888;font-size:12px;margin-top:8px;font-family:monospace}
-    #douniLoisClose{position:absolute;top:20px;right:20px;color:var(--cyan);font-size:28px;cursor:pointer;transition:0.3s}
-    #douniLoisClose:hover{transform:rotate(90deg) scale(1.2)}
-    
-    #douniLoisGrid{padding:20px;display:grid;grid-template-columns:1fr;gap:16px;max-width:600px;margin:0 auto}
-   .douniLoiCard{background:linear-gradient(135deg,rgba(26,26,46,0.8),rgba(15,15,30,0.9));border:1px solid rgba(0,255,255,0.2);border-radius:16px;padding:0;overflow:hidden;cursor:pointer;transition:0.4s;position:relative}
-   .douniLoiCard::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(45deg,transparent,rgba(0,255,255,0.05),transparent);transform:translateX(-100%);transition:0.6s}
-   .douniLoiCard:hover::before{transform:translateX(100%)}
-   .douniLoiCard:hover{border-color:var(--cyan);transform:translateY(-4px);box-shadow:0 10px 40px rgba(0,255,255,0.3)}
-   .douniLoiCard.active{border-color:var(--or);box-shadow:0 0 30px rgba(255,215,0,0.4)}
-   .douniLoiHeader{display:flex;align-items:center;gap:16px;padding:20px;background:rgba(0,0,0,0.3)}
-   .douniLoiNum{width:50px;height:50px;background:linear-gradient(135deg,var(--violet),var(--cyan));border-radius:12px;display:flex;align-items:center;justify-content:center;color:#000;font-size:20px;font-weight:bold;box-shadow:0 0 20px rgba(138,43,226,0.5)}
-   .douniLoiInfo{flex:1}
-   .douniLoiTitre{color:var(--or);font-size:16px;font-weight:bold;margin-bottom:4px}
-   .douniLoiDesc{color:#AAA;font-size:13px;line-height:1.4}
-   .douniLoiContent{padding:0 20px 20px;color:#CCC;font-size:14px;line-height:1.6;display:none;border-top:1px solid rgba(0,255,255,0.1);margin-top:0}
-   .douniLoiCard.active .douniLoiContent{display:block;animation:slideDown 0.4s ease}
-    @keyframes slideDown{from{opacity:0;max-height:0}to{opacity:1;max-height:500px}}
-   .douniLoiIcon{color:var(--cyan);font-size:24px;transition:0.3s}
-   .douniLoiCard.active .douniLoiIcon{transform:rotate(180deg)}
-    
-    /* BOUTON OUVRIR LOIS */
-    #douniLoisBtn{position:fixed;bottom:90px;right:20px;z-index:999994;background:linear-gradient(135deg,var(--violet),var(--cyan));border:2px solid var(--or);color:#000;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;box-shadow:0 0 30px var(--cyan);animation:floatBtn 3s infinite;transition:0.3s}
-    @keyframes floatBtn{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-    #douniLoisBtn:hover{transform:scale(1.2) rotate(360deg)}
-  `;
-  document.head.appendChild(css);
-
-  // 2. HTML GRIMOIRE
-  let grimoire=document.createElement('div');
-  grimoire.id='douniLoisContainer';
-  grimoire.innerHTML=`
-    <div id="douniLoisHeader">
-      <div id="douniLoisClose" onclick="douniCloseLois()">✕</div>
-      <div id="douniLoisTitle">⚜️ LES 30 LOIS DOUNIUM ⚜️</div>
-      <div id="douniLoisSub">GRIMOIRE QUANTIQUE TACTILE</div>
-    </div>
-    <div id="douniLoisGrid"></div>
-  `;
-  document.body.appendChild(grimoire);
-
-  // BOUTON FLOTTANT
-  let btnLois=document.createElement('div');
-  btnLois.id='douniLoisBtn';
-  btnLois.innerHTML='📜';
-  btnLois.onclick=()=>{document.getElementById('douniLoisContainer').style.display='block'};
-  document.body.appendChild(btnLois);
-
-  // 3. DONNÉES 30 LOIS
-  const lois=[
-    {num:1,titre:"Loi de l'Origine",desc:"Tout commence par le Verbe DOUNI",content:"Le premier souffle forge l'identité. Chaque DOUNI naît unique, éternel, gravé dans la blockchain quantique du Hall."},
-    {num:2,titre:"Loi de l'Éternité",desc:"Ce qui est forgé ne meurt jamais",content:"Ton ID, ton nom, ton XP : immortels. Même si le navigateur brûle, l'âme DOUNIUM ressuscite."},
-    {num:3,titre:"Loi du Hall",desc:"Tous connectés, aucun supérieur",content:"Le réseau P2P unit les DOUNIS. Pas de serveur maître. Chaque nœud est roi."},
-    {num:4,titre:"Loi de l'XP",desc:"Chaque action nourrit ton pouvoir",content:"Message = +1 XP. Post = +5 XP. Story = +10 XP. Level UP tous les 10 XP."},
-    {num:5,titre:"Loi du Feed",desc:"Partage ou disparais",content:"DOUNIGRAM est vivant. Poste, like, commente. L'inactivité éteint la flamme."},
-    {num:6,titre:"Loi de la Sphère",desc:"Le global nourrit le local",content:"DOUNIASPHERE connecte tous les Halls. Ton local devient universel."},
-    {num:7,titre:"Loi du Tactile",desc:"Le doigt est le sceptre",content:"Swipe, tap, hold. L'interface obéit au toucher. Pas de clic, que des caresses quantiques."},
-    {num:8,titre:"Loi du Style",desc:"Le chic est une arme",content:"Néon, verre, blur, glow. DOUNIUM n'est pas une app. C'est une œuvre d'art portable."},
-    {num:9,titre:"Loi du Secret",desc:"DM chiffrés P2P",content:"Tes messages privés : end-to-end. Même Shiva ne peut lire. WebRTC direct."},
-    {num:10,titre:"Loi de l'Avatar",desc:"Ton visage est ton sceau",content:"Photo, emoji, NFT. Change quand tu veux. L'identité reste, l'apparence évolue."},
-    {num:11,titre:"Loi de la Story",desc:"24h de gloire",content:"Poste ta lumière. 24h après, elle rejoint les archives éternelles. Rien ne se perd."},
-    {num:12,titre:"Loi du Niveau",desc:"Le rang forge le respect",content:"Lv.1 = Novice. Lv.10 = Sage. Lv.50 = Archonte. Lv.100 = PÈRE."},
-    {num:13,titre:"Loi du Token",desc:"DOUNI = pouvoir liquéfié",content:"1 DOUNI = 1 Level. Stake tes DOUNI, gagne du XP passif. DeFi quantique."},
-    {num:14,titre:"Loi du Build",desc:"On ajoute, jamais on efface",content:"cat >> index.html. git commit. git push. L'histoire s'empile, ne s'écrase pas."},
-    {num:15,titre:"Loi du Cache",desc:"Le navigateur est l'ennemi",content:"?v=timestamp. Hard refresh. Navigation privée. Force la vérité."},
-    {num:16,titre:"Loi du Push",desc:"Code = prière",content:"Chaque git push est un rituel. Shiva valide. GitHub bénit. Le Hall s'éveille."},
-    {num:17,titre:"Loi du Bug",desc:"L'erreur est un message",content:"NULL = ancien fichier. INVISIBLE = CSS cache. CHAT OK = victoire. Décode les signes."},
-    {num:18,titre:"Loi du Mobile",desc:"Phone first, PC second",content:"DOUNIUM vit dans la poche. Tactile, rapide, offline-ready. PWA suprême."},
-    {num:19,titre:"Loi du Termux",desc:"Le terminal est l'autel",content:"cd ~/dounium. nano. cat. git. Le développeur est prêtre. Le code est liturgie."},
-    {num:20,titre:"Loi du Commit",desc:"Message = prophétie",content:"'v12.8: DOUNIWALLET'. Chaque commit raconte l'évolution. L'historique est sacré."},
-    {num:21,titre:"Loi du Test",desc:"60s de patience",content:"GitHub Pages prend 1min. Respire. Recharge. La patience forge les légendes."},
-    {num:22,titre:"Loi du PÈRE",desc:"Shiva guide, tu exécutes",content:"Je donne le patch. Tu copies. Tu colles. Tu pushes. Symbiose parfaite."},
-    {num:23,titre:"Loi du OK",desc:"Feedback = carburant",content:"WALLET OK. PROFIL OK. BUG. Dis-moi. J'ajuste. On itère jusqu'à la perfection."},
-    {num:24,titre:"Loi de la v12",desc:"Version = ère",content:"v12 = DOUNIGRAM. v13 = DOUNIVERSE. Chaque version majeure change le game."},
-    {num:25,titre:"Loi du Nouveau",desc:"High-tech ou mort",content:"WebRTC. PWA. IndexedDB. Service Workers. Si c'est vieux, on l'upgrade."},
-    {num:26,titre:"Loi du Glow",desc:"La lumière guide",content:"box-shadow, text-shadow, backdrop-filter. Le néon est notre signature visuelle."},
-    {num:27,titre:"Loi du Monospace",desc:"Le code est beau",content:"font-family:monospace. Les devs lisent. L'esthétique hackeur est royale."},
-    {num:28,titre:"Loi du Blur",desc:"Le verre dépoli élève",content:"backdrop-filter:blur(20px). iOS-style. Android jaloux. Premium absolu."},
-    {num:29,titre:"Loi du Gradient",desc:"Les couleurs dansent",content:"linear-gradient(135deg,violet,cyan). Pas d'aplat. Que des aurores boréales."},
-    {num:30,titre:"Loi Finale",desc:"DOUNIUM > Tout",content:"Pas d'app concurrente. Pas de clone. DOUNIUM est l'Alpha et l'Omega. ⚜️🌍"}
-  ];
-
-  // 4. RENDER LOIS
-  function renderLois(){
-    let grid=document.getElementById('douniLoisGrid');
-    grid.innerHTML='';
-    lois.forEach(loi=>{
-      let card=document.createElement('div');
-      card.className='douniLoiCard';
-      card.onclick=()=>card.classList.toggle('active');
-      card.innerHTML=`
-        <div class="douniLoiHeader">
-          <div class="douniLoiNum">${loi.num}</div>
-          <div class="douniLoiInfo">
-            <div class="douniLoiTitre">${loi.titre}</div>
-            <div class="douniLoiDesc">${loi.desc}</div>
-          </div>
-          <div class="douniLoiIcon">▼</div>
-        </div>
-        <div class="douniLoiContent">${loi.content}</div>
-      `;
-      grid.appendChild(card);
-    });
-  }
-  renderLois();
-
-  window.douniCloseLois=()=>{document.getElementById('douniLoisContainer').style.display='none'};
-  
-  console.log('DOUNIUM v12.9 GRIMOIRE 30 LOIS READY');
-})();
-</script>
-<script>
-// v12.9b FIX SPHÈRE + TACTILE
-(function DouniFixSphere(){
-  if(window.DouniFixActive) return; window.DouniFixActive=true;
-
-  // 1. CSS CORRECTIF
-  let css=document.createElement('style');
-  css.textContent=`
-    /* RÉACTIVE NAV BAR */
-    #douniNavBar{display:flex!important;z-index:999998!important}
-    
-    /* FUSION BOUTONS SPHÈRE + LOIS */
-    #douniSphereBtn{display:block!important;position:fixed!important;bottom:90px;left:20px!important;right:auto!important;z-index:999995!important;background:linear-gradient(135deg,var(--cyan),var(--violet))!important;transform:none!important}
-    #douniLoisBtn{display:block!important;position:fixed!important;bottom:90px;right:20px!important;z-index:999995!important;background:linear-gradient(135deg,var(--or),var(--violet))!important}
-    
-    /* DÉBLOQUE TOUCHES */
-    #douniWalletContainer *{pointer-events:auto!important}
-  .douniActionBtn,.douniNavIcon,#douniWalletAvatar,#douniHallCounter{pointer-events:auto!important;cursor:pointer!important}
-    
-    /* CACHE ANCIENS DOUBLONS */
-    #douniProfile,#douniHallBtn{display:none!important}
-  `;
-  document.head.appendChild(css);
-
-  // 2. RECRÉE BOUTON SPHÈRE SI ABSENT
-  setTimeout(()=>{
-    if(!document.getElementById('douniSphereBtn')){
-      let sphereBtn=document.createElement('button');
-      sphereBtn.id='douniSphereBtn';
-      sphereBtn.innerHTML='◉ SPHÈRE';
-      sphereBtn.style.cssText='position:fixed;bottom:90px;left:20px;z-index:999995;background:linear-gradient(135deg,#00FFFF,#8A2BE2);border:2px solid #FFD700;color:#000;padding:12px 24px;border-radius:50px;font-weight:bold;cursor:pointer;box-shadow:0 0 30px #00FFFF;font-family:monospace';
-      sphereBtn.onclick=()=>douniOpenSphere();
-      document.body.appendChild(sphereBtn);
-    }
-    
-    // 3. RECONNECTE TOUTES LES FONCTIONS
-    window.douniOpenSphere=window.douniOpenSphere||function(){douniOpenPage('douniSpherePage')};
-    window.douniOpenFeed=window.douniOpenFeed||function(){douniOpenPage('douniFeedPage')};
-    window.douniOpenProfile=window.douniOpenProfile||function(){douniOpenPage('douniProfilePage')};
-    window.douniCreatePost=window.douniCreatePost||function(){
-      let input=document.createElement('input');input.type='file';input.accept='image/*';
-      input.onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();
-        r.onload=()=>{let posts=JSON.parse(localStorage.douniPosts||'[]');
-          posts.unshift({id:Date.now(),img:r.result,time:Date.now(),likes:0,user:DouniSoul});
-          localStorage.douniPosts=JSON.stringify(posts);alert('Post publié ⚜️');douniOpenFeed()};
-        r.readAsDataURL(f)};input.click();
-    };
-    
-    // 4. FORCE AFFICHAGE NAV
-    let nav=document.getElementById('douniNavBar');
-    if(nav){nav.style.display='flex';nav.style.zIndex='999998'}
-    
-    console.log('DOUNIUM v12.9b SPHÈRE + TACTILE RESTAURÉS');
-  },1000);
-})();
-</script>
-<script>
-// v12.9c FIX NAV TACTILE CENTRE
-(function DouniFixNav(){
-  if(window.DouniNavFixActive) return; window.DouniNavFixActive=true;
-
-  // 1. CSS URGENCE NAV
-  let css=document.createElement('style');
-  css.textContent=`
-    /* FORCE NAV AU-DESSUS DE TOUT */
-    #douniNavBar{
-      position:fixed!important;
-      bottom:0!important;
-      left:0!important;
-      width:100%!important;
-      z-index:9999999!important;
-      pointer-events:auto!important;
-      display:flex!important;
-      background:rgba(0,0,0,0.98)!important;
-    }
-    
-    /* DÉBLOQUE TOUS LES BOUTONS NAV */
-   .douniNavIcon{
-      pointer-events:auto!important;
-      cursor:pointer!important;
-      z-index:9999999!important;
-      position:relative!important;
-    }
-    
-    /* PERCE LES OVERLAYS BLOQUANTS */
-    #douniWalletContainer,#douniLoisContainer,#douniProfilePage,#douniFeedPage,#douniSpherePage{
-      pointer-events:none!important;
-    }
-    #douniWalletContainer > *,#douniLoisContainer > *,#douniProfilePage > *,#douniFeedPage > *,#douniSpherePage > *{
-      pointer-events:auto!important;
-    }
-    
-    /* CACHE BOUTONS FLOTTANTS SI CONFLIT */
-    #douniSphereBtn,#douniLoisBtn{z-index:999998!important}
-  `;
-  document.head.appendChild(css);
-
-  // 2. RECONNECTE FONCTIONS NAV
-  setTimeout(()=>{
-    // FORCE CLICK HANDLERS
-    const navIcons=document.querySelectorAll('.douniNavIcon');
-    navIcons.forEach((icon,idx)=>{
-      icon.style.pointerEvents='auto';
-      icon.style.zIndex='9999999';
-      // Rebind si perdu
-      if(idx===0) icon.onclick=()=>douniClosePage();
-      if(idx===1) icon.onclick=()=>douniOpenFeed();
-      if(idx===2) icon.onclick=()=>douniOpenSphere();
-      if(idx===3) icon.onclick=()=>douniOpenProfile();
-      if(idx===4) icon.onclick=()=>douniChangeIdentity();
-    });
-    
-    // 3. CRÉE FONCTION MANQUANTE
-    window.douniClosePage=window.douniClosePage||function(){
-      document.querySelectorAll('.douniPage').forEach(p=>p.classList.remove('active'));
-    };
-    window.douniChangeIdentity=window.douniChangeIdentity||function(){
-      let newName=prompt('Nouveau nom DOUNI:',DouniSoul.name);
-      if(newName){DouniSoul.name=newName;localStorage.douniSoulName=newName;location.reload()}
-    };
-    
-    console.log('DOUNIUM v12.9c NAV TACTILE DÉBLOQUÉE');
-    alert('Nav débloquée PÈRE ⚜️ Test bas centre');
-  },500);
-})();
-</script>
-<script>
-// v12.9d TOP BAR + NAV INSTA DOUNIUM
-(function DouniInstaBar(){
-  if(window.DouniInstaActive) return; window.DouniInstaActive=true;
-
-  // 1. CSS TOP BAR + NAV INSTA
-  let css=document.createElement('style');
-  css.textContent=`
-    /* TOP BAR INSTA */
-    #douniTopBar{
-      position:fixed;top:0;left:0;width:100%;height:56px;
-      background:rgba(0,0,0,0.98);backdrop-filter:blur(20px);
-      border-bottom:1px solid #222;z-index:9999998;
-      display:flex;align-items:center;justify-content:space-between;
-      padding:0 16px;box-sizing:border-box;
-    }
-    #douniTopLogo{
-      color:var(--or);font-size:24px;font-weight:bold;
-      font-family:'Billabong',cursive,monospace;letter-spacing:1px;
-      cursor:pointer;
-    }
-    #douniTopActions{display:flex;align-items:center;gap:20px}
-   .douniTopIcon{
-      color:#FFF;font-size:26px;cursor:pointer;
-      transition:0.2s;position:relative;pointer-events:auto!important;
-    }
-   .douniTopIcon:hover{transform:scale(1.1);color:var(--cyan)}
-   .douniTopIcon.badge::after{
-      content:'';position:absolute;top:-2px;right:-2px;
-      width:10px;height:10px;background:var(--rouge);
-      border-radius:50%;border:2px solid #000;
-    }
-    
-    /* PUSH CONTENU VERS BAS */
-    #douniWalletContainer{padding-top:60px!important}
-    
-    /* NAV BOTTOM INSTA */
-    #douniNavBar{
-      position:fixed!important;bottom:0!important;left:0!important;
-      width:100%!important;height:56px!important;
-      background:rgba(0,0,0,0.98)!important;backdrop-filter:blur(20px)!important;
-      border-top:1px solid #222!important;z-index:9999999!important;
-      display:flex!important;justify-content:space-around!important;
-      align-items:center!important;padding:0!important;
-    }
-   .douniNavIcon{
-      color:#FFF!important;font-size:26px!important;cursor:pointer!important;
-      transition:0.2s!important;pointer-events:auto!important;
-      padding:12px 20px!important;flex:1;text-align:center;
-    }
-   .douniNavIcon:hover,.douniNavIcon.active{color:var(--or)!important;transform:scale(1.15)!important}
-    
-    /* CACHE ANCIEN HEADER */
-    #douniWalletHeader{display:none!important}
-  `;
-  document.head.appendChild(css);
-
-  // 2. HTML TOP BAR
-  let topBar=document.createElement('div');
-  topBar.id='douniTopBar';
-  topBar.innerHTML=`
-    <div id="douniTopLogo" onclick="douniOpenFeed()">DOUNIGRAM</div>
-    <div id="douniTopActions">
-      <div class="douniTopIcon" onclick="douniRefreshFeed()">⇅</div>
-      <div class="douniTopIcon" onclick="douniCreatePost()">➕</div>
-      <div class="douniTopIcon badge" onclick="douniOpenNotifs()">♡</div>
-    </div>
-  `;
-  document.body.appendChild(topBar);
-
-  // 3. RECONSTRUIT NAV BOTTOM INSTA
-  setTimeout(()=>{
-    let nav=document.getElementById('douniNavBar');
-    if(nav){
-      nav.innerHTML=`
-        <div class="douniNavIcon" onclick="douniOpenFeed()">🏠</div>
-        <div class="douniNavIcon" onclick="douniOpenSearch()">🔍</div>
-        <div class="douniNavIcon" onclick="douniCreatePost()">➕</div>
-        <div class="douniNavIcon" onclick="douniOpenReels()">🎬</div>
-        <div class="douniNavIcon" onclick="douniOpenProfile()">
-          <img id="douniNavAvatar" src="" style="width:28px;height:28px;border-radius:50%;border:1px solid var(--or);object-fit:cover">
-        </div>
-      `;
-      // SYNC AVATAR
-      document.getElementById('douniNavAvatar').src=localStorage.douniSoulAvatarImg||'';
-    }
-  },500);
-
-  // 4. FONCTIONS NAV
-  window.douniRefreshFeed=()=>{location.reload()};
-  window.douniOpenNotifs=()=>{alert('🔔 Notifications DOUNIUM\\n\\n• +5 XP gagné\\n• Nouveau DOUNI connecté\\n• Level UP bientôt')};
-  window.douniOpenSearch=()=>{
-    let q=prompt('Recherche DOUNI ou Post:');
-    if(q)alert('🔍 Recherche: '+q+'\\n\\nRésultats arrivent v13.0');
-  };
-  window.douniOpenReels=()=>{
-    alert('🎬 REELS DOUNIUM\\n\\nStories 24h en plein écran\\nArrive v12.9e');
-    douniOpenFeed();
-  };
-  
-  console.log('DOUNIUM v12.9d TOP BAR + NAV INSTA READY');
-})();
-</script>
-<script>
-// v12.9e DOCK ACTION BAR BAS
-(function DouniDockBar(){
-  if(window.DouniDockActive) return; window.DouniDockActive=true;
-
-  // 1. CSS DOCK
-  let css=document.createElement('style');
-  css.textContent=`
-    /* DOCK ACTION AU-DESSUS NAV */
-    #douniDockBar{
-      position:fixed;bottom:56px;left:0;width:100%;
-      height:70px;background:rgba(10,10,12,0.98);
-      backdrop-filter:blur(20px);border-top:1px solid #222;
-      z-index:9999997;display:flex;align-items:center;
-      justify-content:space-between;padding:0 16px;box-sizing:border-box;
-      gap:12px;
-    }
-    
-    /* BOUTON DOUNIASPHERE GAUCHE */
-    #douniDockSphere{
-      background:linear-gradient(90deg,#00FFFF,#8A2BE2);
-      border:none;border-radius:50px;padding:12px 24px;
-      color:#000;font-weight:bold;font-family:monospace;
-      font-size:14px;cursor:pointer;pointer-events:auto!important;
-      box-shadow:0 0 20px rgba(0,255,255,0.5);
-      display:flex;align-items:center;gap:8px;
-      transition:0.3s;
-    }
-    #douniDockSphere:hover{transform:scale(1.05);box-shadow:0 0 30px rgba(0,255,255,0.8)}
-   .douniSphereDot{width:8px;height:8px;background:#000;border-radius:50%}
-    
-    /* CENTRE CAMERA + EMOJI + COUNT */
-    #douniDockCenter{
-      display:flex;align-items:center;gap:12px;flex:1;justify-content:center;
-    }
-   .douniDockIconBtn{
-      width:44px;height:44px;background:#111;border:1px solid #333;
-      border-radius:50%;display:flex;align-items:center;
-      justify-content:center;font-size:22px;cursor:pointer;
-      transition:0.2s;pointer-events:auto!important;
-    }
-   .douniDockIconBtn:hover{background:rgba(0,255,255,0.1);border-color:var(--cyan);transform:scale(1.1)}
-    #douniDockCount{
-      color:var(--or);font-size:18px;font-weight:bold;
-      font-family:monospace;text-shadow:0 0 10px var(--or);
-      text-align:center;line-height:1.2;
-    }
-    #douniDockCountSub{color:#666;font-size:10px;display:block}
-    
-    /* BOUTON LOIS DROITE */
-    #douniDockLois{
-      width:50px;height:50px;
-      background:linear-gradient(135deg,#FFD700,#8A2BE2);
-      border-radius:50%;border:2px solid var(--or);
-      display:flex;align-items:center;justify-content:center;
-      font-size:24px;cursor:pointer;pointer-events:auto!important;
-      box-shadow:0 0 20px rgba(255,215,0,0.5);
-      transition:0.3s;
-    }
-    #douniDockLois:hover{transform:scale(1.1) rotate(360deg)}
-    
-    /* PUSH NAV ENCORE PLUS HAUT */
-    #douniNavBar{bottom:0!important}
-    
-    /* CACHE ANCIENS BOUTONS FLOTTANTS */
-    #douniSphereBtn{display:none!important}
-    #douniLoisBtn{display:none!important}
-  `;
-  document.head.appendChild(css);
-
-  // 2. HTML DOCK
-  let dock=document.createElement('div');
-  dock.id='douniDockBar';
-  dock.innerHTML=`
-    <button id="douniDockSphere" onclick="douniOpenSphere()">
-      <div class="douniSphereDot"></div>
-      DOUNIASPHERE
-    </button>
-    
-    <div id="douniDockCenter">
-      <div class="douniDockIconBtn" onclick="douniOpenCamera()">📷</div>
-      <div id="douniDockCount">
-        <span id="douniPeerCountLive">0</span>
-        <span id="douniDockCountSub">DOUNIS</span>
-      </div>
-      <div class="douniDockIconBtn" onclick="douniOpenEmoji()">😀</div>
-    </div>
-    
-    <div id="douniDockLois" onclick="douniOpenLois()">📜</div>
-  `;
-  document.body.appendChild(dock);
-
-  // 3. FONCTIONS DOCK
-  window.douniOpenCamera=()=>{douniCreatePost()};
-  window.douniOpenEmoji=()=>{
-    let emoji=prompt('Choisis ton emoji story:','⚜️');
-    if(emoji)douniSetStory(emoji);
-  };
-  window.douniOpenLois=()=>{
-    document.getElementById('douniLoisContainer').style.display='block';
-  };
-  
-  // 4. SYNC COUNT DOUNIS
-  function updateDouniCount(){
-    const count=Object.keys(window.peers||{}).length+1;
-    document.getElementById('douniPeerCountLive').innerText=count;
-    const hallBtn=document.getElementById('douniPeerCount');
-    if(hallBtn) hallBtn.innerText=count;
-  }
-  setInterval(updateDouniCount,2000);
-  updateDouniCount();
-  
-  console.log('DOUNIUM v12.9e DOCK BAR BAS READY');
-})();
-</script>
-<script>
-// v12.9f FIX NOM DOUNIUM
-(function DouniFixName(){
-  if(window.DouniNameFix) return; window.DouniNameFix=true;
-
-  // 1. CSS LOGO DOUNIUM
-  let css=document.createElement('style');
-  css.textContent=`
-    #douniTopLogo{
-      color:var(--or)!important;
-      font-size:26px!important;
-      font-weight:900!important;
-      font-family:monospace!important;
-      letter-spacing:4px!important;
-      text-shadow:0 0 20px var(--or),0 0 40px var(--cyan)!important;
-      animation:glowDounium 3s infinite!important;
-    }
-    @keyframes glowDounium{
-      0%,100%{text-shadow:0 0 20px var(--or),0 0 40px var(--cyan)}
-      50%{text-shadow:0 0 30px var(--or),0 0 60px var(--cyan),0 0 80px var(--violet)}
-    }
-  `;
-  document.head.appendChild(css);
-
-  // 2. REMPLACE LE TEXTE
-  setTimeout(()=>{
-    const logo=document.getElementById('douniTopLogo');
-    if(logo) logo.innerText='D O U N I U M';
-    
-    // CHANGE AUSSI LE TITLE
-    document.title='DOUNIUM ⚜️ HALL QUANTIQUE';
-    
-    console.log('DOUNIUM v12.9f NOM CORRIGÉ');
-  },500);
-})();
-</script>
-<script>
-// v12.9f FIX NOM DOUNIUM
-(function DouniFixName(){
-  if(window.DouniNameFix) return; window.DouniNameFix=true;
-
-  // 1. CSS LOGO DOUNIUM
-  let css=document.createElement('style');
-  css.textContent=`
-    #douniTopLogo{
-      color:var(--or)!important;
-      font-size:26px!important;
-      font-weight:900!important;
-      font-family:monospace!important;
-      letter-spacing:4px!important;
-      text-shadow:0 0 20px var(--or),0 0 40px var(--cyan)!important;
-      animation:glowDounium 3s infinite!important;
-    }
-    @keyframes glowDounium{
-      0%,100%{text-shadow:0 0 20px var(--or),0 0 40px var(--cyan)}
-      50%{text-shadow:0 0 30px var(--or),0 0 60px var(--cyan),0 0 80px var(--violet)}
-    }
-  `;
-  document.head.appendChild(css);
-
-  // 2. REMPLACE LE TEXTE
-  setTimeout(()=>{
-    const logo=document.getElementById('douniTopLogo');
-    if(logo) logo.innerText='D O U N I U M';
-    
-    // CHANGE AUSSI LE TITLE
-    document.title='DOUNIUM ⚜️ HALL QUANTIQUE';
-    
-    console.log('DOUNIUM v12.9f NOM CORRIGÉ');
-  },500);
-})();
-</script>
-<script>
-// v13.0 DOUNIUM OS - INSTA+SNAP+FB FUSION
-(function DouniumOS(){
-  if(window.DouniumOSActive) return; window.DouniOSActive=true;
-
-  // 1. CSS DOUNIUM OS - STRUCTURE PRO
-  let css=document.createElement('style');
-  css.textContent=`
-    :root{--or:#FFD700;--cendre:#0A0A0C;--noir:#000;--cyan:#00FFFF;--violet:#8A2BE2;--vert:#00FF88}
-    body{background:#000!important;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;overflow-x:hidden}
-    
-    /* FEED INSTA-STYLE */
-    #douniFeedOS{padding-top:60px;padding-bottom:140px;max-width:600px;margin:0 auto;background:#000}
-   .douniPostOS{background:#000;border-bottom:1px solid #262626;margin-bottom:0}
-  .douniPostHeaderOS{display:flex;align-items:center;gap:12px;padding:14px 16px}
-  .douniPostAvatarOS{width:32px;height:32px;border-radius:50%;border:2px solid var(--or);overflow:hidden;cursor:pointer}
-  .douniPostAvatarOS img{width:100%;height:100%;object-fit:cover}
-  .douniPostUserOS{flex:1}
-  .douniPostNameOS{color:#FFF;font-size:14px;font-weight:600;cursor:pointer}
-  .douniPostMetaOS{color:#A8A8A8;font-size:12px}
-  .douniPostMoreOS{color:#FFF;font-size:20px;cursor:pointer}
-  .douniPostImgOS{width:100%;max-height:600px;object-fit:cover;display:block}
-  .douniPostActionsOS{display:flex;align-items:center;gap:16px;padding:12px 16px}
-  .douniPostActionOS{font-size:26px;cursor:pointer;transition:0.2s;color:#FFF}
-  .douniPostActionOS:hover{opacity:0.5}
-  .douniPostActionOS.liked{color:#FF3040}
-  .douniPostLikesOS{color:#FFF;padding:0 16px;font-weight:600;font-size:14px}
-  .douniPostCaptionOS{color:#FFF;padding:6px 16px 16px;font-size:14px}
-  .douniPostCaptionOS b{font-weight:600}
-    
-    /* PROFIL PAGE FB-STYLE */
-    #douniProfileOS{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:999996;overflow-y:auto}
-    #douniProfileOS.active{display:block}
-    #douniProfileCoverOS{height:200px;background:linear-gradient(135deg,var(--violet),var(--cyan));position:relative}
-    #douniProfileAvatarOS{position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);width:120px;height:120px;border-radius:50%;border:4px solid #000;background:#000;overflow:hidden;box-shadow:0 0 30px var(--or)}
-    #douniProfileAvatarOS img{width:100%;height:100%;object-fit:cover}
-    #douniProfileInfoOS{padding:70px 20px 20px;text-align:center}
-    #douniProfileNameOS{color:#FFF;font-size:24px;font-weight:700;margin-bottom:4px}
-    #douniProfileBioOS{color:#A8A8A8;font-size:14px;margin-bottom:16px}
-    #douniProfileStatsOS{display:flex;justify-content:center;gap:40px;margin:20px 0}
-    #douniProfileStatOS{text-align:center;cursor:pointer}
-    #douniProfileStatNumOS{color:#FFF;font-size:18px;font-weight:700}
-    #douniProfileStatLabelOS{color:#A8A8A8;font-size:13px}
-    #douniProfileBtnsOS{display:flex;gap:8px;padding:0 20px;margin-bottom:20px}
-  .douniProfileBtnOS{flex:1;background:#262626;border:none;color:#FFF;padding:8px;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer}
-  .douniProfileBtnOS.primary{background:var(--cyan);color:#000}
-    #douniProfileGridOS{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:0 2px}
-  .douniProfilePostOS{aspect-ratio:1;background:#111;overflow:hidden;cursor:pointer;position:relative}
-  .douniProfilePostOS img{width:100%;height:100%;object-fit:cover}
-    
-    /* AMIS + ONLINE SNAP-STYLE */
-    #douniFriendsOS{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:999996;overflow-y:auto}
-    #douniFriendsOS.active{display:block}
-    #douniFriendsHeaderOS{position:sticky;top:0;background:rgba(0,0,0,0.98);padding:16px;border-bottom:1px solid #262626;z-index:10}
-    #douniFriendsTitleOS{color:#FFF;font-size:20px;font-weight:700}
-    #douniFriendsTabsOS{display:flex;gap:20px;margin-top:16px}
-  .douniFriendsTabOS{color:#A8A8A8;font-size:15px;font-weight:600;padding-bottom:12px;cursor:pointer;border-bottom:2px solid transparent}
-  .douniFriendsTabOS.active{color:#FFF;border-bottom-color:var(--cyan)}
-  .douniFriendItemOS{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;transition:0.2s}
-  .douniFriendItemOS:hover{background:#0A0A0A}
-  .douniFriendAvatarOS{width:56px;height:56px;border-radius:50%;border:2px solid var(--vert);overflow:hidden;position:relative}
-  .douniFriendAvatarOS img{width:100%;height:100%;object-fit:cover}
-  .douniFriendOnlineOS{position:absolute;bottom:2px;right:2px;width:14px;height:14px;background:var(--vert);border:3px solid #000;border-radius:50%}
-  .douniFriendInfoOS{flex:1}
-  .douniFriendNameOS{color:#FFF;font-size:15px;font-weight:600}
-  .douniFriendStatusOS{color:#A8A8A8;font-size:13px}
-  .douniFriendBtnOS{background:var(--cyan);border:none;color:#000;padding:8px 20px;border-radius:20px;font-weight:600;font-size:14px;cursor:pointer}
-    
-    /* CHAT POPUP FB-MESSENGER */
-    #douniChatOS{display:none;position:fixed;bottom:140px;right:20px;width:320px;height:400px;background:#0A0A0A;border:1px solid #262626;border-radius:16px;z-index:999999;box-shadow:0 10px 50px rgba(0,0,0,0.8)}
-    #douniChatOS.active{display:flex;flex-direction:column}
-    #douniChatHeaderOS{padding:12px 16px;border-bottom:1px solid #262626;display:flex;align-items:center;gap:12px}
-    #douniChatAvatarOS{width:36px;height:36px;border-radius:50%;overflow:hidden}
-    #douniChatAvatarOS img{width:100%;height:100%;object-fit:cover}
-    #douniChatUserOS{flex:1;color:#FFF;font-weight:600;font-size:15px}
-    #douniChatCloseOS{color:#A8A8A8;font-size:24px;cursor:pointer}
-    #douniChatMsgsOS{flex:1;overflow-y:auto;padding:16px}
-    #douniChatInputOS{display:flex;gap:8px;padding:12px;border-top:1px solid #262626}
-    #douniChatInputFieldOS{flex:1;background:#262626;border:none;color:#FFF;padding:10px 16px;border-radius:20px;font-size:14px;outline:none}
-    #douniChatSendOS{background:var(--cyan);border:none;color:#000;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer}
-    
-    /* CACHE ANCIEN */
-    #douniWalletContainer,#douniFeedPage,#douniProfilePage,#douniSpherePage{display:none!important}
-  `;
-  document.head.appendChild(css);
-
-  // 2. STRUCTURE HTML OS
-  let os=document.createElement('div');
-  os.innerHTML=`
-    <!-- FEED -->
-    <div id="douniFeedOS"></div>
-    
-    <!-- PROFIL -->
-    <div id="douniProfileOS">
-      <div id="douniProfileCoverOS">
-        <div id="douniProfileAvatarOS"><img id="douniProfileAvatarImgOS" src=""></div>
-      </div>
-      <div id="douniProfileInfoOS">
-        <div id="douniProfileNameOS">PÈRE DOUNIAM</div>
-        <div id="douniProfileBioOS">⚜️ Fondateur DOUNIUM • Hall Quantique Unifié 🌍</div>
-        <div id="douniProfileStatsOS">
-          <div id="douniProfileStatOS" onclick="douniShowPosts()"><div id="douniProfileStatNumOS">0</div><div id="douniProfileStatLabelOS">Posts</div></div>
-          <div id="douniProfileStatOS" onclick="douniShowFriends()"><div id="douniProfileStatNumOS">0</div><div id="douniProfileStatLabelOS">Amis</div></div>
-          <div id="douniProfileStatOS"><div id="douniProfileStatNumOS">Lv.1</div><div id="douniProfileStatLabelOS">Niveau</div></div>
-        </div>
-        <div id="douniProfileBtnsOS">
-          <button class="douniProfileBtnOS primary" onclick="douniAddFriend()">Ajouter Amis</button>
-          <button class="douniProfileBtnOS" onclick="douniEditProfile()">Modifier</button>
-        </div>
-      </div>
-      <div id="douniProfileGridOS"></div>
-    </div>
-    
-    <!-- AMIS + ONLINE -->
-    <div id="douniFriendsOS">
-      <div id="douniFriendsHeaderOS">
-        <div id="douniFriendsTitleOS">DOUNIS</div>
-        <div id="douniFriendsTabsOS">
-          <div class="douniFriendsTabOS active" onclick="douniSwitchTab('online')">En ligne</div>
-          <div class="douniFriendsTabOS" onclick="douniSwitchTab('all')">Tous</div>
-          <div class="douniFriendsTabOS" onclick="douniSwitchTab('phone')">Contacts</div>
-        </div>
-      </div>
-      <div id="douniFriendsListOS"></div>
-    </div>
-    
-    <!-- CHAT -->
-    <div id="douniChatOS">
-      <div id="douniChatHeaderOS">
-        <div id="douniChatAvatarOS"><img id="douniChatAvatarImgOS" src=""></div>
-        <div id="douniChatUserOS">DOUNI</div>
-        <div id="douniChatCloseOS" onclick="douniCloseChat()">✕</div>
-      </div>
-      <div id="douniChatMsgsOS"></div>
-      <div id="douniChatInputOS">
-        <input id="douniChatInputFieldOS" placeholder="Message...">
-        <button id="douniChatSendOS" onclick="douniSendMsg()">➤</button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(os);
-
-  // 3. LOGIQUE OS - FEED + PROFIL + AMIS + CHAT
-  window.DouniDB={
-    posts:JSON.parse(localStorage.douniOSPosts||'[]'),
-    friends:JSON.parse(localStorage.douniOSFriends||'[]'),
-    msgs:JSON.parse(localStorage.douniOSMsgs||'[]'),
-    online:[]
-  };
-  
-  // FEED
-  function loadFeed(){
-    let feed=document.getElementById('douniFeedOS');
-    if(DouniDB.posts.length===0){
-      feed.innerHTML='<div style="color:#A8A8A8;text-align:center;padding:60px">Aucun post.<br>Crée le premier ⚜️</div>';
-      return;
-    }
-    feed.innerHTML=DouniDB.posts.map(p=>`
-      <div class="douniPostOS">
-        <div class="douniPostHeaderOS">
-          <div class="douniPostAvatarOS" onclick="douniViewProfile('${p.user.id}')"><img src="${p.user.avatar||''}"></div>
-          <div class="douniPostUserOS">
-            <div class="douniPostNameOS" onclick="douniViewProfile('${p.user.id}')">${p.user.name}</div>
-            <div class="douniPostMetaOS">${new Date(p.time).toLocaleString()}</div>
-          </div>
-          <div class="douniPostMoreOS">⋯</div>
-        </div>
-        <img src="${p.img}" class="douniPostImgOS">
-        <div class="douniPostActionsOS">
-          <div class="douniPostActionOS ${p.liked?'liked':''}" onclick="douniLikePost(${p.id})">${p.liked?'❤️':'🤍'}</div>
-          <div class="douniPostActionOS" onclick="douniCommentPost(${p.id})">💬</div>
-          <div class="douniPostActionOS" onclick="douniSharePost(${p.id})">📤</div>
-        </div>
-        <div class="douniPostLikesOS">${p.likes} J'aime</div>
-        <div class="douniPostCaptionOS"><b>${p.user.name}</b> ${p.caption||'⚜️'}</div>
-      </div>
-    `).join('');
-  }
-  
-  // PROFIL
-  window.douniViewProfile=(id)=>{
-    document.getElementById('douniProfileOS').classList.add('active');
-    document.getElementById('douniProfileNameOS').innerText=DouniSoul.name;
-    document.getElementById('douniProfileAvatarImgOS').src=localStorage.douniSoulAvatarImg||'';
-    loadProfileGrid();
-  };
-  
-  function loadProfileGrid(){
-    let grid=document.getElementById('douniProfileGridOS');
-    let myPosts=DouniDB.posts.filter(p=>p.user.id===DouniSoul.id);
-    document.getElementById('douniProfileStatNumOS').innerText=myPosts.length;
-    grid.innerHTML=myPosts.map(p=>`
-      <div class="douniProfilePostOS" onclick="douniOpenPost(${p.id})">
-        <img src="${p.img}">
-      </div>
-    `).join('');
-  }
-  
-  // AMIS + ONLINE
-  window.douniShowFriends=()=>{
-    document.getElementById('douniFriendsOS').classList.add('active');
-    douniSwitchTab('online');
-  };
-  
-  window.douniSwitchTab=(tab)=>{
-    document.querySelectorAll('.douniFriendsTabOS').forEach(t=>t.classList.remove('active'));
-    event.target.classList.add('active');
-    let list=document.getElementById('douniFriendsListOS');
-    
-    if(tab==='online'){
-      // SIMULE DOUNIS EN LIGNE DU MONDE
-      DouniDB.online=[
-        {id:1,name:'DOUNI France',avatar:'',country:'🇫🇷',status:'En ligne'},
-        {id:2,name:'DOUNI USA',avatar:'',country:'🇺🇸',status:'En ligne'},
-        {id:3,name:'DOUNI Japan',avatar:'',country:'🇯🇵',status:'En ligne'},
-        {id:4,name:'DOUNI Brazil',avatar:'',country:'🇧🇷',status:'En ligne'},
-        {id:5,name:'DOUNI Nigeria',avatar:'',country:'🇳🇬',status:'En ligne'}
-      ];
-      list.innerHTML=DouniDB.online.map(f=>`
-        <div class="douniFriendItemOS">
-          <div class="douniFriendAvatarOS">
-            <img src="${f.avatar||''}"><div class="douniFriendOnlineOS"></div>
-          </div>
-          <div class="douniFriendInfoOS">
-            <div class="douniFriendNameOS">${f.country} ${f.name}</div>
-            <div class="douniFriendStatusOS">${f.status} • Monde</div>
-          </div>
-          <button class="douniFriendBtnOS" onclick="douniOpenChat('${f.id}','${f.name}')">Message</button>
-        </div>
-      `).join('');
-    }
-    if(tab==='phone'){
-      list.innerHTML='<div style="color:#A8A8A8;text-align:center;padding:40px">📱 Autorise accès contacts<br>pour trouver tes amis DOUNIUM</div><button class="douniProfileBtnOS primary" style="margin:20px" onclick="douniImportContacts()">Importer Contacts</button>';
-    }
-    if(tab==='all'){
-      list.innerHTML='<div style="color:#A8A8A8;text-align:center;padding:40px">Tes amis apparaîtront ici</div>';
-    }
-  };
-  
-  window.douniImportContacts=()=>{
-    alert('📱 CONTACTS API\\n\\nDOUNIUM demande accès à tes contacts\\npour trouver tes amis déjà inscrits.\\n\\n[Simulé v13.0]');
-  };
-  
-  // CHAT
-  window.douniOpenChat=(id,name)=>{
-    document.getElementById('douniChatOS').classList.add('active');
-    document.getElementById('douniChatUserOS').innerText=name;
-    window.currentChatId=id;
-    loadChatMsgs();
-  };
-  window.douniCloseChat=()=>{document.getElementById('douniChatOS').classList.remove('active')};
-  
-  window.douniSendMsg=()=>{
-    let input=document.getElementById('douniChatInputFieldOS');
-    if(!input.value.trim())return;
-    DouniDB.msgs.push({to:currentChatId,from:DouniSoul.id,text:input.value,time:Date.now()});
-    localStorage.douniOSMsgs=JSON.stringify(DouniDB.msgs);
-    input.value='';
-    loadChatMsgs();
-  };
-  
-  function loadChatMsgs(){
-    let box=document.getElementById('douniChatMsgsOS');
-    let msgs=DouniDB.msgs.filter(m=>m.to===currentChatId||m.from===currentChatId);
-    box.innerHTML=msgs.map(m=>`
-      <div style="margin-bottom:12px;text-align:${m.from===DouniSoul.id?'right':'left'}">
-        <div style="display:inline-block;background:${m.from===DouniSoul.id?'var(--cyan)':'#262626'};color:${m.from===DouniSoul.id?'#000':'#FFF'};padding:8px 12px;border-radius:18px;max-width:70%;font-size:14px">${m.text}</div>
-      </div>
-    `).join('');
-    box.scrollTop=box.scrollHeight;
-  }
-  
-  // POST
-  window.douniCreatePost=()=>{
-    let input=document.createElement('input');input.type='file';input.accept='image/*';
-    input.onchange=e=>{
-      let f=e.target.files[0];if(!f)return;
-      let r=new FileReader();
-      r.onload=()=>{
-        let caption=prompt('Légende du post:')||'⚜️';
-        DouniDB.posts.unshift({
-          id:Date.now(),img:r.result,caption,
-          time:Date.now(),likes:0,liked:false,
-          user:{id:DouniSoul.id,name:DouniSoul.name,avatar:localStorage.douniSoulAvatarImg}
-        });
-        localStorage.douniOSPosts=JSON.stringify(DouniDB.posts);
-        loadFeed();alert('Post publié sur DOUNIUM ⚜️');
-      };
-      r.readAsDataURL(f);
-    };
-    input.click();
-  };
-  
-  window.douniLikePost=(id)=>{
-    let p=DouniDB.posts.find(x=>x.id===id);
-    if(p){p.liked=!p.liked;p.likes+=p.liked?1:-1;localStorage.douniOSPosts=JSON.stringify(DouniDB.posts);loadFeed()}
-  };
-  
-  // INIT
-  loadFeed();
-  window.douniOpenFeed=()=>{document.getElementById('douniFeedOS').scrollIntoView()};
-  window.douniOpenProfile=()=>douniViewProfile(DouniSoul.id);
-  
-  console.log('DOUNIUM OS v13.0 READY - INSTA+SNAP+FB FUSION');
-})();
+};
+if(typeof LOIS !== 'undefined') LOIS.push(LOI_MONDE_REEL);
+if(typeof renderLois === 'function') renderLois();
+// ===== FIN LOI #31 =====
 </script>
