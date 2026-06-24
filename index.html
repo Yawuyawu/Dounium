@@ -17,7 +17,7 @@ async function invoque(){
   agora.innerText = '[...] SCAN NEXUS + JUGE SUR ' + domain + '\n[...] HALL TERMUX ACTIF...';
   
   try {
-    const res = await fetch(`https://7f32d7289fed0f.lhr.life/invoque?domain=${domain}`);
+    const res = await fetch(`https://a1e8fc148719ea.lhr.life/invoque?domain=${domain}`);
     const data = await res.json();
     
     if(!data.agora || data.agora.length === 0) {
